@@ -1,41 +1,40 @@
 # Job Search & Career Prompts
 
-A set of AI prompts designed to support job seekers with interview preparation, résumé refinement, skills analysis, and application tracking.
+A set of AI prompts designed to support job seekers with interview preparation, résumé refinement, skills analysis, and application tracking. Each prompt includes a **Goal** entry describing its purpose.
 
 ## 🎯 Purpose
-This repository provides structured tools that help job seekers present themselves effectively, analyze job postings, and prepare for interviews with clarity and confidence.
+This repository provides structured tools that help job seekers present themselves effectively, analyze job postings, and prepare for interviews.
 
-## 📂 Contents
-- **Career Interview Data Collector**  
-  Helps gather and structure interview‑relevant experience.
+## 📂 Prompt Catalog
 
-- **Customizable Job Scanner**  
-  Analyzes job descriptions and extracts key requirements.
+### **Career Interview Data Collector**
+**Goal:** Gather and structure detailed experience data to prepare for interviews.
 
-- **Interview Confidence & Fit Prompt**  
-  Evaluates role alignment and prepares talking points.
+### **Customizable Job Scanner**
+**Goal:** Analyze job descriptions and extract key requirements, skills, and themes.
 
-- **Job‑Application Tracker Template**  
-  A structured system for tracking applications.
+### **Interview Confidence & Fit Prompt**
+**Goal:** Evaluate role alignment and generate confidence‑building talking points.
 
-- **Master Skills & Experience Summary Generator**  
-  Builds a comprehensive skills inventory.
+### **Job‑Application Tracker Template**
+**Goal:** Provide a structured system for tracking applications, statuses, and follow‑ups.
 
-- **Role‑Based Market Skill Expansion Advisor**  
-  Suggests skill growth paths based on target roles.
+### **Master Skills & Experience Summary Generator**
+**Goal:** Build a comprehensive skills inventory for résumé or interview preparation.
 
-- **Universal Job Fit Evaluation Prompt**  
-  Provides a structured fit analysis for any job posting.
+### **Role‑Based Market Skill Expansion Advisor**
+**Goal:** Suggest skill growth paths based on target roles and market expectations.
+
+### **Universal Job Fit Evaluation Prompt**
+**Goal:** Provide a structured fit analysis for any job posting.
 
 ## 🧩 Who This Is For
 - Job seekers  
 - Career changers  
 - Professionals preparing for interviews  
-- Anyone wanting structured AI support in the job search  
 
 ## 🚀 How to Use
-Copy any prompt into your AI assistant and follow the instructions.  
-Most prompts accept job descriptions, résumés, or experience summaries as input.
+Copy any prompt into your AI assistant and follow the instructions.
 
 ## 📜 License
 MIT License
