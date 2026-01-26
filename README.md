@@ -1,9 +1,9 @@
 # Job Search & Career Prompts
 
-A set of AI prompts designed to support job seekers with interview preparation, résumé refinement, skills analysis, and application tracking. Each prompt includes a **Goal** entry describing its purpose.
+A set of AI prompts designed to support job seekers with interview preparation, résumé refinement, skills analysis, and application tracking. Each prompt includes a **Goal** describing its purpose.
 
 ## 🎯 Purpose
-This repository provides structured tools that help job seekers present themselves effectively, analyze job postings, and prepare for interviews.
+Provide structured tools that help job seekers present themselves effectively, analyze job postings, and prepare for interviews.
 
 ## 📂 Prompt Catalog
 
@@ -29,9 +29,7 @@ This repository provides structured tools that help job seekers present themselv
 **Goal:** Provide a structured fit analysis for any job posting.
 
 ## 🧩 Who This Is For
-- Job seekers  
-- Career changers  
-- Professionals preparing for interviews  
+Job seekers, career changers, and professionals preparing for interviews.
 
 ## 🚀 How to Use
 Copy any prompt into your AI assistant and follow the instructions.
