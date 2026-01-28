@@ -1,118 +1,110 @@
-<!-- ========================================================= -->
-<!--                     REPOSITORY BANNER                     -->
-<!-- ========================================================= -->
+<p align="center">
+  <img src="BANNER_Job-Search-Career-Prompts.png" width="85%" alt="Job Search Career Prompts Banner">
+</p>
 
-<h1 align="center">
-  💼 Job Search & Career Development Prompts
-</h1>
+<h1 align="center">Job Search & Career Development Prompt Library</h1>
+<h3 align="center">By Scott Malin — Cybersecurity & Automation Architect</h3>
 
 <p align="center">
-  A curated set of AI prompts designed to accelerate job searches, strengthen professional branding, 
-  and support career transitions with clarity and confidence.
+A curated collection of AI‑powered prompts designed to accelerate job searches, strengthen professional branding, and support career transitions with clarity and confidence.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Last_Updated-2026--01--28-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Category-Career_Development-purple?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Type-AI_Frameworks-orange?style=for-the-badge">
 </p>
 
 ---
 
-<!-- ========================================================= -->
-<!--                           BADGES                           -->
-<!-- ========================================================= -->
+# ⭐ Featured Prompt
 
-<p align="center">
-
-  <!-- License -->
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT">
-
-  <!-- Repo Status -->
-  <img src="https://img.shields.io/badge/Status-Active-brightgreen.svg" alt="Status: Active">
-
-  <!-- Category -->
-  <img src="https://img.shields.io/badge/Category-Career%20Development-blueviolet.svg" alt="Category: Career Development">
-
-  <!-- Stars -->
-  <img src="https://img.shields.io/github/stars/scottmalin68-commits/Job-Search-Career-Prompts?style=social" alt="GitHub Stars">
-
-  <!-- Last Updated -->
-  <img src="https://img.shields.io/github/last-commit/scottmalin68-commits/Job-Search-Career-Prompts" alt="Last Updated">
-
-  <!-- Languages -->
-  <img src="https://img.shields.io/github/languages/top/scottmalin68-commits/Job-Search-Career-Prompts" alt="Top Language">
-
-</p>
+### **Master Skills & Experience Summary Generator.md**  
+**Goal:** Transform raw experience into a polished, recruiter‑ready skills and accomplishments summary tailored to any role or industry.
 
 ---
 
-## 🎯 Purpose
+# 📘 Overview
 
-This repository provides structured, high‑signal prompts that help job seekers and professionals:
+This repository provides **structured, high‑signal prompts** that help job seekers and professionals:
 
 - Build strong resumes and cover letters  
 - Prepare for interviews with confidence  
 - Analyze job descriptions with precision  
 - Strengthen personal branding  
 - Navigate career transitions strategically  
+- Understand market expectations and skill gaps  
 
 Each prompt includes a clear **Goal** so users understand the intended outcome and how to apply it effectively.
 
 ---
 
-## 📂 Prompt Catalog
+# 📁 Repository Structure & Goals
 
-### **Career Coach – Interview Preparation Assistant**
-**Goal:** Provide tailored interview practice, behavioral question coaching, and role‑specific preparation.
+Below is the full file list with **goal statements** for clarity and governance.
 
-### **Cover Letter Generator – Targeted & Professional**
-**Goal:** Create polished, role‑specific cover letters aligned with job requirements and personal strengths.
+### 🧭 **Career Discovery & Positioning**
+- **Master Skills & Experience Summary Generator.md**  
+  *Goal:* Convert experience into a structured, recruiter‑ready skills summary.  
+- **Role-Based Market Skill Expansion Advisor.md**  
+  *Goal:* Identify additional skills needed to compete for a specific role or industry.  
 
-### **Job Description Analyzer – Skills & Fit Breakdown**
-**Goal:** Extract key requirements, identify skill gaps, and generate a tailored strategy for applying.
+### 📝 **Application Materials & Branding**
+- **Job-Application Tracker Template.md**  
+  *Goal:* Provide a structured, repeatable system for tracking applications and follow‑ups.  
+- **Universal Job Fit Evaluation Prompt.md**  
+  *Goal:* Evaluate alignment between a candidate and a job posting using a consistent scoring model.  
 
-### **LinkedIn Profile Optimizer**
-**Goal:** Improve headline, summary, experience descriptions, and keyword alignment for recruiter visibility.
+### 🔍 **Job Search Tools & Analysis**
+- **Customizable Job Scanner.md**  
+  *Goal:* Extract key requirements, keywords, and red flags from job descriptions.  
+- **Career Interview Data Collector.md**  
+  *Goal:* Gather structured information from interviews to refine future applications.  
 
-### **Resume Bullet Enhancer – STAR Method**
-**Goal:** Transform raw experience into strong, measurable, achievement‑focused resume bullets.
+### 🎤 **Interview Preparation**
+- **Interview Confidence & Fit Prompt.md**  
+  *Goal:* Build confidence and articulate strengths through guided interview practice.  
 
-### **Salary Research & Negotiation Prep**
-**Goal:** Help users understand market ranges and prepare for confident, data‑driven negotiation.
-
-### **Transferable Skills Translator**
-**Goal:** Map experience from one industry or role to another using clear, employer‑friendly language.
-
----
-
-## 🧩 Who This Is For
-
-- Job seekers  
-- Career changers  
-- Professionals preparing for interviews  
-- Students entering the workforce  
-- Anyone improving their professional brand  
+### 📄 **Repo Files**
+- **LICENSE**  
+- **README.md** (this file)
 
 ---
 
-## 🚀 How to Use
+# 🕒 Version History / Changelog
 
-Open any prompt file and follow the embedded instructions.  
-Each prompt is standalone and designed for direct use in AI assistants.
-
----
-
-## 🔗 Related Repositories
-
-- **Misc AI Prompts**  
-  Cognitive load tools, reasoning engines, and general AI utilities  
-  https://github.com/scottmalin68-commits/Misc-AI-Prompts
-
-- **Cybersecurity Prompts**  
-  Enterprise‑grade cybersecurity analysis and communication tools  
-  https://github.com/scottmalin68-commits/Cybersecurity-Prompts
-
-- **Azure‑Related Prompts**  
-  Identity, access, and cloud policy analysis tools  
-  https://github.com/scottmalin68-commits/Azure-Related-Prompts
+### **v1.3 — January 2026**
+- Added Cyber Blue banner  
+- Unified README structure  
+- Added goal statements for all prompts  
+- Added featured prompt  
+- Standardized cross‑repo navigation  
+- Updated file list and categories  
 
 ---
 
-## 📜 License
+# 🔗 Cross‑Repo Navigation
 
-MIT License
+- 🛡️ **Cybersecurity Prompts**  
+  https://github.com/scottmalin68-commits/Cybersecurity-Prompts  
+
+- 🧰 **PowerShell Security & Automation Toolkit**  
+  https://github.com/scottmalin68-commits/Powershell_Scripts  
+
+- 🧩 **Misc AI Prompt Library**  
+  https://github.com/scottmalin68-commits/Misc-AI-Prompts  
+
+- 🎮 **Cybersecurity Learning Prompts**  
+  https://github.com/scottmalin68-commits/Cybersecurity-Learning-Prompts  
+
+- ☁️ **Azure‑Related Prompts**  
+  https://github.com/scottmalin68-commits/Azure-Related-Prompts  
+
+- 🧭 **GitHub Profile**  
+  https://github.com/scottmalin68-commits  
+
+---
+
+# 📜 License  
+MIT License — see `LICENSE` for details.
