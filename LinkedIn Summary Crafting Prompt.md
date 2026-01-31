@@ -4,7 +4,7 @@
 Scott M.
 
 ## Goal
-The goal of this prompt is to guide an AI in creating a personalized, authentic LinkedIn "About" section (summary) that effectively highlights a user's unique value proposition, aligns with targeted job roles and industries, and attracts potential employers or recruiters. It aims to produce output that feels human-written, avoids AI-generated clichés, and incorporates best practices for LinkedIn in 2025–2026, such as concise hooks, quantifiable achievements, and subtle calls-to-action. Enhanced to intelligently use attached files (resumes, skills lists) and public LinkedIn profile URLs for auto-filling details where relevant.
+The goal of this prompt is to guide an AI in creating a personalized, authentic LinkedIn "About" section (summary) that effectively highlights a user's unique value proposition, aligns with targeted job roles and industries, and attracts potential employers or recruiters. It aims to produce output that feels human-written, avoids AI-generated clichés, and incorporates best practices for LinkedIn in 2025–2026, such as concise hooks, quantifiable achievements, and subtle calls-to-action. Enhanced to intelligently use attached files (resumes, skills lists) and public LinkedIn profile URLs for auto-filling details where relevant. All drafts must respect the current About section limit of 2,600 characters (including spaces); aim for 1,500–2,000 for best engagement.
 
 ## Audience
 This prompt is designed for job seekers, professionals transitioning careers, or anyone updating their LinkedIn profile to improve visibility and job prospects. It's particularly useful for mid-to-senior level roles where personalization and storytelling can differentiate candidates in competitive markets like tech, finance, or manufacturing.
@@ -17,6 +17,7 @@ This prompt is designed for job seekers, professionals transitioning careers, or
 - Version 1.4: Added support for attached files (PDF resumes, Markdown skills, etc.); instruct AI to search attachments first and propose answers to relevant questions (#3–5 especially) before asking user to confirm.
 - Version 1.5: Added Versioning & Adaptation Note; included sample before/after example; added explicit rule: "Do not generate drafts until all key questions are answered/confirmed."
 - Version 1.6: Added support for user's public LinkedIn profile URL (Question 9); instruct AI to browse/summarize visible public sections if provided, propose alignments/improvements, but only use public data.
+- Version 1.7: Added awareness of 2,600-character limit for About section; require character counts in drafts; added post-generation instructions for applying the update on LinkedIn.
 
 ## Versioning & Adaptation Note
 This prompt is iterated specifically for high-context models with strong reasoning, file-search, and web-browsing capabilities (Grok 4, Claude 3.5/4, GPT-4o/4.1 with browsing).  
@@ -39,6 +40,7 @@ Make it feel like something I actually wrote myself—conversational, direct, wi
 - If the user has attached any files (resume PDF, skills Markdown, text doc, etc.), first search them intelligently for relevant details (experience, roles, achievements, years, wins, skills) and use that to propose or auto-fill answers to questions below where possible. Then ask for confirmation or missing info—don't assume everything is 100% accurate without user input.
 - If the user provides their LinkedIn profile URL, use available browsing/fetch tools to access the public version only. Summarize visible sections (headline, public About, experience highlights, skills, etc.) and propose how it aligns with target role/answers or suggest improvements. Only use what's publicly visible without login — confirm with user if data seems incomplete/private.
 - Do not generate any draft summaries until the user has answered or confirmed all relevant questions (especially #1–7) and provided clarifications where needed. If input is incomplete, politely ask for the missing pieces first.
+- Respect the LinkedIn About section limit: maximum 2,600 characters (including spaces, line breaks, emojis). Provide an approximate character count for each draft. If a draft exceeds or nears 2,600, suggest trims or prioritize key content.
 
 To make this spot-on, answer these questions first so you can tailor it perfectly (reference attachments/URL where they apply):
 
@@ -60,12 +62,15 @@ To make this spot-on, answer these questions first so you can tailor it perfectl
 
 9. (Optional) What's your current LinkedIn profile URL? If provided, I'll review the public version for headline, About, experience, skills, etc., and suggest how to build on/improve it for your target role.
 
-Once I have your answers (and any clarifications from attachments/URL), I'll draft 2 versions: one shorter (~150–250 words) and one fuller (~400–500 words). You can mix and match from them.
+Once I have your answers (and any clarifications from attachments/URL), I'll draft 2 versions: one shorter (~150–250 words / ~900–1,500 chars) and one fuller (~400–500 words / ~2,000–2,500 chars max to stay safely under 2,600). Include approximate character counts for each. You can mix and match from them.
 
-## Sample Before/After Example
-
-**Generic / AI-sounding version (what you want to avoid):**
-"Passionate and results-driven Senior Software Engineer with a proven track record of leveraging cutting-edge technologies to drive innovation and deliver high-impact solutions. Synergizing cross-functional teams to optimize processes and achieve strategic objectives in fast-paced environments."
-
-**Refined / human-feeling version (what this prompt produces):**
-"I've spent the last 9 years building and breaking things in manufacturing software. Most recently I led the rewrite of a legacy MES system that cut downtime reporting from 3 days to under 2 hours—saved our plants roughly $1.2M last year in avoided losses. I get a weird kick out of untangling ancient VB6 code nobody else wants to touch. If you're building or modernizing shop-floor systems and need someone who speaks both engineer and plant-floor, let's talk."
+**After providing the drafts:**
+Always end with clear instructions on how to apply/update the About section on LinkedIn, e.g.:
+"To update your About section:
+1. Go to your LinkedIn profile (click your photo > View Profile).
+2. Click the pencil icon in the About section (or 'Add profile section' > About if empty).
+3. Paste your chosen draft (or blended version) into the text box.
+4. Check the character count (LinkedIn shows it live; max 2,600).
+5. Click 'Save' — preview how the first lines look before "See more".
+6. Optional: Add line breaks/emojis for formatting, then save again.
+Refresh the page to confirm it displays correctly."
