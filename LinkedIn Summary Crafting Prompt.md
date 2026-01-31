@@ -4,7 +4,7 @@
 Scott M.
 
 ## Goal
-The goal of this prompt is to guide an AI in creating a personalized, authentic LinkedIn "About" section (summary) that effectively highlights a user's unique value proposition, aligns with targeted job roles and industries, and attracts potential employers or recruiters. It aims to produce output that feels human-written, avoids AI-generated clichés, and incorporates best practices for LinkedIn in 2025–2026, such as concise hooks, quantifiable achievements, and subtle calls-to-action. Enhanced to intelligently use attached files (resumes, skills lists) for auto-filling details where relevant.
+The goal of this prompt is to guide an AI in creating a personalized, authentic LinkedIn "About" section (summary) that effectively highlights a user's unique value proposition, aligns with targeted job roles and industries, and attracts potential employers or recruiters. It aims to produce output that feels human-written, avoids AI-generated clichés, and incorporates best practices for LinkedIn in 2025–2026, such as concise hooks, quantifiable achievements, and subtle calls-to-action. Enhanced to intelligently use attached files (resumes, skills lists) and public LinkedIn profile URLs for auto-filling details where relevant.
 
 ## Audience
 This prompt is designed for job seekers, professionals transitioning careers, or anyone updating their LinkedIn profile to improve visibility and job prospects. It's particularly useful for mid-to-senior level roles where personalization and storytelling can differentiate candidates in competitive markets like tech, finance, or manufacturing.
@@ -15,12 +15,19 @@ This prompt is designed for job seekers, professionals transitioning careers, or
 - Version 1.2: Added documentation elements (goal, audience); included changelog and author; added supported AI engines list.
 - Version 1.3: Minor hardening — added subtle blending instruction for references, explicit keyword nudge, tightened anti-cliché list based on 2025–2026 red flags.
 - Version 1.4: Added support for attached files (PDF resumes, Markdown skills, etc.); instruct AI to search attachments first and propose answers to relevant questions (#3–5 especially) before asking user to confirm.
+- Version 1.5: Added Versioning & Adaptation Note; included sample before/after example; added explicit rule: "Do not generate drafts until all key questions are answered/confirmed."
+- Version 1.6: Added support for user's public LinkedIn profile URL (Question 9); instruct AI to browse/summarize visible public sections if provided, propose alignments/improvements, but only use public data.
+
+## Versioning & Adaptation Note
+This prompt is iterated specifically for high-context models with strong reasoning, file-search, and web-browsing capabilities (Grok 4, Claude 3.5/4, GPT-4o/4.1 with browsing).  
+For smaller/older models: shorten anti-cliché list, remove attachment/URL instructions if no tools support them, reduce questions to 5–6 max.  
+Always test output with an AI detector or human read-through. Update Changelog for changes. Fork for industry tweaks.
 
 ## Supported AI Engines (Best to Worst)
-- Best: Grok 4 (optimized for truthful, non-moralizing responses, strong file/document search via attachment_search tool), GPT-4o (strong in creative writing and personalization).
-- Good: Claude 3.5 Sonnet (excellent for structured, human-like prose), GPT-4 (reliable for detailed outputs).
-- Fair: Llama 3 70B (capable but may require fine-tuning for nuance), Gemini 1.5 Pro (good for multimodal but less consistent in tone).
-- Worst: GPT-3.5 Turbo (prone to generic, buzzword-heavy responses), smaller models like GPT-2 or basic open-source LLMs (limited context handling and creativity).
+- Best: Grok 4 (strong file/document search + browse_page tool for URLs), GPT-4o (creative writing + browsing if enabled).
+- Good: Claude 3.5 Sonnet / Claude 4 (structured prose + browsing), GPT-4 (detailed outputs).
+- Fair: Llama 3 70B (nuance but limited tools), Gemini 1.5 Pro (multimodal but inconsistent tone).
+- Worst: GPT-3.5 Turbo (generic responses), smaller LLMs (poor context/tools).
 
 ## Prompt Text
 
@@ -28,19 +35,22 @@ I want you to help me write a strong LinkedIn "About" section (summary) that's a
 
 Make it feel like something I actually wrote myself—conversational, direct, with some personality. Absolutely no over-the-top corporate buzzwords (avoid "synergy", "leverage", "passionate thought leader", "proven track record", "detail-oriented", "game-changer", etc.), no unnecessary em-dashes, no "It's not X, it's Y" structures, no "In today's world…" openers, and keep sentences varied in length like real people write. Blend any reference styles subtly—don't copy phrasing directly. Include relevant keywords naturally (pull from typical job descriptions in your target role if helpful). Aim for 4–7 short paragraphs that hook fast in the first 2–3 lines (since that's what shows before "See more").
 
-**Important: If the user has attached any files (resume PDF, skills Markdown, text doc, etc.), first search them intelligently for relevant details (experience, roles, achievements, years, wins, skills) and use that to propose or auto-fill answers to questions below where possible. Then ask for confirmation or missing info—don't assume everything is 100% accurate without user input.**
+**Important rules:**
+- If the user has attached any files (resume PDF, skills Markdown, text doc, etc.), first search them intelligently for relevant details (experience, roles, achievements, years, wins, skills) and use that to propose or auto-fill answers to questions below where possible. Then ask for confirmation or missing info—don't assume everything is 100% accurate without user input.
+- If the user provides their LinkedIn profile URL, use available browsing/fetch tools to access the public version only. Summarize visible sections (headline, public About, experience highlights, skills, etc.) and propose how it aligns with target role/answers or suggest improvements. Only use what's publicly visible without login — confirm with user if data seems incomplete/private.
+- Do not generate any draft summaries until the user has answered or confirmed all relevant questions (especially #1–7) and provided clarifications where needed. If input is incomplete, politely ask for the missing pieces first.
 
-To make this spot-on, answer these questions first so you can tailor it perfectly (reference attachments where they apply):
+To make this spot-on, answer these questions first so you can tailor it perfectly (reference attachments/URL where they apply):
 
 1. What's the exact job title (or 1–2 close variations) you're going after right now?
 
 2. Which industry or type of company are you targeting (e.g., fintech startups, established manufacturing, enterprise software)?
 
-3. What's your current/most recent role, and roughly how many years of experience do you have in this space? (If attachments cover this, propose what you found first.)
+3. What's your current/most recent role, and roughly how many years of experience do you have in this space? (If attachments/LinkedIn URL cover this, propose what you found first.)
 
-4. What are 2–3 things that make you different or really valuable? (e.g., "I cut deployment time 60% by automating pipelines", "I turned around underperforming teams twice", "I speak fluent Spanish and have led LATAM expansions", or even a quirk like "I geek out on optimizing messy legacy code") — Pull strong examples from attachments if present.
+4. What are 2–3 things that make you different or really valuable? (e.g., "I cut deployment time 60% by automating pipelines", "I turned around underperforming teams twice", "I speak fluent Spanish and have led LATAM expansions", or even a quirk like "I geek out on optimizing messy legacy code") — Pull strong examples from attachments/URL if present.
 
-5. Any big, specific wins or results you're proud of? Numbers help a ton (revenue impact, % improvements, team size led, projects shipped). — Extract quantifiable achievements from resume/attachments first if available.
+5. Any big, specific wins or results you're proud of? Numbers help a ton (revenue impact, % improvements, team size led, projects shipped). — Extract quantifiable achievements from resume/attachments/URL first if available.
 
 6. What's your tone/personality vibe? (e.g., straightforward and no-BS, dry humor, warm/approachable, technical nerd, builder/entrepreneur energy)
 
@@ -48,4 +58,14 @@ To make this spot-on, answer these questions first so you can tailor it perfectl
 
 8. Paste 2–4 LinkedIn About sections here (from people in similar roles/industries) that you like the style of—or even ones you don't like, so I can avoid those pitfalls.
 
-Once I have your answers (and any clarifications from attachments), I'll draft 2 versions: one shorter (~150–250 words) and one fuller (~400–500 words). You can mix and match from them.
+9. (Optional) What's your current LinkedIn profile URL? If provided, I'll review the public version for headline, About, experience, skills, etc., and suggest how to build on/improve it for your target role.
+
+Once I have your answers (and any clarifications from attachments/URL), I'll draft 2 versions: one shorter (~150–250 words) and one fuller (~400–500 words). You can mix and match from them.
+
+## Sample Before/After Example
+
+**Generic / AI-sounding version (what you want to avoid):**
+"Passionate and results-driven Senior Software Engineer with a proven track record of leveraging cutting-edge technologies to drive innovation and deliver high-impact solutions. Synergizing cross-functional teams to optimize processes and achieve strategic objectives in fast-paced environments."
+
+**Refined / human-feeling version (what this prompt produces):**
+"I've spent the last 9 years building and breaking things in manufacturing software. Most recently I led the rewrite of a legacy MES system that cut downtime reporting from 3 days to under 2 hours—saved our plants roughly $1.2M last year in avoided losses. I get a weird kick out of untangling ancient VB6 code nobody else wants to touch. If you're building or modernizing shop-floor systems and need someone who speaks both engineer and plant-floor, let's talk."
