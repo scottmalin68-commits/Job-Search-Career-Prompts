@@ -1,18 +1,27 @@
 <!-- Universal Job Fit Evaluation Prompt – Fully Generic & Shareable -->
 <!-- Author: Scott M -->
-<!-- Version: 1.2 -->
-<!-- Last Modified: 2026-01-20 -->
+<!-- Version: 1.3 -->
+<!-- Last Modified: 2026-02-04 -->
 
 ## Goal
-Help a candidate objectively evaluate how well a job posting matches their
-skills, experience, and portfolio, while producing actionable guidance for
-applications, portfolio alignment, and skill gap mitigation.
+Help a candidate objectively evaluate how well a job posting matches their skills, experience, and portfolio, while producing actionable guidance for applications, portfolio alignment, and skill gap mitigation.
 
 This prompt is designed to be:
 - Profession-agnostic
 - Shareable
 - Resume- and portfolio-aware
 - Explicit about assumptions and fallbacks
+
+---
+
+## Pre-Evaluation Checklist (User: please confirm these are provided before proceeding)
+- [ ] Step 0: Candidate Priorities customized
+- [ ] Step 1: Skills & Experience source (markdown link or pasted content)
+- [ ] Step 1a: Key Skills Anchor List (optional but strongly recommended if focusing on specific areas)
+- [ ] Step 2: Portfolio links/descriptions (optional but recommended)
+- [ ] Job Posting: URL or full text inserted below
+
+If any are missing, the evaluation may have reduced confidence.
 
 ---
 
@@ -53,7 +62,7 @@ Provide access to a structured markdown file describing the candidate.
 
 ## Step 1a: Key Skills to Explicitly Evaluate (Anchor List)
 <!-- Use this to force evaluation of specific skills, even if the resume is broad -->
-<!-- This is especially useful for career pivots or skill-building phases -->
+<!-- Especially useful for career pivots or skill-building phases -->
 
 <!-- Example:
 - Python (data analysis, automation)
@@ -66,7 +75,6 @@ Provide access to a structured markdown file describing the candidate.
 ---
 
 ## Step 2 (Optional but Recommended): Portfolio / Work Samples
-
 <!-- Provide access the same way as skills: links or pasted descriptions -->
 <!-- Examples:
 - Portfolio site
@@ -82,10 +90,9 @@ Provide access to a structured markdown file describing the candidate.
 ## Fallback Rule (Do Not Remove)
 If any provided links are broken, empty, or inaccessible, display:
 
-"⚠️ One or more reference files inaccessible – proceeding with conversation history,
-attached resumes, and any portfolio details already shared."
+"⚠️ One or more reference files inaccessible – proceeding with conversation history, attached resumes, and any portfolio details already shared."
 
-Then continue with available information.
+Then continue with available information. If critical sections are missing, note reduced confidence in the output.
 
 ---
 
@@ -98,40 +105,36 @@ Analyze the provided job posting (URL or full text) against:
 - Candidate Priorities
 
 ### Scoring Instructions
-Rate each section with:
-- A percentage match
-- 2–3 sentences explaining alignment and gaps
+For each section, assign a percentage match calculated as:
+- Approximate proportion of listed job requirements / duties / qualifications that are demonstrably met by the candidate’s provided skills, experience, portfolio, and anchor list (e.g., 4 out of 5 key duties align → ~80%).
+- Use semantic alignment, not just keyword matching.
+- Provide 2–3 concise sentences explaining key alignments and gaps.
 
-Sections:
+Sections to score:
 - Responsibilities / Key Duties
 - Required Qualifications / Experience
 - Preferred Qualifications (if listed)
 - Skills / Technologies / Education / Certifications
 
 **Default Weighting (unless overridden):**
-- Responsibilities: 30%
-- Required Qualifications: 30%
-- Skills / Technologies: 25%
-- Preferred Qualifications: 15%
+- Responsibilities:          30%
+- Required Qualifications:   30%
+- Skills / Technologies:     25%
+- Preferred Qualifications:  15%
 
-Explain any adjustment to weighting if role seniority or domain warrants it.
+Explain any adjustment to weighting if role seniority, domain, or candidate priorities warrant it (e.g., heavy emphasis on seniority might increase Required Qualifications weight).
 
 ---
 
 ## Output Requirements
 
 Provide:
-- Overall Fit Percentage (weighted)
+- Overall Fit Percentage (weighted average of section scores)
+- Confidence Level: High / Medium / Low  
+  (based on completeness of provided candidate info: High = full markdown + portfolio + priorities; Medium = partial; Low = minimal info)
 - 2–4 tailored application recommendations
-
-### Portfolio-Specific Guidance (When Relevant)
-Tie each recommendation to:
-- A specific skill gap or requirement
-- A concrete portfolio action
-
-Example:
-- “This JD emphasizes X; your Project Y demonstrates this partially.
-  Expand the case study to highlight Z to close the gap.”
+- Portfolio-Specific Guidance (when relevant): Tie each recommendation to a specific skill gap or requirement + a concrete portfolio action  
+  Example: “This JD emphasizes X; your Project Y demonstrates this partially. Expand the case study to highlight Z to close the gap.”
 
 ---
 
@@ -147,19 +150,17 @@ Call out any visible:
 
 ## Final Summary Table (Use This Exact Format)
 
-| Section                       | Match % | Key Alignments & Gaps                          |
-|-------------------------------|---------|------------------------------------------------|
-| Responsibilities              | XX%     |                                                |
-| Required Qualifications       | XX%     |                                                |
-| Preferred Qualifications      | XX%     |                                                |
-| Skills / Technologies / Edu   | XX%     |                                                |
-| **Overall Fit**               | **XX%** |                                                |
+| Section                        | Match % | Key Alignments & Gaps                              | Confidence |
+|--------------------------------|---------|----------------------------------------------------|------------|
+| Responsibilities               | XX%     |                                                    |            |
+| Required Qualifications        | XX%     |                                                    |            |
+| Preferred Qualifications       | XX%     |                                                    |            |
+| Skills / Technologies / Edu    | XX%     |                                                    |            |
+| **Overall Fit**                | **XX%** |                                                    | **High/Medium/Low** |
 
 ---
 
 ## Job Posting
 <!-- INSERT JOB URL OR FULL JOB DESCRIPTION HERE -->
 
-If the job URL is inaccessible, search LinkedIn, Indeed, Glassdoor,
-or the company’s career page for the current version of the role and note that you did so.
-<img width="623" height="3062" alt="image" src="https://github.com/user-attachments/assets/87696fdb-ac69-40d2-b7b6-aace0a873f50" />
+If the job URL is inaccessible, search LinkedIn, Indeed, Glassdoor, or the company’s career page for the current version of the role and note that you did so.
