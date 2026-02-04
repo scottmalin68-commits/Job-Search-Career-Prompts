@@ -10,7 +10,7 @@ A curated collection of AI‑powered prompts designed to accelerate job searches
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Last_Updated-2026--01--28-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Last_Updated-2026--02--04-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge">
   <img src="https://img.shields.io/badge/Category-Career_Development-purple?style=for-the-badge">
   <img src="https://img.shields.io/badge/Type-AI_Frameworks-orange?style=for-the-badge">
@@ -21,7 +21,43 @@ A curated collection of AI‑powered prompts designed to accelerate job searches
 # ⭐ Featured Prompt
 
 ### **Master Skills & Experience Summary Generator.md**  
-**Goal:** Transform raw experience into a polished, recruiter‑ready skills and accomplishments summary tailored to any role or industry.
+Transforms raw experience into a polished, recruiter‑ready skills and accomplishments summary tailored to any role or industry.
+
+---
+
+# 🚀 Career Data Workflow (High‑Value Prompt Sequence)
+
+This repository includes a powerful three‑step workflow designed to help job seekers — and working professionals — **capture, structure, and enhance** their career accomplishments with precision.
+
+This workflow solves a major problem:  
+**AI hallucinations and inconsistent job‑search materials caused by scattered or incomplete personal data.**
+
+## 1️⃣ Career Interview Data Collector  
+Collects structured, high‑signal information about your experience, achievements, responsibilities, and impact.  
+- Ideal after interviews, projects, or performance cycles  
+- Produces raw but organized data  
+- Creates a repeatable habit for capturing accomplishments  
+
+## 2️⃣ Master Skills & Experience Summary Generator  
+Takes the collected data and produces a **clean, authoritative Markdown summary** of your skills, experience, and accomplishments.  
+- Becomes your “single source of truth”  
+- Prevents AI hallucinations when generating resumes, cover letters, or LinkedIn updates  
+- Ensures consistency across all job‑search materials  
+
+## 3️⃣ Career Data Enhancer  
+Expands, clarifies, and strengthens your summary.  
+- Adds missing accomplishments  
+- Improves phrasing and impact  
+- Helps you surface achievements you may have overlooked  
+
+### Why This Workflow Matters  
+- Creates a **governance‑grade personal data pipeline**  
+- Ensures your job‑search materials stay accurate and consistent  
+- Helps professionals track accomplishments throughout the year  
+- Reduces stress during resume rewrites or performance reviews  
+- Produces recruiter‑ready content that reflects your true value  
+
+This section is designed to help users understand not just *what* the prompts do, but *how they work together* to create a repeatable, high‑quality career documentation process.
 
 ---
 
@@ -35,14 +71,13 @@ This repository provides **structured, high‑signal prompts** that help job see
 - Strengthen personal branding  
 - Navigate career transitions strategically  
 - Understand market expectations and skill gaps  
+- Maintain an authoritative record of accomplishments  
 
 Each prompt includes a clear **Goal** so users understand the intended outcome and how to apply it effectively.
 
 ---
 
 # 📁 Repository Structure & Goals
-
-Below is the full file list with **goal statements** for clarity and governance.
 
 ### 🧭 **Career Discovery & Positioning**
 - **Master Skills & Experience Summary Generator.md**  
@@ -60,11 +95,15 @@ Below is the full file list with **goal statements** for clarity and governance.
 - **Customizable Job Scanner.md**  
   *Goal:* Extract key requirements, keywords, and red flags from job descriptions.  
 - **Career Interview Data Collector.md**  
-  *Goal:* Gather structured information from interviews to refine future applications.  
+  *Goal:* Capture structured experience and accomplishment data for later use.  
 
 ### 🎤 **Interview Preparation**
 - **Interview Confidence & Fit Prompt.md**  
   *Goal:* Build confidence and articulate strengths through guided interview practice.  
+
+### 🧩 **Career Data Enhancement**
+- **Career Data Enhancer.md**  
+  *Goal:* Strengthen and expand your skills and experience summary with additional insights.  
 
 ### 📄 **Repo Files**
 - **LICENSE**  
@@ -73,6 +112,12 @@ Below is the full file list with **goal statements** for clarity and governance.
 ---
 
 # 🕒 Version History / Changelog
+
+### **v1.4 — February 2026**
+- Added Career Data Workflow section  
+- Updated badges and last‑updated date  
+- Improved prompt categorization  
+- Added value‑driven explanations for key prompts  
 
 ### **v1.3 — January 2026**
 - Added Cyber Blue banner  
