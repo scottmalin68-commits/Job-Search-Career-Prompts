@@ -27,6 +27,10 @@ Transforms raw experience into a polished, recruiter‑ready skills and accompli
 
 # 🚀 Career Data Workflow (High‑Value Prompt Sequence)
 
+<p align="center">
+  <img src="Workflow.png" width="85%" alt="Career Data Workflow Banner">
+</p>
+
 This repository includes a powerful three‑step workflow designed to help job seekers — and working professionals — **capture, structure, and enhance** their career accomplishments with precision.
 
 This workflow solves a major problem:  
@@ -57,7 +61,60 @@ Expands, clarifies, and strengthens your summary.
 - Reduces stress during resume rewrites or performance reviews  
 - Produces recruiter‑ready content that reflects your true value  
 
-This section is designed to help users understand not just *what* the prompts do, but *how they work together* to create a repeatable, high‑quality career documentation process.
+---
+
+# ⚡ Quick‑Start Guide: How to Use This Repo
+
+This repo is designed to help you build accurate, consistent, and high‑impact career materials using a structured AI‑assisted workflow.
+
+Follow these steps:
+
+## 1️⃣ Collect Your Raw Career Data  
+Use the **Career Interview Data Collector** prompt.  
+You’ll capture:
+- Responsibilities
+- Achievements
+- Metrics
+- Project outcomes
+- Tools & technologies
+- Leadership examples
+- STAR‑format details
+
+## 2️⃣ Generate Your Authoritative Skills & Experience Summary  
+Run the **Master Skills & Experience Summary Generator**.  
+You’ll produce:
+- A polished Markdown summary  
+- A single source of truth for all future AI prompts  
+- A hallucination‑resistant dataset for resumes, LinkedIn, and cover letters  
+
+## 3️⃣ Enhance and Expand Your Data  
+Use the **Career Data Enhancer** prompt.  
+You can:
+- Add missing accomplishments  
+- Strengthen weak areas  
+- Improve phrasing and impact  
+- Surface forgotten achievements  
+- Tailor content to specific roles  
+
+## 4️⃣ Apply Your Data Across the Job Search  
+Use your enhanced summary to power:
+- Resume rewrites  
+- Cover letter generation  
+- LinkedIn updates  
+- Interview preparation  
+- Job description alignment  
+- Performance reviews  
+
+## 5️⃣ Repeat the Workflow Anytime  
+This system works for:
+- Job seekers  
+- Professionals tracking accomplishments  
+- Annual reviews  
+- Promotion packets  
+- Career pivots  
+- Portfolio building  
+
+The workflow is reusable, scalable, and governance‑grade.
 
 ---
 
@@ -112,6 +169,11 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
 ---
 
 # 🕒 Version History / Changelog
+
+### **v1.5 — February 2026**
+- Added Workflow Banner  
+- Added Quick‑Start Guide section  
+- Refined Career Data Workflow narrative  
 
 ### **v1.4 — February 2026**
 - Added Career Data Workflow section  
