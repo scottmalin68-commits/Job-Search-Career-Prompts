@@ -10,7 +10,7 @@ A curated collection of AI‑powered prompts designed to accelerate job searches
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Last_Updated-2026--02--04-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Last_Updated-2026--02--08-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge">
   <img src="https://img.shields.io/badge/Category-Career_Development-purple?style=for-the-badge">
   <img src="https://img.shields.io/badge/Type-AI_Frameworks-orange?style=for-the-badge">
@@ -67,18 +67,16 @@ Expands, clarifies, and strengthens your summary.
 
 This repo is designed to help you build accurate, consistent, and high‑impact career materials using a structured AI‑assisted workflow.
 
-Follow these steps:
-
 ## 1️⃣ Collect Your Raw Career Data  
 Use the **Career Interview Data Collector** prompt.  
 You’ll capture:
-- Responsibilities
-- Achievements
-- Metrics
-- Project outcomes
-- Tools & technologies
-- Leadership examples
-- STAR‑format details
+- Responsibilities  
+- Achievements  
+- Metrics  
+- Project outcomes  
+- Tools & technologies  
+- Leadership examples  
+- STAR‑format details  
 
 ## 2️⃣ Generate Your Authoritative Skills & Experience Summary  
 Run the **Master Skills & Experience Summary Generator**.  
@@ -136,39 +134,69 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
 
 # 📁 Repository Structure & Goals
 
-### 🧭 **Career Discovery & Positioning**
+## 🧭 Career Discovery & Positioning
 - **Master Skills & Experience Summary Generator.md**  
   *Goal:* Convert experience into a structured, recruiter‑ready skills summary.  
 - **Role-Based Market Skill Expansion Advisor.md**  
   *Goal:* Identify additional skills needed to compete for a specific role or industry.  
 
-### 📝 **Application Materials & Branding**
+## 📝 Application Materials & Branding
+- **Resume Customization Prompt – MAXIMUM INTEGRITY.md**  
+  *Goal:* Customize resumes without hallucinations, exaggeration, or fabricated content.  
 - **Job-Application Tracker Template.md**  
   *Goal:* Provide a structured, repeatable system for tracking applications and follow‑ups.  
 - **Universal Job Fit Evaluation Prompt.md**  
   *Goal:* Evaluate alignment between a candidate and a job posting using a consistent scoring model.  
 
-### 🔍 **Job Search Tools & Analysis**
+## 🔍 Job Search Tools & Analysis
 - **Customizable Job Scanner.md**  
   *Goal:* Extract key requirements, keywords, and red flags from job descriptions.  
 - **Career Interview Data Collector.md**  
   *Goal:* Capture structured experience and accomplishment data for later use.  
 
-### 🎤 **Interview Preparation**
+## 🎤 Interview Preparation
 - **Interview Confidence & Fit Prompt.md**  
   *Goal:* Build confidence and articulate strengths through guided interview practice.  
 
-### 🧩 **Career Data Enhancement**
+## 🧩 Career Data Enhancement
 - **Career Data Enhancer.md**  
   *Goal:* Strengthen and expand your skills and experience summary with additional insights.  
 
-### 📄 **Repo Files**
+## 🔗 LinkedIn Optimization & Branding
+- **LinkedIn Profile Analyzer.md**  
+  *Goal:* Evaluate profile strength, clarity, and recruiter alignment.  
+- **LinkedIn Profile Imitation Analyzer.md**  
+  *Goal:* Compare your profile to a target professional’s positioning.  
+- **LinkedIn Profile Positioning Interview.md**  
+  *Goal:* Conduct a guided interview to refine your professional narrative.  
+- **LinkedIn Summary Crafting Prompt.md**  
+  *Goal:* Generate a compelling, authentic LinkedIn About section.  
+- **LinkedIn ↔ Resume Conflict Checker.md**  
+  *Goal:* Identify inconsistencies between your resume and LinkedIn profile.  
+- **LinkedIn Connection Request Note Generator.md**  
+  *Goal:* Create personalized, high‑conversion connection requests.  
+- **Mentor Recommendation Outreach Generator.md**  
+  *Goal:* Craft outreach messages for mentors, sponsors, and professional advocates.  
+
+## 💼 Negotiation & Offer Management
+- **Safe Offer Negotiation Assistant.md**  
+  *Goal:* Navigate job offer negotiations with clarity, professionalism, and safety.  
+
+## 📄 Repo Files
 - **LICENSE**  
 - **README.md** (this file)
 
 ---
 
 # 🕒 Version History / Changelog
+
+### **v1.6 — February 2026**
+- Added LinkedIn Optimization & Branding category  
+- Added seven new LinkedIn‑focused prompts  
+- Added Safe Offer Negotiation Assistant  
+- Added Resume Customization Prompt – MAXIMUM INTEGRITY  
+- Updated repository structure and categories  
+- Updated badges and last‑updated date  
 
 ### **v1.5 — February 2026**
 - Added Workflow Banner  
