@@ -10,7 +10,7 @@ A curated collection of AI‑powered prompts designed to accelerate job searches
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Last_Updated-2026--02--08-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Last_Updated-2026--02--16-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge">
   <img src="https://img.shields.io/badge/Category-Career_Development-purple?style=for-the-badge">
   <img src="https://img.shields.io/badge/Type-AI_Frameworks-orange?style=for-the-badge">
@@ -141,8 +141,14 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
   *Goal:* Identify additional skills needed to compete for a specific role or industry.  
 
 ## 📝 Application Materials & Branding
-- **Resume Customization Prompt – MAXIMUM INTEGRITY.md**  
+- **The Human-Centric Resume Auditor & Storyteller.md** *(new)*  
+  *Goal:* Audit resumes through a human-centered lens while transforming bullet points into authentic, compelling stories that resonate with real recruiters and hiring managers.  
+- **Resume Customization Prompt – MAXIMUM INTEGRITY VERSION.md**  
   *Goal:* Customize resumes without hallucinations, exaggeration, or fabricated content.  
+- **Resume Quality Reviewer – Green Flag Edition.md**  
+  *Goal:* Evaluate resume quality focusing on strengths, clarity, and recruiter appeal.  
+- **Cover Letter Quality Reviewer – Green Flag Edition.md**  
+  *Goal:* Assess cover letters for authenticity, impact, and alignment.  
 - **Job-Application Tracker Template.md**  
   *Goal:* Provide a structured, repeatable system for tracking applications and follow‑ups.  
 - **Universal Job Fit Evaluation Prompt.md**  
@@ -153,6 +159,8 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
   *Goal:* Extract key requirements, keywords, and red flags from job descriptions.  
 - **Career Interview Data Collector.md**  
   *Goal:* Capture structured experience and accomplishment data for later use.  
+- **ATS Resume Scanner Simulator.md**  
+  *Goal:* Simulate how an ATS might parse and score your resume.  
 
 ## 🎤 Interview Preparation
 - **Interview Confidence & Fit Prompt.md**  
@@ -178,6 +186,14 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
 - **Mentor Recommendation Outreach Generator.md**  
   *Goal:* Craft outreach messages for mentors, sponsors, and professional advocates.  
 
+## 🤝 Networking & Contact Management *(new category suggestion)*
+- **Contacts Collector.md**  
+  *Goal:* Systematically gather and organize professional contacts from events, conversations, and outreach.  
+- **Reference Auditor & Formatter.md**  
+  *Goal:* Verify, format, and prepare professional references in a clean, ready-to-share structure.  
+- **Collecting contacts with Google Forms.docx** *(companion tool)*  
+  *Goal:* Use a structured Google Form template to capture networking leads, event contacts, and follow-up details efficiently.
+
 ## 💼 Negotiation & Offer Management
 - **Safe Offer Negotiation Assistant.md**  
   *Goal:* Navigate job offer negotiations with clarity, professionalism, and safety.  
@@ -189,6 +205,14 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
 ---
 
 # 🕒 Version History / Changelog
+
+### **v1.7 — February 2026** *(new)*
+- Added **The Human-Centric Resume Auditor & Storyteller.md** (human-centered resume review + storytelling conversion)  
+- Added **Collecting contacts with Google Forms.docx** (networking lead capture template)  
+- Updated/enhanced contact & reference prompts: **Contacts Collector.md**, **Reference Auditor & Formatter.md**  
+- Added several quality-review & ATS-related prompts: **ATS Resume Scanner Simulator.md**, **Resume Quality Reviewer – Green Flag Edition.md**, **Cover Letter Quality Reviewer – Green Flag Edition.md**  
+- New suggested category: Networking & Contact Management  
+- Updated Last Updated badge and repository overview  
 
 ### **v1.6 — February 2026**
 - Added LinkedIn Optimization & Branding category  
