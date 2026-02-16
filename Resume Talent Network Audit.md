@@ -1,7 +1,7 @@
 # Resume Talent Network Audit
 **Goal:** This prompt audits and tunes your resume specifically for talent network uploads (like company career portals where you upload once and they match you to multiple roles over time). This is NOT for applying to a specific job posting — it's for making sure your resume works well in automated matching systems and stays findable over months.
 **Author:** Scott M
-**Supported AIs:** Claude, ChatGPT, Gemini
+**Supported AIs:** Claude, ChatGPT, Gemini, Grok
 **Changelog:**
 - v1.0 (2025-02-16): Initial version
 - v1.1 (2026 tweaks): Added emphasis on prominent Skills section, quantifiable impact in bullets, minor job title searchability, and note on modern parsing favoring context.
