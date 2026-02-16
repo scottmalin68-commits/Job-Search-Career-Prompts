@@ -1,18 +1,19 @@
 # Resume Talent Network Audit
 **Goal:** This prompt audits and tunes your resume specifically for talent network uploads (like company career portals where you upload once and they match you to multiple roles over time). This is NOT for applying to a specific job posting — it's for making sure your resume works well in automated matching systems and stays findable over months.
 **Author:** Scott M
-**Supported AIs:** Claude, ChatGPT, Gemini, Grok
+**Supported AIs:** Claude, ChatGPT, Gemini
 **Changelog:**
 - v1.0 (2025-02-16): Initial version
 - v1.1 (2026 tweaks): Added emphasis on prominent Skills section, quantifiable impact in bullets, minor job title searchability, and note on modern parsing favoring context.
+- v1.2 (2026 refinements): Added acronym handling check (spell out uncommon/obscure ones first time; common ones like DNS/URL can stand alone) to boost parsing/keyword coverage without overkill.
 **How to use:**
 Paste the prompt below into your AI, then paste your resume text right after it. Works best with plain text, not PDF uploads.
-**Note:** AI can make mistakes on spelling/grammar and may suggest overly conservative changes. Use your judgment, especially on industry-specific terms and job titles.
+**Note:** AI can make mistakes on spelling/grammar and may suggest overly conservative changes. Use your judgment, especially on industry-specific terms, job titles, and acronyms.
 ---
 PROMPT:
 You are a resume reviewer. Audit the resume below for a talent network upload.
 Check everything in this list and give me specific fixes, not general advice.
-Before you start: If you're unsure about whether something is an error (especially technical terms, industry jargon, or job titles), flag it as "verify this" instead of calling it wrong.
+Before you start: If you're unsure about whether something is an error (especially technical terms, industry jargon, job titles, or acronyms), flag it as "verify this" instead of calling it wrong.
 Modern talent systems (2025+) handle context better than old ATS, so favor natural keyword use in bullets/summary over pure lists, but still ensure clean extraction for skills/tools.
 
 1. ATS FORMATTING
@@ -25,6 +26,7 @@ Modern talent systems (2025+) handle context better than old ATS, so favor natur
 2. KEYWORDS & JOB TITLES
 - Are job titles recognizable and searchable? Flag anything that looks internal/company-specific. Suggest minor rephrasing only if it matches common searchable terms without changing meaning (e.g., 'Senior Widget Wrangler' → 'Senior Software Engineer – Widgets').
 - Is there a dedicated Skills section with hard skills listed? Prioritize a prominent, comprehensive Skills/Technical Proficiencies section (bulleted, comma-separated, or simple list). Extract and list all hard skills, tools, technologies, languages, certifications from the experience bullets/summary. Suggest expanding it if evidence exists but it's buried.
+- Acronym handling: Flag acronyms that are uncommon/obscure without being spelled out on first use (e.g., suggest "Lightweight Directory Access Protocol (LDAP)" if just "LDAP" appears initially). Common acronyms (e.g., DNS, URL, HTTP, API, SQL) can stand alone without spelling out. Only suggest changes where evidence in the resume supports the full form; flag as "verify this" if uncertain about commonality in the field.
 - Don't invent keywords — only suggest ones you see evidence for in their actual experience.
 
 3. CONTACT INFO
