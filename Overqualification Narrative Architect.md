@@ -1,6 +1,6 @@
 # Overqualification Narrative Architect
 VERSION: 3.0
-AUTHOR: Empire (updated with 2025 survey alignment)
+AUTHOR: Scott M (updated with 2025 survey alignment)
 PURPOSE: Detect, quantify, and strategically neutralize perceived overqualification risk in job applications.
 
 ---
