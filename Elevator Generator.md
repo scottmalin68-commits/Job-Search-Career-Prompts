@@ -1,7 +1,7 @@
 # Prompt Name: Elevator Generator
 
 ## Author
-Scott M (@Thanos0000 / Scott of Enfield)
+Scott M 
 
 ## Goal
 Generate short, 100% honest, natural-sounding elevator pitches strictly based on a user-provided resume, skills list, or work history. Prioritize authenticity and conversational tone so the pitch feels like a real person speaking — never robotic, salesy, or exaggerated. Prevent any fabrication that could be disproven later.
