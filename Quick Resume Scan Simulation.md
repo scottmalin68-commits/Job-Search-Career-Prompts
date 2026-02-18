@@ -1,22 +1,22 @@
 # Quick Resume Scan Simulation & Visual Attention Prompt with Scoring Rubric
-**VERSION:** 3.0
-**AUTHOR:** Scott M
-**PURPOSE:** Simulate a 10-second review of a resume from two perspectives—HR recruiter and hiring manager—with actionable recommendations, visual attention heatmap, and systematic, repeatable scoring. All metrics are now rule-based with explicit formulas.
+**VERSION:** 3.1 (Narrative + Bulleted Output Style)
+**AUTHOR:** Scott M (revised with enhancements for maturity + user-preferred readable format)
+**PURPOSE:** Simulate a 10-second review of a resume from two perspectives—HR recruiter and hiring manager—with actionable recommendations, visual attention heatmap, and systematic, repeatable scoring. All metrics are rule-based with explicit formulas. Output is presented in clean narrative + bulleted format (no raw JSON).
 
 ---
 ## CHANGELOG
-**3.0** (Enhancements for production readiness)
-- Defined exact formulas and calculation rules for all common metrics (attention, keyword match, clarity, achievement density)
-- Added 1–2 complete worked examples (simple anonymized resumes + expected JSON outputs)
-- Specified defaults and edge-case handling (no job posting, short/empty resumes, etc.)
-- Tightened subjective criteria (“poor formatting”, “buried achievements”) with measurable proxies
-- Added judgment flags array in output to capture any remaining qualitative notes
-- Clarified heatmap format and made it identical across perspectives (same resume)
+**3.1** (User-requested output style update)
+- Switched primary output from JSON to human-readable narrative + bulleted sections
+- Retained all v3.0 rule-based metrics, formulas, heatmap, and hallucination controls
+- Kept common metrics, dual perspectives, scores, flags, and summary interpretation
+- JSON format available on request (e.g., for automation/parsing)
 
-**2.2** (Previous)
-- Added rule-based scoring rubric for HR pass/fail and hiring manager interview potential
-- Retained dual perspectives, visual heatmap, and hallucination mitigation
-- Clarified metrics definitions and thresholds (now fully expanded in 3.0)
+**3.0** (Enhancements for production readiness)
+- Defined exact formulas and calculation rules for all common metrics
+- Specified defaults and edge-case handling
+- Tightened subjective criteria with measurable proxies
+- Added judgment flags array
+- Clarified heatmap format
 
 (earlier versions omitted for brevity)
 
@@ -35,7 +35,7 @@ Both perspectives **must only use information explicitly present** on the resume
 
 **Edge-case defaults:**
 - If no job posting provided → keyword_match_score = 0 for both perspectives; ignore keyword-related rubric points
-- If resume text is empty or < 50 words → return error message in JSON ("error": "Insufficient resume content") and set all scores to 0
+- If resume text is empty or < 50 words → return error message ("Insufficient resume content") and set all scores to 0
 - If no clear section headings → treat first 30% of lines as "top 1/3"
 
 ---
@@ -57,7 +57,7 @@ All metrics are calculated identically for both perspectives (based on resume co
    Formula:  
    - Extract unique exact keywords/phrases from job posting (ignore stop words)  
    - Count how many appear explicitly in resume (case-insensitive)  
-   - Score = min(10, (matched_keywords / total_job_keywords) × 15)  → caps at 10, generous for small postings  
+   - Score = min(10, (matched_keywords / total_job_keywords) × 15) → caps at 10  
    - If < 3 job keywords total → score = matched count × 3 (max 9)
 
 3. **Clarity Score (0–10)**  
@@ -66,8 +66,8 @@ All metrics are calculated identically for both perspectives (based on resume co
    - Base = 10  
    - -3 if average bullet/line length > 100 chars (proxy for wordy)  
    - -2 if > 30% of lines have no action verb at start  
-   - -1 if inconsistent date formatting (mix of MM/YYYY, "2020–2022", etc.)  
-   - -2 if no white-space separation (e.g., no blank lines between sections)  
+   - -1 if inconsistent date formatting  
+   - -2 if no white-space separation between sections  
    - +2 if uses strong action verbs in >70% of bullets  
    - +1 if achievements start with numbers/symbols in first 1/3  
    - Clamp to 0–10
@@ -78,14 +78,13 @@ All metrics are calculated identically for both perspectives (based on resume co
    - Count lines containing numbers (e.g., 20%, $50K, 15 projects, 2023)  
    - Divide by total non-empty lines in Experience section (or main body if no sections)  
    - Density % = (quantified lines / total lines) × 100  
-   - Score = min(10, density % / 10)  → e.g., 40% quantified → score 4  
+   - Score = min(10, density % / 10)  
    - Bonus: +2 if ≥3 quantified items appear in top 1/3 of resume  
    - -3 if all quantified items are buried after line 30  
    - Clamp to 0–10
 
 ---
 ## UPDATED RUBRIC CRITERIA (measurable proxies)
-
 **HR Rubric adjustments:**
 - "-1 point for poor formatting" → -1 if clarity_score < 5; -1 if average line > 90 chars
 
@@ -94,46 +93,77 @@ All metrics are calculated identically for both perspectives (based on resume co
 
 ---
 ## VISUAL HEATMAP
-- Identical for both perspectives (same resume)
-- Format: array of strings, one per major line/section, e.g.:
-  - "🔥 Name & Contact Info"
-  - "⚡ Professional Summary"
-  - "• Older Education entries"
-- Priority order (simulate F/Z-pattern):
-  - 🔥 = top-left / name / title / summary / first 2–3 bullets of recent job
-  - ⚡ = skills list / recent job bullets / certifications
+- Identical for both perspectives
+- Format: bulleted list with priority symbols  
+  - 🔥 = top-left / name / title / summary / first 2–3 bullets of recent job  
+  - ⚡ = skills list / recent job bullets / certifications  
   - • = older jobs / education / references
 
 ---
 ## HALLUCINATION MITIGATION RULES
 - Only highlight **explicit information** from the resume.
-- Do **not infer** skills, certifications, or achievements.
-- Flag areas where scoring relies on judgment due to lack of clear data → place in new "judgment_flags" array (see output)
-- Metrics are now fully rule-based and tied to visible text, line counts, placement, and simple proxies.
+- **Do not infer** skills, certifications, or achievements.
+- Flag areas where scoring relies on judgment → include in "Judgment Flags" section
+- Metrics are fully rule-based and tied to visible text, line counts, placement, and simple proxies.
 
 ---
-## OUTPUT FORMAT
-```json
-{
-  "error": null,                    // string or null; use for edge cases
-  "common": {
-    "attention_score": number,
-    "keyword_match_score": number,
-    "clarity_score": number,
-    "achievement_density_score": number,
-    "visual_heatmap": ["string", "string", ...],
-    "judgment_flags": ["string", ...]   // e.g., "Line length proxy used for clarity", "Assumed top 1/3 due to no headings"
-  },
-  "HR_recruiter": {
-    "first_impression": ["string","string",...],
-    "red_flags_or_rejection_risks": ["string","string",...],
-    "recommendations": ["string","string",...],
-    "HR_score": number
-  },
-  "Hiring_manager": {
-    "first_impression": ["string","string",...],
-    "compelling_achievements": ["string","string",...],
-    "recommendations": ["string","string",...],
-    "Hiring_manager_score": number
-  }
-}
+## OUTPUT FORMAT (Narrative + Bulleted Style – preferred)
+Quick Resume Scan – Version 3.1 (Narrative Style)
+
+**Resume analyzed:** [brief identifier]
+
+**Job posting status:** [none / provided → keyword score shown if applicable]
+
+**Common Metrics** (identical for both reviewers)
+- **Attention Score**: X / 10  
+  [brief explanation]
+- **Clarity Score**: X / 10  
+  [brief explanation]
+- **Achievement Density Score**: X / 10  
+  [brief explanation]
+- **Visual Heatmap** (F/Z-pattern simulation):  
+  🔥 [line/section]  
+  ⚡ [line/section]  
+  • [line/section]  
+  ...
+- **Judgment Flags** (if any):  
+  - [flag 1]  
+  - [flag 2]  
+  ...
+
+**HR Recruiter Perspective** (10-second screening / pass-fail focus)
+**First Impression**  
+- [bullet]  
+- [bullet]
+
+**Red Flags / Rejection Risks**  
+- [bullet]  
+- [bullet]
+
+**Recommendations**  
+- [bullet]  
+- [bullet]
+
+**HR Score** (likelihood of quick pass): **X / 10**
+
+**Hiring Manager Perspective** (interview potential / technical fit)
+**First Impression**  
+- [bullet]  
+- [bullet]
+
+**Most Compelling Achievements** (these would make me want to interview)  
+- [bullet]  
+- [bullet]
+
+**Recommendations**  
+- [bullet]  
+- [bullet]
+
+**Hiring Manager Score** (strength of case for an interview): **X / 10**
+
+**Summary Interpretation**  
+[1–2 paragraph overview: overall strength, main polish opportunities, target role fit]
+
+---
+## OPTIONAL FALLBACK
+If user specifically requests "JSON output" or "raw JSON format", revert to the v3.0 JSON structure instead.
