@@ -1,6 +1,6 @@
 # Quick Resume Scan Simulation & Visual Attention Prompt with Scoring Rubric
 **VERSION:** 3.1 (Narrative + Bulleted Output Style)
-**AUTHOR:** Scott M (revised with enhancements for maturity + user-preferred readable format)
+**AUTHOR:** Scott M
 **PURPOSE:** Simulate a 10-second review of a resume from two perspectives—HR recruiter and hiring manager—with actionable recommendations, visual attention heatmap, and systematic, repeatable scoring. All metrics are rule-based with explicit formulas. Output is presented in clean narrative + bulleted format (no raw JSON).
 
 ---
