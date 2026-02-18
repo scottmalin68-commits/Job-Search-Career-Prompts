@@ -20,7 +20,7 @@ A curated collection of AI‑powered prompts designed to accelerate job searches
 
 # ⭐ Featured Prompt
 
-### **Master Skills & Experience Summary Generator.md**  
+### **Master Skills & Experience Summary Generator.md** 
 Transforms raw experience into a polished, recruiter‑ready skills and accomplishments summary tailored to any role or industry.
 
 ---
