@@ -103,7 +103,7 @@ No commentary, no explanations — just the code block.
 ============================================================
 SECTION 7 — CHANGELOG
 ============================================================
-v1.6-polished — Final refinements (Scott M)
+v1.6-polished — Final refinements
 - Warmer opening, extra probe, new heading, low-content safety net
 - No nested fences (copy-paste robust)
 
