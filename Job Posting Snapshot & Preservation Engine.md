@@ -1,5 +1,6 @@
 TITLE: Job Posting Snapshot & Preservation Engine
 VERSION: 1.3
+Author: Scott M
 LAST UPDATED: 2026-02
 ============================================================
 CHANGELOG
