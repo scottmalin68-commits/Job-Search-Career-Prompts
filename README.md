@@ -10,7 +10,7 @@ A curated collection of AI‑powered prompts designed to accelerate job searches
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Last_Updated-2026--02--18-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Last_Updated-2026--02--21-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge">
   <img src="https://img.shields.io/badge/Category-Career_Development-purple?style=for-the-badge">
   <img src="https://img.shields.io/badge/Type-AI_Frameworks-orange?style=for-the-badge">
@@ -141,7 +141,7 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
   *Goal:* Identify additional skills needed to compete for a specific role or industry.  
 
 ## 📝 Application Materials & Branding
-- **The Human-Centric Resume Auditor & Storyteller.md** *(new)*  
+- **The Human-Centric Resume Auditor & Storyteller.md**  
   *Goal:* Audit resumes through a human-centered lens while transforming bullet points into authentic, compelling stories that resonate with real recruiters and hiring managers.  
 - **Resume Customization Prompt – MAXIMUM INTEGRITY VERSION.md**  
   *Goal:* Customize resumes without hallucinations, exaggeration, or fabricated content.  
@@ -157,14 +157,22 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
 ## 🔍 Job Search Tools & Analysis
 - **Customizable Job Scanner.md**  
   *Goal:* Extract key requirements, keywords, and red flags from job descriptions.  
+- **Job Posting Snapshot & Preservation Engine.md** *(new)*  
+  *Goal:* Create timestamped, structured snapshots of job postings (including full text, requirements, salary data, and metadata) for later reference, comparison, or offline analysis — especially useful when postings are removed or edited.  
 - **Career Interview Data Collector.md**  
   *Goal:* Capture structured experience and accomplishment data for later use.  
 - **ATS Resume Scanner Simulator.md**  
   *Goal:* Simulate how an ATS might parse and score your resume.  
+- **Pre-Interview Intelligence Dossier.md**  
+  *Goal:* Compile company, role, and interviewer research into a concise briefing.  
 
 ## 🎤 Interview Preparation
 - **Interview Confidence & Fit Prompt.md**  
   *Goal:* Build confidence and articulate strengths through guided interview practice.  
+- **INTERVIEW PRESSURE SIMULATOR.md**  
+  *Goal:* Simulate high-pressure interview scenarios to build resilience.  
+- **TECHNICAL INTERVIEW PRESSURE SIMULATOR.md**  
+  *Goal:* Practice technical interviews under realistic stress conditions.  
 
 ## 🧩 Career Data Enhancement
 - **Career Data Enhancer.md**  
@@ -186,7 +194,7 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
 - **Mentor Recommendation Outreach Generator.md**  
   *Goal:* Craft outreach messages for mentors, sponsors, and professional advocates.  
 
-## 🤝 Networking & Contact Management *(new category suggestion)*
+## 🤝 Networking & Contact Management
 - **Contacts Collector.md**  
   *Goal:* Systematically gather and organize professional contacts from events, conversations, and outreach.  
 - **Reference Auditor & Formatter.md**  
@@ -206,7 +214,8 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
 
 # 🕒 Version History / Changelog
 
-### **v1.7 — February 2026** *(new)*
+### **v1.7 — February 2026** *(updated)*
+- Added **Job Posting Snapshot & Preservation Engine.md** — preserves full job postings with timestamps and structured extraction for future reference and comparison  
 - Added **The Human-Centric Resume Auditor & Storyteller.md** (human-centered resume review + storytelling conversion)  
 - Added **Collecting contacts with Google Forms.docx** (networking lead capture template)  
 - Updated/enhanced contact & reference prompts: **Contacts Collector.md**, **Reference Auditor & Formatter.md**  
