@@ -10,7 +10,7 @@ A curated collection of AI‑powered prompts designed to accelerate job searches
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Last_Updated-2026--02--21-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Last_Updated-2026--02--22-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge">
   <img src="https://img.shields.io/badge/Category-Career_Development-purple?style=for-the-badge">
   <img src="https://img.shields.io/badge/Type-AI_Frameworks-orange?style=for-the-badge">
@@ -157,14 +157,12 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
 ## 🔍 Job Search Tools & Analysis
 - **Customizable Job Scanner.md**  
   *Goal:* Extract key requirements, keywords, and red flags from job descriptions.  
-- **Job Posting Snapshot & Preservation Engine.md** *(new)*  
+- **Job Posting Snapshot & Preservation Engine.md**  
   *Goal:* Create timestamped, structured snapshots of job postings (including full text, requirements, salary data, and metadata) for later reference, comparison, or offline analysis — especially useful when postings are removed or edited.  
-- **Career Interview Data Collector.md**  
-  *Goal:* Capture structured experience and accomplishment data for later use.  
-- **ATS Resume Scanner Simulator.md**  
-  *Goal:* Simulate how an ATS might parse and score your resume.  
-- **Pre-Interview Intelligence Dossier.md**  
-  *Goal:* Compile company, role, and interviewer research into a concise briefing.  
+- **Job Posting Snapshot - Usage Examples.md** *(new)*  
+  *Goal:* Practical examples and best practices showing how to use the Job Posting Snapshot prompt effectively in real job-search workflows.  
+- **CreateNewPostingFile.ps1** *(new)*  
+  *Goal:* PowerShell helper script that automates creating timestamped, well-named markdown files for storing job posting snapshots.
 
 ## 🎤 Interview Preparation
 - **Interview Confidence & Fit Prompt.md**  
@@ -214,41 +212,20 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
 
 # 🕒 Version History / Changelog
 
-### **v1.7 — February 2026** *(updated)*
-- Added **Job Posting Snapshot & Preservation Engine.md** — preserves full job postings with timestamps and structured extraction for future reference and comparison  
-- Added **The Human-Centric Resume Auditor & Storyteller.md** (human-centered resume review + storytelling conversion)  
-- Added **Collecting contacts with Google Forms.docx** (networking lead capture template)  
-- Updated/enhanced contact & reference prompts: **Contacts Collector.md**, **Reference Auditor & Formatter.md**  
-- Added several quality-review & ATS-related prompts: **ATS Resume Scanner Simulator.md**, **Resume Quality Reviewer – Green Flag Edition.md**, **Cover Letter Quality Reviewer – Green Flag Edition.md**  
-- New suggested category: Networking & Contact Management  
+### **v1.8 — February 2026** *(latest)*
+- Added **Job Posting Snapshot - Usage Examples.md** — practical usage guide with real-world examples  
+- Added **CreateNewPostingFile.ps1** — PowerShell script to streamline creation of timestamped snapshot files  
 - Updated Last Updated badge and repository overview  
 
-### **v1.6 — February 2026**
-- Added LinkedIn Optimization & Branding category  
-- Added seven new LinkedIn‑focused prompts  
-- Added Safe Offer Negotiation Assistant  
-- Added Resume Customization Prompt – MAXIMUM INTEGRITY  
-- Updated repository structure and categories  
-- Updated badges and last‑updated date  
+### **v1.7 — February 2026**
+- Added **Job Posting Snapshot & Preservation Engine.md**  
+- Added **The Human-Centric Resume Auditor & Storyteller.md**  
+- Added **Collecting contacts with Google Forms.docx**  
+- Updated contact & reference prompts  
+- Added ATS and quality-review prompts  
+- New Networking & Contact Management category  
 
-### **v1.5 — February 2026**
-- Added Workflow Banner  
-- Added Quick‑Start Guide section  
-- Refined Career Data Workflow narrative  
-
-### **v1.4 — February 2026**
-- Added Career Data Workflow section  
-- Updated badges and last‑updated date  
-- Improved prompt categorization  
-- Added value‑driven explanations for key prompts  
-
-### **v1.3 — January 2026**
-- Added Cyber Blue banner  
-- Unified README structure  
-- Added goal statements for all prompts  
-- Added featured prompt  
-- Standardized cross‑repo navigation  
-- Updated file list and categories  
+(earlier versions omitted for brevity — see previous READMEs)
 
 ---
 
