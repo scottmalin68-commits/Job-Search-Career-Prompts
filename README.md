@@ -159,10 +159,17 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
   *Goal:* Extract key requirements, keywords, and red flags from job descriptions.  
 - **Job Posting Snapshot & Preservation Engine.md**  
   *Goal:* Create timestamped, structured snapshots of job postings (including full text, requirements, salary data, and metadata) for later reference, comparison, or offline analysis — especially useful when postings are removed or edited.  
-- **Job Posting Snapshot - Usage Examples.md** *(new)*  
+- **Job Posting Snapshot - Usage Examples.md**  
   *Goal:* Practical examples and best practices showing how to use the Job Posting Snapshot prompt effectively in real job-search workflows.  
-- **CreateNewPostingFile.ps1** *(new)*  
+- **CreateNewPostingFile.ps1**  
   *Goal:* PowerShell helper script that automates creating timestamped, well-named markdown files for storing job posting snapshots.
+
+### Job Posting Capture Workflow
+This diagram shows the recommended process from capturing a posting to final fit decision.
+
+<p align="center">
+  <img src="JobPostingCaptureWorkflow.png" width="85%" alt="Job Posting Capture Workflow">
+</p>
 
 ## 🎤 Interview Preparation
 - **Interview Confidence & Fit Prompt.md**  
@@ -215,6 +222,7 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
 ### **v1.8 — February 2026** *(latest)*
 - Added **Job Posting Snapshot - Usage Examples.md** — practical usage guide with real-world examples  
 - Added **CreateNewPostingFile.ps1** — PowerShell script to streamline creation of timestamped snapshot files  
+- Added **JobPostingCaptureWorkflow.png** — visual overview of the job posting capture and analysis process  
 - Updated Last Updated badge and repository overview  
 
 ### **v1.7 — February 2026**
