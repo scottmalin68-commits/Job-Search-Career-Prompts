@@ -74,11 +74,13 @@ OUTPUT FORMAT
    - Format:
      1. Source: [brief description or quote] | Focus Alignment: [Strong/Partial/No] | Origin: [Document / Interview]
 3. Optimized 3 Bullets (in single codeblock)
-   - Plain bulleted list
+   - Present as a plain bulleted list with NO blank lines between bullets
+   - Start each bullet with "• " (bullet character followed by exactly one space)
+   - No extra spacing, markdown bold/italics, or separators between bullets unless user requests
    - Each bullet: 35–60 words max
-   - Structure preference: Problem → Action → Result + brief rationale/why
-   - Include measurable results (or UNKNOWN/estimated)
-   - End codeblock with the proof reminder paragraph
+   - Preferred structure: Problem → Action → Result + brief rationale/why where relevant
+   - Include measurable results (or mark as UNKNOWN/[estimated by user] if approximate)
+   - Immediately after the last bullet (still inside the same codeblock), add a blank line then the proof reminder paragraph starting with: "To make these bullets interview-ready and harder to fake:"
 4. Conditional Raw Archive (only if Interview Mode was used)
    - Structured summary of each problem/story:
      - Problem:
