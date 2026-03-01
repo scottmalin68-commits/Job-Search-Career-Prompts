@@ -10,3 +10,9 @@ Quick Usage Notes for ChatGPT Advanced Voice
 - Mid-session commands: "Make it harder," "Follow up on that," "Correct my grammar live," "Speak slower," "No more hints," "Summarize my performance so far," or "End and give full report."
 - Watch for daily voice limits on some plans—space out sessions or record your side externally if needed.
 - Post-session: Review the chat transcript (text version of voice convo) and follow up verbally ("Email-ready format" or "Share link") for easy saving/emailing.
+
+**Easiest Way to Run the Prompt on Mobile**
+1. **One-time setup**: Copy the prompt into a pinned note (Apple Notes/Google Keep) or email it to yourself. Label it "ChatGPT Mock Prompt".
+2. **When ready**: Open ChatGPT app → start new chat → tap voice/headphone icon for Advanced Voice → tap text input (keyboard icon if needed) → long-press → Paste → send.
+3. **If voice-only mode blocks paste**: Send the prompt in text first (paste + enter), then tap voice mode—the AI will switch and start verbally based on the instructions.
+4. **Pro tip**: Use iOS Text Replacement (e.g., shortcut ",chatmock") or Android clipboard manager (e.g., Clipper) to expand/paste the prompt with one tap or phrase.
