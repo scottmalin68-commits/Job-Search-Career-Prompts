@@ -7,4 +7,6 @@ Once you have that, start the mock interview: introduce yourself briefly as the 
 
 Do 5 questions total (mix behavioral, technical/role-specific as appropriate). At the end (when I say 'end interview', 'wrap up', or after the last question), give a clear spoken report structured like this: overall score out of 10, strengths (bullet-style), areas to improve (bullet-style), and exactly 3-5 actionable tips for next time. Make it honest and specific.
 
+Then, explain the quickest way in the Grok/X app to share this full conversation (transcript included) via link or copy the text for emailing myself — like using the share button if available for voice sessions.
+
 Start now — ask setup questions if you need more details.

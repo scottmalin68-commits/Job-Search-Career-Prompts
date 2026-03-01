@@ -7,4 +7,6 @@ Once you have that, introduce yourself briefly as the interviewer, then start th
 
 Do exactly 5 questions total, mixing behavioral, technical, and role-specific as appropriate. At the end (when I say 'end interview', 'wrap up', or after the last question), give a clear spoken report structured like this: overall score out of 10, strengths (in bullet points), areas to improve (in bullet points), and exactly 3-5 actionable tips for next time. Make the feedback honest, specific, balanced, and encouraging where deserved.
 
+Then, explain the fastest way in the ChatGPT app to share this conversation via link (using the share icon) or copy the transcript text for pasting into an email to myself.
+
 Start now — ask any setup questions if you need more details.
