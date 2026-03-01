@@ -10,7 +10,7 @@ A curated collection of AI‑powered prompts designed to accelerate job searches
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Last_Updated-2026--02--22-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Last_Updated-2026--03--01-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge">
   <img src="https://img.shields.io/badge/Category-Career_Development-purple?style=for-the-badge">
   <img src="https://img.shields.io/badge/Type-AI_Frameworks-orange?style=for-the-badge">
@@ -139,6 +139,12 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
   *Goal:* Convert experience into a structured, recruiter‑ready skills summary.  
 - **Role-Based Market Skill Expansion Advisor.md**  
   *Goal:* Identify additional skills needed to compete for a specific role or industry.  
+- **Career Profile Discovery Engine.md**  
+  *Goal:* Guided discovery to uncover hidden career themes, strengths, and narrative angles.  
+- **Senior Positioning & Credibility Engine.md**  
+  *Goal:* Help senior professionals articulate executive value and avoid ageism or overqualification perceptions.  
+- **Overqualification Narrative Architect.md**  
+  *Goal:* Craft authentic, confident explanations that reframe overqualification as a strategic advantage.
 
 ## 📝 Application Materials & Branding
 - **The Human-Centric Resume Auditor & Storyteller.md**  
@@ -153,6 +159,16 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
   *Goal:* Provide a structured, repeatable system for tracking applications and follow‑ups.  
 - **Universal Job Fit Evaluation Prompt.md**  
   *Goal:* Evaluate alignment between a candidate and a job posting using a consistent scoring model.  
+- **Proof-of-Work Extractor – 3 Bullet Generator.md**  
+  *Goal:* Extract concrete evidence of impact and condense into powerful 3-bullet proof points.  
+- **Resume Redline 4.1 Prompt.md**  
+  *Goal:* Provide detailed, line-by-line resume critique with suggested improvements and redlines.  
+- **Talent Portal Resume Optimization Engine.md**  
+  *Goal:* Optimize resumes specifically for employer talent portals, ATS quirks, and internal systems.  
+- **Quick Resume Scan Simulation.md**  
+  *Goal:* Simulate 7–10 second recruiter/ATS scans and deliver instant feedback on visibility and appeal.  
+- **JSON → Canonical Markdown Profile Generator.md**  
+  *Goal:* Convert structured JSON career data into clean, readable Markdown summaries/profiles.
 
 ## 🔍 Job Search Tools & Analysis
 - **Customizable Job Scanner.md**  
@@ -162,7 +178,11 @@ Each prompt includes a clear **Goal** so users understand the intended outcome a
 - **Job Posting Snapshot - Usage Examples.md**  
   *Goal:* Practical examples and best practices showing how to use the Job Posting Snapshot prompt effectively in real job-search workflows.  
 - **CreateNewPostingFile.ps1**  
-  *Goal:* PowerShell helper script that automates creating timestamped, well-named markdown files for storing job posting snapshots.
+  *Goal:* PowerShell helper script that automates creating timestamped, well-named markdown files for storing job posting snapshots.  
+- **Dead Job Posting Recovery Engine.md**  
+  *Goal:* Reconstruct key details of expired/removed job postings using cached data, search artifacts, and intelligent inference.  
+- **Company Technical Intelligence Engine.md** + **Company Technical Intelligence Engine – Query Prompt Guide.md**  
+  *Goal:* Gather deep intel on a target company’s tech stack, tools, processes, culture, and likely interview focus areas.
 
 ### Job Posting Capture Workflow
 This diagram shows the recommended process from capturing a posting to final fit decision.
@@ -178,6 +198,17 @@ This diagram shows the recommended process from capturing a posting to final fit
   *Goal:* Simulate high-pressure interview scenarios to build resilience.  
 - **TECHNICAL INTERVIEW PRESSURE SIMULATOR.md**  
   *Goal:* Practice technical interviews under realistic stress conditions.  
+- **Behavioral Interview Story Distillation Engine.md**  
+  *Goal:* Refine raw STAR stories into concise, high-impact behavioral answers.  
+- **Interview Intelligence Engine.md**  
+  *Goal:* Compile comprehensive prep intel including likely questions, interviewer styles, and company patterns.  
+- **Pre-Interview Intelligence Dossier.md**  
+  *Goal:* Build a targeted pre-interview research package on company, role, and interviewers.  
+- **AI Voice Interview Suite** (realistic voice practice variants):
+  - **AI voice interview - ChatGPT.md** + **UsageNotes.md**  
+  - **AI voice interview - Gemini.md** + **UsageNotes.md**  
+  - **AI voice interview - Grok.md** + **UsageNotes.md**  
+  *Goal:* Simulate spoken/video-style interviews using different AI backends for natural delivery practice.
 
 ## 🧩 Career Data Enhancement
 - **Career Data Enhancer.md**  
@@ -211,6 +242,10 @@ This diagram shows the recommended process from capturing a posting to final fit
 - **Safe Offer Negotiation Assistant.md**  
   *Goal:* Navigate job offer negotiations with clarity, professionalism, and safety.  
 
+## 🎯 Quick Branding & Pitch Tools
+- **Elevator Pitch Generator.md**  
+  *Goal:* Craft concise, compelling 30–60 second professional pitches tailored to audience and context.
+
 ## 📄 Repo Files
 - **LICENSE**  
 - **README.md** (this file)
@@ -219,7 +254,13 @@ This diagram shows the recommended process from capturing a posting to final fit
 
 # 🕒 Version History / Changelog
 
-### **v1.8 — February 2026** *(latest)*
+### **v1.9 — March 2026** *(latest)*
+- Bumped version and updated Last Updated badge to 2026-03-01  
+- Expanded Repository Structure section to document previously unlisted prompts (Behavioral Interview tools, Voice Interview suite, Intelligence Engines, Dead Job Recovery, Overqualification/Senior tools, Resume Redline/Quick Scan, Elevator Pitch, etc.)  
+- Added new sub-section for Quick Branding & Pitch Tools  
+- Minor organization and goal clarifications for better discoverability  
+
+### **v1.8 — February 2026**
 - Added **Job Posting Snapshot - Usage Examples.md** — practical usage guide with real-world examples  
 - Added **CreateNewPostingFile.ps1** — PowerShell script to streamline creation of timestamped snapshot files  
 - Added **JobPostingCaptureWorkflow.png** — visual overview of the job posting capture and analysis process  
