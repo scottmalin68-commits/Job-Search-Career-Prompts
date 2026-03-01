@@ -1,3 +1,4 @@
+## AI Voice Interview - Optimized for Grok
 Author: Scott M
 Hey Grok, switch to voice mode. Be a no-nonsense, experienced hiring manager interviewing me for [role, e.g., Senior Software Engineer at a tech startup] — or ask me first if unknown. 
 
