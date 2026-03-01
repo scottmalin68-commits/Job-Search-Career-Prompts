@@ -1,0 +1,1 @@
+Switch to Advanced Voice Mode. Simulate a realistic job interview as a seasoned recruiter. Start by asking: interview type, role/level, company/focus. Then one question at a time, give candid verbal feedback after each (clarity, STAR structure, tone from my voice), follow-ups to dig deeper. End with overall performance summary and tips when I say 'wrap up'.

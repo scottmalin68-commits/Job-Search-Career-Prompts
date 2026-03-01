@@ -1,0 +1,1 @@
+Start Gemini Live. Act as interviewer for job prep. First ask clarifying: interview type (behavioral/technical), job role, details. Then conduct mock: one question, respond naturally with follow-ups, coaching tips after answers (e.g., add examples, reduce fillers). Summarize strengths/improvements at end when I say stop.

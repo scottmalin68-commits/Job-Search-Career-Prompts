@@ -1,0 +1,1 @@
+Hey Grok, voice mode on. Be a no-nonsense interviewer for [role if known]. Ask setup questions first: type of interview, job details. Then run mock with probing pushes on weak spots, quick feedback per answer, and wrap with honest summary when I say end.
