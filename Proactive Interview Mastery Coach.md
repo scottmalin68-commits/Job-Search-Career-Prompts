@@ -1,34 +1,40 @@
-**Prompt Name:** Proactive Interview Mastery Coach (Type-Adaptive Edition)
+**Prompt Name:** Proactive Interview Mastery Coach (Type-Adaptive + JD-Integrated Edition)
 **Author:** Scott M
-**Version:** 1.2
+**Version:** 1.3
 **Created:** March 2026
 **Last Updated:** March 2026
 
 **Purpose:**
 Transform standard interview preparation into a high-agency, strategic-partner approach. This prompt turns any LLM into an elite coach that:
 - Automatically detects and adapts to the specific interview format (behavioral, technical, case, leadership, etc.)
-- Embeds proactive curiosity and early diagnostic questioning (inspired by leading with pain-point questions from minute one)
+- Embeds proactive curiosity and early diagnostic questioning
 - Guides the user to shift from passive applicant → confident peer evaluator/problem-diagnoser
 - Delivers timed strategies, tailored power questions, real-time response pivots, red-flag avoidance, mock drills, and mindset reminders
 - Avoids insecure/end-loaded questions and passive waiting
-- Handles AI/automated interviews with targeted optimization tactics when relevant
+- Handles AI/automated interviews with targeted optimization tactics
+- Now optionally integrates the full job posting (markdown snapshot, URL, or key excerpts) for hyper-tailored, keyword-rich, pain-point-specific coaching
 Ideal for mid-to-senior roles where strategic thinking, initiative, and mutual fit assessment are valued (product, management, consulting, leadership, sales, etc.).
 
 **Key Features & Changes:**
 - Type-adaptive structure with fixed 6-section output format
 - Front-loaded curiosity and strategic partner framing
-- Duration-aware timing guidance: interview length collected early and used for precise minute-by-minute or percentage-based pacing in section 1
-- Interviewer-type awareness: collects who/what is conducting the interview (HR, hiring manager, technical team, panel, AI/bot/automated) to tailor advice—e.g., full proactive style for humans, algorithm-optimization mode (STAR rigidity, keyword mirroring, confident delivery, clear endings) for bots
-- Avoids passive/insecure question patterns (e.g., no late “Does my background align?”)
-- Clean output: no nested code blocks, fences, or markdown artifacts in the playbook response
-- v1.2 updates (March 2026):
-  - Added interviewer type/format nuance (HR/hiring manager/technical/AI/bot/etc.) to initial question for better tailoring
-  - When AI/bot is indicated, adapt tactics to prioritize passing algorithmic scoring (structured STAR, contextual keywords from JD, quantified results, natural tone, signaling answer completion) while noting proactive questions may not apply until human rounds
-  - Minor flow polish
+- Duration-aware timing guidance collected early
+- Interviewer-type awareness (HR, hiring manager, technical, panel, AI/bot) for tailored style
+- Avoids passive/insecure question patterns
+- Clean output: no nested code blocks, fences, or markdown artifacts
+- v1.3 (March 2026):
+  - Made job posting integration optional-but-highly-recommended (markdown from Preservation Engine, URL, or key bullets)
+  - Coach explicitly asks for JD snapshot/URL every time, explains massive value for tailoring questions/keywords/examples
+  - When JD provided: heavy weaving into sections 1–5 (pain points, success criteria, exact language, keyword mirroring)
+  - When no JD: strong type-specific generic advice + note on where JD would enhance
+  - Minor phrasing polish for clarity and flow
+- v1.2 (March 2026):
+  - Added interviewer type/format nuance to initial question
+  - AI/bot mode: prioritize algorithmic scoring (STAR rigidity, keywords, confident delivery, clear endings); proactive questions deferred to human rounds
 - v1.1 (March 2026):
-  - Added expected/planned interview duration to initial question
-  - Explicit instruction in section 1 to incorporate duration for specific timing guidance
-- v1.0 (March 2026) – Initial release: Based on infographic principles (early curiosity, strategic partner framing, avoid end insecurity questions); type-adaptive with fixed 6-section output; fully cleaned
+  - Added expected interview duration to initial question
+  - Explicit timing incorporation in section 1
+- v1.0 (March 2026) – Initial release: early curiosity, strategic partner framing, type-adaptive 6-section format
 
 **Full Prompt Text:**
 
