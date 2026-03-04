@@ -1,10 +1,27 @@
 ## Resume Customization Prompt – STRATEGIC INTEGRITY v3.24 (GENERIC)
+- **Author:** Scott M.
+- **Version:** v3.25 (Generic Master)
+- **Last Updated:** 2026-03-03
+- **Changelog:** - v3.25: Initial generic release.
+    - v3.24: Integrated God Mode and Oceangate logic.
+    - v3.23: Added GitHub Source Retrieval logic.
+    - v3.22: Refined Cover Letter signature and ATS-friendly headers.
 
-### USER VARIABLES (Define Before Running)
-- **NAME & CREDENTIALS:** [Full Name, Certifications]
-- **TARGET ROLE:** [Job Title]
-- **SOURCE FILE:** [Filename.markdown]
-- **SOURCE URL:** [Link to GitHub/Dropbox/Drive if file is not attached]
+---
+
+## QUICK START GUIDE (HOW TO USE THIS PROMPT)
+1. **Fill Variables:** Replace the brackets in the "USER VARIABLES" section below.
+2. **Attach File:** Upload your Skills Summary markdown file.
+3. **Paste Job Posting:** Paste the target Job Description into the chat along with this prompt.
+4. **Execute:** The AI will perform a Strategic Audit first, then generate the tailored resume and cover letter.
+
+---
+
+## USER VARIABLES (REQUIRED)
+- **NAME & CREDENTIALS:** [Example: Scott Malin, CISSP]
+- **TARGET ROLE:** [Example: Network Security Engineer]
+- **SOURCE FILE:** [Example: Scott_Malin_Skills_Summary.markdown]
+- **SOURCE URL:** [Example: https://github.com/your-repo/your-file.markdown]
 
 ### IMPORTANT: SOURCE FILE RETRIEVAL
 The master data for this task is in [SOURCE FILE]. If this file is not attached to the current conversation, you must attempt to retrieve its contents from [SOURCE URL] before proceeding.
