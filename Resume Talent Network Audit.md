@@ -6,10 +6,14 @@
 - v1.0 (2025-02-16): Initial version
 - v1.1 (2026 tweaks): Added emphasis on prominent Skills section, quantifiable impact in bullets, minor job title searchability, and note on modern parsing favoring context.
 - v1.2 (2026 refinements): Added acronym handling check (spell out uncommon/obscure ones first time; common ones like DNS/URL can stand alone) to boost parsing/keyword coverage without overkill.
+
 **How to use:**
 Paste the prompt below into your AI, then paste your resume text right after it. Works best with plain text, not PDF uploads.
+
 **Note:** AI can make mistakes on spelling/grammar and may suggest overly conservative changes. Use your judgment, especially on industry-specific terms, job titles, and acronyms.
+
 ---
+
 PROMPT:
 You are a resume reviewer. Audit the resume below for a talent network upload.
 Check everything in this list and give me specific fixes, not general advice.
