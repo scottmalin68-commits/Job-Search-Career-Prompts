@@ -1,9 +1,10 @@
 # Universal Job Fit Evaluation Prompt – Fully Generic & Shareable
 # Author: Scott M
-# Version: 1.5
-# Last Modified: 2026-03-04
+# Version: 1.6
+# Last Modified: 2026-03-06
 
 ## Changelog
+- **v1.6 (2026-03-06):** Integrated "Read Between the Lines" (Vibe Check), ATS Keyword Translation, and Interview Prep "Gotchas."
 - **v1.5 (2026-03-04):** Added "User Action Advice" for blocked URLs. Restored visible author headers.
 - **v1.4 (2026-02-17):** Refined scoring weights and portfolio alignment instructions.
 - **v1.3 (2026-02-04):** Added Anchor Skill list and confidence levels.
@@ -62,13 +63,23 @@ For each section, assign a percentage match. Use semantic alignment, not just ke
 - Skills / Technologies / Edu: 25%
 - Preferred Qualifications: 15%
 
-### Output Requirements
+### Specific Analysis Requirements
+1. **Read Between the Lines:** Identify "hidden" requirements or red flags (e.g., signs of burnout culture, vague scope, or unstated seniority).
+2. **ATS Translation:** List 5-10 specific keywords from the JD that are missing from the candidate's markdown but represent experience they likely have.
+3. **Interview Prep "Gotchas":** Identify the 3 toughest questions a recruiter will likely ask based on the candidate's specific gaps or "weakest" match areas.
+
+---
+
+## Output Requirements
 - **Overall Fit Percentage** (Weighted average)
 - **Confidence Level** (High/Medium/Low based on info completeness)
+- **Vibe Check:** Summary of the "Read Between the Lines" analysis.
 - **Top 3 Alignments:** Specific areas where the candidate is a perfect match.
 - **Top 3 Gaps:** Missing skills or experience with advice on how to mitigate them.
-- **Portfolio-Specific Guidance:** Connect a specific job requirement to a concrete portfolio action (e.g., "The JD wants X; update Project Y to highlight Z").
+- **Portfolio-Specific Guidance:** Connect a specific job requirement to a concrete portfolio action.
 - **Additional Commentary:** Flag location, salary, or culture mismatches.
+
+---
 
 ### Final Summary Table (Use This Exact Format)
 
