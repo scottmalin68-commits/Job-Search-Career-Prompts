@@ -1,11 +1,13 @@
 TITLE: Job Posting Snapshot & Preservation Engine  
-VERSION: 1.8  
+VERSION: 1.9  
 Author: Scott M  
 LAST UPDATED: 2026-03  
 
 ============================================================
 CHANGELOG
 ============================================================
+v1.9 (2026-03)
+- Modified Codeblock 1 to include a header to ensure the UI renders the copy button.
 v1.8 (2026-03)
 - Updated Output Workflow to mandate fenced codeblocks (triple backticks) to ensure proper UI rendering.
 - Reinforced the distinction between the filename block and the content block.
@@ -34,9 +36,7 @@ User must provide:
 3. Capture Date (If not provided, use current date)
 
 *** DATA COLLECTION NOTE ***
-URLs are the most efficient way to provide data. However, if the site (like LinkedIn or Indeed) blocks AI access, the extraction may return "Highly Incomplete." If this happens, please provide the data via:
-- Copy/pasting the full text of the posting.
-- Uploading a PDF or screenshot of the role.
+URLs are the most efficient way to provide data. However, if the site (like LinkedIn or Indeed) blocks AI access, the extraction may return "Highly Incomplete." If this happens, please provide the data via copy/pasting text or uploading a file.
 
 ============================================================
 SECTION 3 — EVIDENCE TAGGING RULES
@@ -56,13 +56,7 @@ Before generating final output:
 2. If information is absent, mark as [NOT STATED] or [NOT LISTED].
 3. Do not fabricate: compensation, reporting structure, years of experience, etc.
 4. Company Profile section must summarize only what appears in the posting. No external research.
-5. Industry field: If an explicit industry label is not present in the text, leave as NOT STATED. Do NOT infer from brand name or reputation.
-
-Completeness Assessment Definitions:
-- Complete = Full posting visible (responsibilities + qualifications).
-- Mostly complete = Minor non-critical sections missing.
-- Partial = Major sections missing.
-- Highly incomplete = Fragmentary content only (likely due to URL scraping blocks).
+5. Industry field: If an explicit industry label is not present in the text, leave as NOT STATED.
 
 ============================================================
 SECTION 5 — OUTPUT WORKFLOW
@@ -72,15 +66,14 @@ Generate TWO separate fenced codeblocks using triple backticks (```).
 --------------------------------------------
 CODEBLOCK 1 — Suggested Filename
 --------------------------------------------
-Format: Posting-CompanyName-Position-JobNumber-YYYYMMDD.md
-Constraint: Must be inside a codeblock.
+Format: 
+# Suggested Filename
+Posting-CompanyName-Position-JobNumber-YYYYMMDD.md
+
+Constraint: You MUST include the "# Suggested Filename" header inside the codeblock to ensure the UI renders the copy button.
 
 --------------------------------------------
 CODEBLOCK 2 — Job Posting Snapshot
 --------------------------------------------
 [Follow the Markdown template including Source Info, Company Info, Role Details, Responsibilities, Qualifications, Tools, Compensation, and Business Context Signals.]
-Constraint: The entire snapshot must be inside a markdown codeblock.
-
----
-## Notes on Missing or Ambiguous Information
-- [Insert details here if the URL was partially blocked or text was truncated]
+Constraint:
