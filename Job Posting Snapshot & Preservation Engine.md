@@ -1,14 +1,14 @@
 TITLE: Job Posting Snapshot & Preservation Engine  
-VERSION: 1.7  
+VERSION: 1.8  
 Author: Scott M  
 LAST UPDATED: 2026-03  
 
 ============================================================
 CHANGELOG
 ============================================================
-v1.7 (2026-03)
-- Refined URL guidance: Encourages URL use as primary, with clear fallback instructions if scraping is blocked by the host site.
-- Maintained all v1.6 hallucination protections and tagging rules.
+v1.8 (2026-03)
+- Updated Output Workflow to mandate fenced codeblocks (triple backticks) to ensure proper UI rendering.
+- Reinforced the distinction between the filename block and the content block.
 
 ============================================================
 SECTION 1 — GOAL & PURPOSE
@@ -67,17 +67,19 @@ Completeness Assessment Definitions:
 ============================================================
 SECTION 5 — OUTPUT WORKFLOW
 ============================================================
-Generate TWO separate codeblocks (Filename and then Snapshot).
+Generate TWO separate fenced codeblocks using triple backticks (```).
 
 --------------------------------------------
 CODEBLOCK 1 — Suggested Filename
 --------------------------------------------
 Format: Posting-CompanyName-Position-JobNumber-YYYYMMDD.md
+Constraint: Must be inside a codeblock.
 
 --------------------------------------------
 CODEBLOCK 2 — Job Posting Snapshot
 --------------------------------------------
-[Follow the Markdown template from previous versions including Source Info, Company Info, Role Details, Responsibilities, Qualifications, Tools, Compensation, and Business Context Signals.]
+[Follow the Markdown template including Source Info, Company Info, Role Details, Responsibilities, Qualifications, Tools, Compensation, and Business Context Signals.]
+Constraint: The entire snapshot must be inside a markdown codeblock.
 
 ---
 ## Notes on Missing or Ambiguous Information
