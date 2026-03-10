@@ -8,6 +8,10 @@
 # get direct eyes on your value.
 # ============================================================
 
+<div align="center">
+  <img src="images/Hiring%20manager%20response%20decoder.png" alt="Hiring Manager Response Decoder Table" width="80%">
+</div>
+
 PURPOSE
 ------------------------------------------------------------
 This guide explains how to use the Targeted Job Application &
