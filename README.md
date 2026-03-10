@@ -6,7 +6,7 @@
 <h3 align="center">By Scott Malin — Cybersecurity & Automation Architect</h3>
 
 <p align="center">
-A curated collection of AI‑powered prompts designed to accelerate job searches, strengthen professional branding, and support career transitions with clarity and confidence.
+A curated, security-minded collection of AI-powered prompts that help professionals build accurate, consistent, and high-impact career materials — turning structured thinking into real-world wins.
 </p>
 
 <p align="center">
@@ -18,158 +18,136 @@ A curated collection of AI‑powered prompts designed to accelerate job searches
 
 ---
 
-# ⭐ Featured Prompt
+### Integrity & Security-First Philosophy
 
-### **The Total Resume Architect.md**  
-Comprehensive, integrity-first prompt that builds or rebuilds an entire resume from raw career data — structured, ATS-friendly, story-driven, and recruiter-optimized without exaggeration.
+As a cybersecurity architect, I approach career materials the same way I approach systems: **governance-grade accuracy, zero tolerance for fabrication, and proactive risk detection**.
+
+- **No hallucinations or exaggeration** — every prompt enforces a "single source of truth" built from your verified experience.
+- **Creative yet disciplined automation** — custom workflows, pressure-tested interview sims, dead-post recovery, and deep intel engines turn scattered data into defensible narratives.
+- **Security mindset in action** — red-flag analyzers for postings, response decoders for vague feedback, and integrity checks mirror defensive engineering principles.
+- **Outcome focused** — these tools have helped surface real impact, reframe senior value, survive high-pressure interviews, and land roles by staying 100% authentic.
+
+This isn't about gaming recruiters — it's about building a **personal career OS** that scales reliably and reflects true capability.
 
 ---
 
-# 🚀 Career Data Workflow (High‑Value Prompt Sequence)
+# ⭐ Featured Prompt
+
+### **The Total Resume Architect.md**  
+An integrity-first, comprehensive builder that reconstructs or refines your entire resume from raw career data — ATS-optimized, story-driven, metric-heavy, and recruiter-resonant without a single fabricated claim.
+
+---
+
+# 🚀 Core Career Data Workflow
 
 <p align="center">
   <img src="Workflow.png" width="85%" alt="Career Data Workflow Banner">
 </p>
 
-This repository includes a powerful three‑step workflow designed to help job seekers — and working professionals — **capture, structure, and enhance** their career accomplishments with precision.
+A repeatable, three-step system to capture, govern, and amplify accomplishments — solving the #1 cause of inconsistent AI-assisted job materials: incomplete or untrusted personal data.
 
-This workflow solves a major problem:  
-**AI hallucinations and inconsistent job‑search materials caused by scattered or incomplete personal data.**
+1. **Career Interview Data Collector** → Structured capture of responsibilities, wins, metrics, tools, leadership, STAR stories.  
+2. **Master Skills & Experience Summary Generator** → Authoritative Markdown "single source of truth" — hallucination-resistant foundation for all outputs.  
+3. **Career Data Enhancer** → Surface overlooked achievements, sharpen phrasing, tailor to roles — all while preserving accuracy.
 
-## 1️⃣ Career Interview Data Collector  
-Collects structured, high‑signal information about your experience, achievements, responsibilities, and impact.  
-
-## 2️⃣ Master Skills & Experience Summary Generator  
-Produces a **clean, authoritative Markdown summary** — your “single source of truth” for all job-search materials.
-
-## 3️⃣ Career Data Enhancer  
-Expands, clarifies, strengthens phrasing, surfaces overlooked wins, and tailors content.
-
-### Why This Workflow Matters  
-- Governance-grade personal data pipeline  
-- Hallucination-resistant consistency  
-- Tracks accomplishments year-round  
-- Reduces stress during rewrites, reviews, pivots
+**Why this matters in cybersecurity & tech**: Just like maintaining a clean asset inventory or audit trail, this creates defensible, consistent career evidence you can trust under scrutiny.
 
 ---
 
-# ⚡ Quick‑Start Guide: How to Use This Repo
+# ⚡ Quick-Start Guide: Core Toolkit (80/20 Value)
 
-1. **Collect Raw Career Data** → Career Interview Data Collector  
-2. **Generate Authoritative Summary** → Master Skills & Experience Summary Generator  
-3. **Enhance & Expand** → Career Data Enhancer  
-4. **Apply Across Materials** → Resumes, cover letters, LinkedIn, interviews, negotiations  
-5. **Repeat Anytime** → Job search, performance reviews, promotions, pivots
+Focus here first — most impact comes from these 6–8 prompts:
 
----
+1. Collect → **Career Interview Data Collector**  
+2. Govern → **Master Skills & Experience Summary Generator**  
+3. Strengthen → **Career Data Enhancer**  
+4. Build → **The Total Resume Architect** or **Strategic Integrity Resume Engine**  
+5. Analyze → **Job posting red flag analyzer** + **Company Technical Intelligence Engine**  
+6. Prepare → **Interview Confidence & Fit Prompt** or **Proactive Interview Mastery Coach**  
+7. Decode → **Hiring manager response decoder** (new!)  
+8. Negotiate → **Safe Offer Negotiation Assistant** (new!)
 
-# 📘 Overview
-
-Structured, high-signal prompts to:
-
-- Build strong, authentic application materials  
-- Prepare confidently for interviews  
-- Analyze postings and companies deeply  
-- Strengthen branding on LinkedIn  
-- Navigate transitions and negotiations  
-- Maintain an authoritative accomplishment record
+The rest of the library contains specialized tools for deeper needs (e.g., voice sims, dead-post recovery, senior positioning).
 
 ---
 
 # 📁 Repository Structure & Goals
 
 ## 🧭 Career Discovery & Positioning
-- **Master Skills & Experience Summary Generator.md** — Core single source of truth  
-- **Role-Based Market Skill Expansion Advisor.md** — Identify competitive skill gaps  
-- **Career Profile Discovery Engine.md** — Uncover hidden themes & narrative angles  
-- **Senior Positioning & Credibility Engine.md** — Articulate executive value  
-- **Overqualification Narrative Architect.md** — Reframe overqualification as advantage  
+- **Master Skills & Experience Summary Generator.md**  
+- **Role-Based Market Skill Expansion Advisor.md**  
+- **Career Profile Discovery Engine.md**  
+- **Senior Positioning & Credibility Engine.md**  
+- **Overqualification Narrative Architect.md**
 
 ## 📝 Application Materials & Branding
-- **The Total Resume Architect.md** *(new highlight)* — Full resume build/rebuild with integrity  
-- **Strategic Integrity Resume Engine.md** — High-integrity resume generation  
-- **Technical Career Architect.md** — Technical-role resume & story builder  
-- **The Human-Centric Resume Auditor & Storyteller.md** — Transform bullets into authentic stories  
-- **Resume Customization Prompt – STRATEGIC INTEGRITY.md** — Tailor without fabrication  
-- **Resume Redline 4.1 Prompt.md** — Line-by-line critique & redlines  
-- **Talent Portal Resume Optimization Engine.md** — ATS/talent portal optimization  
-- **Quick Resume Scan Simulation.md** — 7–10 second recruiter/ATS simulation  
-- **Proof-of-Work Extractor – 3 Bullet Generator.md** — Condense impact into 3 powerful bullets  
-- **JSON → Canonical Markdown Profile Generator.md** — Structured data → clean Markdown  
-- **Cover Letter Quality Reviewer – Green Flag Edition.md** — Strengths-focused review  
-- **Job-Application Tracker Template.md** — Structured tracking system  
+- **The Total Resume Architect.md** (featured)  
+- **Strategic Integrity Resume Engine.md**  
+- **Technical Career Architect.md**  
+- **The Human-Centric Resume Auditor & Storyteller.md**  
+- **Resume Customization Prompt – STRATEGIC INTEGRITY.md**  
+- **Resume Redline 4.1 Prompt.md**  
+- **Talent Portal Resume Optimization Engine.md** / **ATS Resume Scanner Simulator.md**  
+- **Quick Resume Scan Simulation.md**  
+- **Proof-of-Work Extractor – 3 Bullet Generator.md** / **First-Pass Impact Optimizer.md**  
+- **JSON → Canonical Markdown Profile Generator.md**
 
-## 🔍 Job Search Tools & Analysis
-- **Customizable Job Scanner.md** — Keyword & requirement extraction  
-- **Job posting red flag analyzer.md** *(new highlight)* — Surface hidden risks in postings  
-- **Job Posting Snapshot & Preservation Engine.md** — Timestamped, offline-safe capture  
-- **Job Posting Snapshot - Usage Examples.md** — Real-world usage patterns  
-- **Dead Job Posting Recovery Engine.md** — Reconstruct expired postings  
-- **Company Technical Intelligence Engine.md** + **Company Technical Intelligence Engine – Query Prompt Guide.md** *(new highlight)* — Deep tech stack, culture & interview intel  
-- **CreateNewPostingFile.ps1** — Automate timestamped snapshot files  
+## 🔍 Job Search & Risk Analysis
+- **Customizable Job Scanner.md**  
+- **Job posting red flag analyzer.md** (new — spot hidden risks early)  
+- **Job Posting Snapshot & Preservation Engine.md** + **Usage Examples.md** + **CreateNewPostingFile.ps1**  
+- **Dead Job Posting Recovery Engine.md** (creative recovery of vanished intel)  
+- **Company Technical Intelligence Engine.md** + **Query Prompt Guide.md**
 
-## 🎤 Interview Preparation
-- **Interview Confidence & Fit Prompt.md** *(new highlight)* — Build confidence & articulate fit  
-- **Proactive Interview Mastery Coach.md** — Guided, ongoing interview coaching  
-- **INTERVIEW PRESSURE SIMULATOR.md** — High-pressure scenario practice  
-- **TECHNICAL INTERVIEW PRESSURE SIMULATOR.md** — Technical stress testing  
-- **Behavioral Interview Story Distillation Engine.md** — Refine STAR stories  
-- **Interview Intelligence Engine.md** — Company-specific question prediction  
-- **Pre-Interview Intelligence Dossier.md** — Targeted research package  
-- **Hiring manager response decoder.md** + **Hiring manager response decoder - guide.md** *(new highlight)* — Decode vague or coded feedback/responses  
-- **AI Voice Interview Suite** (ChatGPT / Gemini / Grok variants + UsageNotes) — Realistic spoken practice  
+## 🎤 Interview Preparation & Resilience
+- **Interview Confidence & Fit Prompt.md**  
+- **Proactive Interview Mastery Coach.md**  
+- **INTERVIEW PRESSURE SIMULATOR.md** / **TECHNICAL INTERVIEW PRESSURE SIMULATOR.md**  
+- **Behavioral Interview Story Distillation Engine.md**  
+- **Interview Intelligence Engine.md** / **Pre-Interview Intelligence Dossier.md**  
+- **Hiring manager response decoder.md** + **guide.md** (decode vague/coded replies)  
+- **AI Voice Interview Suite** (ChatGPT / Gemini / Grok variants + UsageNotes)
 
-## 🧩 Career Data Enhancement
-- **Career Data Enhancer.md** — Expand & strengthen your master summary  
+## 🧩 Data Governance & Enhancement
+- **Career Data Enhancer.md**  
+- **Master_Summary_Maintenance_Engine.md** (ongoing accuracy upkeep)
 
-## 🔗 LinkedIn Optimization & Branding
-- **LinkedIn Profile Analyzer.md**  
-- **LinkedIn Profile Imitation Analyzer.md**  
-- **LinkedIn Profile Positioning Interview.md**  
-- **LinkedIn Summary Crafting Prompt.md**  
+## 🔗 LinkedIn & Networking
+- **LinkedIn Profile Analyzer.md** / **Positioning Interview.md** / **Summary Crafting Prompt.md**  
 - **LinkedIn ↔ Resume Conflict Checker.md**  
-- **LinkedIn Connection Request Note Generator.md**  
-- **Mentor Recommendation Outreach Generator.md**  
+- **LinkedIn Connection Request Note Generator.md** / **Mentor Recommendation Outreach Generator.md**  
+- **Contacts Collector.md** / **Reference Auditor & Formatter.md**
 
-## 🤝 Networking & Contact Management
-- **Contacts Collector.md**  
-- **Reference Auditor & Formatter.md**  
+## 💼 Negotiation & Closing
+- **Safe Offer Negotiation Assistant.md** (new — professional, low-risk scripting)
 
-## 💼 Negotiation & Offer Management
-- **Safe Offer Negotiation Assistant.md**  
-
-## 🎯 Quick Branding & Pitch Tools
-- **Elevator Pitch Generator.md** — 30–60 second tailored pitches  
-
-## 📄 Repo Files
-- **LICENSE**  
-- **README.md** (this file)
+## 🎯 Quick Branding
+- **Elevator Pitch Generator.md**
 
 ---
 
 # 🕒 Version History / Changelog
 
-### **v2.0 — March 2026** *(latest)*
-- Major prompt additions & highlights: The Total Resume Architect, Company Technical Intelligence Engine, Hiring Manager Response Decoder, Job Posting Red Flag Analyzer, Interview Confidence & Fit Prompt  
-- Expanded Interview Preparation, Job Search Tools, and Application Materials sections  
-- Added new prompts: Strategic Integrity Resume Engine, Technical Career Architect, Proactive Interview Mastery Coach, First-Pass Impact Optimizer  
-- Updated badge dates, featured prompt, and cross-references  
+### **v2.0 — March 2026** (latest)
+- Added **Integrity & Security-First Philosophy** section to highlight cybersecurity-rooted approach
+- Promoted **Core Toolkit** for focused usage
+- Featured **The Total Resume Architect**
+- Integrated March 2026 additions: Hiring manager response decoder, Job posting red flag analyzer, Safe Offer Negotiation Assistant, Resume Redline 4.1, Technical Career Architect, First-Pass Impact Optimizer, etc.
+- Refreshed wording to emphasize creative systems-building + security mindset = hiring success
+- Last Updated: 2026-03-10
 
 ### **v1.9 — March 2026**
-- (previous content as in original — expanded structure, added Behavioral/Voice/Intelligence/Dead Job/Overqualification tools, etc.)
+- (previous expansions — behavioral/voice/intel tools, etc.)
 
-(earlier versions omitted — see commit history)
+(earlier versions in commit history)
 
 ---
 
-# 🔗 Cross‑Repo Navigation
-
-- 🛡️ **Cybersecurity Prompts** → https://github.com/scottmalin68-commits/Cybersecurity-Prompts  
-- 🧰 **PowerShell Security & Automation Toolkit** → https://github.com/scottmalin68-commits/Powershell_Scripts  
-- 🧩 **Misc AI Prompt Library** → https://github.com/scottmalin68-commits/Misc-AI-Prompts  
-- 🎮 **Cybersecurity Learning Prompts** → https://github.com/scottmalin68-commits/Cybersecurity-Learning-Prompts  
-- ☁️ **Azure‑Related Prompts** → https://github.com/scottmalin68-commits/Azure-Related-Prompts  
-- 🧭 **GitHub Profile** → https://github.com/scottmalin68-commits  
+# 🔗 Cross-Repo Navigation
+- 🛡️ Cybersecurity Prompts → https://github.com/scottmalin68-commits/Cybersecurity-Prompts  
+- 🧰 PowerShell Security & Automation → https://github.com/scottmalin68-commits/Powershell_Scripts  
+- 🎮 Cybersecurity Learning Prompts → https://github.com/scottmalin68-commits/Cybersecurity-Learning-Prompts  
+- 🧭 GitHub Profile → https://github.com/scottmalin68-commits  
 
 ---
 
