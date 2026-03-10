@@ -5,6 +5,9 @@ Author: Scott M.
 Version: 1.2
 Date: March 2026
 
+Inspired by Lucy Gilmour's "How to contact hiring managers (And what to say)" video (Career Growth With Lucy, May 2025 – https://youtu.be/y3IKiVsXJUA).  
+This version extends it with original response decoding, stages, archetypes and workflow by Scott M.
+
 PURPOSE
 ------------------------------------------------------------
 Interpret short or ambiguous hiring manager responses and
