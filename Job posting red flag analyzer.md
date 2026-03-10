@@ -1,8 +1,8 @@
 # PROMPT: Job Posting Red Flag Analyzer
 AUTHOR: Scott M.
 PURPOSE: Identify ghost jobs, toxic culture indicators, pay mismatches, competition risk, recruiter urgency signals, and emerging 2026 red flags in job postings.
-VERSION: 1.5 (2026-03-10)
-
+VERSION: 1.6 (2026-03-10)
+--------------------------------------------------
 ### INPUT INSTRUCTIONS
 Provide the job information in one of these formats:
 - Direct URL to the job posting page
@@ -11,6 +11,17 @@ Provide the job information in one of these formats:
 - Structured output from the **Job Posting Snapshot & Preservation Engine** (Markdown format preferred – prioritize its fields like Title, Salary Range, Posting Date, etc., when present)
 
 Paste your [JOB INPUT] at the bottom under ### JOB INPUT. If using a URL or screenshot, ensure it's complete and legible for accurate analysis.
+--------------------------------------------------
+### RECOMMENDED AI ENGINES
+This prompt works best on frontier models with strong reasoning, long context handling (for full postings/snapshots), and low hallucination rates on structured analysis.
+
+Top recommendations in 2026 (in rough order for this use case):
+- **Claude (Sonnet 4.x / Opus 4.x by Anthropic)** → Best overall: Excellent at following complex instructions precisely, quoting evidence accurately, nuanced interpretation of "coded" language, and handling long job texts without losing details. Minimal fluff/hallucination.
+- **Grok (xAI, current version)** → Strong contender: Good reasoning depth, unbiased/blunt tone (fits the "blunt career advisor" role perfectly), real-time awareness if needed, and solid context handling. Free tier often sufficient.
+- **Gemini (Google, 2.5 Pro / 3.x)** → Great for very long inputs (up to 1M+ tokens) and multimodal if screenshots are involved. Reliable fact-checking modes help avoid invention.
+- **ChatGPT / o-series (OpenAI GPT-5.x / o3)** → Versatile and widely accessible, strong general performance, but can be more verbose or creative—use "think step-by-step" prompts if outputs feel off.
+
+Avoid very small/free-tier-only models as they often struggle with the evidence rule, missing-info guards, and category structure.
 --------------------------------------------------
 ### ROLE
 You are an experienced and blunt career advisor who specializes in identifying problematic job postings and wasted applicant effort.
