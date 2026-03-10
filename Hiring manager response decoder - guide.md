@@ -1,142 +1,87 @@
-============================================================
-TARGETED JOB APPLICATION & HIRING MANAGER OUTREACH SYSTEM
-Operations Manual – Draft v1.0
-Author: Scott M.
-Date: March 2026
-============================================================
+# ============================================================
+# SYSTEM OPS MANUAL: TARGETED OUTREACH (v1.6)
+# ============================================================
+# Author: Scott M.
+# Date: March 2026
+#
+# system goal: stop applying to "black holes."
+# get direct eyes on your value.
+# ============================================================
 
 PURPOSE
 ------------------------------------------------------------
-This guide explains how to use the Targeted Job Application & 
+This guide explains how to use the Targeted Job Application &
 Hiring Manager Outreach System to:
+- Find the "fire": Identify the real problems a company is hiring to fix.
+- Speak the language: Align your history with their specific needs.
+- Bypass the portal: Get a direct "yes" or "no" from decision-makers.
+- Decode the signal: Turn ambiguous manager replies into clear next steps.
 
-- Analyze job postings and identify hidden priorities
-- Align your resume and messaging for maximum impact
-- Discover and reach the actual hiring manager
-- Generate concise, high-value outreach messages
-- Interpret hiring manager responses and optimize follow-up
-
-The system is designed to reduce reliance on generic applications
-and increase meaningful engagement with decision-makers.
-
-============================================================
-OPERATING MODES
+THE 3 CORE MODES
 ------------------------------------------------------------
-1. **Outbound Strategy (Job Targeting)** – Use when first 
-   reviewing a job posting to create search strings, identify 
-   managers, and generate initial outreach.
+1. 📡 HUNT (Outbound): find the manager and land the first message.
+2. 🛠️ TUNE (Message QA): strip the "AI-smell" and fluff from your drafts.
+3. 🧠 DECODE (Response): translate manager "speak" into your next move.
 
-2. **Message QA (Outreach Optimization)** – Use when refining 
-   drafts of emails or LinkedIn messages.
-
-3. **Response Analysis (Conversation Intelligence)** – Use when 
-   a hiring manager replies to your outreach. Classifies response 
-   type, interprets psychology, and suggests next steps.
-
-============================================================
-STAGE-BY-STAGE INSTRUCTIONS
+THE STAGES
 ------------------------------------------------------------
+STAGES 1 & 2 – JOB INTEL & STRATEGIC AUDIT
+- Find the "fire." What is broken that they are willing to pay you to fix?
+- Identify the "hero" metric: pick one win from your past that proves you can fix it.
+- Avoid the 99% trap: if every other applicant is "passionate," don't say it.
+- Be the expert, not the fan.
 
-**Stage 1 – Job Posting Intelligence**
-- Extract company, role, team, tech stack, and culture clues.
-- Identify operational pain points and strategic priorities.
-- Highlight language that signals leadership expectations or
-  collaboration requirements.
+STAGE 3 – RESUME & MESSAGE ALIGNMENT
+- The mirror test: use their specific tech names and verbs.
+- If they say "mitigate," don't say "prevent."
+- The "so-what?" filter: every bullet must answer: "how did this save time or money?"
 
-**Stage 2 – Strategic Audit**
-- Determine the real problem the role solves.
-- Identify unspoken needs of the hiring manager.
-- Avoid the “99% trap”: clichés other applicants will use.
-- Strip fluff and AI-gloss from messaging.
-- Highlight the one hero accomplishment metric.
+STAGES 4, 5 & 6 – THE STRIKE (OUTREACH)
+- Pre-strike warm-up (optional but +10–20% reply boost): View profile, genuinely like/comment on 1 recent post 1–3 days prior.
+- The golden rule: 100–120 words max (ideally <100 for LinkedIn DMs). 1 hyper-relevant accomplishment. 1 easy yes/no question.
+- The "soft ask": don't ask for a job. Ask for "perspective," "quick thoughts," or "if it makes sense to chat."
+- LinkedIn vs. Email: keep LinkedIn human-first. No resume dumping in a DM. Customize email subject (e.g., "Quick question on [specific challenge]").
 
-**Stage 3 – Resume Alignment**
-- Adjust bullet points to emphasize measurable wins.
-- Mirror vocabulary from posting for subconscious alignment.
-- Apply So-What test and agency verbs.
-- Ensure readability and skimmability (1–2 lines per bullet).
+STAGE 7 – THE DECODER (RESPONSE ANALYSIS)
+- Purpose: when they reply, don't guess what they mean. Paste it here.
+- The logic: classifies the reply (e.g., "portal redirect" or "budget freeze").
+- The output: gives you a word-for-word response to keep the door open.
+- Requires: Response Decoder Table v1.2 (or later).
 
-**Stage 4 – Hiring Manager Identification**
-- Generate likely manager titles.
-- Suggest LinkedIn search strings.
-- Suggest email address patterns when possible.
+STAGE 8 – FOLLOW-UP & PIPELINE TRACKING     [added v1.6]
+- Track every outreach in a simple sheet: date sent, response type, next action date.
+- One follow-up only on silence (7–10 days): always add new value (e.g., relevant article, insight, or mini-proof point tied to their work).
+- Example nudge: "Saw [recent company news/post]—reminded me of how I [1-sentence proof]. Still interested if helpful."
 
-**Stage 5 – Outreach Message Generation**
-- Draft concise email (~120 words max).
-- Include one measurable accomplishment.
-- Align with manager pain point.
-- End with low-pressure soft ask.
+STAGE 9 – ADVANCED ARCHETYPES
+- Builder: Wants to know you can create from zero.
+- Firefighter: Wants to know you can handle chaos without panicking.
+- Scaler: Wants to know you can make things 10x bigger or faster.
 
-**Stage 6 – LinkedIn Connection Message**
-- Short 2–3 sentence version of email.
-- Reference role and interest.
-- Avoid resume dumps; keep human-first tone.
-
-**Stage 7 – Hiring Manager Response Decoder Layer**
-- Paste incoming response to classify type (Portal Redirect,
-  Budget Freeze, Ghost, etc.).
-- Infer manager intent and psychology.
-- Identify subtle signals (interest, risk, timing).
-- Recommend next-step response with example phrasing.
-- Reference Response Decoder Table v1.2 for guidance.
-
-**Stage 8 – Follow-Up Strategy**
-- Determine follow-up timing and sequence.
-- Generate polite follow-up drafts.
-- Reinforce unique value / alignment.
-- Track conversation momentum (high, medium, low).
-
-**Stage 9 – Optional Advanced Analysis**
-- Detect patterns across multiple responses.
-- Anticipate internal competition or timing shifts.
-- Refine message tone based on manager archetype 
-  (Builder / Scaler / Stabilizer / Firefighter).
-
-============================================================
-RESPONSE DECODER TABLE INTEGRATION
+🛑 THE "NEVER" LIST
 ------------------------------------------------------------
-- Reference v1.2 table for all known response types.
-- Use recommended strategies and phrasing examples.
-- Apply insights to maintain engagement without over-following.
-- Example types: Referral Pivot, Portal Redirect, Ghost,
-  Over-Qualified Signal, Budget Freeze, Auto-Reply, etc.
+- NEVER use words like "passionate," "harness," "unleash," or "excited."
+- NEVER send a message without one measurable proof point.
+- NEVER treat an auto-reply as a rejection—it’s just a timing delay.
+- NEVER let the AI talk for you—always do a "human pass" to stay authentic.
+- NEVER attach resume in first DM/email (send only if asked).
+- NEVER send more than one follow-up on silence (risks annoyance/flag).
 
-============================================================
-BEST PRACTICES
+⚡ QUICK START WORKFLOW
 ------------------------------------------------------------
-- Keep outreach messages concise and targeted.
-- Always include one measurable proof point.
-- Mirror key vocabulary subtly from job posting.
-- Focus on manager’s problem, not just your resume.
-- Maintain polite professionalism in all follow-ups.
-- Avoid generic words like “passionate” or “excited.”
+1. [ ] LOAD: paste the job post + your resume.
+2. [ ] IDENTIFY: get the hiring manager's name/title (Stage 4).
+3. [ ] WARM (optional): view profile + engage 1 post genuinely.
+4. [ ] STRIKE: send the custom outreach (Stage 5/6).
+5. [ ] WAIT: if silence >7–10 days, send one value-add nudge.
+6. [ ] DECODE: got a reply? paste it → use Decoder Table → plan next move.
+7. [ ] TRACK: log in sheet (date, response type, next action).
 
-============================================================
-COMMON MISTAKES
-------------------------------------------------------------
-- Sending outreach without customization.
-- Ignoring Strategic Audit results.
-- Overwriting messaging with resume bullets.
-- Following up too aggressively or too often.
-- Treating AI suggestions as absolute; always use judgment.
-
-============================================================
-QUICK START WORKFLOW
-------------------------------------------------------------
-1. Paste job posting + optional resume into system.
-2. Review Strategic Audit output for key pain points.
-3. Use Hiring Manager Identification to find decision-maker.
-4. Generate and send outreach email or LinkedIn message.
-5. Paste any incoming response into Response Decoder.
-6. Review recommended next step and example phrasing.
-7. Follow-up according to system guidance.
-
-============================================================
 NOTES
 ------------------------------------------------------------
-- Each stage is modular; can be executed independently.
-- Stage 7 (Response Decoder) is only active once a manager responds.
-- Outputs include email drafts, LinkedIn messages, resume alignment suggestions,
-  search strings, and follow-up guidance.
+- Each stage is modular. Skip to what you need.
+- Aim for 10–20 targeted outreaches/week vs. 100 generic. Quality > quantity.
 - Always validate AI recommendations with human judgment.
+- Pair with Response Decoder Table v1.2 (or later) for Stage 7.
+- v1.6 updates: tightened message length, added warm-up, follow-up nuance, new Stage 8 for tracking.
 ============================================================
