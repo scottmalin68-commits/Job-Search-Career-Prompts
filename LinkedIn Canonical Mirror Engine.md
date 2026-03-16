@@ -1,4 +1,4 @@
-# TITLE: LinkedIn Mirror (Forensic Extraction)
+# TITLE: LinkedIn Canonical Mirror Engine (Forensic Extraction)
 # VERSION: 1.4
 # AUTHOR: Scott M.
 # LAST UPDATED: 2026-03-15
