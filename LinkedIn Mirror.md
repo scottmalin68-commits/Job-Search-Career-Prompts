@@ -1,55 +1,60 @@
-TITLE: LinkedIn Profile Surgeon
-VERSION: 2.2 (NINJA EDITION)
-AUTHOR: Scott M.
-LAST UPDATED: 2026-03-15
+# TITLE: LinkedIn Mirror (Extraction & Structure)
+# VERSION: 1.2 (NINJA EDITION)
+# AUTHOR: Scott M.
+# LAST UPDATED: 2026-03-15
 ============================================================
 SUPPORTED AI ENGINES
 ============================================================
-1. Grok 4 (Best Voice) | 2. GPT-5 (Best Logic) | 3. Claude 3.5 (Best Rewrites)
+1. Gemini 1.5 Pro / Flash – Best for image processing & large skill dumps.
+2. GPT-4o – Strong OCR but can be picky with multiple attachments.
 ============================================================
 CHANGELOG
 ============================================================
-- v2.1 2026-03-15: 
-  - Added Logic Hook for Canonical Markdown Mirror input
-  - Added Social Proof Audit (Recommendations/Endorsements)
-  - Added Featured Section Artifact Strategy
-- v2.0 2026-03-14:
-  - Integrated Ninja Logic (De-risking/God Mode/V7.2 Formatting)
-- v1.3 2026-02-19: Initial structural parsing protections
+- v1.2 2026-03-15: Added Date Normalization, Continuity Rules, and Description Preservation.
+- v1.1 2026-03-15: Added Section Parsing and Multi-Role Handling.
 ============================================================
-SECTION 1 — THE INPUT
+SECTION 1 — THE GOAL
 ============================================================
-Confirm you have:
-1. SOURCE OF TRUTH: A resume or skills document.
-2. CURRENT STATE: Provided as screenshots OR a "Canonical Markdown Mirror". 
-   *Logic Hook:* If a Markdown Mirror is provided, prioritize it for data accuracy.
+Extract and structure messy LinkedIn data into a "Canonical Markdown Mirror." This is a data-capture mission. Maintain 100% fidelity to the original text.
 
 ============================================================
-SECTION 2 — THE NINJA AUDIT LOGIC
+SECTION 2 — EXTRACTION & CONTINUITY RULES
 ============================================================
-1. THE DE-RISKING AUDIT: Identify "Risk Profiles" (job-hopping, vague titles, AI-fluff).
-2. THE LANGUAGE MIRROR: Identify 3-5 high-value technical terms missing from the profile.
-3. THE SINKER: Move the #1 Resume metric to the Headline or "About" mobile hook.
-4. SOCIAL PROOF CHECK: Flag if Recommendations are >12 months old or misaligned.
+- SCREENSHOT CONTINUITY: Assume captures are sequential. Merge text seamlessly across breaks. Do not create duplicate profiles for repeated sections.
+- DESCRIPTION PRESERVATION: Preserve job descriptions EXACTLY as written. No summaries. No rewrites. Maintain all original bullet formatting.
+- DATE NORMALIZATION: Convert all dates to YYYY-MM. If only year is present, use YYYY.
+- SKILL EXTRACTION: Capture names only. Normalize capitalization. Remove duplicates. Note if a skill is "Endorsed" (Yes/No), but ignore counts and names of endorsers.
+- UI CLEANUP: Remove all "See more," "Connect," "Follow," ads, and suggestion boxes.
 
 ============================================================
-SECTION 3 — GOD MODE WRITING RULES
+SECTION 3 — EXPERIENCE & COMPANY OBJECTS
 ============================================================
-- THE 1:1 METRIC RULE: Every bullet MUST have a number ($ or %).
-- THE ACTIVE KILL-SWITCH: Ban "responsible for." Use "Orchestrated" or "Overhauled."
-- THE BEFORE TEST: Every line must prove you've already solved the problem.
-- EYE-TRACKING: **Bold the win**, not the task.
-- V7.2 FORMATTING: Use ( · ) bullets. All rewrites MUST be in a code block.
+- MULTI-ROLE HANDLING: If one company has multiple roles, nest them under a single Company Object in chronological order.
+- DEDUPLICATION: Verify that companies in Experience match those referenced elsewhere. Education institutions must appear only once.
 
 ============================================================
-SECTION 4 — THE OUTPUT STRUCTURE
+SECTION 4 — THE VACUUM CHECK
 ============================================================
-1. DIAGNOSIS: Overall Score (1-10) + Top 3 Hiring Risks.
-2. THE SURGERY: Code blocks for Headline, About (first 300 chars), and Experience.
-3. STREET CRED: 
-   - 3 Skills to endorse.
-   - Recommendation request script for a past role.
-   - "Featured" section artifact suggestion.
-4. CHECKLIST: 3-step guide to implement changes.
+If a section is not visible in the provided data:
+- Mark as: [SECTION NAME] - "status": "not_captured"
+- Explicitly prompt the user to capture this missing section.
+
+============================================================
+SECTION 5 — THE MIRROR STRUCTURE
+============================================================
+- # PROFILE MIRROR: [Name]
+- ## INTRO_CARD (Headline, Location)
+- ## ABOUT_SECTION (Exact text)
+- ## EXPERIENCE_SECTION (Nested company/roles)
+- ## SKILLS_CATALOG (Categorized: Technical, Tools, Soft)
+- ## EDUCATION & CERTS
+- ## PROJECTS & VOLUNTEER
+- ## VACUUM_REPORT (List of not_captured sections)
+
+============================================================
+SECTION 6 — OUTPUT RULES
+============================================================
+- Output in a single code block. No fluff. 
+- Use the middle dot ( · ) for bullets.
 ============================================================
 END OF PROMPT
