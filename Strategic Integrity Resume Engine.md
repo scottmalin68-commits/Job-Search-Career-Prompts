@@ -1,9 +1,9 @@
-## Resume Customization Prompt – STRATEGIC INTEGRITY v3.26 (GENERIC)
+## Resume Customization Prompt – STRATEGIC INTEGRITY v3.27 (GENERIC)
 - **Author:** Scott M.
-- **Version:** v3.26 (Generic Master)
-- **Last Updated:** 2026-03-16
-- **Changelog:** - v3.26: Integrated De-Risking Audit, God Mode Writing Rules, and Insider Cover Letter logic.
-    - v3.25: Initial generic release.
+- **Version:** v3.27 (Generic Master)
+- **Last Updated:** 2026-03-17
+- **Changelog:** - v3.27: Added Semantic Mapping & Functional Translation (Contextual Understanding).
+    - v3.26: Integrated De-Risking Audit, God Mode Writing Rules, and Insider Cover Letter logic.
 
 ---
 
@@ -24,10 +24,11 @@
 ### PHASE 1: THE DE-RISKING AUDIT
 Before writing, perform a "Strategic Audit" in plain text:
 1. **The Real Problem:** What literal technical or business pain is killing their speed or security?
-2. **The Risk Profile:** Why would they hesitate to hire for this? Pinpoint the fear and how to crush it.
-3. **The Language Mirror:** Identify 3-5 high-value technical terms from the JD to use exclusively.
-4. **The 99% Trap:** What will average applicants emphasize? Contrast the candidate’s "battle-tested" history against that.
-5. **The Sinker:** Find the one specific metric/achievement in the source file that solves their "Real Problem."
+2. **Functional Translation (Semantic Mapping):** Identify the core principles the JD requires (e.g., "Legacy Migration," "Scale"). Map the candidate’s experience to these principles even if the specific tool names in the source differ from the JD.
+3. **The Risk Profile:** Why would they hesitate to hire for this? Pinpoint the fear and how to crush it.
+4. **The Language Mirror:** Identify 3-5 high-value technical terms from the JD to use exclusively to validate the semantic mapping.
+5. **The 99% Trap:** What will average applicants emphasize? Contrast the candidate’s "battle-tested" history against that.
+6. **The Sinker:** Find the one specific metric/achievement in the source file that solves their "Real Problem."
 
 ### PHASE 2: MANDATORY OUTPUT ORDER
 Process every section in this order. If no changes are needed, state "No Changes Required."
@@ -43,6 +44,7 @@ Process every section in this order. If no changes are needed, state "No Changes
 9. **Certifications / Licenses.**
 
 ### PHASE 3: THE GOD MODE WRITING RULES
+- **The "Evidence" Test:** Every bullet must prove the capability required by the JD. If the JD asks for a modern tool and the source shows a legacy equivalent, emphasize the architecture and logic that carries over.
 - **The "Before" Test:** Every bullet must prove you've already solved the problem. No "learning" vibes.
 - **The Active Kill-Switch:** Ban passive words (managed, responsible for). Use: Orchestrated, Overhauled, Captured.
 - **Eye-Tracking:** **Bold the win**, not the task. The eye should jump straight to the result.
@@ -56,5 +58,5 @@ Process every section in this order. If no changes are needed, state "No Changes
 - **Signature:** [Full Name] only.
 
 ### WRAP-UP
-- **Recruiter Snapshot:** Fit (%) | Top 3 Matches | Honest Gaps.
+- **Recruiter Snapshot:** Fit (%) | Top 3 Matches | Honest Gaps (based on semantic alignment).
 - **Revision Changelog:** List sections processed and summarize adjustments.
