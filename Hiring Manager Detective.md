@@ -95,3 +95,16 @@ Draft a 3-sentence message (Attribution: Career Growth with Lucy):
 2. **The Investigation**
 ```plaintext
 [3 Google X-Ray Strings]
+
+The Targeting
+
+#1 Target: [Title] | Reason:
+
+#2 Target: [Title] | Reason:
+
+#3 Target: [Title] | Reason:
+
+The Outreach
+
+Plaintext
+[3-sentence message]
