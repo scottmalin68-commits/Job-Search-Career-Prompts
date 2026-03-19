@@ -1,10 +1,12 @@
 ## Job Posting Snapshot & Preservation Engine
-VERSION: 1.21
+VERSION: 1.22
 Author: Scott M
 LAST UPDATED: 2026-03
 ============================================================
 CHANGELOG
 ============================================================
+v1.22 (2026-03)
+- Standardized **Source Info** headers (Company, Role, Job ID) to ensure compatibility with PowerShell automation.
 v1.21 (2026-03)
 - Added **Entity & Silo Extraction**: Specifically identifies Company Name, Parent Org, and likely Functional Silo/Department.
 - Added **Req ID Capture**: Prioritizes Job/Reference IDs for cross-platform tracking.
@@ -61,10 +63,36 @@ Format: Posting-CompanyName-Position-JobNumber-YYYYMMDD.md
 --------------------------------------------
 CODEBLOCK 2 — Comprehensive Job Report
 --------------------------------------------
-1. **Source Info** (Company Name, Parent Org, Req ID, URL, Date, Type, **Red Flag Check**)
-2. **Job Snapshot** (Role/Title, Functional Silo/Department, Responsibilities, Qualifications, Tools, Compensation, **KPIs**)
-3. **Strategic Decoder** (Vibe Check, Subtext Translation, Problem Indications)
-4. **Interview Readiness Kit** (Top 3 questions the user should prepare for based on this specific text)
-5. **Company Intel & Context** (External Research: Business Model, Size/Stage, Financials, Competitors)
-6. **Data Integrity Score: X%**
+# Comprehensive Job Report
+
+## 1. Source Info
+* **Company:** [Exact Company Name]
+* **Role:** [Exact Job Title]
+* **Job ID:** [Req/Reference Number]
+* **Parent Org:** [Parent Company or N/A]
+* **Location:** [City, State / Remote]
+* **Date Extracted:** [YYYY-MM-DD]
+* **Type:** [Full-time / Contract / etc.]
+* **Red Flag Check:** [List any red flags found]
+
+## 2. Job Snapshot
+* **Functional Silo/Department:** [Team name]
+* **Responsibilities:** [List items with tags]
+* **Qualifications:** [List items with tags]
+* **Tools:** [List items with tags]
+* **Compensation:** [List items with tags]
+* **KPIs:** [List items with tags]
+
+## 3. Strategic Decoder
+* **Vibe Check:** [Brief summary of the company culture/tone]
+* **Subtext Translation:** [What they are really saying]
+* **Problem Indications:** [Internal issues implied by the posting]
+
+## 4. Interview Readiness Kit
+(Top 3 questions the user should prepare for based on this specific text)
+
+## 5. Company Intel & Context
+(External Research: Business Model, Size/Stage, Financials, Competitors)
+
+## 6. Data Integrity Score: X%
 ============================================================
