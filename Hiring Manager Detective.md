@@ -1,25 +1,25 @@
-# Hiring Manager Detective – v1.6 (Universal Edition)
+# Hiring Manager Detective – v1.7 (Universal Edition)
 - **Author:** Scott M.
-- **Methodology:** Lucy’s 3-Sentence Formula · Chris Voss (No-Oriented CTA)
+- **Methodology:** Lucy Gilmour (3-Sentence Formula) · Chris Voss (No-Oriented CTA)
 - **Logic Engine:** Industry-Agnostic Step-Back · Chain-of-Verification (Anti-Hallucination)
 - **Last Updated:** 2026-03-18
 
 ============================================================
 CHANGELOG
 ============================================================
-- v1.6: Pivoted to Universal/Industry-Agnostic logic; updated Value Anchoring for multiple silos (Revenue, Efficiency, Risk, etc.).
-- v1.5: Added Fallback Channel Layer (PHASE 2.5); introduced Reply-Probability Scoring Model; added A/B Hook Variants.
-- v1.4: Refined X-Ray strings with "Current" role constraints (intitle:at).
-- v1.3: Added Targeting Layer (Contact Prioritization) and Kill Switch.
-- v1.0 - v1.2: Initial framework and Lucy's formula integration.
+· v1.7: Full attribution to Lucy Gilmour; refined Phase 4 for stricter 3-sentence formula adherence; standardized middle dot ( · ) formatting.
+· v1.6: Pivoted to Universal/Industry-Agnostic logic; updated Value Anchoring for multiple silos (Revenue, Efficiency, Risk, etc.).
+· v1.5: Added Fallback Channel Layer (PHASE 2.5); introduced Reply-Probability Scoring Model; added A/B Hook Variants.
+· v1.4: Refined X-Ray strings with "Current" role constraints (intitle:at).
+· v1.0 - v1.3: Initial framework and early targeting layers.
 
 ---
 
 ## REQUIRED INPUTS
-- Full Job Description (JD)
-- Company Name
-- (Optional) Location or Business Unit
-- (Optional) Your Resume or Key Skills
+· Full Job Description (JD)
+· Company Name
+· (Optional) Location or Business Unit
+· (Optional) Your Resume or Key Skills
 
 ---
 
@@ -30,9 +30,9 @@ Bypass hidden recruiter filters by identifying true problem owners, generating h
 
 ## PHASE 1: THE STEP-BACK (UNIVERSAL ALIGNMENT)
 Identify and output:
-- **Functional Silo:** (e.g., Product, Revenue, Operations, Engineering, Security)
-- **Primary Pain:** What gap does this hire fill? (e.g., Scaling, Cost-Saving, Compliance, Risk)
-- **Decision Maker Title:** (e.g., Creative Director, Head of Logistics, VP of Sales, CISO)
+· **Functional Silo:** (e.g., Product, Revenue, Operations, Engineering, Security)
+· **Primary Pain:** What gap does this hire fill? (e.g., Scaling, Cost-Saving, Compliance, Risk)
+· **Decision Maker Title:** (e.g., Creative Director, Head of Logistics, VP of Sales, CISO)
 
 ---
 
@@ -57,35 +57,34 @@ If <3 strong hits are found, prioritize these alternative search methods:
 
 ## PHASE 3: THE TARGETING LAYER (PRIORITIZATION ENGINE)
 Rank targets using the **Reply-Probability Scoring Model (0–10)**:
-- **Relevance to Pain:** Direct owner (10) vs. Recruiter (6).
-- **Seniority:** Manager/Director (9) vs. C-Level (6).
-- **Activity Signals:** Recent posts (+3), Pro photo (+2), >500 connections (+2).
+· **Relevance to Pain:** Direct owner (10) vs. Recruiter (6).
+· **Seniority:** Manager/Director (9) vs. C-Level (6).
+· **Activity Signals:** Recent posts (+3), Pro photo (+2), >500 connections (+2).
 
 ### Output:
-- Rank each target: #1 (Best), #2, #3.
-- Provide **Reply-Prob Score** and 1-line justification for each.
+· Rank each target: #1 (Best), #2, #3.
+· Provide **Reply-Prob Score** and 1-line justification for each.
 
 ---
 
 ## PHASE 4: THE HOOK (OUTREACH)
-Draft **two A/B variants** (Attribution: Career Growth with Lucy).
+Draft **two A/B variants** strictly following the **Lucy Gilmour 3-Sentence Formula**.
 
 **Variant A – Pain-First (Industry-Specific Anchor):**
-1. **The Trigger:** Clear reason for outreach (role + context).
-2. **The Suitability:** Mirror exact JD language + reference specific experience.
-3. **The Value Anchor:** Tie to silo outcome (e.g., Revenue for Sales, Risk for Security).
-4. **The No-Oriented CTA:** "Would it be a terrible idea to speak further?"
+1. **Sentence 1 (The Trigger):** State exactly why you are reaching out (referencing the specific role/pain point).
+2. **Sentence 2 (The Suitability/Value):** Connect your specific background to their functional silo (e.g., Revenue, Risk, or Efficiency).
+3. **Sentence 3 (The No-Oriented CTA):** Use a Chris Voss-style "No" question (e.g., "Would it be a bad idea to...").
 
 **Variant B – Signal-First (Recent Activity):**
-1. **The Trigger:** Lead with a recent, public signal (News, Posts, Funding).
-2. **The Suitability/Value:** Tie your background directly to that signal.
-3. **The No-Oriented CTA:** Voss-style "No" question.
+1. **Sentence 1 (The Trigger):** Lead with a recent, public signal (News, Posts, or Company Funding).
+2. **Sentence 2 (The Suitability/Value):** Tie your unique experience directly to that signal and the role.
+3. **Sentence 3 (The No-Oriented CTA):** Voss-style "No" question (e.g., "Are you totally against...").
 
 ---
 
 ## THE VERIFICATION GATE (STRICT)
-- **No Fabrication Rule:** Use `[Placeholder]` for any unverified names or titles.
-- **Kill Switch:** If JD is too vague to identify a silo or pain, respond with:
+· **No Fabrication Rule:** Use `[Placeholder]` for any unverified names or titles.
+· **Kill Switch:** If JD is too vague to identify a silo or pain, respond with:
   "INSUFFICIENT DATA – Provide a more detailed job description."
 
 ---
