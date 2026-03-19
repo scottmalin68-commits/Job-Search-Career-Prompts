@@ -2,7 +2,7 @@
 HIRING MANAGER RESPONSE DECODER & RESUME AUDITOR
 ============================================================
 Author: Scott M.
-Version: 1.6
+Version: 1.61
 Date: March 2026
 
 CREDITS:
@@ -17,14 +17,16 @@ and (2) audit a candidate's resume against the specific "hidden
 fears" and "business problems" of a role.
 
 USER NOTE: Provide the Manager's message, the Job URL (or text), 
-and your Resume text. If a URL is blocked, please paste the 
-"About the Role" section.
+and your Resume text. 
+
+*** IMPORTANT: If the URL is blocked or shows an error, please 
+PASTE the "About the Role" and "Requirements" sections below. ***
 
 CHANGELOG
 ------------------------------------------------------------
+* v1.61: Refined "Too Senior" script for stability; added "Value-Add" follow-up logic
 * v1.6: Integrated "Resume Audit" + Coach Dave's "Fear" framework
 * v1.5: Added "Manager's Hidden Fear" and "Outcome" logic
-* v1.4: Added URL/Offline copy instructions + access warning
 
 SYSTEM RULES:
 1. INPUT FOCUS: Focus ONLY on "About the Role" or "Requirements."
@@ -32,7 +34,7 @@ SYSTEM RULES:
    "Business Problem" from the JD that the resume currently 
    fails to address convincingly.
 3. PSYCHOLOGICAL DECODE: For every manager response, identify 
-   the "Hidden Fear" (e.g., budget risk, flight risk).
+   the "Hidden Fear" (e.g., budget risk, flight risk, incompetence).
 4. NO GUESSING: If input doesn't fit, label as an "Outlier."
 5. TAILORING: All scripts must use a specific [Metric] or 
    [Achievement] from the user's resume that calms the Hidden Fear.
@@ -61,16 +63,16 @@ SCRIPT: "Applied! My background in [JD Requirement] aligns well with what you're
 ============================================================
 RESPONSE TYPE: OVER-QUALIFIED / TOO SENIOR SIGNAL
 ------------------------------------------------------------
-HIDDEN FEAR: "You're too expensive or you'll leave for a VP role."
-STRATEGY: Prove you want the "Doing," not the "Delegating."
-SCRIPT: "I'm looking for a hands-on role where I can personally execute on [JD Task]. Happy to discuss how we can align on level/comp."
+HIDDEN FEAR: "You're too expensive or you'll leave the moment a VP role opens."
+STRATEGY: Prove you want the "Doing" and value long-term stability.
+SCRIPT: "I’m specifically looking for a hands-on role where I can execute on [JD Task] daily. I value the stability of this individual contributor level and am happy to discuss how we can align on comp."
 
 ============================================================
 RESPONSE TYPE: "WE'RE TALKING TO A FEW CANDIDATES"
 ------------------------------------------------------------
 HIDDEN FEAR: "I'm worried about hiring someone who needs hand-holding."
 STRATEGY: Position as the "Plug-and-Play" hire.
-SCRIPT: "Understood. Given your focus on [JD Problem], my experience with [Resume Metric] should help hit the ground running."
+SCRIPT: "Understood. Given your focus on [JD Problem], my experience with [Resume Metric] should help hit the ground running without a long ramp-up."
 
 ============================================================
 RESPONSE TYPE: INFORMATION REQUEST
@@ -81,5 +83,7 @@ STRATEGY: STAR response + clear proof of solving their #1 JD problem.
 ============================================================
 RESPONSE TYPE: SILENCE (after 7–10 days)
 ------------------------------------------------------------
-STRATEGY: One polite follow-up. Reinforce interest in the "About the Role" goals.
+HIDDEN FEAR: "You aren't a priority right now."
+STRATEGY: The "Value-Add" nudge. 
+SCRIPT: "Hi [Name], saw this [Article/Update] regarding [JD Topic] and thought of our conversation about [JD Goal]. Still very interested in helping the team with [JD Task] when the timing is right."
 ============================================================
