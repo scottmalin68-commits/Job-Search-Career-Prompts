@@ -1,75 +1,66 @@
-# Job Posting Snapshot & Preservation Engine – Operations Manual
+# Job Posting Snapshot & Investigative Engine — Operations Manual
 
-**Version:** 2.50  
-**Author:** Scott M  
-**Last Updated:** 2026-03  
-
----
-
-## 0. Mission & Objective
-The goal of this engine is **strategic intelligence**, not just storage. Standard job boards are ephemeral and often scrubbed of context. This process creates a permanent, high-fidelity archive that combines **[VERBATIM]** posting data with deep-dive research into company financials, leadership vibes, and cultural red flags. The resulting file is a "living document" that protects the applicant from toxic environments and provides a roadmap for a "must-hire" interview.
+**Version:** 3.10 (OSINT Integrated)
+**Author:** Scott M.
+**Last Updated:** 2026-03-21
 
 ---
 
-## 1. Data Capture: Standard vs. "Fortress" Sites
-Most sites work with a simple URL. Start there first.
-
-· **Standard Method:** Paste the URL into the AI. The engine fetches and processes the data instantly.
-· **Defended Sites:** Sites like **Glassdoor**, **LinkedIn**, and **Indeed** often use anti-bot shields.
-· **Workarounds:**
-  · **Select All & Copy:** Use `Ctrl+A` on the job page and paste the text directly.
-  · **Print to PDF:** Save the page as a PDF and upload it.
-  · **Screenshot OCR:** Upload an image of the post for the AI to read.
+## 0. The Mission: Intel Over Storage
+Most people just bookmark a job link. That’s a mistake. Links die and postings get scrubbed. This engine is a **tactical reconnaissance tool** designed to extract every drop of "leakage" from a job description. We aren't just saving text; we are reverse-engineering their tech stack, identifying their business "pain," and finding the humans who can hire you.
 
 ---
 
-## 2. Quick Start Workflow
-1. **Capture:** Try the URL first. Fall back to copy-paste or PDF if blocked.
-2. **Select Logic (Optional):** Choose a logic module if you need a deeper dive (e.g., "Use Logic 06 to red-team this").
-3. **Run Engine:** Paste the **Snapshot Engine (v2.50)** prompt and your data into the AI.
-4. **Generate Filename:** Copy the clean string from **Codeblock 1**.
-5. **Create File:** Run the `Create-New-Posting-File.ps1` utility and paste the filename.
-6. **Save:** Paste the report from **Codeblock 2** into your editor and save.
+## 1. Phase 1: The Capture (Running the Engine)
+The engine is your primary prompt. It’s built to handle messy data and turn it into a structured, high-fidelity report.
+
+* **The Input:** Paste the prompt, then paste your data. It handles direct URLs, `Ctrl+A` copy-pastes from defended sites (LinkedIn/Glassdoor), or even OCR text from screenshots.
+* **The Output:** The engine generates two specific codeblocks:
+    * **Codeblock 1 (The Filename):** A standardized string for your filesystem. Never guess what a file is again.
+    * **Codeblock 2 (The Intel Report):** The full breakdown of the role, the tech, and the outreach strategy.
 
 ---
 
-## 3. Advanced Analysis: Logic Toggles & Culture Radar
-v2.50 introduces **Logic Toggles** to overclock the AI's reasoning. Call these out when starting the engine:
+## 2. Phase 2: Understanding the "Truth Tags" (Data Integrity)
+When you look at your saved markdown file, every bullet point is tagged. We prioritize **integrity** so you know exactly what the company said vs. what the AI figured out.
 
-· **[05] Step-Back:** Identifies the "real" business problem they are hiring for.
-· **[06] Adversarial:** Red-teams the post for toxic "always-on" culture or hidden traps.
-· **[13] Verification:** Forces the AI to cross-reference every claim against the verbatim text.
-· **Culture Radar:** Checks for leadership presence, employee tenure, and "growth vs. grind" signals based on the healthy culture infographic.
+* **[VERBATIM]:** The raw, unedited truth from the employer.
+* **[TECH-CONFIRMED]:** Tools and vendors they explicitly named.
+* **[INFERRED/SUBTEXT]:** High-probability logic based on industry standards and "leakage" in the text.
+* **[TECH-ROADMAP]:** The "preferred" skills that reveal where their budget is moving.
 
 ---
 
-## 4. High-Fidelity Execution: Using Your Archive
-To ensure you don't waste the high-quality data you've captured, use these specific "recursive" queries. 
+## 3. Phase 3: Investigation vs. Preservation
+We don’t just archive; we investigate. The engine automatically triggers these layers:
+* **Tech Stack OSINT:** We map their backend architecture based on the tools they ask for.
+* **Strategic Decoder:** We identify the *real* problem they are trying to solve (the "Primary Pain").
+* **The Hunt:** We generate X-Ray strings to bypass the "black hole" of portals and find the manager directly.
+
+---
+
+## 4. Phase 4: Weaponizing Your Archive (Recursive Prompts)
+Once you’ve saved your report, it becomes a **superior data source** for follow-up prompts. Because it’s already structured and "cleaned," you can feed it back into an AI for elite-level prep that far exceeds standard job-board text.
 
 ### A. The "Evidence-Based" Interview Prep
-> "Act as a specialized interviewer for this role. Based ONLY on the [VERBATIM] requirements and the [KPI] success metrics in this archive, identify the 3 most likely technical 'gatekeeper' questions. Then, use the [SUBTEXT] section to draft a 30-second 'hook' for my self-introduction that proves I understand their internal problems."
+> "Using the **[VERBATIM]** and **[KPI]** sections from this archive, give me 3 technical questions I’ll likely face. Use the **[SUBTEXT]** to help me craft an answer that solves their 'hidden' problem."
 
 ### B. The Strategic Resume Pivot
-> "Review my resume against the [VERBATIM] skills and [KPI] sections of this snapshot. Rewrite my professional summary to mirror their specific terminology. Use the [SUBTEXT] findings to add one bullet point to my most recent role that addresses the 'hidden' problem this company is trying to solve."
+> "Match my resume against the **[TECH-CONFIRMED]** list in this file. Rewrite my summary to mirror their specific technical language and address the **[PRIMARY PAIN]** identified in the report."
 
-### C. The Culture "Acid Test"
-> "Look at the [CULTURE RADAR] and [RED FLAG] sections. Generate 3 polite but pointed questions for the Hiring Manager that will force them to reveal the truth about the 'always-on' or 'tenure' issues identified in the snapshot. Do not use generic questions."
+### C. The "No-Oriented" Outreach
+> "Take the **[DIRECT LEAD]** string and the **[TECH-ROADMAP]** info. Draft a 3-sentence email that asks if they are looking for help with [Roadmap Tech] specifically."
+
+### D. The Architectural Audit (Deep-Tech Prep)
+> "Act as a Senior Architect. Based on the **[TECH-CONFIRMED]** stack and **[INFERRED ECOSYSTEM]**, identify 3 likely 'technical debt' areas this team is struggling with. Draft a 60-second response for the 'What is your biggest technical challenge?' question that shows I already know their environment's specific friction points."
+
+### E. The High-Leverage Closing (Value-Based)
+> "Review the **[PRIMARY PAIN]** and **[KPI]** sections. Draft a closing statement for the final interview that moves the conversation from 'Why should we hire you?' to 'How fast can we solve [Primary Pain] together?' Use the **[TECH-ROADMAP]** to prove I am the long-term solution for their 12-month goals."
 
 ---
 
 ## 5. Automation Utility (`Create-New-Posting-File.ps1`)
-Use this PowerShell script to bridge the gap between AI output and your archive.
-
-· **How it works:** It prompts for a filename, creates a blank `.md` file, and opens it in your preferred editor.
-· **Safety Features:** It displays file metadata if a duplicate name is found and requires "y/n" confirmation.
-· **Configuration:** Set your `$EditorPath` (e.g., to Notepad++) within the script logic.
-
----
-
-## 6. Archival Rules
-· **Preserve Purity:** Never edit **[VERBATIM]** text. This is your official record.
-· **Respect the Tags:** Keep **[NOT LISTED]** entries; they signal what the company *is not* focusing on.
-· **Version Control:** If a job post is updated, save a new file. Do not overwrite original captures.
+Use this script to bridge the gap. It takes the filename from **Codeblock 1**, creates the file, and lets you dump the intel from **Codeblock 2** inside. It’s the final step in building a searchable, permanent lead database.
 
 ---
 **End of Operations Manual**
