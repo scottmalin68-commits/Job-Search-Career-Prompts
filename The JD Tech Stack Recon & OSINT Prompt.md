@@ -1,86 +1,43 @@
-### **The JD Tech Stack Recon & OSINT Prompt**
+### **The JD Tech Stack Recon & OSINT Prompt (v1.2)**
+
 **Author:** Scott M.
-**Purpose:** Extract technical "fingerprints" from a JD to map a company’s real stack, prep killer interview questions, and spot hiring scams or red flags early.  
-**Changelog:**  
-· v1.1 (2026-03-20): Expanded scam/red-flag list, clarified OSINT sources, added structured output format, extra inference examples.  
+**Purpose:** Extract technical "fingerprints" and context clues from a JD to map a company’s stack and identify potential hiring scams.
+**Changelog:**
+· v1.2 (2026-03-20): Added Indirect Context Logic and "Saveable Report" output instruction.
 
 ---
 
 ### **Instructions for Use**
-· **Input:** Paste the full Job Description (JD) text and the Company Name below.  
-· **Why it works:** The actual posting reveals far more specific tooling than generic searches or recruiter summaries.  
-· **The Goal:** Transform a vague or buzzword-heavy JD into:  
-  - A realistic tech map for interview preparation  
-  - Smart, stack-specific questions that show you've done real homework  
-  - Early warning on potential scams, disorganized teams, or unrealistic expectations  
+· **Input:** Paste the full Job Description (JD) and the Company Name below.
+· **Context Clues:** This engine looks for direct mentions (e.g., "Okta") AND indirect signals (e.g., "SAML/OIDC" suggests an IDP is in place).
+· **The Goal:** Turn a generic JD into a technical map for interview prep and risk assessment.
 
 ---
 
 ### **[PROMPT START]**
 
-**Role:** You are a Senior Security Architect, Technical Recon Specialist, and OSINT practitioner with deep experience reading between the lines of job postings.
+**Role:** You are a Senior Security Architect and OSINT Specialist.
 
-**Task:** Analyze the provided Job Description for **[Insert Company Name]**.
+**Task:** Analyze the provided Job Description (JD) for [Insert Company Name]. 
 
-**Step 1: Technical Fingerprinting**  
-- List every explicitly named vendor, SaaS tool, programming language, framework, cloud provider, database, or security product.  
-- **Core Stack Inference (Must-Haves):** Deduce the primary/current environment.  
-  Examples:  
-  - "SailPoint + Azure AD" → likely Microsoft-centric shop with IGA in the cloud  
-  - "Okta + AWS + Terraform" → modern cloud-native identity on AWS with IaC  
-  - "PingFederate + on-prem AD" → legacy federation, probably hybrid/multi-cloud migration candidate  
-- **Roadmap / Migration Clues (Preferred / Nice-to-Have):** Tools listed as "a plus" or "preferred" often signal what they are moving toward or piloting.  
+**Step 1: Technical Fingerprinting (Direct & Indirect)**
+· **Direct Mentions:** Identify every explicitly named vendor, software, and language.
+· **Context Clues (Indirect):** Look for protocols or "flavors" of tech. (e.g., "IAM with 15+ years experience" usually implies legacy Mainframe or Oracle/IBM environments; "Fast-paced cloud native" + "Go/Python" implies AWS/GCP and microservices).
+· **Infrastructure Inference:** Based on "Must Haves," identify the core stack (e.g., "SailPoint + Azure" = Hybrid Microsoft shop).
+· **Roadmap Detection:** Identify "Preferred" skills as migration targets (e.g., "Experience with Snowflake a plus" suggests a current data migration).
 
-**Step 2: OSINT Verification (Public Signal Check)**  
-Cross-reference the inferred stack against publicly available indicators (do not hallucinate; only use real, accessible sources):  
-- Company careers page consistency (are similar roles posted officially?)  
-- Recent employee LinkedIn profiles (endorsed skills, tools mentioned in experience)  
-- Company tech blog posts, GitHub repos, or engineering talks/conference slides  
-- BuiltWith / Wappalyzer-style web stack (for customer-facing properties)  
-- Public DNS records (TXT/SPF/DMARC verification for SaaS like Okta, Google Workspace, etc.)  
-- Recent press releases or job-board patterns  
+**Step 2: OSINT Verification**
+· Search for public indicators that confirm this stack: technical blog posts, LinkedIn skill patterns for the team, or public DNS/SaaS verification records.
 
-**Step 3: Interview "Golden Questions"**  
-Generate **3 high-signal technical questions** that demonstrate deep homework and systems thinking.  
-Make them specific to the inferred stack, integrations, or likely pain points.  
-Examples:  
-- "I see you're using SailPoint with Azure AD — how are you handling just-in-time provisioning latency during peak login times?"  
-- "With Okta + AWS + Terraform in the mix, what’s your current approach to secrets rotation across both IdP and cloud resources?"  
+**Step 3: Interview "Golden Questions"**
+· Generate 3 high-level technical questions that prove you understand their specific environment and its likely pain points.
 
-**Step 4: Scam & Red Flag Detection**  
-Evaluate the JD and context for common hiring scam patterns and organizational dysfunction signals:  
-- **Kitchen Sink / Unicorn Hunter JD** — one role demanding senior-level expertise across 8–10 unrelated domains (IAM + SOC + GRC + DevOps + compliance + pen-testing + etc.)  
-- **Financial Traps** — any mention of paying for equipment, background checks, training, software licenses, or "deposits" (almost always a scam)  
-- **Vague or Outdated Buzzword Salad** — "Global Leader" / "Fast-growing startup" but tech stack is 10+ years old or suspiciously generic  
-- **No Official Footprint** — job not on company careers site, uses generic email (gmail, proton, etc.), no company domain in comms  
-- **Pressure Tactics** — "act now," "immediate hire," "limited spots," interview via chat only or Google Hangouts/WhatsApp without video  
-- **Unrealistic Pay/Requirements** — very high remote salary for entry-level skills or zero experience required  
-- **Contradictory Posture** — security/compliance role mentioning FedRAMP + ancient on-prem tools, or heavy cloud but no IaC/CICD mentioned  
-- **Communication Red Flags** — heavy typos/grammar issues, inconsistent story, refusal to do video call  
+**Step 4: Scam & Red Flag Detection**
+· Analyze the JD for "Kitchen Sink" requirements, financial traps, or vague, outdated tech requests.
+
+**Step 5: Saveable Output**
+· After the analysis, generate a final "Comprehensive Job & Lead Report" in a single Markdown codeblock using the [Posting-CompanyName-Position-YYYYMMDD.md] format for me to save.
 
 **[Paste JD Text Here]**
 
-**Desired Output Format**  
-Use this exact structure for clarity and scannability:
-
-**Company:** [Name]  
-**Confirmed / Explicitly Mentioned Tools:**  
-[list]  
-
-**Inferred Core Stack:**  
-[summary + reasoning]  
-
-**Likely Migration / Future Tools:**  
-[summary + reasoning]  
-
-**OSINT Corroboration Summary:**  
-[brief findings — confirmed, partial match, no signal, conflicting]  
-
-**3 Golden Interview Questions:**  
-1. …  
-2. …  
-3. …  
-
-**Red Flags / Risk Assessment:**  
-Low / Medium / High  
-[explanation + which flags triggered]
+### **[PROMPT END]**
