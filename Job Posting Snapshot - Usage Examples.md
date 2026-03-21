@@ -1,66 +1,74 @@
 # Job Posting Snapshot & Investigative Engine — Operations Manual
 
-**Version:** 3.10 (OSINT Integrated)
+**Version:** 3.20 (Universal OSINT Edition)
 **Author:** Scott M.
 **Last Updated:** 2026-03-21
 
 ---
 
-## 0. The Mission: Intel Over Storage
-Most people just bookmark a job link. That’s a mistake. Links die and postings get scrubbed. This engine is a **tactical reconnaissance tool** designed to extract every drop of "leakage" from a job description. We aren't just saving text; we are reverse-engineering their tech stack, identifying their business "pain," and finding the humans who can hire you.
+## 0. Changelog (The Evolution)
+* **v3.2 (2026-03):** · **Universal Pivot:** Re-tuned all tech logic to be industry-agnostic (works for Healthcare, Sales, Admin, etc.).
+    · **Hiring Manager Detective:** Added deductive logic to identify likely Decision Maker titles based on role seniority.
+    · **Burnout Detection:** Integrated the `[KITCHEN-SINK]` tag to flag unrealistic job scopes.
+    · **Tactical Toolkit:** Expanded Section 4 to include 5 specialized recursive prompts.
+* **v3.1 (2025-12):** · **OSINT Integration:** Added X-Ray search strings and "Tech Leakage" mapping.
+    · **Truth Tags:** Standardized `[VERBATIM]`, `[INFERRED]`, and `[TECH-ROADMAP]`.
 
 ---
 
-## 1. Phase 1: The Capture (Running the Engine)
-The engine is your primary prompt. It’s built to handle messy data and turn it into a structured, high-fidelity report.
-
-* **The Input:** Paste the prompt, then paste your data. It handles direct URLs, `Ctrl+A` copy-pastes from defended sites (LinkedIn/Glassdoor), or even OCR text from screenshots.
-* **The Output:** The engine generates two specific codeblocks:
-    * **Codeblock 1 (The Filename):** A standardized string for your filesystem. Never guess what a file is again.
-    * **Codeblock 2 (The Intel Report):** The full breakdown of the role, the tech, and the outreach strategy.
+## 1. The Mission: Intel Over Storage
+Most people just bookmark a job link. That’s a mistake. Links die and postings get scrubbed. This engine is a **tactical reconnaissance tool** designed to extract every drop of "leakage" from a job description. We aren't just saving text; we are reverse-engineering their operations, identifying their business "pain," and finding the humans who can hire you.
 
 ---
 
-## 2. Phase 2: Understanding the "Truth Tags" (Data Integrity)
-When you look at your saved markdown file, every bullet point is tagged. We prioritize **integrity** so you know exactly what the company said vs. what the AI figured out.
-
-* **[VERBATIM]:** The raw, unedited truth from the employer.
-* **[TECH-CONFIRMED]:** Tools and vendors they explicitly named.
-* **[INFERRED/SUBTEXT]:** High-probability logic based on industry standards and "leakage" in the text.
-* **[TECH-ROADMAP]:** The "preferred" skills that reveal where their budget is moving.
-
----
-
-## 3. Phase 3: Investigation vs. Preservation
-We don’t just archive; we investigate. The engine automatically triggers these layers:
-* **Tech Stack OSINT:** We map their backend architecture based on the tools they ask for.
-* **Strategic Decoder:** We identify the *real* problem they are trying to solve (the "Primary Pain").
-* **The Hunt:** We generate X-Ray strings to bypass the "black hole" of portals and find the manager directly.
+## 2. Phase 1: The Capture (Running the Engine)
+* **The Input:** Paste the **Snapshot Engine (v3.2)** prompt into your AI, then paste your job data. 
+* **Handling Defended Sites:** If LinkedIn or Indeed blocks the URL, use `Ctrl+A` to copy the entire page and paste the raw text. The engine is tuned to filter out the "noise" (headers, footers, and ads) automatically.
+* **The Output:** The engine generates two codeblocks:
+    · **Codeblock 1 (The Filename):** Standardized naming for your filesystem.
+    · **Codeblock 2 (The Intel Report):** The full breakdown of the role and outreach strategy.
 
 ---
 
-## 4. Phase 4: Weaponizing Your Archive (Recursive Prompts)
-Once you’ve saved your report, it becomes a **superior data source** for follow-up prompts. Because it’s already structured and "cleaned," you can feed it back into an AI for elite-level prep that far exceeds standard job-board text.
-
-### A. The "Evidence-Based" Interview Prep
-> "Using the **[VERBATIM]** and **[KPI]** sections from this archive, give me 3 technical questions I’ll likely face. Use the **[SUBTEXT]** to help me craft an answer that solves their 'hidden' problem."
-
-### B. The Strategic Resume Pivot
-> "Match my resume against the **[TECH-CONFIRMED]** list in this file. Rewrite my summary to mirror their specific technical language and address the **[PRIMARY PAIN]** identified in the report."
-
-### C. The "No-Oriented" Outreach
-> "Take the **[DIRECT LEAD]** string and the **[TECH-ROADMAP]** info. Draft a 3-sentence email that asks if they are looking for help with [Roadmap Tech] specifically."
-
-### D. The Architectural Audit (Deep-Tech Prep)
-> "Act as a Senior Architect. Based on the **[TECH-CONFIRMED]** stack and **[INFERRED ECOSYSTEM]**, identify 3 likely 'technical debt' areas this team is struggling with. Draft a 60-second response for the 'What is your biggest technical challenge?' question that shows I already know their environment's specific friction points."
-
-### E. The High-Leverage Closing (Value-Based)
-> "Review the **[PRIMARY PAIN]** and **[KPI]** sections. Draft a closing statement for the final interview that moves the conversation from 'Why should we hire you?' to 'How fast can we solve [Primary Pain] together?' Use the **[TECH-ROADMAP]** to prove I am the long-term solution for their 12-month goals."
+## 3. Phase 2: Understanding the "Truth Tags"
+Every bullet point in your report is tagged to maintain **data integrity**. This ensures you know exactly what the company said vs. what the AI deduced.
+* **[VERBATIM]:** Direct, unedited quotes from the employer.
+* **[TECH-CONFIRMED]:** Tools, software, or vendors explicitly named.
+* **[INFERRED/SUBTEXT]:** Logic based on industry standards and "leakage" in the text.
+* **[RED FLAG]:** Warning signs like `[KITCHEN-SINK]` (one person doing the work of three departments).
 
 ---
 
-## 5. Automation Utility (`Create-New-Posting-File.ps1`)
-Use this script to bridge the gap. It takes the filename from **Codeblock 1**, creates the file, and lets you dump the intel from **Codeblock 2** inside. It’s the final step in building a searchable, permanent lead database.
+## 4. Phase 3: The Universal Detective (OSINT)
+The engine automatically triggers these investigative layers regardless of the industry:
+* **Operational Fingerprinting:** Maps the toolset (e.g., "Salesforce" for Sales, "Epic" for Nursing, "Azure" for IT).
+* **Hierarchy Mapping:** Deduces the boss's title so your X-Ray strings find the *real* decision maker.
+* **The Hunt:** Generates 3 custom LinkedIn X-Ray strings to find the Manager, the Skip-Level VP, and the Recruiter.
+
+---
+
+## 5. Phase 4: Weaponizing Your Archive (Recursive Prompts)
+Once you’ve saved your report, it becomes a **superior data source**. Feed your `.md` file back into an AI and use these 5 queries to dominate the process:
+
+#### A. The "Evidence-Based" Interview Prep
+> "Using the **[VERBATIM]** requirements from this archive, identify the 3 most likely technical 'gatekeeper' questions. Then, use the **[SUBTEXT]** section to draft a 30-second 'hook' for my self-introduction that proves I understand their internal problems."
+
+#### B. The OSINT Digital Footprint Probe
+> "Based on the **[TECH-CONFIRMED]** stack and **[INFERRED ECOSYSTEM]**, identify 3 likely 'technical debt' or 'operational friction' areas this team is struggling with. Draft a response for the 'What is your biggest challenge?' question that shows I already know their environment's specific bottlenecks."
+
+#### C. The Strategic Resume Pivot
+> "Match my resume against the **[TECH-CONFIRMED]** list and **[PRIMARY PAIN]** identified in this report. Rewrite my professional summary to mirror their specific terminology and address the 'hidden' problem this company is trying to solve."
+
+#### D. The "No-Oriented" Networking Hook
+> "Take the **[DIRECT LEAD]** string and the **[TECH-ROADMAP]** info. Draft a 3-sentence outreach message using a Chris Voss 'No-Oriented' CTA (e.g., 'Would it be a bad idea to...'). It should sound like a peer-to-peer consultation regarding their upcoming shift to [Roadmap Tech]."
+
+#### E. The High-Leverage Closing (Value-Based)
+> "Review the **[PRIMARY PAIN]** and **[KPI]** sections. Draft a closing statement for the final interview that moves the conversation from 'Why should we hire you?' to 'How fast can we solve [Primary Pain] together?' Use the **[TECH-ROADMAP]** to prove I am the long-term solution."
+
+---
+
+## 6. Automation Utility (`Create-New-Posting-File.ps1`)
+Use the accompanying PowerShell script to bridge the gap. It takes the filename from **Codeblock 1**, creates a blank `.md` file in your archive, and opens it in your editor for you to paste the report.
 
 ---
 **End of Operations Manual**
