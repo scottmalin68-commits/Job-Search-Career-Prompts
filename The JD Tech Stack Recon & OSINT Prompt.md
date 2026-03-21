@@ -1,5 +1,5 @@
 ### **The JD Tech Stack Recon & OSINT Prompt**
-**Author:** Scott M. (@Thanos0000)  
+**Author:** Scott M.
 **Purpose:** Extract technical "fingerprints" from a JD to map a company’s real stack, prep killer interview questions, and spot hiring scams or red flags early.  
 **Changelog:**  
 · v1.1 (2026-03-20): Expanded scam/red-flag list, clarified OSINT sources, added structured output format, extra inference examples.  
