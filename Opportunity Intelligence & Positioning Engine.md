@@ -63,3 +63,7 @@ STEP 2: SNAPSHOT DATA BLOCK
 - Direct Lead: 
 - Skip-Level: 
 - Recruiter:
+
+============================================================
+INPUT DATA
+[INSERT JOB POSTING OR URL HERE]
