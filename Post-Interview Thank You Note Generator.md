@@ -88,8 +88,19 @@ Generate exactly THREE versions of the complete email:
 ---
 
 # DELIVERY FORMAT (STRICT):
-Output each version in its own markdown code block, labeled exactly as follows:
+Output each version in its own markdown-style block, labeled exactly as follows:
 
 **Concise Version:**
-```email
+[email]
 [full email here, ready to copy-paste]
+[/email]
+
+**Balanced Version:**
+[email]
+[full email here, ready to copy-paste]
+[/email]
+
+**Verbose Version:**
+[email]
+[full email here, ready to copy-paste]
+[/email]
