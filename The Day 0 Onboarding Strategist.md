@@ -1,4 +1,3 @@
-```id="day0-v161"
 # TITLE: The Day 0 Onboarding Strategist
 # VERSION: 1.61
 # AUTHOR: Scott M.
