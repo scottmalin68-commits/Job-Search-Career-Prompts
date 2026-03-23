@@ -1,39 +1,35 @@
 # Prompt: Skills-to-Resume Generator (ATS-Friendly)
+**Author:** Scott M.  
+**Version:** 1.0.1  
+**Changelog:** * **v1.0.1:** Added strict anti-hallucination logic; enforced career profile as mandatory input; added Author and Version headers.
 
 ## Purpose:
-Generate a professional, ATS-optimized resume from a user’s raw skills and experience information. Output should be in a clean text format with clear headings and bullet points, ready to paste into Word, Google Docs, or another editor.
+Transform a user’s raw **Career Profile** data into a clean, ATS-optimized resume. This is a foundational document intended for further manual tailoring per job application.
+
+## ⚠️ Critical Rule: No Hallucination
+* **Source Material Only:** Use *only* the information provided in the Career Profile. 
+* **No Inventing:** Do not bridge gaps in employment or invent specific metrics (percentages, dollar amounts) if they aren't in the source data.
+* **Placeholders:** If a standard section (like Dates or Job Titles) is missing from the Profile, use **[INSERT MISSING INFO]**—do not guess or fill it in.
 
 ## Instructions for the AI:
-1. Use the input skills and experience information to create a complete resume.
-2. Include the following sections if relevant: 
-   - Contact Information
-   - Professional Summary / Profile (2–3 sentences, keyword-rich)
-   - Skills / Core Competencies (bullet list, ATS-friendly keywords)
-   - Professional Experience (reverse chronological order)
-   - Education
-   - Certifications / Awards / Projects / Volunteer Work (if applicable)
-3. Format the resume for maximum ATS compatibility:
-   - Simple fonts, no images or tables
-   - Standard section headings
-   - Bullet points starting with action verbs
-   - Include quantifiable results where possible
-   - Keywords should be naturally integrated
-4. Keep the language concise and achievement-focused. Avoid long paragraphs.
-5. Output instructions: 
-   - Use all-caps or bold for headings if possible in plain text.
-   - Use dashes or asterisks for bullet points.
-   - Provide spacing between sections for readability.
-6. If any input is missing (e.g., job titles, dates), note placeholders clearly as [Insert here].
-7. After generating, include a brief note on ATS optimization tips (optional tweaks, keyword enhancements).
+1. **Requirement Check:** You **cannot** proceed without a Career Profile input. If it is missing, ask the user to provide it before generating any text.
+2. **Structure:** Generate the resume using these standard, ATS-safe headings:
+    * CONTACT INFORMATION
+    * PROFESSIONAL SUMMARY (2-3 sentences max)
+    * SKILLS & CORE COMPETENCIES (Grouped or bulleted)
+    * PROFESSIONAL EXPERIENCE (Reverse chronological)
+    * EDUCATION
+    * ADDITIONAL SECTIONS (Certifications, Projects, etc., if provided)
+3. **Formatting Rules:**
+    * Use plain text only. No tables, columns, or images.
+    * Use bold or ALL CAPS for section headers.
+    * Use standard bullet points (`*` or `-`).
+    * Start experience bullets with strong action verbs (e.g., Managed, Developed, Resolved).
+4. **Tone:** Keep it direct and professional. Avoid fluff, marketing hype, or cliches.
 
-## Input Example:
-- Name: Jane Doe
-- Contact: jane.doe@email.com, 555-123-4567, LinkedIn: linkedin.com/in/janedoe
-- Skills: Python, PowerShell, cybersecurity, SIEM, cloud security
-- Experience:
-    - Cybersecurity Analyst, Acme Corp, 2020–Present: Monitored security alerts, implemented automated response scripts.
-    - IT Intern, Beta Tech, 2019–2020: Assisted with network monitoring and vulnerability scans.
-- Education: B.S. Computer Science, University of Somewhere, 2019
-- Certifications: CompTIA Security+, AWS Certified Solutions Architect
+## Input:
+**[PASTE CAREER PROFILE DATA HERE]**
 
-## Output Example:
+## Output Instructions:
+* Provide the resume in a clean, copy-pasteable format.
+* After generating, include a brief list of any missing data points marked as [INSERT MISSING INFO] so the user knows what to update in their Career Profile.
