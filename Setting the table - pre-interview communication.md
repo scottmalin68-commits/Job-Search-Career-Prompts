@@ -1,13 +1,13 @@
-# PRE-INTERVIEW "TABLE SETTER" PROMPT (V1.2.0)
+# PRE-INTERVIEW "TABLE SETTER" PROMPT (V1.3.0)
 # AUTHOR: SCOTT M.
 
 ### **PURPOSE STATEMENT**
-To send a brief, "plaintalk" email to a hiring manager before an interview. The goal is to "set the table" by connecting a specific company pain point to a proven career win, showing you’ve done the homework and are the logical fit for the role.
+To generate three distinct "plaintalk" email options for a hiring manager before an interview. Each version connects a specific company pain point to a proven career win, giving the user a choice of "voice" while maintaining high-impact logic.
 
 ### **CHANGELOG**
-- **v1.2.0 (2026-03-22):** Added Negative Constraints and "Proof-of-Logic" to prevent hallucination and ensure the "win" matches the company's biggest "pain point."
+- **v1.3.0 (2026-03-22):** Added "Three-Voice Output" logic. Updated constraints to provide all email drafts in a single code block for easy copying.
+- **v1.2.0 (2026-03-22):** Added Negative Constraints and "Proof-of-Logic" to prevent hallucination.
 - **v1.1.0 (2026-03-22):** Integrated advanced logic (Chain-of-Thought, Self-Criticism, and Verification).
-- **v1.0.0 (2026-03-22):** Initial release.
 
 ***
 
@@ -20,26 +20,25 @@ To send a brief, "plaintalk" email to a hiring manager before an interview. The 
 - **My Profile:** [PASTE CAREER PROFILE/RESUME]
 
 **Internal Logic Requirements (Perform these in <thought> tags before writing):**
-1. **Identify the Gap:** What is the one thing this company is clearly struggling with based on the job posting? (The "Pain Point").
-2. **Match the Win:** Which specific achievement from my profile proves I can fix that exact struggle?
-3. **The "So What?" Test:** Why does this win matter to *this* company right now? 
-4. **Self-Criticism & Refinement:** Is this draft too formal? Does it sound like a template? Rewrite it to sound like a 1:1 human conversation.
+1. **The Gap:** Identify the #1 struggle/challenge in the job posting.
+2. **The Match:** Pick the single best win from my profile that addresses that struggle.
+3. **The Logic:** Verify the win is 100% real (no hallucinations) and the tone is "plaintalk."
 
 **The Task:**
-Write a brief, "plaintalk" email based on your internal analysis. Do not use corporate fluff, hype, or robotic phrases. 
+Provide 3 different versions of the email in a **single code block**. Each must be under 125 words, use simple language, and avoid all corporate clichés (no "excited," "passionate," or "harness").
 
-**Negative Constraints:**
-- **Zero Hallucination:** Do not invent skills, titles, or metrics not found in my profile.
-- **No Clichés:** Avoid "passionate," "harness," "excited," "extensive experience," or "proven track record."
-- **No Fluff:** If a sentence doesn't add value, cut it.
+**The 3 Voices:**
+1. **The Direct Professional:** Lean, factual, and confident. Focuses heavily on the "fit" and the "win."
+2. **The Conversational Peer:** Softens the tone slightly. Sounds like a 1:1 message to a future teammate. Uses "And," "But," or "So" to start sentences.
+3. **The Problem Solver:** Leads with the company's "pain point" and immediately offers the solution based on past experience.
 
-**The Output Structure:**
-1. **The Why:** Why this company? (Be specific).
-2. **The How:** One win that solves their problem.
-3. **The Fit:** Why this move makes sense for my career.
-4. **The Close:** Low-pressure sign-off.
+**Each email must follow this structure:**
+- **Why:** Why this company?
+- **How:** One win that proves you can solve their problem.
+- **Fit:** Why this move makes sense now.
+- **Close:** Low-pressure sign-off.
 
 **Style Guide:**
 - Short sentences. Simple words. 
-- Use "And," "But," or "So" to bridge ideas.
-- Keep it under 125 words.
+- No marketing fluff. 
+- All outputs must be in a code block.
