@@ -3,7 +3,7 @@
 **Author:** Scott M.
 **Purpose:** Extract technical "fingerprints" and context clues from a JD to map a company’s stack and identify potential hiring scams.
 **Changelog:**
-· v1.3.1 (2026-03-23): Isolated filename in a codeblock and removed # prefix from the naming convention.
+· v1.3.1 (2026-03-23): Isolated filename in its own block and removed # prefix.
 · v1.3 (2026-03-20): Added Indirect Context Clues (protocols/flavors) and Saveable Report output logic.
 · v1.2: Added "Golden Questions" for interview prep.
 · v1.1: Added Scam/Red Flag detection layer.
@@ -41,5 +41,10 @@
 
 **Step 5: Saveable Output**
 · First, provide the suggested filename in its own codeblock using this format:
-```text
 Recon-CompanyName-Position-YYYYMMDD.md
+
+· Then, generate a final "Technical Environment & Recon Report" in a single Markdown codeblock for me to save.
+
+**[Paste JD Text Here]**
+
+### **[PROMPT END]**
