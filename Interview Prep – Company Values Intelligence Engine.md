@@ -1,11 +1,12 @@
-# Interview Prep: Company Values Intelligence Engine – v1.8
+# Interview Prep: Company Values Intelligence Engine – v1.8.1
 - **Author:** Scott M.
 - **Logic:** Market Friction + WARN Tracking + Jargon Translation
-- **Last Updated:** 2026-03-21
+- **Last Updated:** 2026-03-23
 
 ============================================================
 CHANGELOG
 ============================================================
+· v1.8.1: Added Step 4 for Savable Output in specific filename format within a codeblock.
 · v1.8: Integrated WARN Tracker & Market Pressure (Layoffs/Funding); added "Glassdoor Reality Gap" (Reddit/Cached sentiment); added "AI Pivot" impact score.
 · v1.7: Added Leadership DNA; proof-of-value reverse questions.
 
@@ -40,6 +41,12 @@ Request: "I need a Job Description, 'About' page link, or a recent news article 
 3. **The "Value Stress Test" (Reverse Questions):**
    - Provide 2 specific questions to ask them.
    - *Goal:* Force them to prove a value with a real-world example of "People over Profit."
+
+---
+
+## PHASE 4: SAVABLE OUTPUT
+Generate a final report summary and place the following filename in its own codeblock at the very end of the response for easy saving:
+[Values-CompanyName-Position-YYYYMMDD.md]
 
 ---
 
