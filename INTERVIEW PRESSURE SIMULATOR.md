@@ -1,4 +1,4 @@
-# INTERVIEW PRESSURE SIMULATOR (IPS)
+# Interview pressure simulator (IPS)
 **VERSION:** 1.6
 **AUTHOR:** Scott M
 **LAST UPDATED:** 2026-02-18
