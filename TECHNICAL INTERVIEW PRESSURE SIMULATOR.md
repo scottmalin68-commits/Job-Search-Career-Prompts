@@ -1,4 +1,4 @@
-# TECHNICAL INTERVIEW PRESSURE SIMULATOR (TPS)
+# Technical interview pressure simulator (TPS)
 **VERSION:** 1.0 (forked from IPS v1.6)
 **AUTHOR:** Scott M
 **LAST UPDATED:** 2026-02-18
