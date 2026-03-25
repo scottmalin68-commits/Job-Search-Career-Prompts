@@ -12,6 +12,7 @@
     Purpose: Quick file creation utility.
     
     CHANGELOG:
+    2026-03-25: Added editor path validation with notepad fallback.
     2026-03-25: Added timestamp appending for existing files (Option 2).
     2026-03-25: Added 3-option duplicate handling, directory check, .md default, and auto-timestamping.
     2026-03-15: Added duplicate check, file properties, and overwrite prompt.
@@ -74,8 +75,13 @@ if (Test-Path -Path $FileName) {
     write-host "file created: $FileName" -f green
 }
 
-# open the file
+# open the file with path validation
 if ($OpenFile) {
-    $TargetApp = if (Test-Path $EditorPath) { $EditorPath } else { "notepad.exe" }
-    Start-Process $TargetApp -ArgumentList "`"$FileName`""
+    if (Test-Path -Path $EditorPath) {
+        Start-Process $EditorPath -ArgumentList "`"$FileName`""
+    } else {
+        write-host "`nwarning: preferred editor not found at $EditorPath" -f yellow
+        write-host "falling back to notepad..." -f gray
+        Start-Process "notepad.exe" -ArgumentList "`"$FileName`""
+    }
 }
