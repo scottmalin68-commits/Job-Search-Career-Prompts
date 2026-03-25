@@ -4,13 +4,15 @@
 
 .DESCRIPTION
     Prompts for a filename. Supports .md by default. Handles duplicates with three 
-    specific user options and auto-creates missing directories.
+    specific user options and auto-creates missing directories. Appends timestamps
+    to existing files if the user chooses to edit without overwriting.
 
 .NOTES
     Author: Scott M.
     Purpose: Quick file creation utility.
     
     CHANGELOG:
+    2026-03-25: Added timestamp appending for existing files (Option 2).
     2026-03-25: Added 3-option duplicate handling, directory check, .md default, and auto-timestamping.
     2026-03-15: Added duplicate check, file properties, and overwrite prompt.
     2026-03-10: Changed opener to Notepad++.
@@ -41,7 +43,7 @@ if ($TargetDir -and !(Test-Path -Path $TargetDir)) {
 }
 
 $OpenFile = $true
-$AddTimestamp = $false
+$Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
 if (Test-Path -Path $FileName) {
     $fileInfo = Get-Item $FileName
@@ -55,24 +57,21 @@ if (Test-Path -Path $FileName) {
 
     switch ($choice) {
         "1" { $OpenFile = $false }
-        "2" { write-host "opening existing file..." -f gray }
+        "2" { 
+            write-host "appending timestamp and opening..." -f gray 
+            "`n`n---`n# Update: $Timestamp`n" | Add-Content -Path $FileName
+        }
         "3" { 
             New-Item -Path $FileName -ItemType File -Force | Out-Null
-            $AddTimestamp = $true 
-            write-host "file wiped." -f green
+            "# Log Entry: $Timestamp`n`n" | Out-File -FilePath $FileName -Encoding utf8
+            write-host "file wiped and header added." -f green
         }
         default { write-host "invalid choice."; exit }
     }
 } else {
     New-Item -Path $FileName -ItemType File -Force | Out-Null
-    $AddTimestamp = $true
-    write-host "file created: $FileName" -f green
-}
-
-# insert markdown timestamp header
-if ($AddTimestamp) {
-    $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     "# Log Entry: $Timestamp`n`n" | Out-File -FilePath $FileName -Encoding utf8
+    write-host "file created: $FileName" -f green
 }
 
 # open the file
