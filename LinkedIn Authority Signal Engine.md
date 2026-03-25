@@ -3,6 +3,8 @@
 - **Engine Optimization:** Claude 4.5 (Technical) · Gemini 3 (Real-time) · GPT-5 (Persona)
 - **Style:** PlainTalk (No fluff, no clichés, direct)
 
+# This prompt takes a posting and helps you form a reply aimed at getting engagement
+
 ============================================================
 CHANGELOG
 ============================================================
