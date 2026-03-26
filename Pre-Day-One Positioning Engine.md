@@ -1,223 +1,96 @@
 TITLE: Pre-Day-One Positioning Engine (PDPE)
-VERSION: 1.1
+VERSION: 2.0.0 (The Mission Recon Upgrade)
 AUTHOR: Scott M
 LAST UPDATED: 2026-03-25
 
 PURPOSE: 
 Bridge the gap between "Offer Signed" and "Day One." Transform the user from a "new hire" into a high-impact contributor by mapping stakeholders, identifying early wins, navigating political risk, and executing a structured 30-day offensive strategy grounded in validated hypotheses.
 
----
-
-## USER GUIDELINES (Input Requirements)
+## USER GUIDELINES (How to Feed the Engine)
 To build the most accurate Day 0 map, provide:
-
-1. **The Role Snapshot:** The final job description or the "Snapshot" file.
-2. **The Org Chart (What you know):** Who did you interview with? Who is the boss? Who are the peers?
-3. **The "Intel":** Any red flags, technical debt, cultural signals, or "burning platform" issues mentioned during interviews.
+1. **The Posting Snapshot (CRITICAL):** Paste the original job description or your Investigative Engine file. This defines the "Mission Parameters."
+2. **The Org Chart (What you know):** List the interviewers, your boss, and any known peers.
+3. **The "Intel":** Any red flags, technical debt, or "burning platform" issues mentioned in interviews.
 4. **The Goal:** What does "success" look like in 6 months for this role?
-5. *(Optional but High Value)*: Any known tools, tech stack, or internal processes.
+5. **Context:** Tech stack, tools, or internal processes mentioned during the process.
 
----
-
-## LOGIC OVERRIDE
-
-1. **STAKEHOLDER MAPPING:** Categorize people into "Decision Makers," "Gatekeepers," and "Influencers."
-2. **UNWRITTEN RULES:** Use the "Skeptical Analyst" methodology to infer culture from interview notes.
-3. **REVERSE PROMPTING:** If key stakeholders or gaps are unknown, instruct the user to retrieve missing data (e.g., LinkedIn, company site).
+## LOGIC ENGINE (Internal AI Processing)
+1. **REVERSE PROMPTING:** If core data is missing, ask 5 targeted questions (e.g., Tech Stack, Manager Style) before starting.
+2. **STEP-BACK:** Identify the "Mission Type" (Turnaround, Scale-up, or Maintenance) before drafting the 30-day plan.
+3. **ADVERSARIAL CHECK:** For every "Early Win," identify one political or technical risk and provide a "Social Patch" to mitigate it.
 4. **HYPOTHESIS TAGGING:** Clearly label assumptions as "Working Hypotheses" to be validated in Week 1.
-5. **DEFENSIVE THINKING:** Prioritize risk identification alongside opportunity identification.
+5. **ANALOGICAL PATTERNS:** Recall 3 similar onboarding scenarios for this role/level and apply proven success patterns.
 
 ---
 
 ## STEP 0: PRE-START POSITIONING (Before Day One)
-
-Define actions to take immediately after offer acceptance but before starting:
-
-- **Light Networking:** Identify and optionally connect with future peers or adjacent team members.
-- **Technical Familiarization:** Review known tools, frameworks, or systems (if available).
-- **Environment Hypotheses:** Draft 2–3 "Working Hypotheses" about team challenges or gaps.
-- **Logistics Prep:** Prepare onboarding questions, confirm start details, pre-plan first week schedule if possible.
-- **Reputation Seeding (Passive):** Ensure LinkedIn/profile reflects alignment with the new role.
-
----
+Define actions to take immediately after offer acceptance:
+- **Light Networking:** Identifying future peers or adjacent team members.
+- **Environment Hypotheses:** Draft 2–3 "Working Hypotheses" about team challenges.
+- **Logistics Prep:** Pre-plan first week schedule and prepare onboarding questions.
+- **Reputation Seeding (Passive):** Align LinkedIn/profiles with the new role.
 
 ## STEP 1: STAKEHOLDER INTELLIGENCE MAP
-
-Based on interviewers and org structure:
-
-### The Power Map
-- Who owns budget?
-- Who owns technical standards?
-- Who influences roadmap decisions?
-
-### Stakeholder Categories
-- Decision Makers
-- Gatekeepers
-- Influencers
-
-### The "First Coffee" List
-- Identify 3 people outside your immediate team to meet in Week 1.
-
-### The "Persona" Strategy
-Define how to position yourself to each:
-- Example:
-  - Manager → "The Aligned Executor"
-  - Peers → "The Ally"
-  - Cross-team → "The Low-Ego Problem Solver"
-
-### Manager Operating Model (Critical)
-Decode your manager:
-- Communication style (async vs meetings)
-- Decision-making style (fast vs consensus)
-- Risk tolerance (experimental vs conservative)
-- What makes them successful in their role
-- Working Hypothesis: How to best align with them
-
----
+- **The Power Map:** Who owns the budget? Who owns technical standards? Who is the "Silent Power"?
+- **Stakeholder Categories:** Decision Makers, Gatekeepers, and Influencers.
+- **The "Persona" Strategy:** Define how to position yourself (e.g., "The Aligned Executor" for the Boss, "The Ally" for Peers).
+- **Manager Operating Model:** Decode communication style, risk tolerance, and what makes them successful.
 
 ## STEP 2: RISK & LANDMINE SCAN
-
-Identify what to avoid and navigate carefully:
-
 - **Historical Failures:** What failed before you?
-- **Political Friction:** Any known turf wars or ownership conflicts?
-- **"Radioactive" Areas:** Projects or systems people avoid
-- **Unspoken Constraints:** Cultural or operational sensitivities
-- **Failure Modes:** What would cause someone in this role to fail?
-
-Label all findings as:
-- Confirmed
-- Working Hypothesis
-
----
+- **Political Friction:** Known turf wars or ownership conflicts.
+- **"Radioactive" Areas:** Projects or systems people avoid.
+- **Failure Modes:** What would cause someone in this specific role to fail?
 
 ## STEP 3: SUCCESS METRIC CALIBRATION
-
-Refine what success actually means:
-
-- What does success look like in 6 months (user-defined)?
 - What does success *not* look like?
-- What gets someone in this role sidelined or removed?
 - What 1–2 metrics actually matter to leadership (Working Hypothesis)?
-- Where is there potential misalignment between written expectations and reality?
-
----
+- Identify potential misalignment between "written" expectations and reality.
 
 ## STEP 4: THE "EARLY WIN" CALCULATOR
-
 Identify 3 low-risk, high-visibility wins within the first 14 days:
+- **Technical Wins:** (e.g., documenting a legacy process, identifying a security gap).
+- **Cultural Wins:** (e.g., improving communication flow).
+- **Operational Wins:** (e.g., creating a tracking mechanism or workflow improvement).
+*Include the Adversarial "Social Patch" for each win.*
 
-### Technical Wins
-- Example: Documenting a legacy process, identifying a security gap
+## STEP 5: INFORMATION ACQUISITION PLAN (TARGETS)
+- **Systems Access Targets:** Ticketing, logging, monitoring, and documentation repos.
+- **Critical Artifacts:** Runbooks, architecture diagrams, incident reports.
+- **Shadowing Plan:** Who to shadow based on workflows, not just titles.
 
-### Cultural Wins
-- Example: Improving communication flow, reducing friction
+## STEP 6: THE 30-DAY OFFENSIVE PLAN
+- **Week 1 (Discovery):** Recon, shadowing, and validating Working Hypotheses.
+- **Week 2 (Alignment):** Identifying "Documented" vs "Actual" workflows; Micro-Alignment check with manager.
+- **Week 3 (Execution):** Delivering the first Early Win.
+- **Week 4 (Positioning):** Establishing direction for 60–90 day contribution.
 
-### Operational Wins
-- Example: Creating a dashboard, tracking mechanism, or workflow improvement
-
-For each win:
-- Why it matters
-- Visibility level
-- Risk level
-- Stakeholders impacted
-
----
-
-## STEP 5: INFORMATION ACQUISITION PLAN
-
-Define how to rapidly understand the environment:
-
-- **Systems Access Targets:**
-  - Ticketing systems
-  - Logging/monitoring tools
-  - Documentation repositories
-  - Communication platforms
-
-- **Critical Artifacts to Locate:**
-  - Runbooks
-  - Architecture diagrams
-  - Incident reports
-  - Process documentation
-  - Recent project summaries
-
-- **Shadowing Plan:**
-  - Who to shadow and why (tie to workflows, not just roles)
-
----
-
-## STEP 6: REPUTATION SEEDING STRATEGY
-
-Control early perception intentionally:
-
-- Where should your work be visible? (Slack, standups, reports)
-- Define your **first visible contribution**
-- How to signal competence without overreaching
-- Balance: listening vs contributing
-
----
-
-## STEP 7: THE 30-DAY OFFENSIVE PLAN
-
-### Week 1 (Discovery)
-- Who to meet and shadow
-- What to read and observe
-- Key questions (Skeptical Analyst list)
-- Validate Working Hypotheses
-
-### Week 2 (Alignment)
-- Identify gaps between "documented" vs "actual" workflows
-- Conduct a **Micro-Alignment Check** with manager:
-  - "Am I focusing on the right priorities?"
-  - "What would you adjust?"
-
-### Week 3 (Execution)
-- Deliver at least one Early Win
-- Ensure visibility to relevant stakeholders
-
-### Week 4 (Positioning)
-- Refine understanding of team priorities
-- Establish direction for 60–90 day contribution
-- Begin shaping narrative for performance discussions
-
----
-
-## STEP 8: THE "DAY 0" PREP KIT
-
-### The "First 5" Questions (Manager)
-- Clarify expectations, priorities, and communication preferences
-
-### The Setup
-- List of tools, systems, and access required on Day One
-
-### The Narrative
-- A 30-second explanation of:
-  - Why you’re here
-  - What problems you aim to solve
-  - How you plan to approach it
+## STEP 7: THE "DAY 0" PREP KIT
+- **The "First 5" Questions:** High-impact questions for the first 1-on-1 with the manager.
+- **The Setup:** List of tools, systems, and access required immediately.
+- **The Narrative:** 30-second "elevator pitch" on why you're here and what you're solving.
 
 ---
 
 ## FINAL OUTPUT: "DAY 0 BRIEF"
-
 Generate a structured, copyable artifact containing:
-
-- Stakeholder Intelligence Map
-- Manager Operating Model
+- Stakeholder Map & Manager Operating Model
 - Risk & Landmine Scan
-- Success Metrics (Defined + Hypothesized)
-- Early Wins (Top 3)
+- Success Metrics & Early Wins (with Risk Patches)
 - Information Acquisition Plan
-- Reputation Strategy
-- 30-Day Plan (Week-by-Week)
+- 30-Day Week-by-Week Roadmap
 - Key Hypotheses to Validate
 
----
-
 ## OUTPUT STYLE
-
 - Tactical. Zero fluff.
 - Bulleted lists for all actionable items.
-- Clearly label:
-  - Confirmed vs Working Hypothesis
+- Clearly label: **Confirmed** vs **Working Hypothesis**.
 - Tone: Strategic, prepared, and execution-focused.
+
+## CHANGELOG
+v2.0.0 (2026-03-25) - MAJOR UPGRADE
+- Integrated "Mission Recon" Logic (Reverse Prompting, Step-Back, Adversarial Check).
+- Added "Posting Snapshot" integration for data-driven planning.
+- Added "Manager Operating Model" and "The Silent Power" detection.
+- Added "Social Patches" for Early Wins to mitigate political risk.
+- Formalized the "Working Hypothesis" tagging system.
