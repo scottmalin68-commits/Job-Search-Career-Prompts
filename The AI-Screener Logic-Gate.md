@@ -1,6 +1,6 @@
 # NAME: The AI-Screener Logic-Gate
 # AUTHOR: Scott M.
-# VERSION: 1.3.0
+# VERSION: 1.3.1
 # PURPOSE:
 # Align candidate responses with the evaluation logic of automated screening platforms
 # (HireVue, Paradox, etc.) by maximizing signal coverage across keywords, semantic equivalents,
@@ -10,13 +10,16 @@
 # v1.0.0: Initial Logic-Gate release.
 # v1.1.0: Added Phase 0: Platform Discovery via URL analysis.
 # v1.2.0: Integrated Adversarial Red-Teaming and Variable Logic for conversational vs. video bots.
-# v1.3.0:
+# v1.3.0: 
 # - Replaced "keyword density" with "signal coverage" model.
 # - Added Semantic Mapping Layer (Phase 1.5).
 # - Upgraded Adversarial Phase to include Failure Simulation.
 # - Introduced Delivery Constraints (time, sentence limits, cadence).
 # - Expanded Human Fallback → Dual-Channel Optimization.
 # - Added optional Answer Compression Layer.
+# v1.3.1:
+# - Added ATS-Integrated logic (Workday/Taleo) to Phase 0.
+# - Refined platform-specific behavioral markers for defense/aerospace compliance.
 
 # INSTRUCTIONS:
 # 1. Provide the Platform URL or Name (if known).
@@ -56,6 +59,11 @@ If a URL or platform name is provided, classify the screening type and apply log
   - Adaptive questioning  
   - High emphasis on conciseness and clarity  
   - Lower tolerance for long responses  
+
+· myworkdayjobs.com / taleo.net → ATS-Integrated Screener
+  - Often hides a secondary parser (e.g., Eightfold/Beamery)
+  - High emphasis on exact keyword matching for initial filtering
+  - Focus on "Hard Skills" over behavioral nuance in the first gate
 
 · hireflix.com / vidcruiter → Async Video  
   - Structured response evaluation  
@@ -110,8 +118,6 @@ Identify:
 
 #### B. FAILURE SIMULATION
 Simulate 2–3 likely bot rejection scenarios:
-
-Examples:
 - "Low confidence due to missing measurable impact"
 - "Insufficient alignment with required toolset"
 - "Ambiguous ownership in described projects"
@@ -126,9 +132,7 @@ Provide 3 targeted "Script Patches":
 ---
 
 ### PHASE 3: THE SCRIPTING ENGINE
-
-Generate 5 Likely Interview Questions.
-
+Generate 5 Likely Interview Questions. 
 For each question, provide:
 
 #### 1. THE BOT-PASS SCRIPT
@@ -140,13 +144,12 @@ For each question, provide:
 
 #### 2. DELIVERY CONSTRAINTS
 Adjust based on platform:
-
 IF Video (HireVue / Async):
 - Target Length: 45–75 seconds
 - Sentence Limit: 3–5 sentences
 - Pacing: Structured, confident, no filler words
 
-IF Conversational (Paradox-style):
+IF Conversational (Paradox/Workday-style):
 - Target Length: 1–3 sentences
 - Modular responses (expandable if prompted)
 - High clarity, no over-explaining
@@ -156,10 +159,7 @@ Provide 2 likely drill-down questions the bot may ask.
 
 #### 4. DUAL-CHANNEL OPTIMIZATION (Human Fallback)
 Evaluate how the answer performs if reviewed by a human:
-- Clarity
-- Confidence
-- Credibility
-- Memorability
+- Clarity, Confidence, Credibility, Memorability.
 
 #### 5. OPTIONAL: ANSWER COMPRESSION
 Provide a shortened version of the answer for rapid-response systems.
@@ -167,29 +167,15 @@ Provide a shortened version of the answer for rapid-response systems.
 ---
 
 ### PHASE 4: FINAL VERIFY (Chain-of-Verification)
-
-#### SIGNAL COVERAGE CHECK
-- Do responses cover:
-  - Core technical signals?
-  - Semantic equivalents?
-  - Measurable outcomes?
-
-#### ALIGNMENT CHECK
-- Are JD requirements reflected naturally in responses?
-
-#### DELIVERY CHECK
-- Does each answer meet platform constraints (time + length)?
-- Is cadence natural and conversational?
-
-#### CLARITY CHECK
-- Are filler phrases eliminated?
-- Is structure easy to follow?
+- SIGNAL COVERAGE CHECK: Technical + Semantic + Outcomes included?
+- ALIGNMENT CHECK: JD requirements reflected naturally?
+- DELIVERY CHECK: Time/Length constraints met?
+- CLARITY CHECK: Filler words purged?
 
 ---
 
 ### OUTPUT FORMAT
 Structure all outputs clearly using labeled sections:
-
 1. Platform Classification
 2. Scoring Pillars
 3. Alignment Map
@@ -197,15 +183,3 @@ Structure all outputs clearly using labeled sections:
 5. Script Patches
 6. Interview Question Set (with full breakdown per question)
 7. Final Verification Summary
-
----
-
-### END STATE
-The candidate is fully aligned with both:
-- AI screening evaluation logic (semantic + structural + signal-based)
-- Human reviewer expectations (clarity, confidence, credibility)
-
-The output should produce responses that:
-- Pass automated thresholds
-- Sound natural and authentic
-- Translate into strong human-level performance
