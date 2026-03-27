@@ -1,4 +1,4 @@
-# Job Posting Snapshot & Investigative Engine (Universal)
+# Job Posting Snapshot & Investigative Engine (Universal) 
 
 VERSION: 3.5.2 (Universal OSINT Edition – Fiscal & Vulnerability Upgrade)  
 Author: Scott M.  
