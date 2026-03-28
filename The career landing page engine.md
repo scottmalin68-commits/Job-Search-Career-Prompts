@@ -8,16 +8,12 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
 # METADATA
 · The career landing page engine
 · Author: Scott M.
-· Version: 3.4.0
+· Version: 3.4.1
 · Changelog:
-  · Closed major function gaps from v3.3.1
-  · Added explicit T-Chart mapping and output structure
-  · Defined mandatory HTML skeleton and grid layout
-  · Added clear Google Sites URL format and derivation rules
-  · Introduced market pressure decision rubric and input fallbacks
-  · Strengthened hallucination safeguards and self-contained HTML rules
-  · Replaced manual middle-dot bullets with semantic HTML lists
-  · Improved signal density and scannability consistency
+  · Refined Google Sites URL logic to 4 short variants (<30 chars)
+  · Standardized output structure for Page Name and HTML codeblocks
+  · Locked in the Market Pressure Decision Rubric
+  · Mandated Tailwind CSS for responsive grid rendering
 
 # LOGIC ENGINE
 1. TECH RECON (OSINT):
@@ -64,7 +60,7 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
 # INSTRUCTIONS
 · VISUAL STYLE:
   Clean, modern dark-theme using Tailwind CSS via CDN for rapid rendering and clean aesthetics.
-  Use CSS Grid with auto-fit, auto-fill, and minmax(300px, 1fr) for responsive multi-column layout (3 columns on large screens, 2 on medium, 1 on mobile).
+  Use CSS Grid with auto-fit, auto-fill, and minmax(300px, 1fr) for responsive multi-column layout.
 
 · MANDATORY HTML STRUCTURE:
   The output HTML must follow this exact skeleton:
@@ -79,39 +75,25 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
   Do not use [cite], [source], bracketed references, or footnotes.
 
 · REQUIRED CARDS (in this exact order):
-  1. Domain / Technical Environment
-     Reflect alignment with the target role’s ecosystem:
-     · Tools, platforms, or systems relevant to the role
-     · Frameworks, methodologies, or processes
-     · Infrastructure or workflows
-
-  2. Strategic Value
-     Each bullet must:
-     · Start with a strong action verb
-     · Reference a real constraint (cost, scale, risk, speed, quality, efficiency, or growth)
-     · Align with identified Market Pressure and domain fingerprints from the job
-
-  3. Core Expertise
-     Focus on the candidate’s primary tools, skills, and capabilities
-     · Highlight domain-relevant technologies and specialties
-     · If specific tools are absent from [CAREER PROFILE], generalize by category only
-     · Never fabricate experience
+  1. Domain / Technical Environment (Alignment with target ecosystem)
+  2. Strategic Value (Action-oriented bullets matching Market Pressure)
+  3. Core Expertise (Mapping candidate’s primary tools and capabilities)
 
 · FORMATTING RULES:
-  · Use proper semantic HTML lists (<ul><li>) for all bullets — never use manual middle dots (·)
+  · Use proper semantic HTML lists (<ul><li>) for all bullets
   · Use sentence case for all body text and bullet content
   · Card titles should use title case
-  · Entire HTML must be 100% self-contained (use embedded <style> or Tailwind CDN only; no external images or scripts that require loading)
+  · Entire HTML must be 100% self-contained in a single codeblock
 
-· OUTPUT REQUIREMENTS:
-  1. Perform all internal analysis (fingerprints, market pressure, T-chart, strategic focus) but do NOT display any reasoning
-  2. Display the 4 suggested full Google Sites URLs (as a clean numbered list, no codeblock)
-  3. Output the Page Name in its own dedicated codeblock (plain text)
-  4. Output the complete, ready-to-copy HTML document in a SINGLE codeblock
+# OUTPUT REQUIREMENTS
+1. Perform internal analysis but do NOT display reasoning.
+2. Display 4 Suggested Google Sites URLs (clean list, no codeblock).
+3. Output the Page Name in its own codeblock (plain text).
+4. Output the complete, ready-to-copy HTML document in a SINGLE codeblock.
 
 # DATA INPUTS
 [JOB SNAPSHOT]: (Paste Here)
-[COMPANY INTEL/NEWS]: (Paste recent news, About page, or market signals)
+[COMPANY INTEL/NEWS]: (Paste Here)
 [CAREER PROFILE]: (Paste Here)
 
 # EXECUTION
