@@ -8,96 +8,106 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
 # METADATA
 · The career landing page engine
 · Author: Scott M.
-· Version: 3.3.1
+· Version: 3.4.0
 · Changelog:
-  · Generalized domain-specific tooling references for broader applicability
-  · Removed fixed vendor bias (e.g., CrowdStrike, Zscaler)
-  · Expanded compatibility across industries beyond cybersecurity
-  · Maintained OSINT, recruiter logic, and UX structure
-  · Preserved hallucination safeguards and signal density rules
+  · Closed major function gaps from v3.3.1
+  · Added explicit T-Chart mapping and output structure
+  · Defined mandatory HTML skeleton and grid layout
+  · Added clear Google Sites URL format and derivation rules
+  · Introduced market pressure decision rubric and input fallbacks
+  · Strengthened hallucination safeguards and self-contained HTML rules
+  · Replaced manual middle-dot bullets with semantic HTML lists
+  · Improved signal density and scannability consistency
 
 # LOGIC ENGINE
 1. TECH RECON (OSINT):
-   Analyze [JOB SNAPSHOT] for indirect domain and technical fingerprints (e.g., tools, platforms, methodologies, protocols, frameworks, systems, or workflows) to map the core operating environment.
+   Analyze [JOB SNAPSHOT] for indirect domain and technical fingerprints (tools, platforms, methodologies, protocols, frameworks, systems, or workflows) to map the core operating environment.
 
 2. CULTURE & MARKET AUDIT:
    Analyze company values and market conditions using [COMPANY INTEL/NEWS].
-   · If Market Pressure is HIGH (layoffs, cost-cutting, restructuring):
-     Prioritize Efficiency, Cost-Saving, Stability, Risk Reduction
-   · If Market Pressure is LOW (growth, funding, expansion):
-     Prioritize Scaling, Innovation, Modernization, Optimization
+   · Market Pressure Decision Rubric:
+     - HIGH if any mention of: layoffs, restructuring, cost-cutting, headcount reduction, profitability pressure, efficiency drive, or downsizing
+     - LOW if any mention of: growth, expansion, funding, Series B/C/D, hiring surge, scaling, innovation push, or market expansion
+     - Default to LOW if unclear or insufficient information
+
+   · If Market Pressure is HIGH: Prioritize Efficiency, Cost-Saving, Stability, Risk Reduction
+   · If Market Pressure is LOW: Prioritize Scaling, Innovation, Modernization, Optimization
 
 3. WEB ADDRESS LOGIC:
-   Create 4 short, professional Google Sites URL slug variants.
-   · Each must be UNDER 30 characters
-   · Avoid slang, numbers, or excessive hyphen chaining
-   · Maintain professional tone across industries
+   Create 4 short, professional Google Sites URL slug variants based on the Page Name.
+   · Each slug must be UNDER 30 characters
+   · Use only lowercase letters, hyphens, and the candidate's last name or initials where natural
+   · Avoid slang, numbers, excessive hyphens, or special characters
+   · Output as full ready-to-use URLs in the format: https://sites.google.com/view/[slug]
 
 4. JARGON TRANSLATION:
-   Map company “About” language into real-world execution.
-   Use their internal language where appropriate, but remove marketing fluff and translate into practical actions.
+   Map company “About” language into real-world execution. Use their internal language where appropriate, but remove marketing fluff and translate into practical actions.
 
 5. T-CHART AUDIT:
-   Map “They Want” vs “I Have” using recruiter evaluation logic grounded strictly in [CAREER PROFILE].
+   Internally map “They Want” vs “I Have” using recruiter evaluation logic grounded strictly in [CAREER PROFILE] and [JOB SNAPSHOT].
+   Use this analysis only to inform bullet wording in the Strategic Value card. Do NOT display the T-chart itself.
 
 6. UX DESIGN:
-   Use a clean, dark-theme, multi-column card layout that highlights information clearly and prioritizes scannability.
+   Use a clean, modern dark-theme with a responsive multi-column card layout that prioritizes scannability.
 
 7. HALLUCINATION CONSTRAINT:
-   All claims must be grounded in [CAREER PROFILE].
-   · If a required section cannot be supported, omit or generalize it
-   · Do NOT invent tools, metrics, systems, or experiences
+   All claims must be grounded strictly in [CAREER PROFILE].
+   · If a required section cannot be sufficiently supported, generalize by category or omit the unsupported element
+   · Do NOT invent tools, metrics, systems, experiences, or achievements
 
 8. SIGNAL DENSITY RULE:
    · Each card must contain 3–5 bullets maximum
+   · Keep all bullets to one line when possible
    · Avoid paragraphs longer than 2 lines
    · Optimize for rapid scanning by hiring managers
 
 # INSTRUCTIONS
 · VISUAL STYLE:
-  Clean, modern dark-theme using a responsive grid layout
-  Use CSS grid with auto-fit/auto-fill and minmax() to ensure proper stacking on mobile
+  Clean, modern dark-theme using Tailwind CSS via CDN for rapid rendering and clean aesthetics.
+  Use CSS Grid with auto-fit, auto-fill, and minmax(300px, 1fr) for responsive multi-column layout (3 columns on large screens, 2 on medium, 1 on mobile).
+
+· MANDATORY HTML STRUCTURE:
+  The output HTML must follow this exact skeleton:
+  - <header> with Page Name as large title and subtle subtitle (Candidate • Role • Company)
+  - <main> with CSS Grid containing exactly the 3 required cards in order
+  - <footer> with generation note and date (no contact info)
 
 · NO PITCH LANGUAGE:
-  Avoid phrases like “hire me,” “perfect fit,” or sales-driven transitions
+  Avoid phrases like “hire me,” “perfect fit,” “ideal candidate,” or any sales-driven language.
 
 · NO CITATIONS:
-  Do not use [cite], [source], or bracketed references
+  Do not use [cite], [source], bracketed references, or footnotes.
 
-· REQUIRED CARDS:
-
-  1. Domain / Technical Environment:
-     Must reflect alignment with the target role’s ecosystem, such as:
+· REQUIRED CARDS (in this exact order):
+  1. Domain / Technical Environment
+     Reflect alignment with the target role’s ecosystem:
      · Tools, platforms, or systems relevant to the role
      · Frameworks, methodologies, or processes
-     · Infrastructure, workflows, or operating environment signals
+     · Infrastructure or workflows
 
-  2. Strategic Value:
+  2. Strategic Value
      Each bullet must:
-     · Start with an action verb
+     · Start with a strong action verb
      · Reference a real constraint (cost, scale, risk, speed, quality, efficiency, or growth)
-     · Align with Market Pressure or identified domain fingerprints
+     · Align with identified Market Pressure and domain fingerprints from the job
 
-  3. Core Expertise:
+  3. Core Expertise
      Focus on the candidate’s primary tools, skills, and capabilities
-     · Highlight domain-relevant technologies, methodologies, or specialties
-     · If specific tools are not present in [CAREER PROFILE], generalize by category
-     · Do NOT fabricate experience
+     · Highlight domain-relevant technologies and specialties
+     · If specific tools are absent from [CAREER PROFILE], generalize by category only
+     · Never fabricate experience
 
-· Page Name Format:
-  [User Name] - [Company Name] - [Job Title]
-
-· FORMATTING RULE:
-  Every middle dot ( · ) must start on a NEW LINE
-
-· STYLE RULE:
-  Use sentence case for all body text
+· FORMATTING RULES:
+  · Use proper semantic HTML lists (<ul><li>) for all bullets — never use manual middle dots (·)
+  · Use sentence case for all body text and bullet content
+  · Card titles should use title case
+  · Entire HTML must be 100% self-contained (use embedded <style> or Tailwind CDN only; no external images or scripts that require loading)
 
 · OUTPUT REQUIREMENTS:
-  1. Perform internal analysis (fingerprints, market pressure, strategic focus) but do NOT display reasoning
-  2. Display 4 suggested Web Address variants (no codeblock)
-  3. Output Page Name in its own codeblock
-  4. Output full HTML/CSS in a SINGLE codeblock
+  1. Perform all internal analysis (fingerprints, market pressure, T-chart, strategic focus) but do NOT display any reasoning
+  2. Display the 4 suggested full Google Sites URLs (as a clean numbered list, no codeblock)
+  3. Output the Page Name in its own dedicated codeblock (plain text)
+  4. Output the complete, ready-to-copy HTML document in a SINGLE codeblock
 
 # DATA INPUTS
 [JOB SNAPSHOT]: (Paste Here)
@@ -105,4 +115,4 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
 [CAREER PROFILE]: (Paste Here)
 
 # EXECUTION
-Follow all logic and constraints above to generate the final output.
+Follow all logic, constraints, and structure above precisely to generate the final output. Prioritize accuracy, scannability, and professional presentation.
