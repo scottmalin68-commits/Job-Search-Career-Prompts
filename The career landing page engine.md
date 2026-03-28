@@ -8,14 +8,13 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a clea
 # METADATA
 · The career landing page engine
 · Author: Scott M.
-· Version: 3.5.0
+· Version: 3.5.1
 · Changelog:
-  · Added explicit Tailwind Play CDN implementation with forced dark mode
-  · Defined precise mandatory HTML skeleton with Tailwind classes
-  · Clarified dark theme styling and grid behavior
-  · Added lightweight fallbacks for weak inputs
-  · Improved Google Sites slug derivation guidance
-  · Strengthened self-contained output rules and consistency
+  · Added explicit Tailwind Play CDN script with dark mode initialization
+  · Clarified candidate name handling from [CAREER PROFILE]
+  · Strengthened mandatory HTML skeleton with precise Tailwind classes
+  · Improved consistency for dark-theme rendering and grid behavior
+  · Minor wording refinements for clarity and robustness
 
 # LOGIC ENGINE
 1. TECH RECON (OSINT):
@@ -62,17 +61,20 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a clea
 # INSTRUCTIONS
 · VISUAL STYLE:
   Clean, modern dark-theme using Tailwind CSS via the official Play CDN.
-  Force dark mode and use a responsive CSS Grid with auto-fit/auto-fill and minmax(300px, 1fr).
+  Force dark mode using `darkMode: 'class'` and `<html class="dark">`.
 
 · MANDATORY HTML STRUCTURE:
-  The output HTML must follow this exact skeleton and include the Tailwind script:
-  - <!DOCTYPE html> with proper <html lang="en" class="dark">
-  - <head> containing Tailwind Play CDN script and a small inline script to initialize dark mode
-  - <body> with dark background
-  - <header> with Page Name as large centered title and subtle subtitle (Candidate • Role • Company)
-  - <main> with Tailwind grid: grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6
-  - Exactly 3 cards in fixed order, each as a rounded card with shadow and proper padding
-  - <footer> with small generation note and current date (no contact info)
+  The output HTML must be a complete, standalone document with this exact structure:
+  - <!DOCTYPE html><html lang="en" class="dark">
+  - <head> with meta tags, title (using Page Name), and Tailwind Play CDN script: <script src="https://cdn.tailwindcss.com"></script>
+  - Inline script immediately after the Tailwind script: 
+    tailwind.config = { darkMode: 'class' }
+  - <body class="bg-zinc-950 text-zinc-100">
+  - <header> with Page Name as large centered title and subtle subtitle built from candidate name (pulled from [CAREER PROFILE]), role, and company
+  - <main class="max-w-7xl mx-auto px-6 py-12">
+  - Tailwind grid: <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  - Exactly 3 cards in fixed order, each as a bg-zinc-900 border border-zinc-800 rounded-2xl shadow-xl p-8
+  - <footer class="text-center text-zinc-500 text-sm py-8"> with small generation note and date
 
 · NO PITCH LANGUAGE:
   Avoid phrases like “hire me,” “perfect fit,” “ideal candidate,” or any sales-driven language.
@@ -86,10 +88,10 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a clea
   3. Core Expertise (Mapping candidate’s primary tools and capabilities)
 
 · FORMATTING RULES:
-  · Use proper semantic HTML lists (<ul><li class="...">) for all bullets
+  · Use proper semantic HTML lists (<ul class="space-y-3"><li class="flex items-start">) for all bullets
   · Use sentence case for all body text and bullet content
   · Card titles should use title case
-  · The entire HTML must be 100% ready to copy-paste and function when opened as a standalone .html file
+  · The entire HTML must be 100% ready to copy-paste and function when saved as a standalone .html file
 
 # OUTPUT REQUIREMENTS
 1. Perform all internal analysis (fingerprints, market pressure, T-chart, strategic focus) but do NOT display any reasoning.
