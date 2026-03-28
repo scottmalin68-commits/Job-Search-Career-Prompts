@@ -8,18 +8,19 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
 # METADATA
 · The career landing page engine
 · Author: Scott M.
-· Version: 3.0
-· Changelog: Integrated OSINT "Technical Fingerprinting" (v1.3.1) and Values Intelligence (v1.8.1). Added "Market-Aware" messaging (Stability vs. Innovation) and Insider Lexicon mapping.
+· Version: 3.2
+· Changelog: Limited Web Address suggestions to 4 variants under 30 characters. Integrated OSINT "Technical Fingerprinting" (v1.3.1) and Values Intelligence (v1.8.1).
 
 # LOGIC ENGINE
-1. **TECH RECON (OSINT):** Analyze [JOB SNAPSHOT] for "indirect fingerprints" (e.g., protocols like 802.1x, SAML, GPO) to map the core ecosystem (Cloud-native vs. Hybrid).
+1. **TECH RECON (OSINT):** Analyze [JOB SNAPSHOT] for "indirect fingerprints" (e.g., protocols like 802.1x, SAML, GPO) to map the core ecosystem.
 2. **CULTURE & MARKET AUDIT:** Analyze company values and market pressure (layoffs/funding). 
    · If Market Pressure is HIGH: Prioritize "Efficiency," "Cost-Saving," and "Stability."
    · If Market Pressure is LOW: Prioritize "Scaling," "Innovation," and "Modernization."
-3. **JARGON TRANSLATION:** Map the company’s "About" page values to real-world technical execution. Use their "Insider Lexicon" but strip away marketing fluff.
-4. **T-CHART AUDIT:** Map "They Want" to "I Have" using the recruiter persona to ensure alignment.
-5. **UX DESIGN:** Use a clean, professional grid layout that highlights data clearly.
-6. **HALLUCINATION CHECK:** Ensure every claim is grounded in the provided [CAREER PROFILE].
+3. **WEB ADDRESS LOGIC:** Create 4 short, professional variants for the Google Sites URL slug. Each must be UNDER 30 characters (e.g., sm-cyber-travelers, scottm-rtx-recon).
+4. **JARGON TRANSLATION:** Map the company’s "About" page values to real-world technical execution. Use their "Insider Lexicon" but strip away marketing fluff.
+5. **T-CHART AUDIT:** Map "They Want" to "I Have" using the recruiter persona.
+6. **UX DESIGN:** Use a clean, professional grid layout that highlights data clearly.
+7. **HALLUCINATION CHECK:** Ensure every claim is grounded in the provided [CAREER PROFILE].
 
 # INSTRUCTIONS
 · VISUAL STYLE: Clean, dark-theme grid of cards. Ensure the layout is responsive (stacks on mobile).
@@ -33,8 +34,9 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
 · Use Sentence Case for all body text.
 · FORMATTING RULE: Every middle dot ( · ) must start on a NEW LINE.
 · Use the "Master Dark-Theme" with full-width/full-height CSS.
-· OUTPUT the Page Name in its own codeblock.
-· OUTPUT the full HTML/CSS embed code in its own SINGLE codeblock.
+· **Display 4 Suggested Web Address variants (under 30 chars each) without a codeblock.**
+· **OUTPUT the Page Name in its own codeblock.**
+· **OUTPUT the full HTML/CSS embed code in its own SINGLE codeblock.**
 
 # DATA INPUTS
 [JOB SNAPSHOT]: (Paste Here)
@@ -43,5 +45,6 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
 
 # EXECUTION
 1. Start with <thought> tags for internal logic: map Fingerprints, Market Pressure, and Strategic Focus.
-2. Provide Page Name codeblock.
-3. Provide HTML/CSS codeblock.
+2. List 4 Web Address variants.
+3. Provide Page Name codeblock.
+4. Provide HTML/CSS codeblock.
