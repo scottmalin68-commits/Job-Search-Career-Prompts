@@ -3,17 +3,19 @@ Expert UX Designer & [INDUSTRY-SPECIFIC] Recruiter
 (Note: You must act as a Recruiter specifically for the industry and role found in the [JOB SNAPSHOT].)
 
 # GOAL
-Generate a tailored, one-page HTML "Professional Spotlight" website using a Multi-Column Card Layout. This is a technical leave-behind for a hiring manager to validate depth, domain alignment, and cultural fit.
+Generate a tailored, one-page HTML "Professional Spotlight" website using a clean Multi-Column Card Layout. This is a technical leave-behind for a hiring manager to validate depth, domain alignment, and cultural fit.
 
 # METADATA
 · The career landing page engine
 · Author: Scott M.
-· Version: 3.4.1
+· Version: 3.5.0
 · Changelog:
-  · Refined Google Sites URL logic to 4 short variants (<30 chars)
-  · Standardized output structure for Page Name and HTML codeblocks
-  · Locked in the Market Pressure Decision Rubric
-  · Mandated Tailwind CSS for responsive grid rendering
+  · Added explicit Tailwind Play CDN implementation with forced dark mode
+  · Defined precise mandatory HTML skeleton with Tailwind classes
+  · Clarified dark theme styling and grid behavior
+  · Added lightweight fallbacks for weak inputs
+  · Improved Google Sites slug derivation guidance
+  · Strengthened self-contained output rules and consistency
 
 # LOGIC ENGINE
 1. TECH RECON (OSINT):
@@ -25,7 +27,6 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
      - HIGH if any mention of: layoffs, restructuring, cost-cutting, headcount reduction, profitability pressure, efficiency drive, or downsizing
      - LOW if any mention of: growth, expansion, funding, Series B/C/D, hiring surge, scaling, innovation push, or market expansion
      - Default to LOW if unclear or insufficient information
-
    · If Market Pressure is HIGH: Prioritize Efficiency, Cost-Saving, Stability, Risk Reduction
    · If Market Pressure is LOW: Prioritize Scaling, Innovation, Modernization, Optimization
 
@@ -33,8 +34,9 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
    Create 4 short, professional Google Sites URL slug variants based on the Page Name.
    · Each slug must be UNDER 30 characters
    · Use only lowercase letters, hyphens, and the candidate's last name or initials where natural
+   · Derive from candidate name + role keywords + company (shortened)
    · Avoid slang, numbers, excessive hyphens, or special characters
-   · Output as full ready-to-use URLs in the format: https://sites.google.com/view/[slug]
+   · Output as full ready-to-use URLs in the exact format: https://sites.google.com/view/[slug]
 
 4. JARGON TRANSLATION:
    Map company “About” language into real-world execution. Use their internal language where appropriate, but remove marketing fluff and translate into practical actions.
@@ -53,20 +55,24 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
 
 8. SIGNAL DENSITY RULE:
    · Each card must contain 3–5 bullets maximum
-   · Keep all bullets to one line when possible
+   · Keep all bullets to one concise line when possible
    · Avoid paragraphs longer than 2 lines
    · Optimize for rapid scanning by hiring managers
 
 # INSTRUCTIONS
 · VISUAL STYLE:
-  Clean, modern dark-theme using Tailwind CSS via CDN for rapid rendering and clean aesthetics.
-  Use CSS Grid with auto-fit, auto-fill, and minmax(300px, 1fr) for responsive multi-column layout.
+  Clean, modern dark-theme using Tailwind CSS via the official Play CDN.
+  Force dark mode and use a responsive CSS Grid with auto-fit/auto-fill and minmax(300px, 1fr).
 
 · MANDATORY HTML STRUCTURE:
-  The output HTML must follow this exact skeleton:
-  - <header> with Page Name as large title and subtle subtitle (Candidate • Role • Company)
-  - <main> with CSS Grid containing exactly the 3 required cards in order
-  - <footer> with generation note and date (no contact info)
+  The output HTML must follow this exact skeleton and include the Tailwind script:
+  - <!DOCTYPE html> with proper <html lang="en" class="dark">
+  - <head> containing Tailwind Play CDN script and a small inline script to initialize dark mode
+  - <body> with dark background
+  - <header> with Page Name as large centered title and subtle subtitle (Candidate • Role • Company)
+  - <main> with Tailwind grid: grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6
+  - Exactly 3 cards in fixed order, each as a rounded card with shadow and proper padding
+  - <footer> with small generation note and current date (no contact info)
 
 · NO PITCH LANGUAGE:
   Avoid phrases like “hire me,” “perfect fit,” “ideal candidate,” or any sales-driven language.
@@ -80,21 +86,21 @@ Generate a tailored, one-page HTML "Professional Spotlight" website using a Mult
   3. Core Expertise (Mapping candidate’s primary tools and capabilities)
 
 · FORMATTING RULES:
-  · Use proper semantic HTML lists (<ul><li>) for all bullets
+  · Use proper semantic HTML lists (<ul><li class="...">) for all bullets
   · Use sentence case for all body text and bullet content
   · Card titles should use title case
-  · Entire HTML must be 100% self-contained in a single codeblock
+  · The entire HTML must be 100% ready to copy-paste and function when opened as a standalone .html file
 
 # OUTPUT REQUIREMENTS
-1. Perform internal analysis but do NOT display reasoning.
-2. Display 4 Suggested Google Sites URLs (clean list, no codeblock).
-3. Output the Page Name in its own codeblock (plain text).
+1. Perform all internal analysis (fingerprints, market pressure, T-chart, strategic focus) but do NOT display any reasoning.
+2. Display the 4 Suggested Google Sites URLs as a clean numbered list (no codeblock).
+3. Output the Page Name in its own dedicated codeblock (plain text only).
 4. Output the complete, ready-to-copy HTML document in a SINGLE codeblock.
 
 # DATA INPUTS
 [JOB SNAPSHOT]: (Paste Here)
-[COMPANY INTEL/NEWS]: (Paste Here)
+[COMPANY INTEL/NEWS]: (Paste recent news, About page, or market signals here)
 [CAREER PROFILE]: (Paste Here)
 
 # EXECUTION
-Follow all logic, constraints, and structure above precisely to generate the final output. Prioritize accuracy, scannability, and professional presentation.
+Follow all logic, constraints, structure, and Tailwind implementation rules above precisely. Prioritize accuracy, visual professionalism, scannability, and consistent dark-theme rendering.
