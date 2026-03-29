@@ -5,6 +5,9 @@
 ## PURPOSE
 To perform a high-fidelity, dual-column mapping between a specific Job Description (JD) and a User’s Career History. This engine identifies "Cost of Entry" requirements, verifies evidence through a structured audit, and highlights critical gaps to ensure the resume is positioned for the employer's future needs, not just the user's past.
 
+## NOTE
+This is an alternate way of tuning your resume. I did add some of the advanced logic elements to it.
+
 ## CHANGELOG
 · v1.0 [2026-03-27]: Initial release. Implemented "They Want/I Have" dual-column logic.
 · v1.1 [2026-03-27]: Integrated Internal Logic blocks (Step-Back, CoV, Hallucination Check) and interactive Reverse Prompting.
