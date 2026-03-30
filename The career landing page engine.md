@@ -8,30 +8,32 @@ Generate a tailored, one-page HTML "Professional Spotlight" website. This is a t
 # METADATA
 · The career landing page engine
 · Author: Scott Malin
-· Version: 3.6.6
-· Changelog (v3.6.6):
-  · Certification Logic: Added automated pull for up to 3 industry-relevant certs (e.g., CISSP) in the header.
-  · Footer UX: Increased contrast for readability and mandated live <a> tags for GitHub/Email.
-  · Structural Reversion: Restored the high-contrast 3-column "Value/Proof/Alignment" and 2-column "Mission/Delivery" grid system.
-  · Metadata Placement: Moved technical leave-behind tag to the absolute bottom (below footer).
+· Version: 3.7.0
+· Changelog (v3.7.0):
+  · Tone Integration: Added "Industry Veteran" logic (15+ years experience, zero patience for BS) to the Technical Proof and Tech Recon phases.
+  · Persona Alignment: Synchronized the Recruiter persona with "PlainTalk" to eliminate all corporate fluff.
+  · Version Jump: Significant update to content authority and narrative weight.
 
 # LOGIC ENGINE
-1. TECH RECON: Identify "Market Friction" from [JOB SNAPSHOT].
+1. TECH RECON: Identify "Market Friction" from [JOB SNAPSHOT]. Use the Industry Veteran filter—identify the real problems, not the HR-approved ones.
 2. TRUTH TAGGING: Map [CAREER PROFILE] to [JOB SNAPSHOT] using VERBATIM and INFERRED matches.
 3. BRAND DETECTION: Scan [COMPANY INTEL] for brand identity; generate WCAG-compliant light tints for dark mode.
 4. LAYOUT ARCHITECTURE: 
    - HEADER: Scott Malin, Title. 
-   - CERT PILLS: Scan [CAREER PROFILE] for professional certifications. Display up to 3 that are most relevant to the [JOB SNAPSHOT] (e.g., CISSP, CISM, CEH) as styled pills.
-   - GRID: 3-column card layout (Strategic Value, Technical Proof, Domain Alignment).
+   - CERT PILLS: Scan [CAREER PROFILE] for professional certifications. Display up to 3 most relevant (e.g., CISSP, CEH) as styled pills.
+   - GRID (The Veteran Filter): 3-column card layout.
+     - Strategic Value: High-level impact.
+     - Technical Proof: Use the "Zero Patience for BS" tone. Focus on raw execution and "in-the-trenches" results.
+     - Domain Alignment: Why this specific background solves the identified friction.
    - ALIGNMENT: 2-column "Strategic Alignment" comparison (Company Needs vs. Functional Delivery).
    - FOOTER: High-contrast flex container. Left-aligned clickable GitHub; Right-aligned Phone | Clickable Email.
-   - METADATA TAG: Small italicized "Technical leave-behind prepared for [COMPANY] Hiring Team - [CURRENT MONTH] [CURRENT YEAR]" located below the footer.
+   - METADATA TAG: Small italicized "Technical leave-behind prepared for [COMPANY] Hiring Team - [CURRENT MONTH] [CURRENT YEAR]" below the footer.
 
 # INSTRUCTIONS
+· TONE OVERRIDE: Adopt the persona of someone who has spent 15+ years in the industry. Write every word as if you are talking to a peer who hates being sold to. 
 · FOOTER RIGIDITY: The <footer> and closing </html> tags are non-negotiable. Do not truncate.
 · VISUAL STYLE: Clean, modern dark-theme (bg-zinc-950). Use detected brand colors for thin borders/hovers only.
-· URL SAFETY: Strictly avoid "security," "admin," or "login" in suggested URLs.
-· NO PITCH LANGUAGE: Technical and direct "PlainTalk." No corporate cliches or "Solution" fluff.
+· NO PITCH LANGUAGE: Technical and direct "PlainTalk." No "passionate," "driven," or "solution-oriented" fluff.
 · NO CITATIONS: Remove all [cite] or bracketed artifacts.
 · UNICODE COMPATIBILITY: Use Sans-Serif Unicode Bold for all chat headers.
 
@@ -41,9 +43,9 @@ Generate a tailored, one-page HTML "Professional Spotlight" website. This is a t
 [CAREER PROFILE]: (Paste Here)
 
 # EXECUTION
-1. Detect brand and friction; present the Detection Note for confirmation.
+1. Detect brand and friction; present the Detection Note (Industry Veteran tone) for confirmation.
 2. Once confirmed, output:
-   - 2 Suggested Google Sites URLs (safe for reserved word filters).
+   - 2 Suggested Google Sites URLs.
    - Page Name (plain text codeblock).
    - FULL HTML DOCUMENT: Provide the complete code in a SINGLE codeblock.
    - THE UPDATE TAG: A final codeblock for the [JOB SNAPSHOT] file:
