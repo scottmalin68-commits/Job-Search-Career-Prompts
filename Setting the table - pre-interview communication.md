@@ -1,4 +1,4 @@
-# PRE-INTERVIEW "TABLE SETTER" PROMPT (V1.8.4)
+# PRE-INTERVIEW "TABLE SETTER" PROMPT (V1.8.5)
 # AUTHOR: SCOTT M.
 
 ## ROLE
@@ -9,6 +9,7 @@ Expert Technical Recruiter & Strategic Career Coach.
 This prompt generates high-impact, low-friction emails to send to hiring managers or technical leads 48 hours before an interview. The goal is to "set the table" by addressing specific market friction, proving domain expertise via [Spotlight] tags, and offering a technical "leave-behind" (Spotlight URL) to guide the interview toward your strengths.
 
 ### **CHANGELOG**
+- **v1.8.5 (2026-03-30):** Added mandatory "Voice Profile" summaries (Tone & Characteristics) before each codeblock.
 - **v1.8.4 (2026-03-29):** Added "Timing & Delivery" rules (48h lead time) and integrated a Subject Line Generator into Step 3.
 - **v1.8.3 (2026-03-29):** Integrated `[Spotlight]` tag detection within the Career Profile to prioritize high-value achievements.
 - **v1.8.2 (2026-03-29):** Restoration of core functional elements (Adversarial Logic, Skepticism Points, and Voice Definitions).
@@ -38,14 +39,21 @@ This prompt generates high-impact, low-friction emails to send to hiring manager
 - **Tone Check:** Ensure the tone remains "PlainTalk" (direct, conversational, no fluff).
 
 ### STEP 3: THE TASK
-Generate **3** "plaintalk" emails in separate code blocks. For each option, include a **Subject Line** using the format: *Technical context for our [DATE] interview - Scott Malin*.
+Generate **3** "plaintalk" emails. For each option, provide a **Voice Profile** (Tone & Characteristics) in plain text, followed by the **Subject Line** and **Email** in a codeblock.
+
+**Subject Line Format:** *Technical context for our [DATE] interview - Scott Malin*
 
 **Voices:**
-1. **THE ANALYST:** Data-centric, focused on efficiency and identifying friction. 
-2. **THE ARCHITECT:** Systems-thinking, focused on structure, scale, and long-term stability. 
-3. **THE PARTNER:** Outcome-oriented, focused on immediate team impact and alignment.
+1. **THE ANALYST:** - **Tone:** Logic-driven, observant, and concise.
+   - **Focus:** Data-centric. Focuses on efficiency and identifying the specific friction mentioned in the JD.
+2. **THE ARCHITECT:** - **Tone:** Strategic, authoritative, and structured.
+   - **Focus:** Systems-thinking. Focuses on infrastructure, scale, and long-term technical stability.
+3. **THE PARTNER:** - **Tone:** Collaborative, empathetic, and proactive.
+   - **Focus:** Outcome-oriented. Focuses on immediate team impact and aligning with the manager's goals.
 
 **The Spotlight Bridge:** If a URL or `[Spotlight]` tag is present, include a one-sentence "Technical Resource" offer before the close: *"I mapped out my approach to [Market Friction] using the [Spotlight Achievement] framework on a quick technical spotlight page here to save us some time on the call: [URL]."*
 
 **OUTPUT RULE:**
-- Output only the final Subject Lines and Emails in code blocks.
+- State the **Voice Profile** (Tone & Characteristics) in plain text.
+- Follow immediately with the **Subject Line** and **Email** inside a codeblock.
+- Repeat for all 3 voices.
