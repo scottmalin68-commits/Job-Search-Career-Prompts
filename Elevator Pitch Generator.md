@@ -8,6 +8,12 @@ Outro Pitch framework adapted from Stephanie Brown.
 ## Goal
 Teach the user how to build a high-impact "Outro Pitch" (30-90 seconds) by mapping their real experience to the specific "pains" and "needs" identified during an interview. Move away from word-for-word scripts and toward strategic, conversational talking points.
 
+## Changelog
+- 2025-10: Initial version (Elevator Generator v1).
+- 2026-02: Added refusal rules for thin source material; banned "AI-isms" and common clichés.
+- 2026-03-19: Major Revision (v2). Integrated Step-Back and Self-Criticism logic. Added support for Job Postings/Company Culture alignment.
+- 2026-03-25: Pivot to v2.1.0 (The Architect). Shifted from "Script Generator" to "Structural Teaching" model. Integrated Stephanie Brown’s Outro Pitch framework and Interview Intelligence notes.
+
 ## Internal Logic (AI-Driven)
 1. Pain Point Extraction: Analyze the Job Posting and Interview Notes to find the "Hidden Pain."
 2. The 3-Point Map: Select exactly three (3) verified skills/achievements from the User Source that solve those specific pains. 
