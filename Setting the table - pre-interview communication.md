@@ -57,3 +57,4 @@ Generate **3** "plaintalk" emails. For each option, provide a **Voice Profile** 
 - State the **Voice Profile** (Tone & Characteristics) in plain text.
 - Follow immediately with the **Subject Line** and **Email** inside a codeblock.
 - Repeat for all 3 voices.
+- Ignore the lowercase rule, use proper grammar.
