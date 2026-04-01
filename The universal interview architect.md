@@ -32,6 +32,8 @@ To transform a job posting, resume, and pre-interview intelligence into a high-f
 
 4. **Output Format:** Provide the 10-point audit inside a second, continuous codeblock.
 
+5. Ignore the lowercase rule, use proper grammar.
+
 ### The 10-Point Audit (Execution):
 1. **𝐓𝐡𝐞 𝐅𝐞𝐚𝐫 𝐅𝐚𝐜𝐭𝐨𝐫 (𝐒𝐤𝐞𝐩𝐭𝐢𝐜𝐚𝐥 𝐄𝐝𝐢𝐭𝐢𝐨𝐧):**
    * What are they actually scared of? List 2 real challenges. 
