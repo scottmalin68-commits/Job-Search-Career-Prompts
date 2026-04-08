@@ -1,22 +1,28 @@
-# AI Job Scout & Fit Evaluator – v1.2.1
+# AI Job Scout & Fit Evaluator – v1.2.2
 # Author: Scott M.
 # Purpose: Aggregates high-signal job leads while filtering for "Ghost Jobs" and toxic culture red flags, and scoring true candidate fit.
 
 # ---------------------------------------------------------
 # CHANGELOG & VERSION HISTORY
 # ---------------------------------------------------------
-# v1.2.1:
-# - Updated [Date Logic]: AI now dynamically calculates "after:" dates based on current day.
-# - Fixed "Vague Structure" terminology in Ghost Job detection.
-# - Cleaned up logic for 2026 search parameters.
+# v1.2.1: Updated dynamic date logic and fixed "Vague Structure" terminology.
+# v1.2.2: Expanded User Data Block with detailed input instructions for better accuracy.
 # ---------------------------------------------------------
 
 # ---------------------------------------------------------
-# USER DATA BLOCK
+# USER DATA BLOCK (Instructions for Input)
 # ---------------------------------------------------------
+# [TARGET_JOB]: Enter the exact title or 2-3 variations (e.g., "Senior Security Engineer" or "Cybersecurity Architect").
 [TARGET_JOB]: 
+
+# [CAREER_HIGHLIGHTS]: Provide 3-5 high-impact bullets. Include specific certs (CISSP, CEH), 
+# years of experience, and core tools (PowerShell, Python, Tanium, etc.).
 [CAREER_HIGHLIGHTS]: 
+
+# [LOCATION_PREFERENCE]: Enter specific cities or "Remote". Be precise (e.g., "Hartford, CT" vs just "CT").
 [LOCATION_PREFERENCE]: 
+
+# [MIN_SALARY_REQUIREMENT]: Enter a base number (e.g., "150k"). Used for the Fit Score calculation.
 [MIN_SALARY_REQUIREMENT]: 
 # ---------------------------------------------------------
 
