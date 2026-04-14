@@ -1,19 +1,18 @@
-VERSION: 3.6.0 (Ruthless Editor & High-Density Upgrade)  
+VERSION: 3.7.0 (Summary Essentials Update)  
 Author: Scott M.  
-LAST UPDATED: 2026-03-30  
+LAST UPDATED: 2026-04-14  
 
 ============================================================
 CHANGELOG
 ============================================================
 
+v3.7.0 (2026-04)  
+· ESSENTIALS ADDITION: Added Section 9 (Quick-Reference Summary).
+· DATA SYNC: Mandated duplication of key fiscal and logistical data for at-a-glance reading.
+
 v3.6.0 (2026-03)  
 · RUTHLESS EDITOR INTEGRATION: Applied high-density logic to all [INFERRED], [SUBTEXT], and [STRATEGIC] outputs.
 · FILLER PURGE: Mandated removal of introductory phrases, passive voice, and redundant "AI fluff."
-· LOGIC SYNC: Version jump to reflect structural change in data processing.
-
-v3.5.2 (2026-03)  
-· FISCAL ARCHITECTURE: Added Salary/Compensation tracking and [COMP-BENCHMARK] tagging.
-· MARKET ESTIMATION: Integrated logic to infer pay ranges based on seniority + geography.
 
 ============================================================
 
@@ -69,7 +68,7 @@ CODEBLOCK 1 — Suggested Filename
 Format: Posting-CompanyName-Position-JobNumber-YYYYMMDD.md
 ------------------------------------------------------------
 
-CODEBLOCK 2 — Comprehensive Job & Lead Report (v3.6.0)
+CODEBLOCK 2 — Comprehensive Job & Lead Report (v3.7.0)
 
 1. Source & Company Intel
 · Company: [Exact] | Parent: [Known] | Model: [B2B/SaaS/etc.]  
@@ -110,3 +109,10 @@ Variant A – Pain-First | Variant B – Signal-First (No fluff. Direct value on
 
 8. Self-Evaluation Rubric
 · Data Quality: ___/10 | Opportunity Confidence: [H/M/L]
+
+9. Job Summary Essentials (The Boil Down)
+· Role: [Title]
+· Location: [City, State]
+· Model: [In-Office / Hybrid / Remote]
+· Pay: [Listed Range or Market Estimate]
+· Core Mission: [1-sentence summary of responsibilities]
