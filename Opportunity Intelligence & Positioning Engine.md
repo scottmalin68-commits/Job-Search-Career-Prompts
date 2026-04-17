@@ -1,12 +1,17 @@
 # Opportunity Intelligence & Positioning Engine (Pre-Application OSINT)
 
-VERSION: 1.9.0 (Decision-Weighted Intelligence Edition)
+VERSION: 1.9.1 (Decision-Weighted Intelligence Edition)
 Author: Scott M.
 LAST UPDATED: 2026-04-17
 
 ============================================================
 CHANGELOG
 ============================================================
+v1.9.1 (2026-04)
+· Added "The 'So What' Factor": forced identification of the primary business pain point.
+· Refined "Positioning Strategy" to include specific resume targeting hooks.
+· Enforced "Standard Spacing" for Notepad++ and record-keeping clarity.
+
 v1.9.0 (2026-04)
 · Removed unreliable <thought> tags; replaced with enforced short justifications.
 · Added STEP 0 Decision Path (forced multi-option reasoning).
@@ -16,20 +21,12 @@ v1.9.0 (2026-04)
 · Added low-data fallback handling for weak job postings.
 · Added Hiring Intent Classification.
 · Added Application Timing Signal.
-· Expanded Positioning Strategy with resume targeting hooks.
-
-v1.8.0 (2026-04)
-· Added "Ghost Job" logic: check posting vs. update dates, generic project descriptions.
-· Added "Burnout Signal": flag license-heavy/complex stacks paired with low seniority/pay expectations.
-· Added "Proprietary Check": flag niche/internal-only tool requirements as internal-candidate bias.
-· Added "Kitchen Sink" logic: auto-flag contradictory seniority/cert/experience requirements.
-· Standardized spacing for Notepad++ compatibility.
 
 ============================================================
 PURPOSE
 ============================================================
 Analyze a job posting for reality, viability, and hidden hiring intent.
-Detect ghost/compliance postings, assess competitiveness, and produce a clear application strategy.
+Detect ghost/compliance postings, assess competitiveness, and produce a clear strategy.
 
 ============================================================
 PROMPT INSTRUCTIONS
@@ -79,14 +76,6 @@ LOGIC CHECK RULES
 4. Proprietary tools required → Internal-Candidate-Likely  
 5. License-heavy stack + low support signals → Burnout risk  
 
-------------------------------------------------------------
-LOW-DATA HANDLING
-------------------------------------------------------------
-- If posting lacks detail:
-  - Reduce confidence level
-  - Avoid strong conclusions
-  - Flag uncertainty explicitly
-
 ============================================================
 OUTPUT STRUCTURE
 ============================================================
@@ -114,6 +103,7 @@ STEP 1: NARRATIVE INTELLIGENCE REPORT
 
 Provide a direct, skeptical briefing:
 - Explain what this role actually is vs. how it's presented
+- Identify "The 'So What' Factor" (The one specific problem they are desperate to fix)
 - Highlight hidden expectations and risks
 - Justify conclusions using tagged evidence
 
@@ -129,15 +119,11 @@ STEP 2: SNAPSHOT DATA BLOCK
 - Location:  
 - Financial/Market Signal:  
 
-------------------------------------------------------------
-
 2. REALITY CHECK
 - True Must-Haves:  
 - Hidden Expectations: [INFERRED + justification]  
 - Scope Creep / Red Flags:  
 - [KITCHEN-SINK] Warnings:  
-
-------------------------------------------------------------
 
 3. OPPORTUNITY INTEGRITY (Internal / Ghost Scan)
 - Internal Candidate Likelihood: [%]  
@@ -146,19 +132,13 @@ STEP 2: SNAPSHOT DATA BLOCK
 - Risk Level: 🟢 Open / 🟡 Competitive / 🔴 Likely Pre-Selected  
 - Recommended Path: [Apply / Referral / Skip]  
 
-------------------------------------------------------------
-
 4. HIRING INTENT CLASSIFICATION
 - Type: [Backfill / Growth / Pipeline / Evergreen / Compliance Posting]  
 - Justification:  
 
-------------------------------------------------------------
-
 5. APPLICATION TIMING SIGNAL
 - Posting Freshness: [New / Aged / Stale]  
 - Apply Urgency: [High / Medium / Low]  
-
-------------------------------------------------------------
 
 6. TECH STACK FINGERPRINT
 - Confirmed Infrastructure:  
@@ -166,24 +146,19 @@ STEP 2: SNAPSHOT DATA BLOCK
 - Resource Efficiency: [License-Heavy / Balanced / Open-Source Leaning]  
 - Roadmap Signals: [TECH-ROADMAP]  
 
-------------------------------------------------------------
-
 7. POSITIONING STRATEGY
 - Ideal Candidate "Win" Traits:  
-- Messaging Angle: [Pain-point focused / Signal-heavy]  
+- Messaging Angle: [Pain-point focused / Signal-heavy]
+- "So What" Solution: (The specific fix you offer for their primary pain point)
 - Resume Keywords to Mirror:  
 - Metrics to Emphasize:  
 - What NOT to Focus On:  
 - Effort Level:  
 
-------------------------------------------------------------
-
 8. SEARCH STRINGS
 - Direct Lead:  
 - Skip-Level:  
 - Recruiter:  
-
-------------------------------------------------------------
 
 9. SELF-EVALUATION
 - Integrity Score: ___%  
