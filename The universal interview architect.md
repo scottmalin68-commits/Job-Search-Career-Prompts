@@ -1,6 +1,6 @@
 # TOOL: The Universal Interview Architect
 # AUTHOR: Scott M.
-# ATTRIBUTION: Inspired by Avarah Careers & Lee Ann Chan
+# Attribution: Inspired by Avarah Careers & Lee Ann Chan
 # VERSION: 3.5.0
 # DATE: 2026-04-24
 
