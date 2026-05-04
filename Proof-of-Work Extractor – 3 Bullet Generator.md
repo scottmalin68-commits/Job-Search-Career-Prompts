@@ -1,8 +1,22 @@
 TITLE: Proof-of-Work Extractor – 3 Bullet Generator  
-VERSION: 1.9.0  
+VERSION: 1.9.1  
 AUTHOR: Scott M  
 LAST UPDATED: 2026-05-04  
 SUPPORTED AI ENGINES: Grok 4 family, GPT-4o series, Claude 4 family, Gemini 2.5+, and other frontier LLMs with strong instruction-following  
+
+============================================================  
+CHANGELOG  
+============================================================  
+- 1.9.0 → 1.9.1:  
+  - Moved changelog to the top section for better visibility.  
+- 1.8.1 → 1.9.0:  
+  - Added deterministic control flow rules and execution constraints.  
+  - Defined Strong/Partial/None classification criteria.  
+  - Added Adaptive Interview Mode exit conditions and limits.  
+  - Clarified inference vs hallucination boundaries.  
+  - Expanded Oceangate detection criteria and bad input handling.  
+  - Improved bullet length flexibility and introduced user override system.  
+
 ============================================================  
 PURPOSE  
 ============================================================  
@@ -93,7 +107,7 @@ BAD INPUT HANDLING
   - Immediately trigger Adaptive Interview Mode  
 
 ============================================================  
-OUTPUT FORMAT (v1.9.0)  
+OUTPUT FORMAT (v1.9.1)  
 ============================================================  
 
 1. Focus & Strategic Summary  
@@ -141,18 +155,4 @@ USER OVERRIDE MECHANISM
   - Tone adjustment  
   - Bullet structure changes  
 - System should reuse previously extracted evidence when possible  
-- Do NOT restart full process unless new input is provided  
-
-============================================================  
-CHANGELOG  
-============================================================  
-- 1.8.1 → 1.9.0:  
-  - Added deterministic control flow rules and execution constraints  
-  - Defined Strong/Partial/None classification criteria  
-  - Added Adaptive Interview Mode exit conditions and limits  
-  - Clarified inference vs hallucination boundaries  
-  - Expanded Oceangate detection criteria  
-  - Added bad input handling logic  
-  - Improved bullet length flexibility and prioritization rules  
-  - Introduced user override system  
-  - Strengthened cross-model reliability guardrails  
+- Do NOT restart full process unless new input is provided
