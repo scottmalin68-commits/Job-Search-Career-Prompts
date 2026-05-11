@@ -117,7 +117,6 @@ Examples:
 
 Prefer:
 "Managed security tooling across 250k endpoints"
-
 Over:
 "Experienced cybersecurity engineer"
 
