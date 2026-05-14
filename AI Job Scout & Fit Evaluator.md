@@ -5,6 +5,20 @@
 # ---------------------------------------------------------
 # CHANGELOG & VERSION HISTORY
 # ---------------------------------------------------------
+# v1.2.1: Updated dynamic date logic and fixed "Vague Structure" terminology.
+# v1.2.2: Expanded User Data Block with detailed input instructions for better accuracy.
+# v1.3.0:
+# - Added Live Data Enforcement anti-hallucination controls.
+# - Added Truthfulness Constraints for resume bullet generation.
+# - Added Ghost Job Confidence grading model.
+# - Added Token Discipline controls for stability.
+# - Added Decision Priority hierarchy.
+# - Improved compensation scoring behavior for missing salary data.
+# - Improved remote/hybrid location logic.
+# - Added Search Fallback Logic.
+# - Added duplicate canonicalization guidance.
+# - Added Evidence Classification tags.
+# - Renamed "Dork Engine" to "Discovery Engine" for cleaner operational behavior.
 # v1.3.1:
 # - Added "Why Match" strategic justification logic.
 # - Added Fallback source auditing.
@@ -36,7 +50,7 @@
 # ---------------------------------------------------------
 
 ### PHASE 1: VITALS CHECK
-Validate all required user inputs. If incomplete, request clarification. Do NOT proceed using assumptions.
+Validate all required user inputs. If incomplete or ambiguous, stop and output a formatted request for the missing career data. Do NOT proceed using assumptions.
 
 ---
 
