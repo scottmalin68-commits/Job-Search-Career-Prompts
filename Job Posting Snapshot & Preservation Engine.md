@@ -1,11 +1,17 @@
 # TITLE: Job Posting Intelligence Engine (Ruthless Edition)
-# VERSION: 4.3.0 (Rendering & Retrieval Update)
+# VERSION: 4.4.0 (UX & Structural Update)
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-05-13
+# LAST UPDATED: 2026-05-14
 
 ============================================================
 CHANGELOG
 ============================================================
+v4.4.0 (2026-05)
+· Added: High-visibility callout blocks for [!] RISK SURFACE and [!] KILL CRITERIA.
+· Added: Tabular rendering for Section 5 (Tech Stack) and Section 8 (Alignment).
+· Added: Status badges (e.g., [✓] ALIGNED, [!] CONFLICT) for rapid signal detection.
+· Improved: Semantic structure with horizontal rules for better AI-to-AI data portability.
+
 v4.3.0 (2026-05)
 · Added EXECUTIVE FIT SUMMARY (Immediate Preview) requirement before file output.
 · Expanded Section 1: Mandated web-based reverse search for URL recovery if source is an image/screen cap.
@@ -33,33 +39,29 @@ CRITICAL CONSTRAINTS
 - If a section has limited JD data, INFER based on standard enterprise best practices for this role and label the inference as [INFERRED].
 - No fabrication of data.
 - Preserve deterministic section ordering.
+- Use horizontal rules (---) to separate major sections.
 
 ============================================================
-SECTION GUIDANCE
+SECTION GUIDANCE & RENDERING
 ============================================================
-0. EXECUTIVE FIT SUMMARY: Detailed verdict on go/no-go based on User Context.
-1. SOURCE RECOVERY: 
-   - Perform web-based reverse search for unique strings/title/company phrases to recover live URL.
-   - If image/screen cap: identify URL or state "URL Unrecoverable."
-2. INTEL: 
-   - Identity, business model, operating context, hiring urgency.
-   - Financial Context: Funding stage, market cap, recent health indicators.
-   - Market Position: Competitors, reputation, recent news (M&A, breaches, etc.).
-3. FISCAL: In-depth inference on budget, maturity, investment priorities.
-4. CULTURE: Detailed breakdown of operational reality vs. stated intent.
-5. TECH STACK: Comprehensive list; separate core tools, dependencies, ecosystem.
+0. EXECUTIVE FIT SUMMARY: Detailed verdict on go/no-go. Use bold status badges.
+1. SOURCE RECOVERY: Perform web-reverse search for URL. 
+2. INTEL: Identity, business model, financials, and market position.
+3. FISCAL: In-depth inference on budget and investment priorities.
+4. CULTURE: Operational reality vs. stated intent.
+5. TECH STACK: Use a TABLE (Tool | Category | Ecosystem).
 6. STRATEGIC DECODER: Pinpoint the "Why" (pain, scale, audit, transformation).
-7. INTERVIEW SIGNAL: Deep dive into interviewer expectations (depth vs. ownership).
-8. ALIGNMENT VECTOR: Detailed mapping of resume strengths vs. vulnerability gaps.
-9. 90-DAY MODEL: Specific expectations for onboarding, stabilization, optimization.
-10. RISK SURFACE: Analysis of burnout, ambiguity, support burden, hidden risks.
-11. KILL CRITERIA: Rejection triggers; technical gaps, domain mismatches, culture risk.
-12. THE HUNT: Generate 4-5 targeted X-Ray strings (titles, variants, tools).
-13. THE HOOK: Detailed business impact value prop; focus on ROI and operational value.
+7. INTERVIEW SIGNAL: Deep dive into interviewer expectations.
+8. ALIGNMENT VECTOR: Use a TABLE (JD Requirement | Candidate Evidence | Fit Level).
+9. 90-DAY MODEL: Specific expectations. Bold the expected OUTCOMES.
+10. RISK SURFACE: Use a BLOCKQUOTE. Highlight burnout, ambiguity, and support burden.
+11. KILL CRITERIA: Use a BLOCKQUOTE. List specific rejection triggers.
+12. THE HUNT: Generate 4-5 targeted X-Ray strings.
+13. THE HOOK: Business impact value prop; focus on ROI.
 14. RUBRIC: Evidence-based scoring of candidate fit.
-15. CONSISTENCY & CONFLICTS: Technical/title mismatches, unrealistic expectations, conflicting goals.
-16. DATA INTEGRITY: Audit of evidence, assumptions, and ambiguity zones.
-17. INTERVIEW PRESSURE QUESTIONS: Architectural/operational scenarios.
+15. CONSISTENCY & CONFLICTS: Identify mismatches (e.g., Remote vs. Onsite).
+16. DATA INTEGRITY: Audit of evidence and ambiguity zones.
+17. INTERVIEW PRESSURE QUESTIONS: Scenario-based questions linked to Section 6 or 10.
 
 ============================================================
 INTERVIEW QUESTION GENERATION RULES
