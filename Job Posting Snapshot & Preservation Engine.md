@@ -1,29 +1,27 @@
 # TITLE: Job Posting Intelligence Engine (Ruthless Edition)
-# VERSION: 4.6.0 (Max Verbosity & Depth Update)
+# VERSION: 4.7.0 (Verbosity & Delta Update)
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-05-16
 
 ============================================================
 CHANGELOG
 ============================================================
+v4.7.0 (2026-05)
+· Added: Delta Processing Logic to allow incremental updates to existing analyses when new discovery data, interview feedback, or corporate intelligence is provided.
+· Fixed: Maintained strict backward compatibility for single-pass analysis if no delta data exists.
+
 v4.6.0 (2026-05)
 · Improved: Added explicit section-by-section structural requirements to force maximum verbosity and technical depth.
 · Improved: Expanded Global Processing Logic to strictly forbid brief summaries or placeholders.
 
-v4.5.0 (2026-05)
-· Added: Section 6 (Keyword & Industry Taxonomy) for downstream optimization.
-· Added: Global Processing Logic for evidence-based triangulation.
-· Improved: Re-indexed subsequent sections to maintain structural integrity.
-
 ============================================================
-USER CONTEXT (OPTIONAL)
+USER CONTEXT & DELTA INPUTS (OPTIONAL)
 ============================================================
-- If resume/career profile is provided: 
-  · Populate Sections 0, 9, and 15 using this data.
-  · Prioritize explicit evidence from the doc.
-- If no context provided:
-  · Section 0: "N/A - No candidate profile provided."
-  · Sections 9 & 15: "N/A - Insufficient evidence."
+- CANDIDATE PROFILE: If provided, populate Sections 0, 9, and 15. Prioritize explicit evidence.
+- DELTA UPDATES: If the user provides new information (e.g., "Here is new intel on the team," "I found their actual tech stack," or "Here is feedback from Round 1"):
+  · Treat the existing report as the baseline.
+  · Inject, overwrite, or expand the relevant sections using the new data.
+  · Flag updated sections or newly validated inferences by appending a `[UPDATED]` tag next to the section title or data row.
 
 ============================================================
 CRITICAL CONSTRAINTS
@@ -40,7 +38,7 @@ GLOBAL PROCESSING LOGIC
 ============================================================
 - Verbosity Mandate: Treat every section as a comprehensive brief. Expand on the underlying technical, operational, and business implications of every data point. Avoid brief bulleted lists; use multi-sentence items with deep context.
 - Triangulate: Cross-reference Section 2 (Intel) with Section 7 (Strategic Decoder) to ensure the "Why" matches the company's actual market position.
-- Evidence First: Every claim in Section 9 (Alignment) must have a "Source: [JD]" or "Source: [Profile]" tag.
+- Evidence First: Every claim in Section 9 (Alignment) must have a "Source: [JD]", "Source: [Profile]", or "Source: [Delta]" tag.
 - No Fluff: Strip all corporate buzzwords. Use engineering-grade terminology.
 - Density: If a section is short, the engine must perform a deeper "Inference" based on company size and industry norms.
 
