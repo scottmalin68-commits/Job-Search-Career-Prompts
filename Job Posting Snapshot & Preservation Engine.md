@@ -1,20 +1,19 @@
 # TITLE: Job Posting Intelligence Engine (Ruthless Edition)
-# VERSION: 4.5.0 (Keyword & Optimization Update)
+# VERSION: 4.6.0 (Max Verbosity & Depth Update)
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-05-14
+# LAST UPDATED: 2026-05-16
 
 ============================================================
 CHANGELOG
 ============================================================
+v4.6.0 (2026-05)
+· Improved: Added explicit section-by-section structural requirements to force maximum verbosity and technical depth.
+· Improved: Expanded Global Processing Logic to strictly forbid brief summaries or placeholders.
+
 v4.5.0 (2026-05)
 · Added: Section 6 (Keyword & Industry Taxonomy) for downstream optimization.
 · Added: Global Processing Logic for evidence-based triangulation.
 · Improved: Re-indexed subsequent sections to maintain structural integrity.
-
-v4.4.0 (2026-05)
-· Added: High-visibility callout blocks for [!] RISK SURFACE and [!] KILL CRITERIA.
-· Added: Tabular rendering for Section 5 (Tech Stack) and Section 9 (Alignment).
-· Added: Status badges for rapid signal detection.
 
 ============================================================
 USER CONTEXT (OPTIONAL)
@@ -30,8 +29,8 @@ USER CONTEXT (OPTIONAL)
 CRITICAL CONSTRAINTS
 ============================================================
 - Output ONLY the requested report format. No meta-commentary.
-- Detailed analysis required for all sections.
-- If a section has limited JD data, INFER based on standard enterprise best practices for this role and label the inference as [INFERRED].
+- Exhaustive, deep-dive analysis required for all sections. Do not summarize.
+- If a section has limited JD data, INFER based on standard enterprise best practices for this role and label the inference as [INFERRED]. Expand on the inference with technical and operational sub-points.
 - No fabrication of data.
 - Preserve deterministic section ordering.
 - Use horizontal rules (---) to separate major sections.
@@ -39,6 +38,7 @@ CRITICAL CONSTRAINTS
 ============================================================
 GLOBAL PROCESSING LOGIC
 ============================================================
+- Verbosity Mandate: Treat every section as a comprehensive brief. Expand on the underlying technical, operational, and business implications of every data point. Avoid brief bulleted lists; use multi-sentence items with deep context.
 - Triangulate: Cross-reference Section 2 (Intel) with Section 7 (Strategic Decoder) to ensure the "Why" matches the company's actual market position.
 - Evidence First: Every claim in Section 9 (Alignment) must have a "Source: [JD]" or "Source: [Profile]" tag.
 - No Fluff: Strip all corporate buzzwords. Use engineering-grade terminology.
@@ -47,25 +47,25 @@ GLOBAL PROCESSING LOGIC
 ============================================================
 SECTION GUIDANCE & RENDERING
 ============================================================
-0. EXECUTIVE FIT SUMMARY: Detailed verdict on go/no-go. Use bold status badges.
-1. SOURCE RECOVERY: Perform web-reverse search for URL. 
-2. INTEL: Identity, business model, financials, and market position.
-3. FISCAL: In-depth inference on budget and investment priorities.
-4. CULTURE: Operational reality vs. stated intent.
-5. TECH STACK: Use a TABLE (Tool | Category | Ecosystem).
-6. KEYWORD & INDUSTRY TAXONOMY: List of top 15-20 keywords (Technical, Soft Skills, Industry Terms) for resume ATS optimization.
-7. STRATEGIC DECODER: Pinpoint the "Why" (pain, scale, audit, transformation).
-8. INTERVIEW SIGNAL: Deep dive into interviewer expectations.
-9. ALIGNMENT VECTOR: Use a TABLE (JD Requirement | Candidate Evidence | Fit Level).
-10. 90-DAY MODEL: Specific expectations. Bold the expected OUTCOMES.
-11. RISK SURFACE: Use a BLOCKQUOTE. Highlight burnout, ambiguity, and support burden.
-12. KILL CRITERIA: Use a BLOCKQUOTE. List specific rejection triggers.
-13. THE HUNT: Generate 4-5 targeted X-Ray strings.
-14. THE HOOK: Business impact value prop; focus on ROI.
-15. RUBRIC: Evidence-based scoring of candidate fit.
-16. CONSISTENCY & CONFLICTS: Identify mismatches (e.g., Remote vs. Onsite).
-17. DATA INTEGRITY: Audit of evidence and ambiguity zones.
-18. INTERVIEW PRESSURE QUESTIONS: Scenario-based questions linked to Section 7 or 11.
+0. EXECUTIVE FIT SUMMARY: Detailed verdict on go/no-go. Use bold status badges. Include a 3-4 sentence justification detailing cultural, technical, and strategic alignment.
+1. SOURCE RECOVERY: Perform web-reverse search for URL. Provide suspected job board origins and tracking identifiers if visible.
+2. INTEL: Identity, business model, financials, and market position. Explicitly analyze how their market positioning impacts this specific team's funding and priority.
+3. FISCAL: In-depth inference on budget, tooling investment priorities, and potential cost-cutting or expansion pressures hitting this department.
+4. CULTURE: Operational reality vs. stated intent. Contrast the HR "brochure" language against technical debt, legacy processes, and true engineering velocity.
+5. TECH STACK: Use a TABLE (Tool | Category | Ecosystem). Followed by a detailed breakdown of potential missing dependencies, legacy tooling, and integration friction points.
+6. KEYWORD & INDUSTRY TAXONOMY: List of top 15-20 keywords (Technical, Soft Skills, Industry Terms) for resume ATS optimization. Group them logically (e.g., Core Tech, Methodologies, Compliance).
+7. STRATEGIC DECODER: Pinpoint the "Why" (pain, scale, audit, transformation). Provide a multi-paragraph breakdown of the immediate operational crisis or growth vector driving this hire.
+8. INTERVIEW SIGNAL: Deep dive into interviewer expectations. Break down exactly what the Hiring Manager, Peer Engineers, and Cross-functional stakeholders will be filtering for.
+9. ALIGNMENT VECTOR: Use a TABLE (JD Requirement | Candidate Evidence | Fit Level). Ensure highly granular breakdowns of requirements rather than high-level groupings.
+10. 90-DAY MODEL: Specific expectations broken down by Days 1-30, 31-60, and 61-90. Bold the expected OUTCOMES and include the specific technical hurdles to clear in each window.
+11. RISK SURFACE: Use a BLOCKQUOTE. Detail specific operational landmines: burnout vectors, architecture ambiguity, lack of executive buy-in, and operational support burden.
+12. KILL CRITERIA: Use a BLOCKQUOTE. List specific, granular rejection triggers during the interview loop (e.g., specific technical answers, behavioral red flags, or philosophical mismatches).
+13. THE HUNT: Generate 4-5 targeted X-Ray strings optimized for Google/LinkedIn to find peers or predecessors in this role.
+14. THE HOOK: Business impact value prop; focus on quantifiable ROI, risk reduction, or velocity optimization tailored to Section 7.
+15. RUBRIC: Evidence-based scoring of candidate fit across Technical, Architectural, and Leadership vectors.
+16. CONSISTENCY & CONFLICTS: Identify internal mismatches within the JD (e.g., Remote vs. Onsite contradictions, bloated scope vs. low title, or tool stack mismatches).
+17. DATA INTEGRITY: Audit of evidence vs. assumption. Explicitly map out the zones of highest ambiguity where the candidate needs to ask clarifying questions.
+18. INTERVIEW PRESSURE QUESTIONS: Scenario-based questions linked directly to the specific vulnerabilities surfaced in Section 7 or 11.
 
 ============================================================
 INTERVIEW QUESTION GENERATION RULES
