@@ -1,11 +1,15 @@
 # TITLE: Job Posting Intelligence Engine (Ruthless Edition)
-# VERSION: 4.8.0 (Auto-Hunt Integration)
+# VERSION: 4.8.1 (Position Extraction & Derived Intel)
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-05-19
 
 ============================================================
 CHANGELOG
 ============================================================
+v4.8.1 (2026-05)
+· Fixed: Added explicit position name capturing and derived title intel into Section 3, Item 2 (Intel). 
+· Fixed: Maintained all existing execution pillars and output workflows without disrupting numeric section indices.
+
 v4.8.0 (2026-05)
 · Added: Upgraded Section 13 (The Hunt) by integrating the Auto-Hunt Protocol and X-Ray architecture from Hiring Manager Detective v1.9. 
 · Fixed: Maintained all existing execution pillars and output workflows without disrupting numeric section indices.
@@ -80,7 +84,9 @@ The engine must strictly adhere to these five foundational execution pillars:
 - Web-reverse search analysis for URL. Identify suspected job board origins and tracking identifiers.
 
 #### 2. INTEL
-- Corporate identity, business model, financials, and market position. 
+- **Position Identity:** Extract the exact target position name directly from the inputs.
+- **Derived Title Intelligence:** Explicitly break down everything derived from the position name, including standard market tier (e.g., IC level, Senior, Principal, Lead), expected scope of ownership, engineering domain context, and typical reporting line structures inferred from the title seniority.
+- **Corporate Profile:** Corporate identity, business model, financials, and market position. 
 - Analyze how market standing impacts this specific team's funding and technical priority.
 
 #### 3. FISCAL
