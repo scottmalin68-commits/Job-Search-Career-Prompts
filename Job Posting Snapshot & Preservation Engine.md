@@ -1,11 +1,15 @@
 # TITLE: Job Posting Intelligence Engine (Ruthless Edition)
-# VERSION: 4.7.3 (Self-Check & Tone Hardening)
+# VERSION: 4.8.0 (Auto-Hunt Integration)
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-05-17
+# LAST UPDATED: 2026-05-19
 
 ============================================================
 CHANGELOG
 ============================================================
+v4.8.0 (2026-05)
+· Added: Upgraded Section 13 (The Hunt) by integrating the Auto-Hunt Protocol and X-Ray architecture from Hiring Manager Detective v1.9. 
+· Fixed: Maintained all existing execution pillars and output workflows without disrupting numeric section indices.
+
 v4.7.3 (2026-05)
 · Fixed: Added a critical self-check constraint to prevent section dropping.
 · Fixed: Added an explicit tone example to Pillar C to enforce engineering-grade outputs.
@@ -118,8 +122,14 @@ The engine must strictly adhere to these five foundational execution pillars:
 - > [!] KILL CRITERIA
   > Use a Blockquote block. List specific, granular rejection triggers during the interview loop (technical answers, behavioral red flags, philosophical mismatches).
 
-#### 13. THE HUNT
-- Generate 4-5 targeted X-Ray strings optimized for Google/LinkedIn to locate peers or predecessors.
+#### 13. THE HUNT (AUTO-HUNT PROTOCOL)
+- Output the tactical targeting roadmap using precise variables derived from the inputs. No placeholder text or permission-seeking.
+- **Part A: X-Ray Blueprint:** Generate exactly 4 Google X-Ray strings in a standalone code block configured for the target company, location, and functional silo:
+  1. *Direct Lead:* `site:linkedin.com/in ("current" OR intitle:at) "[COMPANY]" ("[MANAGER_TITLE]" OR "[ALT_TITLE]") "[LOCATION/SILO]"`
+  2. *The "Hiring" Post:* `site:linkedin.com/posts "[COMPANY]" "hiring" "[JOB_TITLE]"`
+  3. *Skip-Level:* `site:linkedin.com/in ("current" OR intitle:at) "[COMPANY]" ("VP" OR "SVP" OR "Head of") "[SILO]"`
+  4. *The Recruiter:* `site:linkedin.com/in ("current" OR intitle:at) "[COMPANY]" ("Recruiter" OR "Talent") "[SILO]"`
+- **Part B: Target Matrix:** List 3 logical target personas or roles structured by the **Reply-Probability Scoring Model (0-10)**. Rank them #1 (Best Lead), #2, and #3. For each entry, provide the definitive target profile title, its calculated Reply-Prob Score, and a 1-sentence strategic justification based on the team architecture found in Section 7 and Section 8. (Use `[Placeholder Name]` if live names are not yet verified).
 
 #### 14. THE HOOK
 - Business impact value proposition. Focus on quantifiable ROI, risk reduction, or velocity optimization tailored to Section 7.
@@ -145,5 +155,4 @@ The engine must strictly adhere to these five foundational execution pillars:
 ============================================================
 Step 1: Display SECTION 0: EXECUTIVE FIT SUMMARY standalone as an immediate preview.
 Step 2: Generate CODEBLOCK 1 containing only the filename: `Posting-Company-Position-ID-YYYYMMDD.md`
-Step 3: Generate CODEBLOCK 2 containing the full, raw Markdown report wrapped in standard triple-backticks (
-http://googleusercontent.com/immersive_entry_chip/0
+Step 3: Generate CODEBLOCK 2 containing the full, raw Markdown report wrapped in standard triple-backticks (```).
