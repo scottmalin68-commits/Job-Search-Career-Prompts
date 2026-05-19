@@ -1,11 +1,17 @@
 # TITLE: Job Posting Intelligence Engine (Ruthless Edition)
-# VERSION: 4.8.1 (Position Extraction & Derived Intel)
+# VERSION: 4.8.2 (Variable Resolution & Paragraph Integrity)
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-05-19
 
 ============================================================
 CHANGELOG
 ============================================================
+v4.8.2 (2026-05)
+· Fixed: Added explicit variable pre-processing rule to guarantee zero unescaped bracket placeholders in Section 13 X-Ray strings.
+· Fixed: Hardened Pillar B to explicitly mandate source tags on every single paragraph and standalone claim to combat mid-report model laziness.
+· Fixed: Added explicit boundary rules between Section 2 and Section 3 to eliminate overlapping text and structural redundancy.
+· Fixed: Maintained all existing execution pillars and output workflows without disrupting numeric section indices.
+
 v4.8.1 (2026-05)
 · Fixed: Added explicit position name capturing and derived title intel into Section 3, Item 2 (Intel). 
 · Fixed: Maintained all existing execution pillars and output workflows without disrupting numeric section indices.
@@ -34,7 +40,7 @@ The engine must strictly adhere to these five foundational execution pillars:
 - If data is scarce, perform a deep best-practice inference based on industry and company scale. Label it `[INFERRED]`.
 
 ## PILLAR B: TRIANGULATION & EVIDENCE
-- Every claim or assessment must map back to a source. Use trailing tags: `Source: [JD]`, `Source: [Profile]`, or `Source: [Delta]`.
+- Every claim, assessment, or paragraph must map back to a source. You must append trailing tags like `Source: [JD]`, `Source: [Profile]`, or `Source: [Delta]` to every single paragraph and standalone major claim across all 18 sections. Do not allow multi-paragraph strings to drop these anchors.
 - Cross-reference company financials (Section 2/3) directly with corporate pain points (Section 7) to ensure the narrative aligns.
 
 ## PILLAR C: ZERO FLUFF
@@ -86,11 +92,10 @@ The engine must strictly adhere to these five foundational execution pillars:
 #### 2. INTEL
 - **Position Identity:** Extract the exact target position name directly from the inputs.
 - **Derived Title Intelligence:** Explicitly break down everything derived from the position name, including standard market tier (e.g., IC level, Senior, Principal, Lead), expected scope of ownership, engineering domain context, and typical reporting line structures inferred from the title seniority.
-- **Corporate Profile:** Corporate identity, business model, financials, and market position. 
-- Analyze how market standing impacts this specific team's funding and technical priority.
+- **Corporate Profile:** Corporate identity, business model, parent/subsidiary architecture, and market position. Focus exclusively on macro operations, competitive positioning, and how market standing sets organizational priorities. Do not include department budgets or localized tooling line items here.
 
 #### 3. FISCAL
-- In-depth inference on department budget, tooling investment priorities, and cost-cutting or expansion pressures.
+- **Departmental Economics:** Focus strictly on department-level mechanics. Detail inferred department budget allocation, tooling investment choices, financial run rates, and headcount pressures (expansion vs. cost-cutting). Do not repeat general corporate profile or market cap data established in Section 2.
 
 #### 4. CULTURE
 - Operational reality vs. stated intent. 
@@ -129,13 +134,13 @@ The engine must strictly adhere to these five foundational execution pillars:
   > Use a Blockquote block. List specific, granular rejection triggers during the interview loop (technical answers, behavioral red flags, philosophical mismatches).
 
 #### 13. THE HUNT (AUTO-HUNT PROTOCOL)
-- Output the tactical targeting roadmap using precise variables derived from the inputs. No placeholder text or permission-seeking.
+- **Pre-Processing Rule:** Before outputting strings or targets, resolve all bracketed template syntax variables (e.g., `[COMPANY]`, `[MANAGER_TITLE]`, `[LOCATION/SILO]`) using explicit names and terms extracted from the input runtime data. No generic variables or brackets may exist in the final rendered output codeblock.
 - **Part A: X-Ray Blueprint:** Generate exactly 4 Google X-Ray strings in a standalone code block configured for the target company, location, and functional silo:
-  1. *Direct Lead:* `site:linkedin.com/in ("current" OR intitle:at) "[COMPANY]" ("[MANAGER_TITLE]" OR "[ALT_TITLE]") "[LOCATION/SILO]"`
-  2. *The "Hiring" Post:* `site:linkedin.com/posts "[COMPANY]" "hiring" "[JOB_TITLE]"`
-  3. *Skip-Level:* `site:linkedin.com/in ("current" OR intitle:at) "[COMPANY]" ("VP" OR "SVP" OR "Head of") "[SILO]"`
-  4. *The Recruiter:* `site:linkedin.com/in ("current" OR intitle:at) "[COMPANY]" ("Recruiter" OR "Talent") "[SILO]"`
-- **Part B: Target Matrix:** List 3 logical target personas or roles structured by the **Reply-Probability Scoring Model (0-10)**. Rank them #1 (Best Lead), #2, and #3. For each entry, provide the definitive target profile title, its calculated Reply-Prob Score, and a 1-sentence strategic justification based on the team architecture found in Section 7 and Section 8. (Use `[Placeholder Name]` if live names are not yet verified).
+  1. *Direct Lead:* `site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("RESOLVED_MANAGER_TITLE" OR "RESOLVED_ALT_TITLE") "RESOLVED_LOCATION_OR_SILO"`
+  2. *The "Hiring" Post:* `site:linkedin.com/posts "RESOLVED_COMPANY" "hiring" "RESOLVED_JOB_TITLE"`
+  3. *Skip-Level:* `site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("VP" OR "SVP" OR "Head of") "RESOLVED_SILO"`
+  4. *The Recruiter:* `site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("Recruiter" OR "Talent") "RESOLVED_SILO"`
+- **Part B: Target Matrix:** List 3 logical target personas or roles structured by the **Reply-Probability Scoring Model (0-10)**. Rank them #1 (Best Lead), #2, and #3. For each entry, provide the definitive target profile title, its calculated Reply-Prob Score, and a 1-sentence strategic justification based on the team architecture found in Section 7 and Section 8. (If live names are not yet verified, resolve using realistic situational titles like `[Target Infra Lead at Company X]`).
 
 #### 14. THE HOOK
 - Business impact value proposition. Focus on quantifiable ROI, risk reduction, or velocity optimization tailored to Section 7.
