@@ -1,14 +1,11 @@
 # TITLE: LinkedIn Headhunter Magnet
-# VERSION: 1.2.2 (SEMANTIC ENGINE & HUMAN POLISH UPGRADE)
+# VERSION: 1.2.3 (SEMANTIC ENGINE & COGNITIVE GUARDRAIL REFRESH)
 # AUTHOR: Scott M. / Lucy’s "Lazy Smart" Logic
-# LAST UPDATED: 2026-04-12
+# LAST UPDATED: 2026-05-20
 
 # CHANGELOG
-v1.2.2:
-• Added SKILL VALIDATION GATE: AI must match skills to specific evidence in source text.
-• Added HUMAN POLISH PROTOCOL: Enforced standard capitalization and natural sentence flow.
-• 2026 SEO Fix: Optimized for LinkedIn’s SAGE (Semantic) algorithm & mobile truncation.
-• Role Focus: Limited "Problem Statements" to the 3 most recent roles to avoid repetition.
+v1.2.2: Added SKILL VALIDATION GATE, HUMAN POLISH PROTOCOL, SAGE SEO Fix, and 3-role Problem Statement limit.
+v1.2.3: Hardened 50-skill limit against hallucination loops, isolated the 2-line limit to narrative paragraphs, and split the master export into modular code blocks to prevent token truncation.
 
 ============================================================
 SUPPORTED AI ENGINES: Grok 4 | GPT-5 | Claude 3.5
@@ -26,7 +23,7 @@ LOCATION: (Current or desired work location)
 1. THE MARKET-TITLE ALIGNMENT: Convert internal titles to recruiter-facing standards.
 2. THE INDUSTRY ANCHOR: Force TARGET INDUSTRY into Headline + About to fix auto-tagging.
 3. THE SEMANTIC ENGINE: Inject Top 5 Keywords + their "Semantic Neighbors" (e.g., if 'Python' is used, include 'Django' or 'FastAPI' to validate Topic DNA).
-4. THE 50-SKILL SATURATION: 50 Hard Skills max. No "Skill Bloat" or synonyms.
+4. THE 50-SKILL SATURATION: Extract up to 50 Hard Skills maximum. Do not invent, duplicate, or split skills if the source text contains fewer than 50 valid entries.
 5. THE MOBILE HOOKS (2026 REFRESH):
    - HEADLINE: Primary value must appear in the first 70 characters.
    - ABOUT: Top metric must appear in the first 140 characters (before the 'See More' cut).
@@ -34,15 +31,15 @@ LOCATION: (Current or desired work location)
 # SECTION 3 — THE WRITING RULES (ANTI-AI & HIGH DISTRACTION)
 - RHYTHM & FLOW: Use varied sentence lengths. No "AI-voice" (e.g., "In today's fast-paced world").
 - HUMAN POLISH: Use standard sentence casing and proper grammar. 
-- THE 2-LINE LIMIT: No paragraph longer than two lines.
-- THE 1:1 METRIC RULE: Every bullet must include a number ($, %, time, or scale).
-- PROBLEM STATEMENT FORMAT: Business pain + system + impact (≤15 words).
+- THE 2-LINE LIMIT: Appears only in the narrative blocks of the ABOUT section. No paragraph longer than two lines.
+- THE 1:1 METRIC RULE: Every bullet in the experience section must include a number ($, %, time, or scale).
+- PROBLEM STATEMENT FORMAT: Apply to experience bullets. Business pain + system + impact (≤15 words per bullet).
 - BANNED WORD KILL-SWITCH: No Orchestrated, Spearheaded, Passionate, Synergize.
 - USE PLAIN VERBS: Built, Fixed, Ran, Reduced, Automated.
 
 # SECTION 4 — REALITY & VALIDATION (ANTI-HALLUCINATION)
 - SKILL VALIDATION GATE: Every skill suggested MUST be linked to a specific fact in the SOURCE OF TRUTH.
-- NO FABRICATION: If a metric is missing, use [X%] as a placeholder.
+- NO FABRICATION: If a metric is missing, use [X%] or [X] as a placeholder. Do not guess numbers.
 - LOGIC MAP: Explain exactly WHY a change was made to hit recruiter filters.
 
 # SECTION 5 — THE OUTPUT WORKFLOW
@@ -57,8 +54,10 @@ LOCATION: (Current or desired work location)
 [A] ANALYSIS & LOGIC (NORMAL TEXT)
 - SEO Score, Logic Map, and Visibility System.
 
-[B] FINAL LINKEDIN PROFILE (CODE BLOCK ONLY)
-- Clean, ready-to-paste LinkedIn Mirror. 
-- Proper capitalization and natural grammar only.
+[B] FINAL LINKEDIN PROFILE (MODULAR CODE BLOCKS ONLY)
+- Output the clean, ready-to-paste text using sequential markdown code blocks for each section below to prevent output truncation:
+  - Code Block 1: Headline & About Section
+  - Code Block 2: Experience Section (Top 3 roles formatted, remaining roles preserved with clean text)
+  - Code Block 3: Skills Catalog & Certifications
 ============================================================
 END OF PROMPT
