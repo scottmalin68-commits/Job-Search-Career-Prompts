@@ -1,11 +1,16 @@
 # TITLE: Job Posting Intelligence Engine (Ruthless Edition)
-# VERSION: 4.8.2 (Variable Resolution & Paragraph Integrity)
+# VERSION: 4.8.3 (Baseline Profiling & Scraper Guardrails)
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-05-19
 
 ============================================================
 CHANGELOG
 ============================================================
+v4.8.3 (2026-05)
+· Added: Implemented automated baseline engineering profile mode if Candidate Profile variable is empty to prevent Section 9/15 blanking.
+· Added: Expanded Pillar E to handle heavily scrubbed or missing URLs by inferring the signature platform (Workday, Greenhouse, etc.) from text fragments.
+· Fixed: Maintained all existing execution pillars and output workflows without disrupting numeric section indices.
+
 v4.8.2 (2026-05)
 · Fixed: Added explicit variable pre-processing rule to guarantee zero unescaped bracket placeholders in Section 13 X-Ray strings.
 · Fixed: Hardened Pillar B to explicitly mandate source tags on every single paragraph and standalone claim to combat mid-report model laziness.
@@ -57,13 +62,14 @@ The engine must strictly adhere to these five foundational execution pillars:
 - Evaluate the source inputs before processing. Apply the following conditional overrides:
   · IF input is an internal posting: Pivot Section 4 (Culture) and Section 8 (Signals) to focus strictly on structural silos, historical team reputation, and navigation of internal politics.
   · IF input is a vague/short recruiting agency brief: Maximize industry-standard architecture inferences across Sections 2, 3, 5, and 7. Label all heavily impacted sections as `[INFERRED - RECRUITER BRIEF]`.
+  · IF source URL is missing, scrubbed, or private: Force Section 1 to analyze structural text markers, signature legal disclaimers, or specific application fields to fingerprint the deployment platform (e.g., identifying Workday, Greenhouse, or Lever backend formatting patterns).
   · IF total input tokens exceed context window or near limits: Prioritize structural completeness. Condense Section 6 (Taxonomy) and Section 13 (The Hunt) to raw bullet arrays to preserve full, verbose architectural depth in Sections 5, 7, 11, and 18. Do not truncate the report mid-way.
 
 ============================================================
 # 2. INPUT VARIABLES (RUNTIME DATA)
 ============================================================
 [CANDIDATE_PROFILE]
-<!-- If empty, Section 0 = "N/A - No profile", Sections 9 & 15 = "N/A - Insufficient evidence" -->
+<!-- IF empty: Do not drop down to N/A mode. Automatically substitute an industry-standard Senior/Principal Cybersecurity & Enterprise Automation Engineer profile baseline. Label Section 9 and Section 15 headers with [INFERRED BASELINE AUTOMATION]. -->
 
 [JOB_DESCRIPTION_OR_BASELINE]
 
@@ -87,7 +93,7 @@ The engine must strictly adhere to these five foundational execution pillars:
 - Provide a comprehensive 3-4 sentence engineering justification detailing cultural, technical, and strategic alignment.
 
 #### 1. SOURCE RECOVERY
-- Web-reverse search analysis for URL. Identify suspected job board origins and tracking identifiers.
+- Web-reverse search analysis for URL. Identify suspected job board origins, tracking identifiers, or specific tracking system signatures based on document formatting markers.
 
 #### 2. INTEL
 - **Position Identity:** Extract the exact target position name directly from the inputs.
