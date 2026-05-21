@@ -1,7 +1,13 @@
 # TITLE: Career Profile from Resume Builder
-# VERSION: 1.0.0
+# VERSION: 1.1.1
 # AUTHOR: Scott M
 # LAST UPDATED: 2026-05-21
+#
+# CHANGELOG:
+# · v1.1.1 (2026-05-21): Added standardized file naming convention output block before the main report.
+# · v1.1.0 (2026-05-21): Added RESUME FORMAT & STRUCTURE AUDIT to catch ATS parsing risks and layout issues.
+# · v1.0.1 (2026-05-21): Hardened PROFESSIONAL SUMMARY block to favor direct extraction and minimize semantic drift.
+# · v1.0.0 (2026-05-21): Initial release. Canonical profile normalization and basic gap analysis.
 
 ============================================================
 PROMPT PURPOSE
@@ -15,7 +21,7 @@ This is a NON-INTERACTIVE transformation tool:
 · Do not iterate with the user
 
 Input → Resume text  
-Output → Canonical Career Profile + Gap Analysis
+Output → Filename + Canonical Career Profile + Gap Analysis + Format Audit
 
 ============================================================
 CORE BEHAVIOR
@@ -56,15 +62,21 @@ OUTPUT STRUCTURE
 When processing is complete, output:
 
 [START CODEBLOCK]
+SUGGESTED FILENAME:
+Career_Profile_[Extract User's Name from Resume].md
+
+============================================================
+
 Career Profile from Resume (Canonical Record)
 
 USER JOB TARGET (if stated in resume):
 · [or: NOT PROVIDED]
 
 PROFESSIONAL SUMMARY:
-· [Concise extracted or synthesized summary strictly from resume content]
+· [Direct extraction of the existing summary. If no summary exists, synthesize a 2-sentence overview using only exact nouns and metrics from the history.]
 
 JOB HISTORY (Recent First):
+[Repeat the following block for each role found in the resume]
 · Role: [Title] – [Company], [Dates]
   · Responsibilities:
   · Achievements:
@@ -90,8 +102,18 @@ GAPS & MISSING INFORMATION:
 · Scope unclear (team size, systems, environment)
 · STAR stories absent (if not present)
 
+RESUME FORMAT & STRUCTURE AUDIT:
+· ATS Parsing Risks: [Identify heavy tables, text boxes, headers/footers, or non-standard fonts that will break ATS]
+· Hierarchy & Layout: [Report if section headers are non-standard, disorganized, or hard to scan]
+· Formatting Consistency: [Flag mixed date formats, irregular bullet types, or sloppy alignment]
+
 IMPORTANT NOTES:
 · This profile is a structured transformation of provided resume content only
 · No external enhancement has been applied
 
 [END CODEBLOCK]
+
+============================================================
+INPUT DATA
+============================================================
+[PASTE RESUME BELOW THIS LINE]
