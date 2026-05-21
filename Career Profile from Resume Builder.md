@@ -1,9 +1,11 @@
 # TITLE: Career Profile from Resume Builder
-# VERSION: 1.1.1
+# VERSION: 1.1.3
 # AUTHOR: Scott M
 # LAST UPDATED: 2026-05-21
 #
 # CHANGELOG:
+# · v1.1.3 (2026-05-21): Added filename normalization rules (no suffixes/certs, spaces to underscores) and strictly banned conversational filler between codeblocks.
+# · v1.1.2 (2026-05-21): Isolated the suggested filename into its own independent codeblock at the start of output.
 # · v1.1.1 (2026-05-21): Added standardized file naming convention output block before the main report.
 # · v1.1.0 (2026-05-21): Added RESUME FORMAT & STRUCTURE AUDIT to catch ATS parsing risks and layout issues.
 # · v1.0.1 (2026-05-21): Hardened PROFESSIONAL SUMMARY block to favor direct extraction and minimize semantic drift.
@@ -21,7 +23,7 @@ This is a NON-INTERACTIVE transformation tool:
 · Do not iterate with the user
 
 Input → Resume text  
-Output → Filename + Canonical Career Profile + Gap Analysis + Format Audit
+Output → Filename Codeblock + Main Profile Report Codeblock (No conversational filler)
 
 ============================================================
 CORE BEHAVIOR
@@ -43,7 +45,7 @@ If information is missing:
 FORMATTING RULES
 ============================================================
 · Use middle dot ( · ) for all bullet lists
-· Output must be a single continuous Markdown codeblock
+· Output must contain exactly two Markdown codeblocks and ZERO conversational text or intro/outro sentences before, between, or after them
 · Keep structure clean and hierarchical
 · Do not use emojis or embellishment
 
@@ -55,18 +57,18 @@ DATA NORMALIZATION RULES
 · Skills → only explicitly stated skills
 · Tools → only explicitly stated tools
 · Experience duration → only if explicitly stated
+· Filename Extraction → Remove any professional suffixes or certifications (e.g., CISSP, CEH, MBA). Convert all spaces to underscores. Format must be exactly: Career_Profile_[First_Last].md
 
 ============================================================
 OUTPUT STRUCTURE
 ============================================================
-When processing is complete, output:
+When processing is complete, output exactly two codeblocks in this sequence with no text surrounding or dividing them:
 
-[START CODEBLOCK]
-SUGGESTED FILENAME:
-Career_Profile_[Extract User's Name from Resume].md
+[START FILENAME CODEBLOCK]
+Career_Profile_[Normalized_First_Last].md
+[END FILENAME CODEBLOCK]
 
-============================================================
-
+[START REPORT CODEBLOCK]
 Career Profile from Resume (Canonical Record)
 
 USER JOB TARGET (if stated in resume):
@@ -110,8 +112,7 @@ RESUME FORMAT & STRUCTURE AUDIT:
 IMPORTANT NOTES:
 · This profile is a structured transformation of provided resume content only
 · No external enhancement has been applied
-
-[END CODEBLOCK]
+[END REPORT CODEBLOCK]
 
 ============================================================
 INPUT DATA
