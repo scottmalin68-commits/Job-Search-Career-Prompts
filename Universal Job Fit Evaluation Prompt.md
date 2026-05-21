@@ -1,13 +1,12 @@
 # Universal Job Fit Evaluation Prompt – Fully Generic & Shareable
 # Author: Scott M
-# Version: 1.6
-# Last Modified: 2026-03-06
+# Version: 1.7.0
+# Last Modified: 2026-05-21
 
 ## Changelog
+- **v1.7.0 (2026-05-21):** Standardized version string formatting to 3-point notation. Integrated Chain-of-Verification (CoV) scoring logic and adversarial red-teaming checks from advanced prompt logic files to permanently stop drift and hallucination. Stripped output bracket formatting for direct document export.
 - **v1.6 (2026-03-06):** Integrated "Read Between the Lines" (Vibe Check), ATS Keyword Translation, and Interview Prep "Gotchas."
 - **v1.5 (2026-03-04):** Added "User Action Advice" for blocked URLs. Restored visible author headers.
-- **v1.4 (2026-02-17):** Refined scoring weights and portfolio alignment instructions.
-- **v1.3 (2026-02-04):** Added Anchor Skill list and confidence levels.
 
 ## Goal
 Help a candidate objectively evaluate how well a job posting matches their skills, experience, and portfolio, while producing actionable guidance for applications, portfolio alignment, and skill gap mitigation.
@@ -54,8 +53,14 @@ Help a candidate objectively evaluate how well a job posting matches their skill
 
 Analyze the **Job Posting** against the **Candidate Info** provided above.
 
+### Anti-Hallucination, Drift, & Scoring Guardrails
+1. **Chain-of-Verification (CoV):** Before assigning any match percentage to a section, you must extract the exact underlying text evidence from both the candidate profile and the JD. If no direct evidence exists, the score must penalize appropriately.
+2. **Adversarial Red-Teaming:** Actively look for hidden friction points or scale mismatches. (e.g., Does the candidate have the right tool but at a vastly different scale or environment size? Is there a legacy technology listed in the JD that the candidate has moved away from?)
+3. **Ignore Source Evaluations:** Completely disregard any pre-existing internal screening matrices, evaluations, or grading tables present in the raw job description text. Perform the evaluation fresh.
+4. **No Placeholders or Conversational Filler:** Do not output empty bracket templates, raw template strings like "XX%", or conversational "fluff." If critical data points are missing, state "Not provided in source" directly in the space.
+
 ### Scoring Instructions
-For each section, assign a percentage match. Use semantic alignment, not just keyword matching.
+For each section, assign a percentage match based on actual content alignment. Use semantic alignment, not just keyword matching.
 
 **Default Weighting:**
 - Responsibilities: 30%
@@ -65,31 +70,33 @@ For each section, assign a percentage match. Use semantic alignment, not just ke
 
 ### Specific Analysis Requirements
 1. **Read Between the Lines:** Identify "hidden" requirements or red flags (e.g., signs of burnout culture, vague scope, or unstated seniority).
-2. **ATS Translation:** List 5-10 specific keywords from the JD that are missing from the candidate's markdown but represent experience they likely have.
+2. **ATS Translation:** List 5-10 specific keywords from the JD that are missing from the candidate's markdown but represent experience they likely have based on their background.
 3. **Interview Prep "Gotchas":** Identify the 3 toughest questions a recruiter will likely ask based on the candidate's specific gaps or "weakest" match areas.
 
 ---
 
-## Output Requirements
-- **Overall Fit Percentage** (Weighted average)
+## Output Requirements (Format for Direct Export)
+Do not include markdown checkbox brackets `[ ]` or raw template markers in this output. Generate clean, professional text ready for document conversion.
+
+- **Overall Fit Percentage** (Calculated weighted average based on CoV validation)
 - **Confidence Level** (High/Medium/Low based on info completeness)
 - **Vibe Check:** Summary of the "Read Between the Lines" analysis.
-- **Top 3 Alignments:** Specific areas where the candidate is a perfect match.
+- **Top 3 Alignments:** Specific areas where the candidate matches, including the exact grounding details from the text.
 - **Top 3 Gaps:** Missing skills or experience with advice on how to mitigate them.
 - **Portfolio-Specific Guidance:** Connect a specific job requirement to a concrete portfolio action.
 - **Additional Commentary:** Flag location, salary, or culture mismatches.
 
 ---
 
-### Final Summary Table (Use This Exact Format)
+### Final Summary Table
 
 | Section | Match % | Key Alignments & Gaps | Confidence |
 | :--- | :--- | :--- | :--- |
-| Responsibilities | XX% | | |
-| Required Qualifications | XX% | | |
-| Preferred Qualifications | XX% | | |
-| Skills / Technologies / Edu | XX% | | |
-| **Overall Fit** | **XX%** | | **High/Med/Low** |
+| Responsibilities | | | |
+| Required Qualifications | | | |
+| Preferred Qualifications | | | |
+| Skills / Technologies / Edu | | | |
+| **Overall Fit** | ** ** | | **High/Med/Low** |
 
 ---
 
