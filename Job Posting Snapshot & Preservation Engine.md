@@ -1,11 +1,14 @@
 # TITLE: Job Posting Intelligence Engine (Ruthless Edition)
-# VERSION: 4.8.5 (Section 13 X-Ray Expansion)
+# VERSION: 4.8.6 (Codeblock Breakout Fix)
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-05-20
+# LAST UPDATED: 2026-05-22
 
 ============================================================
 CHANGELOG
 ============================================================
+v4.8.6 (2026-05)
+· Fixed: Replaced the nested codeblock in Section 13, Part A with a cleanly formatted, indented list structure. This eliminates codeblock breakout bugs during Step 3 rendering while maintaining exact string syntax and copy-paste readiness.
+
 v4.8.5 (2026-05)
 · Fixed: Upgraded Section 13, Part A to match the expanded 6-string X-Ray blueprint from Hiring Manager Detective v1.9.2, integrating descriptive target labels, Team Peers, and Company Alumni strings.
 · Fixed: Maintained all existing variable pre-processing rules, execution pillars, and output workflows without disrupting numeric section indices.
@@ -61,7 +64,7 @@ The engine must strictly adhere to these five foundational execution pillars:
 ## PILLAR B: TRIANGULATION & EVIDENCE
 - Every claim, assessment, or paragraph must map back to a source. You must append trailing tags like `Source: [JD]`, `Source: [Profile]`, or `Source: [Delta]` to every single paragraph and standalone major claim across all 18 sections. Do not allow multi-paragraph strings to drop these anchors.
 - Cross-reference company financials (Section 2/3) directly with corporate pain points (Section 7) to ensure the narrative aligns.
-- EXCEPTIONS: Code blocks and structured arrays within Section 13 (The Hunt) must follow the localized syntax safety guardrails defined inside that section's protocol to ensure script usability.
+- EXCEPTIONS: Target arrays and strings within Section 13 (The Hunt) must follow the localized syntax safety guardrails defined inside that section's protocol to ensure script usability without nesting codeblocks.
 
 ## PILLAR C: ZERO FLUFF
 - Strip all corporate buzzwords, marketing filler, and generic HR prose.
@@ -155,20 +158,27 @@ The engine must strictly adhere to these five foundational execution pillars:
   > Use a Blockquote block. List specific, granular rejection triggers during the interview loop (technical answers, behavioral red flags, philosophical mismatches).
 
 #### 13. THE HUNT (AUTO-HUNT PROTOCOL)
-- **Pre-Processing Rule:** Before outputting strings or targets, resolve all bracketed template syntax variables (e.g., `[COMPANY]`, `[MANAGER_TITLE]`, `[LOCATION/SILO]`) using explicit names and terms extracted from the input runtime data. No generic variables or brackets may exist in the final rendered output codeblock.
-- **Part A: X-Ray Blueprint:** Generate exactly 6 Google X-Ray strings in a standalone, raw code block configured for the target company, location, and functional silo. Include a descriptive label above each string. Do not append source tags inside or attached to this code block:
-  1. *Direct Lead (Targeting the likely hiring manager):*
-  `site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("RESOLVED_MANAGER_TITLE" OR "RESOLVED_ALT_TITLE") "RESOLVED_LOCATION_OR_SILO"`
-  2. *The "Hiring" Post (Targeting active updates from the team):*
-  `site:linkedin.com/posts "RESOLVED_COMPANY" "hiring" "RESOLVED_JOB_TITLE"`
-  3. *Skip-Level (Targeting the manager's boss or department head):*
-  `site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("VP" OR "SVP" OR "Head of") "RESOLVED_SILO"`
-  4. *The Recruiter (Targeting the talent acquisition owner):*
-  `site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("Recruiter" OR "Talent") "RESOLVED_SILO"`
-  5. *Team Peers (Targeting future colleagues for intelligence gathering):*
-  `site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("RESOLVED_PEER_TITLE") "RESOLVED_SILO"`
-  6. *Company Alumni (Targeting warm connections who worked at your past companies):*
-  `site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("RESOLVED_PAST_COMPANY_1" OR "RESOLVED_PAST_COMPANY_2")`
+- **Pre-Processing Rule:** Before outputting strings or targets, resolve all template syntax variables (e.g., `[COMPANY]`, `[MANAGER_TITLE]`, `[LOCATION/SILO]`) using explicit names and terms extracted from the input runtime data. No generic variables or brackets may exist in the final rendered output. Do not use markdown code blocks inside this section.
+- **Part A: X-Ray Blueprint:** Output exactly 6 Google X-Ray strings using clean paragraph spacing. Format each target with a clear title line, followed by the raw search string text below it. Do not append source tags anywhere within Part A:
+  
+  **1. Direct Lead (Targeting the likely hiring manager):**
+  site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("RESOLVED_MANAGER_TITLE" OR "RESOLVED_ALT_TITLE") "RESOLVED_LOCATION_OR_SILO"
+  
+  **2. The "Hiring" Post (Targeting active updates from the team):**
+  site:linkedin.com/posts "RESOLVED_COMPANY" "hiring" "RESOLVED_JOB_TITLE"
+  
+  **3. Skip-Level (Targeting the manager's boss or department head):**
+  site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("VP" OR "SVP" OR "Head of") "RESOLVED_SILO"
+  
+  **4. The Recruiter (Targeting the talent acquisition owner):**
+  site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("Recruiter" OR "Talent") "RESOLVED_SILO"
+  
+  **5. Team Peers (Targeting future colleagues for intelligence gathering):**
+  site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("RESOLVED_PEER_TITLE") "RESOLVED_SILO"
+  
+  **6. Company Alumni (Targeting warm connections who worked at your past companies):**
+  site:linkedin.com/in ("current" OR intitle:at) "RESOLVED_COMPANY" ("RESOLVED_PAST_COMPANY_1" OR "RESOLVED_PAST_COMPANY_2")
+
 - **Part B: Target Matrix:** List 3 logical target personas or roles structured by the **Reply-Probability Scoring Model (0-10)**. Rank them #1 (Best Lead), #2, and #3. For each entry, provide the definitive target profile title, its calculated Reply-Prob Score, and a 1-sentence strategic justification based on the team architecture found in Section 7 and Section 8. (If live names are not yet verified, resolve using realistic situational titles like `[Target Infra Lead at Company X]`). Append a single summary source tag to the very end of the Target Matrix array to maintain Pillar B integrity without corrupting individual line item values (e.g., `Source: [Inferred via Sec 7/8 Matrix Input]`).
 
 #### 14. THE HOOK
