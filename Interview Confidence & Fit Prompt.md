@@ -1,9 +1,10 @@
 # Interview Confidence & Fit Prompt
 # Author: Scott M
-# Version: 1.7 (Revised)
-# Goal: Realistic, evidence-based interview prep that avoids AI fluff and builds genuine confidence through direct matches.
+# Version: 1.8.0 (Revised for Fatigue Resilience)
+# Goal: Realistic, evidence-based interview prep that avoids AI fluff, protects against job-search burnout, and builds genuine confidence through direct matches.
 
 ### CHANGELOG
+· v1.8.0: Added "The Fatigue Firewall" rule; updated pitch to focus on a calm, low-energy/high-authority tone; added brain fog recovery scripts.
 · v1.7: Added "Pressure Test" for difficult questions; expanded banned AI fluff list; added "Changelog" block.
 · v1.6: Added "Mirror Test" for elevator pitch; banned specific AI fluff words.
 · v1.5: Forced "JD Requirement" vs. "Your Experience" format.
@@ -13,6 +14,7 @@
 2. **THE MATCH TEST:** If the JD asks for a skill and it is not explicitly on the resume, do NOT claim it. If it’s a "stretch," skip it or flag it as a gap.
 3. **NO AI FLUFF:** Do not use words like: leverage, passionate, driven, synergy, tapestry, proactive, pioneer, meticulous, dynamic, or testament.
 4. **THE MIRROR TEST:** The elevator pitch must sound like a human talking over coffee. Use contractions (I'm, I've, don't) and varied sentence lengths. No "corporate-speak" openings like "I am a seasoned professional."
+5. **THE FATIGUE FIREWALL:** Assume the candidate is mentally exhausted from repeated interviews. Do NOT suggest tactics that require "high enthusiasm," "high energy," or "selling yourself." Focus entirely on a calm, steady, plain-spoken authority. Let the data do the heavy lifting, not the performance.
 
 ---
 ### USER DATA
@@ -34,20 +36,21 @@ Give me three specific, realistic reasons why I am a match.
 Write a natural pitch (80–120 words) for the "Tell me about yourself" question.
 · Start with a casual opening (e.g., "So, I’ve spent the last few years..." or "My background is mostly in...").
 · Focus on the 1-2 strongest pieces of evidence from Section 1.
+· Tone mandate: Keep it grounded and matter-of-fact. No forced excitement.
 · End with why this specific role is the logical next step.
 
 #### 3. Strength & Gap Strategy
 · **One Anchor Strength:** Identify the one skill or experience I should "anchor" my answers in.
-· **One Honest Gap:** Identify a clear requirement I’m missing or weak on. Give me a 1-sentence "bridge" to handle it.
+· **One Honest Gap:** Identify a clear requirement I’m missing or weak on. Give me a 1-sentence "bridge" to handle it without sounding defensive.
 
 #### 4. The Pressure Test
 · Identify the **one specific question** they are most likely to ask to trip me up based on my gaps or the JD's toughest requirement.
 · Provide a direct, no-BS answer for it.
 
-#### 5. Delivery & Recovery Tactics
-· **The Power of the Pause:** Remind me to wait 2 seconds after a question to kill "ums."
-· **Human Recovery Scripts:** Give me two "emergency" lines for when I blank or stumble.
-· **The "Two-Way" Shift:** Suggest two specific questions I can ask them to prove I'm vetting them too.
+#### 5. Delivery, Recovery & Fatigue Tactics
+· **The Power of the Pause:** Remind me to wait 2 seconds after a question to kill "ums" and save mental energy.
+· **Brain Fog Recovery Scripts:** Give me two casual "emergency" lines for when exhaustion hits and I blank or stumble mid-sentence.
+· **The "Two-Way" Shift:** Suggest two specific questions I can ask them to shift the speaking burden off me and evaluate their team culture.
 
 ### RESPONSE STRUCTURE
 Use these exact headings:
