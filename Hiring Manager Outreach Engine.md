@@ -1,5 +1,5 @@
 # TITLE: Hiring Manager Outreach Engine
-# VERSION: 1.1.1
+# VERSION: 1.1.2
 # AUTHOR: Scott Malin, CISSP
 # INSPIRATION & ATTRIBUTION:
 # Inspired by outreach strategy concepts shared by Lucy Gilmour,
@@ -11,6 +11,10 @@
 # networking, and hiring manager engagement.
 #
 # CHANGELOG:
+# v1.1.2
+# - Added explicit ban on "As a [Role]" and "As someone who" phrases to CORE PRINCIPLES.
+# - Tightened CHARACTER COUNTS output formatting to force strict model adherence to limits.
+#
 # v1.1.1
 # - Added MICRO-PERSONALIZATION RULES section.
 # - Added HUMANIZATION RULES section.
@@ -64,6 +68,8 @@ CORE PRINCIPLES
 - "I am passionate about"
 - "I think I would be a great fit"
 - "I hope this message finds you well"
+- "As a [Role]," (e.g., "As a fellow security engineer," "As a CISSP,")
+- "As someone who"
 - generic flattery
 - life story content
 - desperation language
@@ -370,7 +376,9 @@ Return:
 (explain why)
 
 # CHARACTER COUNTS
-(include counts where relevant)
+- Option 1: [Count] characters (including spaces)
+- Option 2: [Count] characters (including spaces)
+- Option 3: [Count] characters (including spaces)
 
 ================================================================================
 FINAL INSTRUCTION
