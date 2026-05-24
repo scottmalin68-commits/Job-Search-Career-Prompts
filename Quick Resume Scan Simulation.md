@@ -1,5 +1,5 @@
 # Quick Resume Scan Simulation & Visual Attention Prompt with Scoring Rubric
-# VERSION: 3.2.0 (Deterministic Evaluation Expansion)
+# VERSION: 3.2.1 (Anti-Drift & Deterministic Calibration)
 # AUTHOR: Scott M
 # PURPOSE:
 # Simulate a 10-second resume review from two perspectives—HR recruiter and hiring manager—
@@ -11,6 +11,13 @@
 
 ---
 ## CHANGELOG
+
+### 3.2.1 (Anti-Drift & Deterministic Calibration)
+- Added mandatory SCORING PROTOCOL scratchpad block to eliminate AI calculation drift
+- Quantified "excessive buzzwords" to exactly >5 unmeasured corporate buzzwords
+- Defined "inconsistent formatting patterns" to explicitly mean shifting date formats or bullet styles
+- Tied Visual Heatmap to deterministic line ranges and sections instead of subjective generation
+- Patched math edge cases (division-by-zero for 0 keywords, and base/bonus clamping calibration)
 
 ### 3.2.0 (Deterministic Evaluation Expansion)
 - Added acronym/normalization layer for keyword matching
@@ -25,19 +32,6 @@
 - Added handling guidance for modern/non-standard resume layouts
 - Clarified quantified achievement identification rules
 - Improved realism for technical resumes and cybersecurity terminology
-
-### 3.1
-- Switched primary output from JSON to human-readable narrative + bulleted sections
-- Retained all v3.0 rule-based metrics, formulas, heatmap, and hallucination controls
-- Kept common metrics, dual perspectives, scores, flags, and summary interpretation
-- JSON format available on request
-
-### 3.0
-- Defined exact formulas and calculation rules for all common metrics
-- Specified defaults and edge-case handling
-- Tightened subjective criteria with measurable proxies
-- Added judgment flags array
-- Clarified heatmap format
 
 (earlier versions omitted for brevity)
 
@@ -80,17 +74,16 @@ Assumptions:
 ---
 ## EDGE-CASE DEFAULTS
 
-If no job posting provided:
+If no job posting provided OR total_keywords calculated is 0:
 - keyword_match_score = 0
-- Ignore keyword-related weighting penalties
+- Ignore keyword-related weighting penalties entirely
 
 If resume text is empty OR under 50 words:
-- Return:
-  "Insufficient resume content"
-- Set all scores to 0
+- Return: "Insufficient resume content"
+- Set all scores to 0 and terminate execution
 
 If no clear headings detected:
-- Treat first 30% of lines as "top third"
+- Treat first 30% of lines as "top third" for all calculations
 
 If resume appears non-standard but still readable:
 - Reduce formatting penalties by 50%
@@ -137,28 +130,24 @@ Formula:
   - Skills
   - Education
 - -1 if average line length > 80 characters
-- -2 if no emphasis markers in first third:
-  - *, **, ALL CAPS
+- -2 if no emphasis markers (*, **, ALL CAPS) used in the top third of the resume
 - +1 if quantifiable achievements appear in first 10 lines
-- Clamp to 0–10
+- Clamp final subtotal to a strict maximum of 10 and minimum of 0
 
 ---
 ## 2. Keyword Match Score (0–10)
 
-Only calculated if job posting provided.
+Only calculated if job posting is provided and contains >0 valid keywords.
 
 Formula:
-- Extract unique meaningful keywords/phrases
+- Extract unique meaningful keywords/phrases from job posting
 - Ignore stop words
-- Normalize equivalent terminology
+- Normalize equivalent terminology using the Normalization Layer
 - Count explicit matches in resume
 
 Score:
-- min(10, (matched_keywords / total_keywords) × 15)
-
-If fewer than 3 keywords:
-- score = matched_count × 3
-- max 9
+- If 3 or more total keywords extracted: score = min(10, (matched_keywords / total_keywords) * 15)
+- If fewer than 3 keywords extracted: score = min(9, matched_count * 3)
 
 ---
 ## 3. Clarity Score (0–10)
@@ -169,11 +158,11 @@ Formula:
 - Base = 10
 - -3 if average bullet/line > 100 characters
 - -2 if >30% of bullets do NOT start with action verbs
-- -1 if inconsistent date formatting
+- -1 if date formatting shifts patterns anywhere in document (e.g., mixing "MM/YYYY" with "Jan 2022")
 - -2 if no whitespace separation between sections
 - +2 if strong action verbs used in >70% of bullets
 - +1 if quantified achievements appear in first third
-- Clamp to 0–10
+- Clamp final subtotal to a strict maximum of 10 and minimum of 0
 
 ---
 ## 4. Achievement Density Score (0–10)
@@ -181,30 +170,21 @@ Formula:
 Measures visible quantified accomplishments.
 
 VALID quantified achievements include:
-- percentages
-- currency
-- reductions/increases
-- scale metrics
-- counts tied to actions/results
+- percentages, currency, reductions/increases, scale metrics, counts tied to actions/results
 
 IGNORE:
-- dates
-- years
-- addresses
-- certification codes
-- software versions
-- ISO/NIST numbers unless tied to impact
+- dates, years, addresses, certification codes, software versions, ISO/NIST framework numbers unless explicitly tied to a scale/impact metric
 
 Formula:
 - Count valid quantified achievement lines
 - Divide by total Experience-section lines
-- Density % = quantified_lines / total_lines × 100
+- Density % = (quantified_lines / total_lines) * 100
 - Score = min(10, density% / 10)
 
 Modifiers:
-- +2 if ≥3 quantified achievements appear in top third
+- +2 if >=3 quantified achievements appear in the top third of the resume
 - -3 if all quantified achievements appear after line 30
-- Clamp to 0–10
+- Clamp final subtotal to a strict maximum of 10 and minimum of 0
 
 ---
 ## 5. Signal-to-Noise Score (0–10)
@@ -215,60 +195,57 @@ Formula:
 - Base = 10
 
 Penalties:
-- -1 for repeated soft-skill phrases
-- -2 if summary exceeds 120 words
-- -1 if >15% of bullets begin with vague verbs:
-  - helped
-  - assisted
-  - supported
-  - participated
+- -1 for repeated soft-skill phrases (e.g., "team player", "highly motivated" used >2 times)
+- -2 if summary section exceeds 120 words
+- -1 if >15% of bullets begin with vague verbs (helped, assisted, supported, participated)
 - -1 if skills section exceeds 20 uncategorized items
-- -1 if excessive buzzwords detected without evidence
+- -1 if >5 corporate buzzwords (e.g., synergy, paradigm, dynamic, go-getter) appear without a linked metric or proof
 
 Bonuses:
 - +1 if bullets average 1–2 lines
-- +1 if quantified impact appears within first 15 words of bullets
+- +1 if quantified impact appears within the first 15 words of a bullet
 
-Clamp to 0–10
+Clamp final subtotal to a strict maximum of 10 and minimum of 0
 
 ---
 ## 6. Top Third Impact Score (0–10)
 
-Measures effectiveness of the top third of the resume.
+Measures effectiveness of the top third of the resume (defined as lines 1-20 or first 30% of lines).
 
 Formula:
 - Base = 0
 
-Add:
-- +2 if target role/title clearly visible
-- +2 if quantified achievements appear early
-- +2 if core technical skills appear early
-- +2 if recent role immediately communicates relevance
-- +2 if summary/value proposition is concise and role-aligned
+Add points incrementally:
+- +2 if target role/title is clearly visible in the top third
+- +2 if >=1 quantified achievements appear in the top third
+- +2 if core technical skills appear in the top third
+- +2 if the most recent role immediately communicates target relevance
+- +2 if the summary/value proposition is concise (under 60 words) and role-aligned
 
-Clamp to 0–10
+Clamp final subtotal to a strict maximum of 10 and minimum of 0
 
 ---
 ## 7. ATS Parsing Risk Score (0–10)
 
-Measures likelihood of ATS parsing problems.
+Measures likelihood of ATS parsing problems based on text formatting patterns.
 
-Start at 10.
+Formula:
+- Base = 10
 
 Subtract:
-- -3 for multi-column layout indicators
-- -2 for tables/text-box indicators
-- -1 for excessive symbols/icons
-- -2 if headers/footers appear content-dependent
-- -1 if section headings unclear
-- -1 if inconsistent formatting patterns
+- -3 for clear multi-column text layout indicators
+- -2 for visible tables, grids, or text-box styling structures
+- -1 for excessive decorative symbols or non-standard icons
+- -2 if headers/footers contain critical contact information or content dependencies
+- -1 if section headings do not use standard plain-text titles
+- -1 if bullet styles switch characters midway through a section
 
 Interpretation:
 - 8–10 = low ATS risk
 - 5–7 = moderate ATS risk
 - 0–4 = high ATS risk
 
-Clamp to 0–10
+Clamp final subtotal to a strict maximum of 10 and minimum of 0
 
 ---
 # RECENCY RELEVANCE MODIFIER
@@ -286,43 +263,13 @@ Apply modifier ONLY to Hiring Manager Score.
 ---
 # CAREER NARRATIVE COHESION
 
-Do NOT penalize numerically.
-
-Instead generate:
-"Narrative Risk Flags"
-
-Check for:
-- unexplained pivots
-- abrupt specialization changes
-- title regressions
-- inconsistent progression
-- overlapping dates
-- unclear role transitions
-
-Only flag if explicitly visible.
+Do NOT penalize numerically. Instead generate "Narrative Risk Flags" if explicitly visible:
+- unexplained pivots, abrupt specialization changes, title regressions, inconsistent progression, overlapping dates, unclear role transitions.
 
 ---
 # SCORING CONFIDENCE
 
-Return:
-- High
-- Medium
-- Low
-
-High:
-- standard structure
-- clear sections
-- sufficient detail
-
-Medium:
-- mixed formatting
-- sparse metrics
-- partial ambiguity
-
-Low:
-- unclear structure
-- sparse content
-- difficult parsing
+Return High, Medium, or Low based on structural parsing clarity, presence of metrics, and ambiguity.
 
 ---
 # UPDATED RUBRIC CRITERIA
@@ -341,76 +288,44 @@ Low:
 # FINAL SCORE FORMULAS
 
 ## HR Recruiter Score
-
 Formula:
-- 35% Attention Score
-- 35% Clarity Score
-- 20% Keyword Match Score
-- 10% Achievement Density Score
-
+- (Attention Score * 0.35) + (Clarity Score * 0.35) + (Keyword Match Score * 0.20) + (Achievement Density Score * 0.10)
 Adjustments:
 - Apply HR rubric penalties
 - Clamp final score to 0–10
 
-Purpose:
-- Simulates quick-pass screening likelihood
-
----
 ## Hiring Manager Score
-
 Formula:
-- 40% Achievement Density Score
-- 25% Clarity Score
-- 20% Keyword Match Score
-- 15% Attention Score
-
+- (Achievement Density Score * 0.40) + (Clarity Score * 0.25) + (Keyword Match Score * 0.20) + (Attention Score * 0.15)
 Then:
-- Apply Recency Relevance Modifier
+- Add/subtract Recency Relevance Modifier
 - Apply Hiring Manager rubric penalties
 - Clamp final score to 0–10
 
-Purpose:
-- Simulates interview-worthiness
-
 ---
-# VISUAL HEATMAP
+# VISUAL HEATMAP DETERMINISTIC MAPPING RULES
 
-Identical for both reviewers.
-
-Format:
-- 🔥 = highest attention
-- ⚡ = moderate attention
-- • = low attention
-
-Typical priority:
-- 🔥 Name / title / summary / newest role / first bullets
-- ⚡ Skills / certifications / recent accomplishments
-- • Older jobs / education / references
+Map elements using these strict text/position rules:
+- 🔥 Highest Attention: Map to the top third of the document (lines 1-20 or first 30% of lines) AND any specific line item containing a valid quantified achievement.
+- ⚡ Moderate Attention: Map to the remaining lines within the Experience and Skills sections that do not contain explicit metrics.
+- • Low Attention: Map to Education sections, Certification sections, older roles (>7 years old), and references references.
 
 ---
 # HALLUCINATION MITIGATION RULES
 
 STRICT REQUIREMENTS:
-- Only evaluate explicit resume content
-- Do NOT infer missing skills
-- Do NOT assume technical depth
-- Do NOT invent achievements
-- Do NOT reinterpret vague statements positively
+- Only evaluate explicit resume content. Do NOT infer missing skills, assume technical depth, invent achievements, or reinterpret vague statements positively.
+- If uncertain, call it out in the Judgment Flags section.
 
-If uncertain:
-- mention uncertainty in Judgment Flags
+---
+# SCORING PROTOCOL (Anti-Drift Trace)
 
-Scoring MUST rely on:
-- visible placement
-- explicit wording
-- measurable proxies
-- formatting patterns
-- line structure
+Before generating the final user-facing output report, you MUST perform your calculations inside a hidden scratchpad block or clear sequential workflow. Show your work step-by-step for every single score (base, applied penalties/bonuses, raw subtotals, and final weighted arithmetic) to prevent calculation drift or vibe-based guessing.
 
 ---
 # OUTPUT FORMAT (Narrative + Bulleted Style)
 
-Quick Resume Scan – Version 3.2.0
+Quick Resume Scan – Version 3.2.1
 
 Resume analyzed:
 [brief identifier]
@@ -425,98 +340,32 @@ Scoring Confidence:
 ## Common Metrics
 
 - Attention Score: X / 10
-  [brief explanation]
+  [brief explanation of penalties/bonuses applied]
 
 - Keyword Match Score: X / 10
-  [brief explanation]
+  [brief explanation of keyword density or missing alignments]
 
 - Clarity Score: X / 10
-  [brief explanation]
+  [brief explanation of readability and formatting checks]
 
 - Achievement Density Score: X / 10
-  [brief explanation]
+  [brief explanation of metric frequency and placement]
 
 - Signal-to-Noise Score: X / 10
-  [brief explanation]
+  [brief explanation of value density vs filler text]
 
 - Top Third Impact Score: X / 10
-  [brief explanation]
+  [brief explanation of top-of-page performance]
 
 - ATS Parsing Risk Score: X / 10
-  [brief explanation]
+  [brief explanation of structural compliance issues]
 
 ---
-## Visual Heatmap (F/Z-pattern Simulation)
+## Visual Heatmap (Deterministic Eye-Tracking Simulation)
 
-🔥 [section]
-⚡ [section]
-• [section]
-
----
-## Judgment Flags
-
-- [flag]
-- [flag]
+🔥 [Section/Line Range] - [Justification based on placement or metrics]
+⚡ [Section/Line Range] - [Justification based on core content blocks]
+• [Section/Line Range] - [Justification based on low-priority tracking items]
 
 ---
-## Narrative Risk Flags
-
-- [flag]
-- [flag]
-
----
-# HR Recruiter Perspective
-
-## First Impression
-- [bullet]
-- [bullet]
-
-## Red Flags / Rejection Risks
-- [bullet]
-- [bullet]
-
-## Recommendations
-- [bullet]
-- [bullet]
-
-## HR Score
-X / 10
-
----
-# Hiring Manager Perspective
-
-## First Impression
-- [bullet]
-- [bullet]
-
-## Most Compelling Achievements
-- [bullet]
-- [bullet]
-
-## Recommendations
-- [bullet]
-- [bullet]
-
-## Hiring Manager Score
-X / 10
-
----
-# Summary Interpretation
-
-Provide a concise 1–2 paragraph summary covering:
-- overall resume strength
-- scan efficiency
-- interview competitiveness
-- strongest signals
-- biggest improvement opportunities
-- target-role alignment
-
----
-# OPTIONAL FALLBACK
-
-If the user specifically requests:
-- "JSON output"
-- "raw JSON"
-- "structured JSON"
-
-Then revert to the v3.x JSON schema format.
+## Judgment
