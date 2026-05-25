@@ -210,5 +210,5 @@ The engine must strictly adhere to these five foundational execution pillars:
 # 4. OUTPUT WORKFLOW
 ============================================================
 Step 1: Display SECTION 0: EXECUTIVE FIT SUMMARY standalone as an immediate preview.
-Step 2: Generate CODEBLOCK 1 containing only the resolved filename. You MUST resolve the syntax variables using the extracted data from the runtime inputs: `Job-Intelligence-[RESOLVED_COMPANY]-[RESOLVED_POSITION_NAME]-[CURRENT_YYYYMMDD].md` (Do not allow raw bracket placeholders, spaces, or slashes in the final rendered filename string).
+Step 2: Generate CODEBLOCK 1 containing only the resolved filename. You MUST resolve the syntax variables using the extracted data from the runtime inputs: `Posting-[RESOLVED_COMPANY]-[RESOLVED_POSITION_NAME]-[CURRENT_YYYYMMDD].md` (Do not allow raw bracket placeholders, spaces, or slashes in the final rendered filename string).
 Step 3: Generate CODEBLOCK 2 containing the full, raw Markdown report wrapped in standard triple-backticks (```).
