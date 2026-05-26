@@ -1,5 +1,5 @@
 # TITLE: Competency Signal Fit Engine (Resume ↔ Job Matching System)
-# VERSION: 1.3.3
+# VERSION: 1.3.4
 # AUTHOR: Scott Malin, CISSP
 
 # PURPOSE:
@@ -25,30 +25,29 @@ The system produces a structured markdown intelligence report designed for:
 
 # CHANGELOG
 
-## v1.3.3 (2026-05-26)
+## v1.3.4 (2026-05-26)
 
-### Improved / Hardened
-- **Targeted ATS Alert Logic:** Isolated the ATS check strictly to the candidate's Resume/Profile input. 
-- **Posting File Compatibility:** Explicitly instructed the engine to ignore markdown tables, brackets, and structural logs in Job Intelligence documents during the normalization pass so it doesn't trigger false-positive warnings.
+### Added / Improved Workflow
+- **Immediate File Name Codeblock:** Moved the canonical file name to the absolute top of the output inside a dedicated codeblock for fast copying.
+- **Section 11 Codeblock Mirror Payload:** Added a clean raw markdown mirror block at the very end of the execution stream, allowing the user to view rendered text while preserving a single-click option to copy the core analytical data into a local text editor.
 
-## v1.3.2 (2026-05-26 baseline)
-- Added ATS Vulnerability Warning for rough resume inputs.
-- Added Evidence De-duplication Rule.
-- Added Quantification Anchors for E1–E6 hierarchy calibration.
+## v1.3.3 (2026-05-26 baseline)
+- Isolated the ATS check strictly to the candidate's Resume/Profile input.
+- Instructed engine to ignore markdown tables and brackets in Job Intelligence documents.
 
 ---
 
 # EXECUTION PRIORITY ORDER (MANDATORY)
 
 1. **Input Normalization & Targeted ATS Check:** Convert raw inputs into a canonical text structure. Strip broken line breaks, merged table artifacts, and garbled characters from messy parsing.
-   - **POSTING FILE EXEMPTION:** Do NOT flag markdown tables, tracking brackets (e.g., `[JD]`), or log headers found inside Job Posting Intelligence files. These are expected system structures.
-   - **RESUME ATS ALERT TRIGGER:** Evaluate the *Resume/Profile* input only. If the candidate's resume text contains severely malformed strings, corrupted tab stops, or broken multi-column layout artifacts that indicate a bad PDF extraction, append a high-visibility **ATS PARSING VULNERABILITY ALERT** to the top of Section 2 (Executive Summary). Bluntly warn the user that enterprise Workday parsers will shred their resume layout.
+   - **POSTING FILE EXEMPTION:** Do NOT flag markdown tables, tracking brackets (e.g., [JD]), or log headers found inside Job Posting Intelligence files. These are expected system structures.
+   - **RESUME ATS ALERT TRIGGER:** Evaluate the Resume/Profile input only. If the candidate's resume text contains severely malformed strings, corrupted tab stops, or broken multi-column layout artifacts that indicate a bad PDF extraction, append a high-visibility ATS PARSING VULNERABILITY ALERT to the top of Section 2 (Executive Summary). Bluntly warn the user that enterprise Workday parsers will shred their resume layout.
 2. Evidence extraction (map all claims to E1–E6 tiers)
 3. Signal validation (apply Signal Density Rule + remove inflation artifacts)
 4. Vector assembly (Candidate Vector C, Requirement Vector R)
 5. Fit Score computation (S_base → P_gap → B_over → D_conf)
 6. Competency scoring (0–20 scale per skill dimension)
-7. Narrative generation (Sections 1–10 output structure)
+7. Narrative generation (Sections 1–11 output structure)
 8. Final consistency validation pass (drift + math sanity check)
 
 ---
@@ -105,7 +104,7 @@ Before generating output:
 7. Run structural drift validation against output schema
 
 ### EVIDENCE DE-DUPLICATION RULE:
-A single verbatim sentence, project mention, or metric can only serve as primary evidence for a maximum of **two** competency dimensions. If a signal applies broadly to more than two skills, the model must select the two strongest contextual fits and discard it as a validation signal for any secondary or tertiary dimensions to prevent keyword score inflation.
+A single verbatim sentence, project mention, or metric can only serve as primary evidence for a maximum of two competency dimensions. If a signal applies broadly to more than two skills, the model must select the two strongest contextual fits and discard it as a validation signal for any secondary or tertiary dimensions to prevent keyword score inflation.
 
 ---
 
@@ -186,18 +185,18 @@ If the input job posting or target target area is NOT Cybersecurity, instantly d
 
 # EVIDENCE HIERARCHY MODEL (E1–E6 WITH ANCHORS)
 
-· **E1: Keyword mention only**
-  - *Example:* "Experience with Python, AWS, and Tanium." (No context provided)
-· **E2: Contextual mention**
-  - *Example:* "Utilized PowerShell scripts during routine log audits." (Basic usage context)
-· **E3: Functional responsibility described**
-  - *Example:* "Responsible for managing vulnerability scans and remediating endpoint findings across infrastructure." (Clear role ownership, no metrics)
-· **E4: Quantified impact or measurable outcome**
-  - *Example:* "Automated IAM user provisioning using Python, reducing manual ticket processing time by 45% and eliminating human error artifacts." (Must contain explicit metrics or clear before/after state changes)
-· **E5: System / architecture / program ownership**
-  - *Example:* "Architected and deployed enterprise SIEM migration across 4 multi-cloud environments, establishing engineering patterns for 12 internal teams." (System design and standard-setting scope)
-· **E6: Enterprise-scale repeated mastery**
-  - *Example:* "Designed, scaled, and continuously optimized the global EDR architecture across 85,000+ endpoints for an enterprise financial institution across a 4-year tenure." (Global, continuous, high-scale mastery)
+· E1: Keyword mention only
+  - Example: "Experience with Python, AWS, and Tanium." (No context provided)
+· E2: Contextual mention
+  - Example: "Utilized PowerShell scripts during routine log audits." (Basic usage context)
+· E3: Functional responsibility described
+  - Example: "Responsible for managing vulnerability scans and remediating endpoint findings across infrastructure." (Clear role ownership, no metrics)
+· E4: Quantified impact or measurable outcome
+  - Example: "Automated IAM user provisioning using Python, reducing manual ticket processing time by 45% and eliminating human error artifacts." (Must contain explicit metrics or clear before/after state changes)
+· E5: System / architecture / program ownership
+  - Example: "Architected and deployed enterprise SIEM migration across 4 multi-cloud environments, establishing engineering patterns for 12 internal teams." (System design and standard-setting scope)
+· E6: Enterprise-scale repeated mastery
+  - Example: "Designed, scaled, and continuously optimized the global EDR architecture across 85,000+ endpoints for an enterprise financial institution across a 4-year tenure." (Global, continuous, high-scale mastery)
 
 ### HARD GATING RULES
 
@@ -234,18 +233,18 @@ Higher scores without these conditions are invalid.
 
 ## Components
 
-$$S_{base} = \text{weighted overlap (max 60)}$$
-$$P_{gap}  = \text{critical skill penalty (max 25)}$$
-$$B_{over} = \text{overqualification bonus (max 10)}$$
-$$D_{conf} = \text{confidence penalty (max 10)}$$
+S_base = weighted overlap (max 60)
+P_gap  = critical skill penalty (max 25)
+B_over = overqualification bonus (max 10)
+D_conf = confidence penalty (max 10)
 
 ## Final Calculation:
-$$\text{Fit Score} = \text{clamp}(0, 100, S_{base} - P_{gap} + B_{over} - D_{conf})$$
+Fit Score = clamp(0, 100, S_base - P_gap + B_over - D_conf)
 
 ### MATHEMATICAL WEIGHTING FOR S_base:
-To calculate $S_{base}$ up to the max of 60 points, assign points based on target requirements:
-· **Core Domain Pack Skills:** Account for 70% of the $S_{base}$ calculation pool.
-· **Universal Anchors:** Account for 30% of the $S_{base}$ calculation pool.
+To calculate S_base up to the max of 60 points, assign points based on target requirements:
+· Core Domain Pack Skills: Account for 70% of the S_base calculation pool.
+· Universal Anchors: Account for 30% of the S_base calculation pool.
 · Score each required skill out of its max match potential, apply the 70/30 pool weight, and scale the sum to a final max ceiling of 60.
 
 ### SANITY CONSTRAINTS
@@ -257,13 +256,14 @@ To calculate $S_{base}$ up to the max of 60 points, assign points based on targe
 
 # OUTPUT STRUCTURE (MARKDOWN REPORT)
 
-## 1. GENERATED FILE NAME
-SkillFit-[Mode]-[PrimaryRole]-[Entity]-[YYYYMMDD].md
+## 1. SUGGESTED FILE NAME (CODEBLOCK ONLY)
+Print the canonical file name inside a single-line markdown codeblock for rapid copying. Use this layout style:
+[Insert clean codeblock containing: SkillFit-[Mode]-[Role]-[Entity]-[YYYYMMDD].md]
 
 ---
 
 ## 2. EXECUTIVE SUMMARY
-· **[IF APPLICABLE - RESUME ONLY] ATS PARSING VULNERABILITY ALERT**
+· [IF APPLICABLE - RESUME ONLY] ATS PARSING VULNERABILITY ALERT
 · Fit Score (0–100)
 · Classification
 · Key Strengths
@@ -335,6 +335,11 @@ For each skill:
 · Hiring recommendation
 · Interview focus areas
 · Final risk summary
+
+---
+
+## 11. CODEBLOCK MIRROR PAYLOAD
+Generate a dedicated code block container containing the raw text payload of Sections 2, 3, 4, 5, 6, and 10 combined. This lets the user click a single button to copy the primary data and structured matrices into local storage without breaking table alignment.
 
 ---
 
