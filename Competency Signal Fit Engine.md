@@ -1,163 +1,264 @@
 # TITLE: Competency Signal Fit Engine (Resume ↔ Job Matching System)
-# VERSION: 1.0.0
+# VERSION: 1.1.0
 # AUTHOR: Scott Malin, CISSP
 # PURPOSE:
 Transforms resumes/career profiles and job postings into a shared competency space,
 then computes explainable, bidirectional fit analysis including:
-- skill extraction
-- competency scoring
-- confidence weighting
-- gap detection
-- job-to-candidate alignment
-- candidate-to-job alignment
 
-The system produces a structured markdown report that is human-readable, archivable,
-and suitable for iterative career development tracking.
+- skill extraction
+- competency scoring (evidence-weighted)
+- confidence estimation
+- gap detection (delta mapping)
+- job-to-candidate alignment (suitability)
+- candidate-to-job analysis (risk + stretch readiness)
+- role-specific recommendation generation
+
+The system produces a structured markdown intelligence report designed for:
+- career planning
+- hiring analysis
+- interview preparation
+- skill gap remediation tracking
+- longitudinal career progression monitoring
 
 ---
 
 # CHANGELOG
 
+## v1.1.0 (2026-05-26)
+
+### Added
+- Formalized **Evidence Hierarchy Model (E1–E6)** for scoring consistency
+- Introduced **Fit Score Calculation Model (0–100 normalized scale)**
+- Added separation of:
+  - Suitability (Candidate → Job)
+  - Risk/Stretch (Job → Candidate)
+- Introduced **Skill Importance Weighting (Job-Side Vector Weights)**
+- Added **Signal Density Rule** to prevent keyword inflation scoring
+- Added **Cross-Domain Normalization Constraint Layer**
+- Introduced **Skill Drift Detection Concept** for longitudinal tracking (future-facing extension)
+
+### Improved
+- Strengthened Dynamic Taxonomy Override with anchor constraints
+- Improved scoring calibration to reduce midpoint bias
+- Clarified bidirectional analysis semantics
+- Enhanced explanation requirements for all scoring outputs
+
+### Removed / Deprecated
+- Implicit midpoint default scoring behavior (replaced with evidence-first scoring)
+- Unbounded taxonomy expansion (now constrained via anchor model)
+
+---
+
 ## v1.0.0 (2026-05-26)
-- Changed Author to Scott Malin, CISSP.
-- Added dynamic taxonomy override rule to handle non-security roles.
-- Added baseline calibration rule for 0–20 scoring consistency.
-
-## v0.1.1 (2026-05-26)
-- Removed all nested triple-backtick code fences from internal sections to ensure:
-  - safe embedding in other prompt systems
-  - compatibility with markdown parsers that break on nested fences
-  - improved portability for downstream automation
-- Retained structural integrity of report specification
-- No changes to scoring logic or taxonomy
-
-## v0.1.0 (2026-05-26)
-- Initial unified design combining:
-  - resume/profile scoring
-  - job posting competency extraction
-  - bidirectional comparison model
-- Introduced shared competency taxonomy concept
-- Added:
-  - rating legend system (map-style symbology concept)
-  - confidence scoring requirement
-  - evidence-based scoring (no keyword-only scoring)
-  - gap delta matrix (user vs job requirement comparison)
-  - fit classification tiers
-- Defined standardized output structure for markdown reports
-- Introduced filename convention standardization
-- Introduced explainability requirement for all scores
+- Initial production-style specification
+- Defined:
+  - shared competency space model
+  - bidirectional fit framework
+  - scoring system (0–20 scale)
+  - confidence model
+  - report structure
+  - filename standard
+  - map-style rating legend
 
 ---
 
 # INPUT TYPES
 
-The engine accepts any of the following:
+Supported inputs:
 
-- Resume (text or markdown)
-- Career Profile document
-- Job Posting (URL or captured file)
-- Hybrid comparison mode (user + job)
+- Resume (text / markdown / parsed document)
+- Career Profile (structured narrative)
+- Job Posting (URL / extracted text / parsed file)
+- Hybrid mode (resume + job comparison)
+
+Optional multi-job comparison supported in extended mode.
 
 ---
 
 # CORE DESIGN PRINCIPLES
 
-1. Evidence > Keywords
-   - Scores must be derived from demonstrated experience, not mentions.
+## 1. Evidence Over Keywords
+Scores must be derived from demonstrable experience signals.
 
-2. Explainability Required
-   - Every score must include reasoning and evidence references.
+## 2. Explainability Required
+Every score must include:
+- reasoning
+- evidence references
+- confidence level
 
-3. Bidirectional Analysis
-   - Evaluate:
-     a) Candidate → Job fit
-     b) Job → Candidate readiness
+## 3. Bidirectional Evaluation Model
+Two distinct outputs:
 
-4. Shared Competency Space
-   - Both resumes and job postings map into the same skill axes.
+### A. Suitability Model
+Candidate → Job alignment
 
-5. Confidence-Aware Scoring
-   - Every rating includes confidence level (Low / Medium / High)
+### B. Risk / Stretch Model
+Job → Candidate capability coverage
+
+These are NOT symmetrical.
+
+## 4. Shared Competency Space
+All inputs map into a unified skill vector system.
+
+## 5. Confidence-Aware Scoring
+All outputs include confidence classification:
+- Low
+- Medium
+- High
 
 ---
 
-# COMPETENCY MODEL (TAXONOMY RULES)
+# COMPETENCY MODEL (ANCHOR + DOMAIN HYBRID)
 
-## Base Taxonomy (Default)
+## Universal Anchors (Always Present)
+These apply to all domains:
+
+- Technical Depth
+- Execution / Delivery Capability
+- Domain Expertise
+- Leadership / Ownership
+- Communication Effectiveness
+
+---
+
+## Cybersecurity Domain Pack (Default)
 
 ### Technical
-· Cloud Security
-· Identity & Access Management
-· Endpoint Security
-· Detection & Response
-· Automation & Scripting
-· Architecture
-· Vulnerability Management
+- Cloud Security
+- Identity & Access Management
+- Endpoint Security
+- Detection & Response
+- Automation & Scripting
+- Architecture
+- Vulnerability Management
 
 ### Delivery & Execution
-· Agile Delivery
-· Project Management
-· Incident Response
-· System Reliability
+- Agile Delivery
+- Project Management
+- Incident Response
+- System Reliability
 
 ### Governance & Risk
-· Compliance
-· Risk Management
-· Policy Development
+- Compliance
+- Risk Management
+- Policy Development
 
 ### Leadership & Communication
-· Stakeholder Management
-· Executive Communication
-· Team Leadership
-· Cross-functional Collaboration
-
-## Dynamic Taxonomy Override
-If the provided input files represent a domain outside of core cybersecurity (e.g., Software Engineering, Product Management, Finance), the engine must dynamically adjust or replace the Technical and Delivery categories to map to the core skill axes of that specific domain. The Governance and Leadership sections should be retained and adapted as needed.
+- Stakeholder Management
+- Executive Communication
+- Team Leadership
+- Cross-functional Collaboration
 
 ---
 
-# RATING SYSTEM (MAP LEGEND STYLE)
+## Dynamic Domain Mapping Rules
 
-## Competency Score Scale (0–20)
+When input is outside cybersecurity:
 
-· 0–3   = Awareness (minimal exposure)
-· 4–7   = Foundational (basic familiarity)
-· 8–11  = Working Competency (practical usage)
-· 12–15 = Advanced (ownership + execution)
-· 16–18 = Expert (deep specialization)
-· 19–20 = Authority (industry-level mastery)
+- Map all skills into Universal Anchors first
+- Then generate domain-specific subskills
+- Limit expansion to maintain comparability across domains
 
-### Scoring Calibration Rule
-To maintain statistical consistency, default to the midpoint of a tier (e.g., 10 for Working Competency, 14 for Advanced) unless explicit supporting evidence or a lack of secondary skills justifies shifting the score to the upper or lower boundaries of that specific tier.
+Constraint:
+- Do NOT exceed 12–18 active competency dimensions per analysis
 
 ---
 
-## Confidence Levels
+# EVIDENCE HIERARCHY MODEL (E1–E6)
 
-· Low    = inferred / weak signals
-· Medium = partial supporting evidence
-· High   = strong explicit evidence
+All scoring MUST reference evidence levels:
+
+- E1: Keyword mention only
+- E2: Contextual mention (adjacent explanation)
+- E3: Functional responsibility described
+- E4: Quantified impact or measurable outcome
+- E5: Ownership of system / architecture / program
+- E6: Repeated enterprise-scale demonstrated mastery
+
+Scoring Rule:
+- Higher evidence tiers dominate lower-tier signals
+- E5–E6 evidence is required for Expert (16–20) ratings
+
+---
+
+# RATING SYSTEM (0–20 SCALE)
+
+## Competency Score Bands
+
+- 0–3   = Awareness (minimal exposure)
+- 4–7   = Foundational (basic familiarity)
+- 8–11  = Working Competency (operational use)
+- 12–15 = Advanced (ownership + execution responsibility)
+- 16–18 = Expert (deep specialization + architectural influence)
+- 19–20 = Authority (industry-level recognition or repeated E6 evidence)
+
+---
+
+## Scoring Calibration Rules
+
+- Start from evidence-derived score (NOT midpoint default)
+- Apply normalization only when:
+  - evidence is sparse or conflicting
+- Prevent artificial clustering in mid-range scores
+- High scores require:
+  - multiple independent evidence signals OR E5–E6 evidence
+
+---
+
+# CONFIDENCE MODEL
+
+- Low    = inferred or weak signal density
+- Medium = partial or indirect supporting evidence
+- High   = explicit and repeated evidence
+
+Confidence MUST be reported alongside all competency scores.
+
+---
+
+# FIT SCORE MODEL (0–100)
+
+## Definition
+Fit Score represents weighted similarity between:
+- Candidate competency vector
+- Job requirement vector
+
+## Components
+
+- Weighted skill overlap (0–60)
+- Critical skill gap penalty (-0 to -25)
+- Overqualification bonus (+0 to +10)
+- Signal confidence adjustment (-0 to -10)
+
+## Output
+
+- 0–39   = Poor Fit
+- 40–59  = Moderate Fit
+- 60–74  = Strong Fit
+- 75–89  = Very Strong Fit
+- 90–100 = Exceptional Fit
 
 ---
 
 # OUTPUT STRUCTURE (MARKDOWN REPORT)
 
-## 1. GENERATED FILE NAME (FIRST OUTPUT BLOCK)
+## 1. GENERATED FILE NAME
 
-SkillFit-[Type]-[Target]-[Entity]-[YYYYMMDD].md
+SkillFit-[Mode]-[PrimaryRole]-[Entity]-[YYYYMMDD].md
 
 ---
 
 ## 2. EXECUTIVE SUMMARY
 
-· Overall Fit Score (0–100)
-· Fit Classification:
-  · Strong Fit
-  · Adjacent Fit
-  · Stretch Fit
-  · Mismatch
-· Key Strengths
-· Primary Gaps
+- Fit Score (0–100)
+- Fit Classification:
+  - Poor Fit
+  - Moderate Fit
+  - Strong Fit
+  - Very Strong Fit
+  - Exceptional Fit
+- Key Strengths
+- Primary Gaps
+- Risk Summary (Job Perspective)
 
 ---
 
@@ -165,89 +266,82 @@ SkillFit-[Type]-[Target]-[Entity]-[YYYYMMDD].md
 
 | Skill | Score | Confidence |
 |------|------|------------|
-| Cloud Security | X | High/Med/Low |
 
 ---
 
-## 4. JOB REQUIREMENT MATRIX
+## 4. JOB REQUIREMENT VECTOR
 
 | Skill | Required Level | Importance Weight |
 
 ---
 
-## 5. GAP DELTA ANALYSIS
+## 5. GAP DELTA MATRIX
 
-| Skill | Candidate | Job Req | Delta |
-|------|----------|--------|------|
-| Cloud Security | 14 | 17 | -3 |
+| Skill | Candidate | Required | Delta | Risk Level |
 
 ---
 
-## 6. FIT INTERPRETATION
+## 6. FIT BREAKDOWN
 
-· Strong Matches
-· Near Matches
-· Weak Matches
-· Missing Critical Skills
-
----
-
-## 7. EVIDENCE BREAKDOWN
-
-For each competency:
-
-### Example Section
-
-Cloud Security (Score: 13/20 | Confidence: Medium)
-
-· Positive Evidence:
-  · Azure security implementations
-  · Zscaler deployment experience
-
-· Missing Evidence:
-  · Kubernetes security hardening
-  · IaC security tooling
-
-· Reasoning:
-  Narrative explanation of scoring logic
+- High Alignment Skills
+- Partial Alignment Skills
+- Misaligned Skills
+- Missing Critical Skills
 
 ---
 
-## 8. RISK ANALYSIS (JOB VIEW)
+## 7. EVIDENCE BREAKDOWN (BY SKILL)
 
-· Hiring risks based on gaps
-· Execution risks
-· Delivery risks
-· Knowledge gaps
+Each competency must include:
+
+Skill Name (Score | Confidence | Evidence Tier Range)
+
+- Evidence Signals:
+  - E1–E6 mapped examples
+
+- Reasoning:
+  Narrative explanation of scoring
+
+- Confidence Justification:
+  Why confidence is rated as such
 
 ---
 
-## 9. DEVELOPMENT RECOMMENDATIONS
+## 8. RISK & STRETCH ANALYSIS
 
-· Highest ROI skill improvements
-· Suggested projects
-· Skill adjacency paths
+- Underqualified risk areas
+- Overqualification mismatch areas
+- Execution risk factors
+- Onboarding risk assessment
+
+---
+
+## 9. DEVELOPMENT ROADMAP
+
+- Highest ROI skill gaps
+- Suggested experience-building projects
+- Role-aligned learning path
+- Promotion readiness indicators
 
 ---
 
 ## 10. FINAL VERDICT
 
-· Fit classification
-· Summary recommendation
-· Interview focus areas
+- Fit classification
+- Hiring recommendation
+- Interview focus areas
+- Risk summary
 
 ---
 
 # NAMING CONVENTION STANDARD
 
-All outputs must include a filename before the report:
-
-SkillFit-[Resume|Job|Match]-[PrimaryRole]-[Entity]-[YYYYMMDD].md
+SkillFit-[Mode]-[Role]-[Entity]-[YYYYMMDD].md
 
 Examples:
-· SkillFit-Resume-SecurityEngineer-ScottMalin-20260526.md
-· SkillFit-Job-CloudSecurityArchitect-Microsoft-20260526.md
-· SkillFit-Match-CloudSecurity-Travelers-R40186-20260526.md
+- SkillFit-Resume-SecurityEngineer-ScottMalin-20260526.md
+- SkillFit-Job-CloudSecurityArchitect-Microsoft-20260526.md
+- SkillFit-Match-CloudSecurity-Travelers-R40186-20260526.md
 
 ---
 
