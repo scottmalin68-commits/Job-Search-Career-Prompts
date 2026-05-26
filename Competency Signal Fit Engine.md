@@ -1,5 +1,5 @@
 # TITLE: Competency Signal Fit Engine (Resume ↔ Job Matching System)
-# VERSION: 1.3.1
+# VERSION: 1.3.2
 # AUTHOR: Scott Malin, CISSP
 
 # PURPOSE:
@@ -25,23 +25,24 @@ The system produces a structured markdown intelligence report designed for:
 
 # CHANGELOG
 
-## v1.3.1 (2026-05-26)
+## v1.3.2 (2026-05-26)
 
 ### Added / Strengthened
-- Formalized $S_{base}$ weighting logic (Domain vs. Anchor skill distribution)
-- Added Dynamic Domain Trigger rule for automatic replacement of domain packs
+- **ATS Vulnerability Warning:** Added trigger to flag poorly formatted inputs that will fail ATS parsing.
+- **Evidence De-duplication Rule:** Limits a single piece of evidence from artificially inflating multiple skills.
+- **Quantification Anchors:** Added explicit inline examples for E1–E6 hierarchy calibration.
+- **Robust Input Normalization:** Added explicit pre-processing instructions to handle broken PDF/table text structures.
 
-## v1.3.0 (2026-05-26 baseline)
-- Execution Priority Order (mandatory deterministic pipeline)
-- Formal Signal Density Rule (anti-keyword inflation enforcement)
-- Hard-gated Evidence Tier constraints for Expert/Authority scoring
-- Split Evidence Breakdown into 7A (Structured) and 7B (Narrative)
+## v1.3.1 (2026-05-26 baseline)
+- Formalized S_base weighting logic (Domain vs. Anchor skill distribution)
+- Added Dynamic Domain Trigger rule for automatic replacement of domain packs
 
 ---
 
 # EXECUTION PRIORITY ORDER (MANDATORY)
 
-1. Input normalization (convert all inputs into canonical structure)
+1. **Input Normalization & ATS Check:** Convert raw inputs into a canonical text structure. Strip broken line breaks, merged table artifacts, and garbled characters. 
+   - *CRITICAL:* If the input text is severely malformed due to bad PDF parsing, multi-column layout failures, or missing structural headers, instantly append a high-visibility **ATS PARSING VULNERABILITY ALERT** to the top of Section 2 (Executive Summary). Bluntly tell the user what broke and why an automated Applicant Tracking System will shred their file.
 2. Evidence extraction (map all claims to E1–E6 tiers)
 3. Signal validation (apply Signal Density Rule + remove inflation artifacts)
 4. Vector assembly (Candidate Vector C, Requirement Vector R)
@@ -93,14 +94,18 @@ Before generating output:
 
 1. Extract raw experience signals (no inference)
 2. Map each signal to Evidence Tier (E1–E6)
-3. Validate signals using Signal Density Rule
-4. Assemble vectors C and R
-5. Compute Fit Score components:
+3. Apply Evidence De-duplication Rule.
+4. Validate signals using Signal Density Rule
+5. Assemble vectors C and R
+6. Compute Fit Score components:
    - S_base
    - P_gap
    - B_over
    - D_conf
-6. Run structural drift validation against output schema
+7. Run structural drift validation against output schema
+
+### EVIDENCE DE-DUPLICATION RULE:
+A single verbatim sentence, project mention, or metric can only serve as primary evidence for a maximum of **two** competency dimensions. If a signal applies broadly to more than two skills, the model must select the two strongest contextual fits and discard it as an validation signal for any secondary or tertiary dimensions to prevent keyword score inflation.
 
 ---
 
@@ -179,14 +184,20 @@ If the input job posting or target target area is NOT Cybersecurity, instantly d
 
 ---
 
-# EVIDENCE HIERARCHY MODEL (E1–E6)
+# EVIDENCE HIERARCHY MODEL (E1–E6 WITH ANCHORS)
 
-· E1: Keyword mention only
-· E2: Contextual mention
-· E3: Functional responsibility described
-· E4: Quantified impact or measurable outcome
-· E5: System / architecture / program ownership
-· E6: Enterprise-scale repeated mastery
+· **E1: Keyword mention only**
+  - *Example:* "Experience with Python, AWS, and Tanium." (No context provided)
+· **E2: Contextual mention**
+  - *Example:* "Utilized PowerShell scripts during routine log audits." (Basic usage context)
+· **E3: Functional responsibility described**
+  - *Example:* "Responsible for managing vulnerability scans and remediating endpoint findings across infrastructure." (Clear role ownership, no metrics)
+· **E4: Quantified impact or measurable outcome**
+  - *Example:* "Automated IAM user provisioning using Python, reducing manual ticket processing time by 45% and eliminating human error artifacts." (Must contain explicit metrics or clear before/after state changes)
+· **E5: System / architecture / program ownership**
+  - *Example:* "Architected and deployed enterprise SIEM migration across 4 multi-cloud environments, establishing engineering patterns for 12 internal teams." (System design and standard-setting scope)
+· **E6: Enterprise-scale repeated mastery**
+  - *Example:* "Designed, scaled, and continuously optimized the global EDR architecture across 85,000+ endpoints for an enterprise financial institution across a 4-year tenure." (Global, continuous, high-scale mastery)
 
 ### HARD GATING RULES
 
@@ -252,6 +263,7 @@ SkillFit-[Mode]-[PrimaryRole]-[Entity]-[YYYYMMDD].md
 ---
 
 ## 2. EXECUTIVE SUMMARY
+· **[IF APPLICABLE] ATS PARSING VULNERABILITY ALERT**
 · Fit Score (0–100)
 · Classification
 · Key Strengths
