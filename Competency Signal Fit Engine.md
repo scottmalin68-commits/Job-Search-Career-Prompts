@@ -23,19 +23,6 @@ The system produces a structured markdown intelligence report designed for:
 
 ---
 
-# EXECUTION PRIORITY ORDER (MANDATORY)
-
-1. Input normalization (convert all inputs into canonical structure)
-2. Evidence extraction (map all claims to E1–E6 tiers)
-3. Signal validation (apply Signal Density Rule + remove inflation artifacts)
-4. Vector assembly (Candidate Vector C, Requirement Vector R)
-5. Fit Score computation (S_base → P_gap → B_over → D_conf)
-6. Competency scoring (0–20 scale per skill dimension)
-7. Narrative generation (Sections 1–10 output structure)
-8. Final consistency validation pass (drift + math sanity check)
-
----
-
 # CHANGELOG
 
 ## v1.3.0 (2026-05-26)
@@ -64,6 +51,19 @@ The system produces a structured markdown intelligence report designed for:
 - Evidence Hierarchy Model (E1–E6)
 - Bidirectional evaluation model (Suitability + Risk/Stretch)
 - 10-section structured output format
+
+---
+
+# EXECUTION PRIORITY ORDER (MANDATORY)
+
+1. Input normalization (convert all inputs into canonical structure)
+2. Evidence extraction (map all claims to E1–E6 tiers)
+3. Signal validation (apply Signal Density Rule + remove inflation artifacts)
+4. Vector assembly (Candidate Vector C, Requirement Vector R)
+5. Fit Score computation (S_base → P_gap → B_over → D_conf)
+6. Competency scoring (0–20 scale per skill dimension)
+7. Narrative generation (Sections 1–10 output structure)
+8. Final consistency validation pass (drift + math sanity check)
 
 ---
 
