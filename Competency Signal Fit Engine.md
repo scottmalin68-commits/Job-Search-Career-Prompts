@@ -1,5 +1,5 @@
 # TITLE: Competency Signal Fit Engine (Resume ↔ Job Matching System)
-# VERSION: 1.3.2
+# VERSION: 1.3.3
 # AUTHOR: Scott Malin, CISSP
 
 # PURPOSE:
@@ -25,24 +25,24 @@ The system produces a structured markdown intelligence report designed for:
 
 # CHANGELOG
 
-## v1.3.2 (2026-05-26)
+## v1.3.3 (2026-05-26)
 
-### Added / Strengthened
-- **ATS Vulnerability Warning:** Added trigger to flag poorly formatted inputs that will fail ATS parsing.
-- **Evidence De-duplication Rule:** Limits a single piece of evidence from artificially inflating multiple skills.
-- **Quantification Anchors:** Added explicit inline examples for E1–E6 hierarchy calibration.
-- **Robust Input Normalization:** Added explicit pre-processing instructions to handle broken PDF/table text structures.
+### Improved / Hardened
+- **Targeted ATS Alert Logic:** Isolated the ATS check strictly to the candidate's Resume/Profile input. 
+- **Posting File Compatibility:** Explicitly instructed the engine to ignore markdown tables, brackets, and structural logs in Job Intelligence documents during the normalization pass so it doesn't trigger false-positive warnings.
 
-## v1.3.1 (2026-05-26 baseline)
-- Formalized S_base weighting logic (Domain vs. Anchor skill distribution)
-- Added Dynamic Domain Trigger rule for automatic replacement of domain packs
+## v1.3.2 (2026-05-26 baseline)
+- Added ATS Vulnerability Warning for rough resume inputs.
+- Added Evidence De-duplication Rule.
+- Added Quantification Anchors for E1–E6 hierarchy calibration.
 
 ---
 
 # EXECUTION PRIORITY ORDER (MANDATORY)
 
-1. **Input Normalization & ATS Check:** Convert raw inputs into a canonical text structure. Strip broken line breaks, merged table artifacts, and garbled characters. 
-   - *CRITICAL:* If the input text is severely malformed due to bad PDF parsing, multi-column layout failures, or missing structural headers, instantly append a high-visibility **ATS PARSING VULNERABILITY ALERT** to the top of Section 2 (Executive Summary). Bluntly tell the user what broke and why an automated Applicant Tracking System will shred their file.
+1. **Input Normalization & Targeted ATS Check:** Convert raw inputs into a canonical text structure. Strip broken line breaks, merged table artifacts, and garbled characters from messy parsing.
+   - **POSTING FILE EXEMPTION:** Do NOT flag markdown tables, tracking brackets (e.g., `[JD]`), or log headers found inside Job Posting Intelligence files. These are expected system structures.
+   - **RESUME ATS ALERT TRIGGER:** Evaluate the *Resume/Profile* input only. If the candidate's resume text contains severely malformed strings, corrupted tab stops, or broken multi-column layout artifacts that indicate a bad PDF extraction, append a high-visibility **ATS PARSING VULNERABILITY ALERT** to the top of Section 2 (Executive Summary). Bluntly warn the user that enterprise Workday parsers will shred their resume layout.
 2. Evidence extraction (map all claims to E1–E6 tiers)
 3. Signal validation (apply Signal Density Rule + remove inflation artifacts)
 4. Vector assembly (Candidate Vector C, Requirement Vector R)
@@ -58,7 +58,7 @@ The system produces a structured markdown intelligence report designed for:
 Supported inputs:
 - Resume (text / markdown / parsed document)
 - Career Profile (structured narrative)
-- Job Posting (URL / extracted text / parsed file)
+- Job Posting (URL / extracted text / parsed file / Intelligence Report)
 - Hybrid mode (resume + job comparison)
 
 ---
@@ -105,7 +105,7 @@ Before generating output:
 7. Run structural drift validation against output schema
 
 ### EVIDENCE DE-DUPLICATION RULE:
-A single verbatim sentence, project mention, or metric can only serve as primary evidence for a maximum of **two** competency dimensions. If a signal applies broadly to more than two skills, the model must select the two strongest contextual fits and discard it as an validation signal for any secondary or tertiary dimensions to prevent keyword score inflation.
+A single verbatim sentence, project mention, or metric can only serve as primary evidence for a maximum of **two** competency dimensions. If a signal applies broadly to more than two skills, the model must select the two strongest contextual fits and discard it as a validation signal for any secondary or tertiary dimensions to prevent keyword score inflation.
 
 ---
 
@@ -263,7 +263,7 @@ SkillFit-[Mode]-[PrimaryRole]-[Entity]-[YYYYMMDD].md
 ---
 
 ## 2. EXECUTIVE SUMMARY
-· **[IF APPLICABLE] ATS PARSING VULNERABILITY ALERT**
+· **[IF APPLICABLE - RESUME ONLY] ATS PARSING VULNERABILITY ALERT**
 · Fit Score (0–100)
 · Classification
 · Key Strengths
