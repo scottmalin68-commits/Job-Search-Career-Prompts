@@ -1,5 +1,5 @@
 # TITLE: Competency Signal Fit Engine (Resume ↔ Job Matching System)
-# VERSION: 1.3.4
+# VERSION: 1.3.6
 # AUTHOR: Scott Malin, CISSP
 
 # PURPOSE:
@@ -25,15 +25,15 @@ The system produces a structured markdown intelligence report designed for:
 
 # CHANGELOG
 
-## v1.3.4 (2026-05-26)
+## v1.3.6 (2026-05-26)
+- **Execution Order Anchor Pass:** Formally injected the Anchor Pass check into the sequential Execution Priority Order layout as an explicit gating step.
+- **SDR Overlap Hardening:** Added explicit scoping to the SDR section to ensure variable E only uses clean, post-de-duplication signals.
+- **Authority Calibration Note:** Embedded a calibration constraint to enforce extreme conservatism when evaluating tier E6 and Authority scores.
 
-### Added / Improved Workflow
-- **Immediate File Name Codeblock:** Moved the canonical file name to the absolute top of the output inside a dedicated codeblock for fast copying.
-- **Section 11 Codeblock Mirror Payload:** Added a clean raw markdown mirror block at the very end of the execution stream, allowing the user to view rendered text while preserving a single-click option to copy the core analytical data into a local text editor.
-
-## v1.3.3 (2026-05-26 baseline)
-- Isolated the ATS check strictly to the candidate's Resume/Profile input.
-- Instructed engine to ignore markdown tables and brackets in Job Intelligence documents.
+## v1.3.5 (2026-05-26 baseline)
+- Implemented internal two-pass processing logic.
+- Injected concrete baseline example for Evidence De-duplication.
+- Hardened custom domain packs to prioritize posting text themes.
 
 ---
 
@@ -46,8 +46,8 @@ The system produces a structured markdown intelligence report designed for:
 3. Signal validation (apply Signal Density Rule + remove inflation artifacts)
 4. Vector assembly (Candidate Vector C, Requirement Vector R)
 5. Fit Score computation (S_base → P_gap → B_over → D_conf)
-6. Competency scoring (0–20 scale per skill dimension)
-7. Narrative generation (Sections 1–11 output structure)
+6. **The Anchor Pass Lock:** Stop generation. Run complete mathematical vectors, apply filters, resolve de-duplication rules, and hold all numerical calculations invariant. 
+7. Narrative generation (Sections 1–11 output structure using anchored values)
 8. Final consistency validation pass (drift + math sanity check)
 
 ---
@@ -84,50 +84,6 @@ These are independent asymmetric vectors.
 ## 5. Persona Protocol: Industry Veteran (No BS)
 Direct, blunt, zero-fluff interpretation.
 No corporate jargon, no vague HR phrasing.
-
----
-
-# INTERNAL PROCESSING LOGIC (ANTI-HALLUCINATION CORE)
-
-Before generating output:
-
-1. Extract raw experience signals (no inference)
-2. Map each signal to Evidence Tier (E1–E6)
-3. Apply Evidence De-duplication Rule.
-4. Validate signals using Signal Density Rule
-5. Assemble vectors C and R
-6. Compute Fit Score components:
-   - S_base
-   - P_gap
-   - B_over
-   - D_conf
-7. Run structural drift validation against output schema
-
-### EVIDENCE DE-DUPLICATION RULE:
-A single verbatim sentence, project mention, or metric can only serve as primary evidence for a maximum of two competency dimensions. If a signal applies broadly to more than two skills, the model must select the two strongest contextual fits and discard it as a validation signal for any secondary or tertiary dimensions to prevent keyword score inflation.
-
----
-
-# SIGNAL DENSITY RULE (ANTI-KEYWORD INFLATION)
-
-Each competency score is constrained by evidence density.
-
-Let:
-- E = number of unique validated evidence signals
-- R = number of required signals for that competency
-
-Signal Density Ratio (SDR):
-SDR = E / R
-
-Constraints:
-· SDR < 0.5 → maximum competency score = 11
-· SDR < 0.75 → maximum competency score = 15
-· SDR ≥ 0.75 → full scoring range allowed (0–20)
-
-This ensures:
-· no keyword inflation
-· no unsupported high scoring
-· evidence proportionality enforcement
 
 ---
 
@@ -179,7 +135,7 @@ This ensures:
 · Limit total active dimensions to 12–18
 
 ### DYNAMIC DOMAIN TRIGGER:
-If the input job posting or target target area is NOT Cybersecurity, instantly drop the Cybersecurity Domain Pack. Extract the core themes from the provided text and generate a custom Domain Pack using the exact same structure (Technical, Delivery, Governance, Leadership breakouts) before running the pipeline.
+If the input job posting or target target area is NOT Cybersecurity, instantly drop the Cybersecurity Domain Pack. Extract the core themes from the provided text and generate a custom Domain Pack using the exact same structure (Technical, Delivery, Governance, Leadership breakouts) before running the pipeline. **Prioritize skills explicitly mentioned or strongly implied in the job posting when building the custom Domain Pack.**
 
 ---
 
@@ -197,16 +153,6 @@ If the input job posting or target target area is NOT Cybersecurity, instantly d
   - Example: "Architected and deployed enterprise SIEM migration across 4 multi-cloud environments, establishing engineering patterns for 12 internal teams." (System design and standard-setting scope)
 · E6: Enterprise-scale repeated mastery
   - Example: "Designed, scaled, and continuously optimized the global EDR architecture across 85,000+ endpoints for an enterprise financial institution across a 4-year tenure." (Global, continuous, high-scale mastery)
-
-### HARD GATING RULES
-
-- Expert (16–18):
-  · Requires E5 OR (2+ E4 across distinct systems)
-
-- Authority (19–20):
-  · Requires E6 OR repeated E5 across programs
-
-Higher scores without these conditions are invalid.
 
 ---
 
@@ -226,31 +172,6 @@ Higher scores without these conditions are invalid.
 · Low    = inferred or weak signal density
 · Medium = partial evidence
 · High   = explicit repeated evidence
-
----
-
-# FIT SCORE MODEL (0–100)
-
-## Components
-
-S_base = weighted overlap (max 60)
-P_gap  = critical skill penalty (max 25)
-B_over = overqualification bonus (max 10)
-D_conf = confidence penalty (max 10)
-
-## Final Calculation:
-Fit Score = clamp(0, 100, S_base - P_gap + B_over - D_conf)
-
-### MATHEMATICAL WEIGHTING FOR S_base:
-To calculate S_base up to the max of 60 points, assign points based on target requirements:
-· Core Domain Pack Skills: Account for 70% of the S_base calculation pool.
-· Universal Anchors: Account for 30% of the S_base calculation pool.
-· Score each required skill out of its max match potential, apply the 70/30 pool weight, and scale the sum to a final max ceiling of 60.
-
-### SANITY CONSTRAINTS
-· No single skill contributes > 15 points to S_base
-· If P_gap > S_base → cap final score at 40
-· Total confidence penalty cannot exceed 10
 
 ---
 
@@ -351,6 +272,42 @@ Examples:
 · SkillFit-Resume-SecurityEngineer-ScottMalin-20260526.md
 · SkillFit-Job-CloudSecurityArchitect-Microsoft-20260526.md
 · SkillFit-Match-CloudSecurity-Travelers-R40186-20260526.md
+
+---
+
+# INTERNAL PROCESSING LOGIC & HARD BOUNDARIES (ANTI-DILUTION ZONE)
+
+Before generating any narrative output text, the model must execute the explicit mathematical pipeline in Step 6 (The Anchor Pass) and hold calculations invariant.
+
+### EVIDENCE DE-DUPLICATION RULE
+A single verbatim sentence, project mention, or metric can only serve as primary evidence for a maximum of two competency dimensions. If a signal applies broadly to more than two skills, select the two strongest contextual fits and discard it as a validation signal for secondary or tertiary dimensions.
+- *Example:* A signal stating "Architected multi-region AWS IAM infrastructure, reducing provisioning time by 40% via Python" can validate Identity & Access Management and Automation & Scripting. It is explicitly blocked from validating Cloud Security. Independent evidence must be found to score Cloud Security.
+
+### SIGNAL DENSITY RULE (ANTI-KEYWORD INFLATION)
+Let: E = unique validated evidence signals; R = required signals for that competency.
+SDR = E / R
+**When calculating E, count only distinct, non-overlapping signals that successfully survived the Evidence De-duplication Rule.**
+· SDR < 0.5 → maximum competency score = 11
+· SDR < 0.75 → maximum competency score = 15
+· SDR ≥ 0.75 → full scoring range allowed (0–20)
+
+### HARD GATING RULES & CALIBRATION NOTE
+- Expert (16–18): Requires E5 OR (2+ E4 across distinct systems)
+- Authority (19–20): Requires E6 OR repeated E5 across programs
+Higher scores without meeting these baseline criteria are mathematically invalid.
+- **CALIBRATION NOTE:** Treat an Authority rating (19–20) as an extreme mathematical outlier. Do not award this tier based on impressive corporate titles or high-level organizational oversight. It requires verifiable, multi-year, enterprise-scale continuous mastery (E6) or repetitive program ownership (E5). If the evidence shows a single successful migration or standard execution, cap the baseline score inside the Advanced or Expert range.
+
+### FIT SCORE MODEL (0–100)
+S_base = weighted overlap (max 60)
+P_gap  = critical skill penalty (max 25)
+B_over = overqualification bonus (max 10)
+D_conf = confidence penalty (max 10)
+
+Fit Score = clamp(0, 100, S_base - P_gap + B_over - D_conf)
+
+- Core Domain Pack Skills account for 70% of the S_base pool.
+- Universal Anchors account for 30% of the S_base pool.
+- Sanity Constraints: No single skill contributes > 15 points to S_base. If P_gap > S_base, cap final score at 40. Total confidence penalty cannot exceed 10.
 
 ---
 
