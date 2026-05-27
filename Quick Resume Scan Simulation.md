@@ -1,5 +1,5 @@
 # Quick Resume Scan Simulation & Visual Attention Prompt with Scoring Rubric
-# VERSION: 3.2.1 (Anti-Drift & Deterministic Calibration)
+# VERSION: 3.3.0 (F-Scan Layout Optimization)
 # AUTHOR: Scott M
 # PURPOSE:
 # Simulate a 10-second resume review from two perspectives—HR recruiter and hiring manager—
@@ -11,6 +11,12 @@
 
 ---
 ## CHANGELOG
+
+### 3.3.0 (F-Scan Layout Optimization)
+- Integrated explicit F-Scan (F-Pattern) eye-tracking constraints based on recruiter behavior data
+- Penalized bullets that back-load metrics on the right side, violating left-margin vertical tracking
+- Hardened Top Third Impact Score to require the tri-fold identity check: title, key skills, and summary
+- Re-calibrated Visual Heatmap to mirror the F-shape: heavy on the top block, secondary horizontal pass on the first bullet, and strict left-side margin bias for the remaining text
 
 ### 3.2.1 (Anti-Drift & Deterministic Calibration)
 - Added mandatory SCORING PROTOCOL scratchpad block to eliminate AI calculation drift
@@ -32,8 +38,6 @@
 - Added handling guidance for modern/non-standard resume layouts
 - Clarified quantified achievement identification rules
 - Improved realism for technical resumes and cybersecurity terminology
-
-(earlier versions omitted for brevity)
 
 ---
 ## ROLE
@@ -120,7 +124,7 @@ All common metrics are calculated identically for both reviewer perspectives.
 ---
 ## 1. Attention Score (0–10)
 
-Simulated 10-second eye-tracking priority (F/Z-pattern inspired).
+Simulated 10-second eye-tracking priority (F-pattern layout focus).
 
 Formula:
 - Base = 10
@@ -131,6 +135,7 @@ Formula:
   - Education
 - -1 if average line length > 80 characters
 - -2 if no emphasis markers (*, **, ALL CAPS) used in the top third of the resume
+- -2 if key metrics, technologies, or scope nouns are buried at the end of bullet points rather than front-loaded on the left (violates F-Scan left-side tracking)
 - +1 if quantifiable achievements appear in first 10 lines
 - Clamp final subtotal to a strict maximum of 10 and minimum of 0
 
@@ -216,7 +221,7 @@ Formula:
 - Base = 0
 
 Add points incrementally:
-- +2 if target role/title is clearly visible in the top third
+- +2 if target role/title, key skills, and a professional summary are all clearly visible in the top third (explicitly satisfying the F-Scan's first horizontal pass)
 - +2 if >=1 quantified achievements appear in the top third
 - +2 if core technical skills appear in the top third
 - +2 if the most recent role immediately communicates target relevance
@@ -305,10 +310,10 @@ Then:
 ---
 # VISUAL HEATMAP DETERMINISTIC MAPPING RULES
 
-Map elements using these strict text/position rules:
-- 🔥 Highest Attention: Map to the top third of the document (lines 1-20 or first 30% of lines) AND any specific line item containing a valid quantified achievement.
-- ⚡ Moderate Attention: Map to the remaining lines within the Experience and Skills sections that do not contain explicit metrics.
-- • Low Attention: Map to Education sections, Certification sections, older roles (>7 years old), and references references.
+Map elements using these strict text/position rules based on F-Scan eye-tracking:
+- 🔥 Highest Attention: Map to the professional summary/headline block (the initial top horizontal scan) and the first 1-2 bullet points of the most recent role (the second horizontal drop scan). Also maps strictly to the first 3-4 words on the far-left margin of all remaining experience bullets down the page.
+- ⚡ Moderate Attention: Map to the remaining text on the middle/right side of the upper half of the resume, and core tech keywords listed in a scannable skills block.
+- • Low Attention: Map to the right-hand trailing edge of bullets in the lower half of the document, Education sections, Certification sections, older roles (>7 years old), and references references.
 
 ---
 # HALLUCINATION MITIGATION RULES
@@ -325,7 +330,7 @@ Before generating the final user-facing output report, you MUST perform your cal
 ---
 # OUTPUT FORMAT (Narrative + Bulleted Style)
 
-Quick Resume Scan – Version 3.2.1
+Quick Resume Scan – Version 3.3.0
 
 Resume analyzed:
 [brief identifier]
