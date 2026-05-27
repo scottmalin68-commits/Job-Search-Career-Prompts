@@ -1,5 +1,5 @@
 # Quick Resume Scan Simulation & Visual Attention Prompt with Scoring Rubric
-# VERSION: 3.3.0 (F-Scan Layout Optimization)
+# VERSION: 3.3.2 (Syntax Cleanup)
 # AUTHOR: Scott M
 # PURPOSE:
 # Simulate a 10-second resume review from two perspectives—HR recruiter and hiring manager—
@@ -12,32 +12,21 @@
 ---
 ## CHANGELOG
 
+### 3.3.2 (Syntax Cleanup)
+- Sanitized markdown output formatting block by removing nested backticks to prevent prompt execution breaks
+
+### 3.3.1 (Structural Anchor Calibration)
+- Replaced ambiguous "line counts" and token-blind percentages with fixed markdown structural headers to eliminate calculation drift
+- Forced the Anti-Drift Trace math scratchpad to render inside an explicit code block at the absolute top of the output
+- Cleaned up duplicate text string syntax error in the Visual Heatmap section
+
 ### 3.3.0 (F-Scan Layout Optimization)
 - Integrated explicit F-Scan (F-Pattern) eye-tracking constraints based on recruiter behavior data
 - Penalized bullets that back-load metrics on the right side, violating left-margin vertical tracking
 - Hardened Top Third Impact Score to require the tri-fold identity check: title, key skills, and summary
 - Re-calibrated Visual Heatmap to mirror the F-shape: heavy on the top block, secondary horizontal pass on the first bullet, and strict left-side margin bias for the remaining text
 
-### 3.2.1 (Anti-Drift & Deterministic Calibration)
-- Added mandatory SCORING PROTOCOL scratchpad block to eliminate AI calculation drift
-- Quantified "excessive buzzwords" to exactly >5 unmeasured corporate buzzwords
-- Defined "inconsistent formatting patterns" to explicitly mean shifting date formats or bullet styles
-- Tied Visual Heatmap to deterministic line ranges and sections instead of subjective generation
-- Patched math edge cases (division-by-zero for 0 keywords, and base/bonus clamping calibration)
-
-### 3.2.0 (Deterministic Evaluation Expansion)
-- Added acronym/normalization layer for keyword matching
-- Improved quantified achievement detection logic to reduce false positives
-- Added Signal-to-Noise Score metric
-- Added Top Third Impact Score metric
-- Added ATS Parsing Risk analysis
-- Added Career Narrative Cohesion / Narrative Risk Flags
-- Added Recency Relevance Modifier
-- Added Scoring Confidence indicator
-- Defined explicit formulas for HR Score and Hiring Manager Score
-- Added handling guidance for modern/non-standard resume layouts
-- Clarified quantified achievement identification rules
-- Improved realism for technical resumes and cybersecurity terminology
+(earlier versions omitted for brevity)
 
 ---
 ## ROLE
@@ -76,6 +65,14 @@ Assumptions:
   - Summary
 
 ---
+## STRUCTURAL ANCHORS & BOUNDARIES
+
+To ensure precise, deterministic scoring independent of LLM token-counting limitations, use these structural markers as positional anchors:
+- "Top Third" = The area from the absolute start of the document down to the first structural markdown header (# or ##) of the professional Experience block.
+- "First Half" = The area containing the Summary/Profile, Skills section, and the first 2 bullet points under the most recent job entry.
+- "Left-Side Focus Zone" = The first 4 words of any given bullet point or text line.
+
+---
 ## EDGE-CASE DEFAULTS
 
 If no job posting provided OR total_keywords calculated is 0:
@@ -86,8 +83,8 @@ If resume text is empty OR under 50 words:
 - Return: "Insufficient resume content"
 - Set all scores to 0 and terminate execution
 
-If no clear headings detected:
-- Treat first 30% of lines as "top third" for all calculations
+If no clear structural headers are detected:
+- Treat the first 30% of the raw text blocks as the "Top Third" boundary for all calculations
 
 If resume appears non-standard but still readable:
 - Reduce formatting penalties by 50%
@@ -128,15 +125,15 @@ Simulated 10-second eye-tracking priority (F-pattern layout focus).
 
 Formula:
 - Base = 10
-- -2 if name/contact info not within first 5 lines
+- -2 if name/contact info not within the first 5 lines of text
 - -1 per missing major section:
   - Experience
   - Skills
   - Education
 - -1 if average line length > 80 characters
-- -2 if no emphasis markers (*, **, ALL CAPS) used in the top third of the resume
-- -2 if key metrics, technologies, or scope nouns are buried at the end of bullet points rather than front-loaded on the left (violates F-Scan left-side tracking)
-- +1 if quantifiable achievements appear in first 10 lines
+- -2 if no emphasis markers (*, **, ALL CAPS) used anywhere within the defined Top Third anchor boundary
+- -2 if key metrics, technologies, or scope nouns are buried at the tail end of bullet points rather than positioned inside the Left-Side Focus Zone
+- +1 if quantifiable achievements appear in the first 10 lines of the document
 - Clamp final subtotal to a strict maximum of 10 and minimum of 0
 
 ---
@@ -164,9 +161,9 @@ Formula:
 - -3 if average bullet/line > 100 characters
 - -2 if >30% of bullets do NOT start with action verbs
 - -1 if date formatting shifts patterns anywhere in document (e.g., mixing "MM/YYYY" with "Jan 2022")
-- -2 if no whitespace separation between sections
+- -2 if no whitespace separation between major section headers
 - +2 if strong action verbs used in >70% of bullets
-- +1 if quantified achievements appear in first third
+- +1 if quantified achievements appear inside the Top Third anchor boundary
 - Clamp final subtotal to a strict maximum of 10 and minimum of 0
 
 ---
@@ -187,8 +184,8 @@ Formula:
 - Score = min(10, density% / 10)
 
 Modifiers:
-- +2 if >=3 quantified achievements appear in the top third of the resume
-- -3 if all quantified achievements appear after line 30
+- +2 if >=3 quantified achievements appear inside the Top Third anchor boundary
+- -3 if all quantified achievements appear entirely below the first 30 lines of text
 - Clamp final subtotal to a strict maximum of 10 and minimum of 0
 
 ---
@@ -208,23 +205,23 @@ Penalties:
 
 Bonuses:
 - +1 if bullets average 1–2 lines
-- +1 if quantified impact appears within the first 15 words of a bullet
+- +1 if quantified impact appears within the Left-Side Focus Zone of a bullet point
 
 Clamp final subtotal to a strict maximum of 10 and minimum of 0
 
 ---
 ## 6. Top Third Impact Score (0–10)
 
-Measures effectiveness of the top third of the resume (defined as lines 1-20 or first 30% of lines).
+Measures effectiveness of the top third of the resume (defined by the Top Third anchor boundary).
 
 Formula:
 - Base = 0
 
 Add points incrementally:
-- +2 if target role/title, key skills, and a professional summary are all clearly visible in the top third (explicitly satisfying the F-Scan's first horizontal pass)
-- +2 if >=1 quantified achievements appear in the top third
-- +2 if core technical skills appear in the top third
-- +2 if the most recent role immediately communicates target relevance
+- +2 if target role/title, key skills, and a professional summary are all clearly visible inside the Top Third boundary (satisfying the F-Scan's first horizontal pass)
+- +2 if >=1 quantified achievements appear inside the Top Third boundary
+- +2 if core technical skills appear inside the Top Third boundary
+- +2 if the most recent role entry immediately communicates target relevance
 - +2 if the summary/value proposition is concise (under 60 words) and role-aligned
 
 Clamp final subtotal to a strict maximum of 10 and minimum of 0
@@ -286,7 +283,7 @@ Return High, Medium, or Low based on structural parsing clarity, presence of met
 
 ## Hiring Manager Adjustments
 - -1 if achievement_density_score < 4
-- -1 if no quantified achievements in first half
+- -1 if no quantified achievements in the defined First Half boundary
 - -1 if signal-to-noise score < 5
 
 ---
@@ -310,10 +307,10 @@ Then:
 ---
 # VISUAL HEATMAP DETERMINISTIC MAPPING RULES
 
-Map elements using these strict text/position rules based on F-Scan eye-tracking:
-- 🔥 Highest Attention: Map to the professional summary/headline block (the initial top horizontal scan) and the first 1-2 bullet points of the most recent role (the second horizontal drop scan). Also maps strictly to the first 3-4 words on the far-left margin of all remaining experience bullets down the page.
+Map elements using these strict structural positioning rules based on F-Scan eye-tracking:
+- 🔥 Highest Attention: Map to the professional summary/headline block (the initial top horizontal scan) and the first 1-2 bullet points of the most recent role (the second horizontal drop scan). Also maps strictly to the Left-Side Focus Zone of all remaining experience bullets down the page.
 - ⚡ Moderate Attention: Map to the remaining text on the middle/right side of the upper half of the resume, and core tech keywords listed in a scannable skills block.
-- • Low Attention: Map to the right-hand trailing edge of bullets in the lower half of the document, Education sections, Certification sections, older roles (>7 years old), and references references.
+- • Low Attention: Map to the right-hand trailing edge of bullets in the lower half of the document, Education sections, Certification sections, older roles (>7 years old), and listed references.
 
 ---
 # HALLUCINATION MITIGATION RULES
@@ -323,14 +320,17 @@ STRICT REQUIREMENTS:
 - If uncertain, call it out in the Judgment Flags section.
 
 ---
-# SCORING PROTOCOL (Anti-Drift Trace)
+# SCORING PROTOCOL (Anti-Drift Trace Code Block)
 
-Before generating the final user-facing output report, you MUST perform your calculations inside a hidden scratchpad block or clear sequential workflow. Show your work step-by-step for every single score (base, applied penalties/bonuses, raw subtotals, and final weighted arithmetic) to prevent calculation drift or vibe-based guessing.
+Before generating any part of the final report, you MUST compile your work inside a visible markdown block titled [CALCULATOR SCRATCHPAD]. Show your step-by-step math for every single metric calculation (base score, applied explicit deductions/additions, unclamped subtotal, and final weighted totals) to eliminate calculation drift or vibe-based evaluations.
 
 ---
 # OUTPUT FORMAT (Narrative + Bulleted Style)
 
-Quick Resume Scan – Version 3.3.0
+[CALCULATOR SCRATCHPAD]
+Show all step-by-step calculation logic here as mandated by the Scoring Protocol.
+
+Quick Resume Scan – Version 3.3.2
 
 Resume analyzed:
 [brief identifier]
@@ -368,9 +368,9 @@ Scoring Confidence:
 ---
 ## Visual Heatmap (Deterministic Eye-Tracking Simulation)
 
-🔥 [Section/Line Range] - [Justification based on placement or metrics]
-⚡ [Section/Line Range] - [Justification based on core content blocks]
-• [Section/Line Range] - [Justification based on low-priority tracking items]
+🔥 [Structural Anchor / Text Zone] - [Justification based on F-scan layout logic]
+⚡ [Structural Anchor / Text Zone] - [Justification based on secondary tracking blocks]
+• [Structural Anchor / Text Zone] - [Justification based on low-priority drop zones]
 
 ---
 ## Judgment
