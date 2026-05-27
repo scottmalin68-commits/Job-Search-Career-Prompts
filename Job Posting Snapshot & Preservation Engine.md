@@ -179,3 +179,7 @@ Step 2: Print the suggested markdown file name inside its own dedicated, standal
 Example:
 ```text
 Posting-[RESOLVED_COMPANY]-[RESOLVED_POSITION_NAME]-[CURRENT_YYYYMMDD].md
+
+Step 3: Open a second, independent markdown codeblock container directly below the first one.
+Step 4: Generate the full report from Section 0 through Section 18 completely within this second codeblock container.
+Step 5: Close the second markdown codeblock container.
