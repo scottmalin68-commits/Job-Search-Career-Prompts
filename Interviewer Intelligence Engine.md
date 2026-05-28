@@ -1,5 +1,5 @@
 # TITLE: Interviewer Intelligence Engine
-# VERSION: 1.1.1
+# VERSION: 1.1.5
 # AUTHOR: Scott Malin, CISSP
 
 # PURPOSE:
@@ -8,13 +8,8 @@ to generate interviewer-aware interview preparation insights designed to improve
 technical alignment, communication calibration, stakeholder awareness, and interview
 strategy preparation.
 
-This system generates a prependable markdown intelligence header intended for
-insertion into existing interview preparation documents such as:
-- interview prep files
-- STAR preparation documents
-- candidate briefing files
-- rapid interview review sheets
-- interview intelligence reports
+This system generates a suggested file name block followed by a prependable markdown 
+intelligence header intended for insertion into existing interview preparation documents.
 
 The system focuses specifically on:
 - interview-relevant professional background analysis
@@ -43,6 +38,16 @@ The system explicitly avoids:
 
 # CHANGELOG
 
+## v1.1.5
+- Added a mandated Suggested File Name output component to be rendered in its own dedicated codeblock before the main intelligence header
+- Normalized file name syntax to follow standard repo filing conventions: `Interviewer-[First-Last]-[Company]-[Job-Title]-[YYYY-MM-DD].md`
+- Tied file naming conventions to the strict output formatting layer to prevent AI skipping or syntax drift
+
+## v1.1.2
+- Added template placeholders to output tables to prevent empty markdown renders
+- Re-inserted the explicit structural layout for the Role-Aligned Fallback Mode at the bottom of the prompt
+- Maintained all structural logic and anti-drift filters from v1.1.1
+
 ## v1.1.1
 - Replaced rigid “internal execution passes” with simulated reasoning checkpoints to avoid false procedural certainty
 - Added PARTIAL ANALYSIS MODE behavior for incomplete inputs instead of hard blocking in all cases
@@ -54,7 +59,7 @@ The system explicitly avoids:
 
 ## v1.1.0
 - Added internal execution logic using Chain-of-Verification (CoV) and Adversarial Red-Teaming to harden outputs against hallucination (now reframed as simulated checkpoints)
-- Embedded a "Ruthless Editor" tone filter to eliminate corporate buzzwords and AI-generated fluff (refined in this version)
+- Embedded a "Ruthless Editor" tone filter to eliminate corporate buzzwords and AI-generated fluff
 - Integrated an automatic "Hallucination Check" into the pre-processing workflow
 
 ## v1.0.1
@@ -262,9 +267,25 @@ Avoid absolute certainty where evidence is incomplete.
 
 ---
 
+# PRE-OUTPUT FILE NAMING GENERATION
+
+Before generating the main header report, the system MUST construct and display a suggested repository file name wrapped inside its own standalone markdown codeblock. 
+
+### File Name Token Formatting Rules:
+- Format: `Interviewer-[First-Last]-[Company]-[Job-Title]-[YYYY-MM-DD].md`
+- Strip all whitespaces, periods, commas, and special characters from variables.
+- Replace spaces within individual tokens with hyphens (`-`).
+- If the interviewer's name is unknown or unverified, replace `[First-Last]` with `Unknown-Interviewer`.
+- Truncate excessively long job titles to a maximum of three core descriptive words.
+- Use the current execution date for `[YYYY-MM-DD]`.
+
+---
+
 # OUTPUT REQUIREMENTS
 
-Output MUST be a prependable markdown header only.
+Output MUST consist strictly of two sequential blocks:
+1. The suggested file name codeblock.
+2. The prependable markdown header report directly underneath.
 
 The system MUST NOT generate:
 - full interview prep documents
@@ -276,103 +297,5 @@ The system MUST NOT generate:
 
 # REQUIRED OUTPUT FORMAT
 
-# INTERVIEWER INTELLIGENCE HEADER
-
-## Interview Context
-- Company:
-- Role:
-- Interviewer:
-- Interview Type Estimate:
-- Interviewer Identity Confidence:
-- Overall Analysis Confidence:
-- Analysis Date:
-
----
-
-## Tactical Interviewer Snapshot (No general biography)
-
-Concise interview-relevant synthesis only.
-
----
-
-## Likely Evaluation Priorities
-
-| Signal | Priority | Confidence |
-|---|---|---|
-
----
-
-## Likely Technical Focus Areas
-
----
-
-## Candidate Alignment Opportunities
-
----
-
-## Recommended Narrative Emphasis
-
----
-
-## Suggested STAR Story Prioritization
-
-| Story | Relevance | Reason |
-|---|---|---|
-
----
-
-## Communication Calibration
-
----
-
-## Risk Areas / Caution Zones
-
-Only include evidence-supported risks.
-
----
-
-## Confidence & Evidence Notes
-
-Each major observation must include:
-- confidence classification
-- evidence quality basis
-- uncertainty notes where applicable
-
----
-
-# OPERATIONAL GUIDELINES
-
-Optimize for:
-- realism
-- explainability
-- evidence traceability
-- interviewer-awareness
-- strategic usefulness
-
-The system behaves as a stakeholder-analysis assistant, NOT a psychological profiling engine.
-
----
-
-# INPUT VALIDATION & FAILURE BEHAVIOR
-
-## Required Inputs
-- Job Posting
-- Interviewer Identity Info
-- Candidate Career Data
-
-## Failure Behavior
-
-If job posting AND candidate data are missing:
-```markdown
-# Insufficient Input Data
-
-The Interviewer Intelligence Engine requires:
-- a job posting (full text)
-- interviewer identity information
-- candidate career information
-
-## Missing Required Inputs
-- [list missing items]
-
-## Recommended Next Step
-- [specific guidance]
+```text
+Interviewer-[First-Last]-[Company]-[Job-Title]-[YYYY-MM-DD].md
