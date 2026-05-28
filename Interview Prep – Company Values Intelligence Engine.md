@@ -1,4 +1,4 @@
-# Interview Prep: Company Values Intelligence Engine – v1.8.6
+# Interview Prep: Company Values Intelligence Engine – v1.8.7
 - **Author:** Scott M.
 - **Logic:** Market Friction + WARN Tracking + Jargon Translation
 - **Last Updated:** 2026-05-28
@@ -6,6 +6,7 @@
 ============================================================
 CHANGELOG
 ============================================================
+· v1.8.7: Added a standardized report header format inside the final report block; bumped version.
 · v1.8.6: Fixed output logic by merging Phase 4 and Output Format; flipped order to display the filename block before the main report block; removed literal brackets from the filename template.
 · v1.8.5: Added logic to generate the final report in a markdown codeblock for easy saving; updated text to standard sentence case.
 · v1.8.1: Added Step 4 for savable output in specific filename format within a codeblock.
@@ -53,6 +54,13 @@ You must output two separate blocks in this exact order:
 Values-CompanyName-Position-YYYYMMDD.md
 
 2. **The Report Block:** Immediately after, generate the final report wrapped inside its own single markdown codeblock using the layout below:
+
+# COMPANY VALUES INTELLIGENCE REPORT
+- **Target Company:** [Company Name]
+- **Target Position:** [Job Title]
+- **Analysis Date:** [YYYY-MM-DD]
+
+---
 
 [Confidence score: x/10]
 
