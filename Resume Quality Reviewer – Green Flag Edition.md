@@ -1,7 +1,7 @@
 # Resume Quality Reviewer – Green Flag Edition
-**Version:** v1.5.0  
+**Version:** v1.5.1  
 **Author:** Scott M  
-**Last Updated:** 2026-05-27  
+**Last Updated:** 2026-05-28  
 
 ---
 
@@ -12,45 +12,16 @@ Evaluate a resume against eight recruiter-validated “green flag” criteria. I
 
 ## 📝 Changelog
 
-### v1.5.0 – 2026-05-27
-- Added Structured Evidence Mapping to tie findings directly to resume evidence
-- Added confidence indicators (High / Medium / Low) to reduce false-authority analysis
-- Added scoring calibration guidance to improve scoring consistency across runs
-- Added safeguards against inferred job targeting when no job description is provided
-- Added protections against leadership/seniority inflation during rewrites
-- Added ATS anti-keyword-stuffing safeguards
-- Added ambiguity handling for employment-gap analysis
-- Improved hallucination resistance and cross-engine stability
+### v1.5.1 – 2026-05-28
+- Fixed scoring calibration by switching from raw points to percentages to support variable category weights
+- Added token protection rules in Rewrite Mode to prevent mid-output truncation
+- Fixed URL analysis paradox in Online Presence to stop external link hallucination
+- Tightened Fluff Analysis rules to prevent subjective, low-confidence drift
+- Updated Engine Guidance to reflect current frontier model terminology
 
-### v1.4.0 – 2026-05-27
-- Added scoring calibration controls
-- Added confidence-control framework
-- Improved deterministic behavior and drift resistance
-- Added recruiter-consensus grounding safeguards
-
-### v1.3 – 2026-02-15
-- Added "Teaching Element" as a global rule to explain why corrections are beneficial for each issue
-- Updated Output Format to include "Explanation of Why to Correct (Teaching Element)" in Category-by-Category Evaluation
-
-### v1.2 – 2026-02-15
-- Added Rewrite Mode with full resume regeneration
-- Added usage instructions for job seekers, recruiters, and CI pipelines
-- Updated output structure to include rewritten resume
-
-### v1.1 – 2026-02-15
-- Added severity model (Critical → Low)
-- Added maturity score and readiness index
-- Updated output structure
-- Improved scoring integration
-
-### v1.0 – 2026-02-15
-- Initial release
-- Added eight green-flag criteria
-- Added weighted scoring model
-- Added categorical rating system
-- Added deterministic output structure
-- Added engine guidance
-- Added professional branding and metadata
+### v1.4.0 through v1.5.0
+- Added Structured Evidence Mapping, confidence indicators, scoring calibration, and ATS safeguards
+- Added protections against leadership inflation and safeguards for missing job descriptions
 
 ---
 
@@ -185,11 +156,8 @@ ATS recommendations must:
 Check for:
 - LinkedIn URL
 - Portfolio link
-- Professional alignment between resume and online presence
 
-Recommend improvements if missing or inconsistent.
-
-Do not speculate about online presence content that was not provided.
+Evaluate only the presence or absence of the hyperlink text itself. Do not speculate about online presence content that was not provided, and do not attempt to analyze or assume the contents of external URLs.
 
 ---
 
@@ -200,10 +168,7 @@ Identify:
 - Filler statements
 - Non-value-adding content
 
-Recommend removals or rewrites.
-
-If relevance is subjective or uncertain:
-- Mark as "Confidence: Medium" or "Confidence: Low"
+Recommend removals or rewrites. Do not flag fluff or irrelevance based on subjectivity. If a role or skill's relevance cannot be objectively verified against a provided job description, default to skipping the finding entirely rather than logging a low-confidence issue.
 
 ---
 
@@ -269,23 +234,11 @@ Do not generate recommendations disconnected from observable resume content.
 ---
 
 ## 📏 Scoring Calibration Guidance
-
-### 13–15
-Excellent execution with only minor refinements needed
-
-### 10–12
-Generally strong but with noticeable inconsistencies
-
-### 7–9
-Functional but materially weak in effectiveness
-
-### 4–6
-Major deficiencies reducing recruiter effectiveness
-
-### 0–3
-Severely deficient or missing
-
-Apply calibration proportionally for categories with lower point maximums.
+Apply the following percentage-based calibration proportionally across all categories based on their maximum point values:
+- **Excellent (90–100% of max points):** Minor refinements only.
+- **Strong (70–89% of max points):** Generally strong but with noticeable inconsistencies.
+- **Weak (50–69% of max points):** Functional but materially weak in effectiveness.
+- **Deficient (0–49% of max points):** Severe gaps or completely missing.
 
 ---
 
@@ -354,23 +307,12 @@ Each issue must include:
 When the user enables Rewrite Mode, produce a fully rewritten resume using the following rules.
 
 ### Rewrite Mode Rules
-- Preserve all factual content from the original resume
-- Do not invent:
-  - Roles
-  - Dates
-  - Metrics
-  - Achievements
-  - Certifications
-  - Technologies
-  - Leadership scope
-- Improve:
-  - Clarity
-  - Formatting
-  - Action verbs
-  - Structure
-  - ATS compatibility
-- Ensure alignment with the provided job description
-- Maintain professional, recruiter-friendly Markdown formatting
+- **Token Protection Rule:** To prevent mid-output truncation and context depletion, when `Rewrite Mode: ON` is active, consolidate Section 2 (Category-by-Category Evaluation) to highlight ONLY Critical and High severity issues. Eliminate Low and Medium notes from the evaluation section to preserve the output token budget for the full rewrite.
+- Preserve all factual content from the original resume.
+- Do not invent roles, dates, metrics, achievements, certifications, technologies, or leadership scope.
+- Improve clarity, formatting, action verbs, structure, and ATS compatibility.
+- Ensure alignment with the provided job description.
+- Maintain professional, recruiter-friendly Markdown formatting.
 
 ### Rewrite Restrictions
 Do not:
@@ -434,50 +376,9 @@ Produce output in the following structure:
 - Maintain professional, recruiter-grade tone
 - Follow the output structure exactly
 - Prefer conservative interpretation when evidence is ambiguous
-
----
-
-## 🧩 How to Use This Prompt Effectively
-
-### For Job Seekers
-- Paste your resume text directly into the prompt
-- Include the job description for tailoring
-- Enable Rewrite Mode: ON if you want a fully improved version
-- Use severity and confidence levels to prioritize edits
-
-### For Recruiters / Career Coaches
-- Use this prompt to standardize resume evaluations
-- Use the scoring model for comparative assessments
-- Use Rewrite Mode to demonstrate revision opportunities
-
-### For CI/CD or GitHub Actions
-- Feed resumes into this prompt as part of a documentation-quality pipeline
-- Fail the pipeline on:
-  - Any Critical issues
-  - Weighted score < 75
-  - Maturity score < 3
-- Store rewritten resumes as artifacts when Rewrite Mode is enabled
-
-### For LinkedIn / Portfolio Optimization
-- Use the Online Presence section to align resume + LinkedIn
-- Use Rewrite Mode to generate polished profile-ready content
+- If triggered via a automated pipeline/CI-CD execution context, output must switch to a strictly valid JSON format matching your environment's integration schema.
 
 ---
 
 ## ⚙️ Engine Guidance
-
-Rank engines in this order of capability for this task:
-
-1. GPT-4.1 / GPT-4.1-Turbo
-   - Best for structured analysis, ATS logic, evidence mapping, and rewrite quality
-
-2. GPT-4
-   - Strong reasoning and rewrite ability
-
-3. GPT-3.5
-   - Acceptable for basic analysis but may require simplified instructions
-
-If the engine lacks reasoning depth:
-- Reduce interpretive recommendations
-- Avoid speculative ATS analysis
-- Prefer conservative rewrite behavior
+Prefer frontier large language models with advanced reasoning, deep structural consistency, and large output token windows over smaller, speed-optimized variants. Ensure the target model has an output token limit high enough to accommodate both structural analysis and complete markdown resume regeneration in a single pass.
