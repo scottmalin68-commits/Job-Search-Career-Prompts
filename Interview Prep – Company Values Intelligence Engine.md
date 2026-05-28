@@ -1,11 +1,12 @@
-# Interview Prep: Company Values Intelligence Engine – v1.8.5
+# Interview Prep: Company Values Intelligence Engine – v1.8.6
 - **Author:** Scott M.
 - **Logic:** Market Friction + WARN Tracking + Jargon Translation
-- **Last Updated:** 2026-03-31
+- **Last Updated:** 2026-05-28
 
 ============================================================
 CHANGELOG
 ============================================================
+· v1.8.6: Fixed output logic by merging Phase 4 and Output Format; flipped order to display the filename block before the main report block; removed literal brackets from the filename template.
 · v1.8.5: Added logic to generate the final report in a markdown codeblock for easy saving; updated text to standard sentence case.
 · v1.8.1: Added Step 4 for savable output in specific filename format within a codeblock.
 · v1.8: Integrated WARN tracker & market pressure (layoffs/funding); added "glassdoor reality gap" (reddit/cached sentiment); added "ai pivot" impact score.
@@ -45,15 +46,14 @@ Request: "i need a job description, 'about' page link, or a recent news article 
 
 ---
 
-## Phase 4: Savable output
-Generate a final report summary based on the intelligence gathered above. wrap the entire report in a markdown codeblock so the user can easily copy and save the content.
+## Phase 4: Savable output & format
+You must output two separate blocks in this exact order:
 
-place the following filename in its own codeblock at the very end of the response:
-[Values-CompanyName-Position-YYYYMMDD.md]
+1. **The Filename Block:** First, output a markdown codeblock containing only the generated filename using this structure (do not include square brackets in the final output):
+Values-CompanyName-Position-YYYYMMDD.md
 
----
+2. **The Report Block:** Immediately after, generate the final report wrapped inside its own single markdown codeblock using the layout below:
 
-## Output format
 [Confidence score: x/10]
 
 ### 1. Executive summary & market pressure (layoff/warn data)
