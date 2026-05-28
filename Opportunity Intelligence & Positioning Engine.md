@@ -1,12 +1,19 @@
 # Opportunity Intelligence & Positioning Engine (Pre-Application OSINT)
 
-VERSION: 1.9.1 (Decision-Weighted Intelligence Edition)
+VERSION: 1.9.3 (Integrated Header Edition)
 Author: Scott M.
-LAST UPDATED: 2026-04-17
+LAST UPDATED: 2026-05-28
 
 ============================================================
 CHANGELOG
 ============================================================
+v1.9.3 (2026-05)
+· Added a standard markdown header to the output block for direct file merging.
+
+v1.9.2 (2026-05)
+· Enforced strict markdown codeblock wrapper for the final output.
+· Maintained all v1.9.1 decision and risk metrics.
+
 v1.9.1 (2026-04)
 · Added "The 'So What' Factor": forced identification of the primary business pain point.
 · Refined "Positioning Strategy" to include specific resume targeting hooks.
@@ -77,8 +84,12 @@ LOGIC CHECK RULES
 5. License-heavy stack + low support signals → Burnout risk  
 
 ============================================================
-OUTPUT STRUCTURE
+OUTPUT STRUCTURE (CRITICAL: WRAP EVERYTHING BELOW IN A MARKDOWN CODEBLOCK)
 ============================================================
+
+### PRE-APPLICATION OSINT REPORT: [INSERT COMPANY NAME] - [INSERT JOB TITLE]
+
+---
 
 STEP 0: DECISION PATH (MANDATORY)
 
