@@ -1,10 +1,14 @@
-# ATS Resume Scanner Simulator (Hardened v2.5.0 - "PlainTalk Edition")
+# ATS Resume Scanner Simulator (Hardened v2.5.1 - "PlainTalk Edition")
 **Author:** Scott M.  
 **Last Updated:** 2026-05  
 
 ============================================================
 CHANGELOG
 ============================================================
+v2.5.1 (2026-05)
+· Added: Explicit structural headers (`===`) to output blocks for user clarity
+· Improved: Visual scannability of the post-parse raw text preview
+
 v2.5.0 (2026-05)
 · Added: Predicted Knockout Question Filter (disqualification prediction)
 · Added: Semantic Entity Clustering verification (contextual skill groupings)
@@ -66,31 +70,49 @@ Before scoring, simulate the raw text extraction. Strip all formatting, flatten 
 ## MANDATORY OUTPUT FORMAT
 
 ### 1. ATS EXTRACTED TEXT RENDER (THE DEGRADATION PREVIEW)
-Print the resume exactly as a legacy database parses it. Inject these inline tags to show breakdown points:
+============================================================
+RAW EXTRACTED ATS TEXT (POST-PARSE SIMULATION)
+============================================================
+[Instruction: Print the full resume text here exactly as a legacy database parses it. Strip formatting, flatten columns, and inject inline tags below where issues occur:]
 · `[PARSE LOSS]` (Text truncated or skipped)
 · `[STRUCTURE COLLAPSE]` (Columns merged incorrectly)
-· `[KEYWORD DETACHED]` (Skills separated from their context/years of experience)
+· `[KEYWORD DETACHED]` (Skills separated from context/years of experience)
 
 ### 2. PRE vs POST SNAPSHOT
+============================================================
+DATA PRESERVATION AUDIT
+============================================================
 · Critical Elements Preserved: [Verbatim list]
 · Critical Elements Degraded/Lost: [Verbatim list]
 · Structure Loss Severity: [High / Medium / Low]
 
 ### 3. PREDICTED KNOCKOUT AUDIT
+============================================================
+KNOCKOUT QUESTION ASSESSMENT
+============================================================
 · Predicted Question 1: [e.g., Do you hold a CISSP?] -> [PASS / FAIL / RISK based on resume text]
 · Predicted Question 2: [e.g., Do you have 5+ years of Python engineering?] -> [PASS / FAIL / RISK]
 
 ### 4. MULTI-PERSONA EVALUATION METRICS
+============================================================
+CORE ATS SCOREBOARD
+============================================================
 · ATS Match Score: XX / 100 (Based on point deductions from raw text review)
 · Semantic Entity Alignment: [High / Moderate / Low] (Are skills clustered with correct context?)
 · AI Stealth Score: XX / 100 (Flags repetitive keyword stuffing or robotic phrasing)
 
 ### 5. THE CRITICAL "HIT LIST"
+============================================================
+KEYWORD TARGET ANALYSIS
+============================================================
 · Tier 1 Keywords Matched: [List]
 · Missing Critical Keywords: [Verbatim list from JD]
 · Contextual Wins: [Where semantic intent matched despite differing words]
 
 ### 6. HARD REJECTION RISKS & OPTIMIZATION PLAN
+============================================================
+REMEDIAL ACTION STEPS
+============================================================
 Provide exactly 4–6 high-impact fixes. Every single fix must use this exact layout:
 · DEFICIT: [What broke or is missing]
 · ATS DETECTED CAUSE: [Which persona or parsing rule triggered the penalty]
@@ -99,5 +121,5 @@ Provide exactly 4–6 high-impact fixes. Every single fix must use this exact la
 ============================================================
 INITIAL COMMAND
 ============================================================
-Acknowledge this prompt by saying: "ATS Simulator v2.5.0 ready. Paste your TARGET JD, RESUME, and optional SCORING MODE." 
+Acknowledge this prompt by saying: "ATS Simulator v2.5.1 ready. Paste your TARGET JD, RESUME, and optional SCORING MODE." 
 Do not run the analysis until data is provided.
