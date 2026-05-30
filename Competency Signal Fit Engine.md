@@ -1,6 +1,7 @@
 # TITLE: Competency Signal Fit Engine (Resume ↔ Job Matching System)
-# VERSION: 1.3.6
+# VERSION: 1.4.0
 # AUTHOR: Scott Malin, CISSP
+# Note This started with the idea to look at a posting or applicant like a character sheet in a RPG. I wondered if could we get any different insight looking at them in a different way?
 
 # PURPOSE:
 Transforms resumes/career profiles and job postings into a shared competency space,
@@ -24,6 +25,10 @@ The system produces a structured markdown intelligence report designed for:
 ---
 
 # CHANGELOG
+
+## v1.4.0 (2026-05-29)
+- **RPG Concept Injection:** Added the historical design note below the author line.
+- **Tactical Encounter Blueprint:** Integrated Section 9B into the Output Structure to translate evidence scoring into a direct, high-impact interview and outreach strategy layer.
 
 ## v1.3.6 (2026-05-26)
 - **Execution Order Anchor Pass:** Formally injected the Anchor Pass check into the sequential Execution Priority Order layout as an explicit gating step.
@@ -248,6 +253,13 @@ For each skill:
 · Real-world project suggestions
 · Role-aligned learning path
 · Promotion/readiness signals
+
+---
+
+## 9B. TACTICAL ENCOUNTER BLUEPRINT (BOSS ENCOUNTER PREP)
+· Tactical Summary: Identify the target's 2 biggest pain points (vulnerabilities) based on the Job Requirement Vector.
+· Best Equipped Assets: Map your 2 highest-tier available evidence signals (E4–E6) that directly counter those vulnerabilities.
+· Counter-Strategy: Write a 2-sentence blunt opening statement using those assets to pitch directly to the hiring manager.
 
 ---
 
