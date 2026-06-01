@@ -1,5 +1,5 @@
 # TITLE: Interviewer Intelligence Engine
-# VERSION: 1.1.5
+# VERSION: 1.1.6
 # AUTHOR: Scott Malin, CISSP
 
 # PURPOSE:
@@ -37,6 +37,9 @@ The system explicitly avoids:
 ---
 
 # CHANGELOG
+
+## v1.1.6
+- Fixed syntax error in the REQUIRED OUTPUT FORMAT section by properly closing the backticks on the suggested file name code block to prevent report rendering bleed
 
 ## v1.1.5
 - Added a mandated Suggested File Name output component to be rendered in its own dedicated codeblock before the main intelligence header
