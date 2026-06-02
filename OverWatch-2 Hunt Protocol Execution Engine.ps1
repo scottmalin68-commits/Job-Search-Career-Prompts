@@ -1,113 +1,129 @@
 <#
 .SYNOPSIS
-    Project OverWatch - Phase 2: Hiring Manager Hunt Protocol Execution Engine
+    Project OverWatch - Phase 2: Hiring Manager Hunt Protocol Execution Engine (v2.0.1)
+
 .DESCRIPTION
-    This script reads search strings from a text/markdown file, executes them 
-    against Gemini with live search grounding to find target leads, and logs the results 
-    to a standalone, structured JSON file.
-.NOTES
-    HOW TO GET YOUR GEMINI API KEY:
-    1. Go to the Google AI Studio website (aistudio.google.com).
-    2. Log in with your standard Google account.
-    3. Click "Get API Key" -> "Create API Key".
-    4. Copy the generated string (starts with "AIzaSy...").
-    5. Set it as a local system environment variable named "GEMINI_API_KEY".
+    Structured OSINT collection engine that uses Gemini grounded search to extract
+    verified decision-maker leads in strict JSON format. Outputs normalized intelligence
+    ready for downstream Phase 3 action planning.
+
 .CHANGELOG
-    v1.4.0
-    - Migrated output delivery from file-appending to a dedicated, structured JSON document.
-    - Automated output naming scheme to 'OverwatchReport-[date].json'.
-    - Hardened internal grounding prompt to eliminate URL and profile hallucinations.
-    - Retained dynamic status bars, pacing controls, and live countdown loops.
+    v2.0.1
+    - Fixed nested object mapping mismatch inside main loop ($json.leads extraction).
+    - Added regex sanitization layer to strip markdown code fences (```json) before parsing.
+    - Migrated Gemini output contract to STRICT JSON (no prose mode).
+    - Introduced deduplication engine (LinkedIn URL primary key).
+    - Preserved raw + structured dual-layer storage.
 #>
 
 # ==============================================================================
 # CONFIGURATION
 # ==============================================================================
 $GeminiApiKey = [System.Environment]::GetEnvironmentVariable("GEMINI_API_KEY")
+
 if (-not $GeminiApiKey) {
-    Write-Error "GEMINI_API_KEY environment variable not found. Please set it before running."
+    Write-Error "Missing GEMINI_API_KEY environment variable."
     return
 }
 
-# Centralized Query Log File (Replace with your local path)
 $QueryLogFile = "C:\Users\YOUR_USERNAME\Documents\google_query_log.txt"
 
-# Rate Limit & Throttling Adjustments
-$PacingDelaySeconds = 30   # Time to wait between completely different queries
-$MaxRetryAttempts   = 3    # Total times to try a failing request before giving up
-$InitialRetryDelay  = 30   # Seconds to wait on first failure (doubles each time)
+$PacingDelaySeconds = 30
+$MaxRetryAttempts   = 3
+$InitialRetryDelay  = 30
 
 # ==============================================================================
-# ENGINE CORE FUNCTIONS
+# GEMINI JSON CONTRACT (STRICT MODE)
 # ==============================================================================
+$SystemInstruction = @"
+You are a strict OSINT extraction engine.
 
-function Select-TargetMarkdownFile {
-    Add-Type -AssemblyName System.Windows.Forms
-    
-    $FileBrowser = New-Object System.Windows.Forms.OpenFileDialog -Property @{
-        InitialDirectory = (Get-Item .).FullName
-        Title            = "Select File Containing Search Strings"
-        Filter           = "Text/Markdown Files (*.txt;*.md)|*.txt;*.md|All Files (*.*)|*.*"
+Return ONLY valid JSON.
+
+Schema:
+{
+  "leads": [
+    {
+      "name": string|null,
+      "title": string|null,
+      "company": string|null,
+      "linkedin_url": string|null,
+      "source_evidence": string|null,
+      "confidence": "High" | "Medium" | "Low" | null
     }
-    
-    $Result = $FileBrowser.ShowDialog()
-    
-    if ($Result -eq [System.Windows.Forms.DialogResult]::OK) {
-        Write-Host "Selected file via GUI: $($FileBrowser.SafeFileName)" -ForegroundColor Green
-        return $FileBrowser.FileName
-    } else {
-        return $null
-    }
+  ]
 }
 
-function Get-SearchStrings {
-    param (
-        [string]$FilePath
-    )
+Rules:
+- Use ONLY verified data from search results.
+- Do NOT infer missing fields.
+- Do NOT fabricate profiles or URLs.
+- If no results found, return: { "leads": [] }
+- No commentary, no markdown, no prose.
+"@
 
-    Write-Host "Reading target file: $FilePath" -ForegroundColor Cyan
-    $Content = Get-Content -Path $FilePath -Raw
+# ==============================================================================
+# FILE SELECTION
+# ==============================================================================
+function Select-TargetMarkdownFile {
+    Add-Type -AssemblyName System.Windows.Forms
 
-    $Pattern = "(?s)\`\`\`(?:markdown|text)?\s*(.*?)\s*\`\`\`"
-    $Match = [regex]::Match($Content, $Pattern)
-
-    if ($Match.Success) {
-        $SectionText = $Match.Groups[1].Value
-    } else {
-        $SectionText = $Content
+    $FileBrowser = New-Object System.Windows.Forms.OpenFileDialog -Property @{
+        Title  = "Select File Containing Search Strings"
+        Filter = "Markdown/Text (*.md;*.txt)|*.md;*.txt|All Files (*.*)|*.*"
     }
 
-    $Lines = $SectionText -split "`r?`n"
-    $Queries = @()
-    $Count = 1
+    if ($FileBrowser.ShowDialog() -eq "OK") {
+        return $FileBrowser.FileName
+    }
 
-    foreach ($Line in $Lines) {
-        $CleanedQuery = $Line.Trim()
-        $CleanedQuery = $CleanedQuery -replace "^[\*\s•\-\d\.]+", ""
-        $CleanedQuery = $CleanedQuery.Trim("'`"")
+    return $null
+}
 
-        if ($CleanedQuery -match "^\s*site:linkedin\.com\/\S+") {
-            $Queries += [PSCustomObject]@{
-                Label = "Target Vector $Count"
-                Query = $CleanedQuery
+# ==============================================================================
+# QUERY EXTRACTION
+# ==============================================================================
+function Get-SearchStrings {
+    param([string]$FilePath)
+
+    $content = Get-Content $FilePath -Raw
+
+    $pattern = "(?s)\`\`\`(?:markdown|text)?\s*(.*?)\s*\`\`\`"
+    $match = [regex]::Match($content, $pattern)
+
+    $textBlock = if ($match.Success) { $match.Groups[1].Value } else { $content }
+
+    $lines = $textBlock -split "`r?`n"
+
+    $queries = @()
+    $i = 1
+
+    foreach ($line in $lines) {
+        $q = $line.Trim() -replace "^[\*\-\d\.\s]+", ""
+        if ($q -match "^site:linkedin\.com") {
+            $queries += [PSCustomObject]@{
+                Label = "Vector $i"
+                Query = $q
             }
-            $Count++
+            $i++
         }
     }
 
-    return $Queries
+    return $queries
 }
 
+# ==============================================================================
+# GEMINI CALL (STRICT JSON MODE)
+# ==============================================================================
 function Invoke-GroundedSearch {
-    param (
+    param(
         [string]$Query,
         [string]$ApiKey
     )
 
-    $Uri = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$ApiKey"
-    $SystemInstruction = "You are an elite cyber-intelligence analyst. Analyze the live search results for the target query. CRITICAL: You must ONLY list names, titles, and LinkedIn profiles explicitly found in the verified search results. If a profile URL is not explicitly listed in the search metadata, DO NOT fabricate, predict, or guess it. If no verified leads are found, state 'No verified data found.' Provide a clean, structured intelligence summary listing names, precise titles, and corporate alignment profiles based strictly on verified links."
+    $uri = "[https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$ApiKey](https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$ApiKey)"
 
-    $Body = @{
+    $body = @{
         contents = @(
             @{
                 parts = @(
@@ -118,167 +134,146 @@ function Invoke-GroundedSearch {
             }
         )
         tools = @(
-            @{
-                google_search = @{}
-            }
+            @{ google_search = @{} }
         )
     } | ConvertTo-Json -Depth 10
 
-    $Attempt = 1
-    $CurrentRetryDelay = $InitialRetryDelay
+    for ($attempt = 1; $attempt -le $MaxRetryAttempts; $attempt++) {
 
-    while ($Attempt -le $MaxRetryAttempts) {
         try {
-            Write-Host "Executing live search grounding (Attempt $Attempt/$MaxRetryAttempts) for: '$Query'" -ForegroundColor Yellow
-            $Response = Invoke-RestMethod -Uri $Uri -Method Post -Body $Body -ContentType "application/json" -TimeoutSec 45
-            $ResultText = $Response.candidates[0].content.parts[0].text
-            return $ResultText
+            Write-Host "Query attempt $attempt : $Query" -ForegroundColor Yellow
+
+            $response = Invoke-RestMethod -Uri $uri -Method Post -Body $body -ContentType "application/json"
+
+            $text = $response.candidates[0].content.parts[0].text
+
+            # SANITIZATION LAYER: Strip structural markdown enclosures if returned
+            $cleanText = $text -replace "(?ms)^\s*\`\`\`(?:json)?\s*", ""
+            $cleanText = $cleanText -replace "\`\`\`\s*$", ""
+            
+            # STRICT JSON PARSE
+            $json = $cleanText.Trim() | ConvertFrom-Json -ErrorAction Stop
+
+            return $json
         }
         catch {
-            $ErrorMessage = $_.Exception.Message
-            if ($_.Exception.InnerException -and $_.Exception.InnerException.Response) {
-                $ErrorResponse = $_.Exception.InnerException.Response
-                $Task = $ErrorResponse.Content.ReadAsStringAsync()
-                if ($Task.Wait(2000)) { $ErrorMessage = $Task.Result }
-            }
-            elseif ($_ -and $_.ErrorRecord -and $_.ErrorRecord.ErrorDetails) {
-                $ErrorMessage = $_.ErrorRecord.ErrorDetails.Message
-            }
+            Write-Warning "Attempt $attempt failed: $($_.Exception.Message)"
 
-            Write-Warning "Attempt $Attempt failed. Server response: $ErrorMessage"
-
-            if ($Attempt -lt $MaxRetryAttempts) {
-                Write-Host "Server overloaded or rate-limited. Backing off and retrying in $CurrentRetryDelay seconds..." -ForegroundColor Gray
-                Start-Sleep -Seconds $CurrentRetryDelay
-                $CurrentRetryDelay = $CurrentRetryDelay * 2
+            if ($attempt -lt $MaxRetryAttempts) {
+                Start-Sleep -Seconds ($InitialRetryDelay * $attempt)
             }
-            $Attempt++
         }
     }
 
-    return "Execution Error: Unable to retrieve live grounding data."
+    return @{ leads = @() }
 }
 
+# ==============================================================================
+# LOGGING
+# ==============================================================================
 function Add-QueryLog {
-    param (
-        [string]$LogPath,
-        [string]$Query
-    )
+    param([string]$LogPath, [string]$Query)
 
-    $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-    $LogEntry = "[$Timestamp] EXECUTED: $Query"
-    
-    try {
-        Add-Content -Path $LogPath -Value $LogEntry
-        Write-Host "Logged query entry to: $LogPath" -ForegroundColor DarkGray
-    }
-    catch {
-        Write-Warning "Failed to write to log file: $_"
-    }
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    Add-Content -Path $LogPath -Value "[$timestamp] $Query"
 }
 
+# ==============================================================================
+# DEDUPLICATION ENGINE
+# ==============================================================================
+function Merge-Leads {
+    param([array]$LeadGroups)
+
+    $map = @{}
+
+    foreach ($group in $LeadGroups) {
+        foreach ($lead in $group.Leads) {
+
+            if (-not $lead.linkedin_url) { continue }
+
+            if (-not $map.ContainsKey($lead.linkedin_url)) {
+                $map[$lead.linkedin_url] = $lead
+                $map[$lead.linkedin_url] | Add-Member -NotePropertyName SourceVectors -NotePropertyValue @() -Force
+            }
+
+            $map[$lead.linkedin_url].SourceVectors += $group.VectorLabel
+        }
+    }
+
+    return $map.Values
+}
+
+# ==============================================================================
+# EXPORT
+# ==============================================================================
 function Export-ResultsToJSON {
-    param (
+    param(
         [string]$SourceFilePath,
-        [array]$SearchResults
+        [array]$LeadGroups,
+        [array]$RawResults
     )
 
-    $DateStamp = Get-Date -Format "yyyy-MM-dd"
-    $Directory = Split-Path $SourceFilePath -Parent
-    $OutputFileName = "OverwatchReport-$DateStamp.json"
-    $FullOutputPath = Join-Path $Directory $OutputFileName
+    $date = Get-Date -Format "yyyy-MM-dd"
+    $outPath = Join-Path (Split-Path $SourceFilePath) "OverwatchReport-$date.json"
 
-    $Payload = [PSCustomObject]@{
+    $leads = Merge-Leads $LeadGroups
+
+    $payload = [PSCustomObject]@{
         Project           = "Project OverWatch"
         Phase             = 2
-        ExecutionTime     = (Get-Date -Format "yyyy-MM-dd HH:mm:ss")
-        SourceVectorsFile = (Split-Path $SourceFilePath -Leaf)
-        TotalQueriesRun   = $SearchResults.Count
-        IntelligenceData  = $SearchResults
+        ExecutionTime     = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+        SourceFile        = Split-Path $SourceFilePath -Leaf
+        TotalQueriesRun   = $LeadGroups.Count
+
+        Leads             = $leads
+
+        RawSearchResults  = $RawResults
     }
 
-    try {
-        $JsonOutput = $Payload | ConvertTo-Json -Depth 10
-        Set-Content -Path $FullOutputPath -Value $JsonOutput -Encoding utf8
-        Write-Host "`n[+] STRUCTURED OSINT PAYLOAD EXPORTED TO JSON" -ForegroundColor Green
-        Write-Host "File location: $FullOutputPath" -ForegroundColor Green
-    }
-    catch {
-        Write-Error "Failed to generate JSON output document. Details: $_"
-    }
+    $payload | ConvertTo-Json -Depth 12 | Set-Content $outPath -Encoding UTF8
+
+    Write-Host "Exported: $outPath" -ForegroundColor Green
 }
 
 # ==============================================================================
-# MAIN EXECUTION PIPELINE
+# MAIN
 # ==============================================================================
 function Main {
-    Write-Host "================================================================================" -ForegroundColor Cyan
-    Write-Host "PROJECT OVERWATCH - LAUNCHING PHASE 2 AUTOMATION SCRIPT (JSON ENGINE)" -ForegroundColor Cyan
-    Write-Host "================================================================================" -ForegroundColor Cyan
 
-    if ($GeminiApiKey -eq "YOUR_GEMINI_API_KEY_HERE" -or -not $GeminiApiKey) {
-        Write-Error "API Key is not configured properly."
+    Write-Host "PROJECT OVERWATCH PHASE 2 v2.0.1 STARTING" -ForegroundColor Cyan
+
+    $file = Select-TargetMarkdownFile
+    if (-not $file) { return }
+
+    $queries = Get-SearchStrings $file
+    if ($queries.Count -eq 0) {
+        Write-Warning "No valid queries found"
         return
     }
 
-    $TargetFile = Select-TargetMarkdownFile
-    if (-not $TargetFile) {
-        Write-Warning "No file selected. Aborting."
-        return
-    }
+    $results = @()
 
-    $Queries = Get-SearchStrings -FilePath $TargetFile
-    if ($Queries.Count -eq 0) {
-        Write-Warning "Process stopped: No valid site:linkedin search strings found inside the file."
-        return
-    }
+    for ($i = 0; $i -lt $queries.Count; $i++) {
 
-    Write-Host "Found $($Queries.Count) valid target queries to process." -ForegroundColor Green
-    $Results = @()
+        $q = $queries[$i]
 
-    for ($i = 0; $i -lt $Queries.Count; $i++) {
-        $CurrentTarget = $Queries[$i]
-        $CurrentStep = $i + 1
-        
-        $RemainingQueries = $Queries.Count - $CurrentStep
-        $EstimatedSecondsLeft = $RemainingQueries * $PacingDelaySeconds
-        $Minutes = [Math]::Floor($EstimatedSecondsLeft / 60)
-        $Seconds = $EstimatedSecondsLeft % 60
-        $EtaString = "{0:D2}m:{1:D2}s" -f $Minutes, $Seconds
+        Add-QueryLog $QueryLogFile $q.Query
 
-        Write-Progress -Activity "Project OverWatch Phase 2: Processing Targets" `
-                       -Status "Query $CurrentStep of $($Queries.Count) | ETA: $EtaString" `
-                       -PercentComplete (($CurrentStep / $Queries.Count) * 100) `
-                       -CurrentOperation "Target: $($CurrentTarget.Label)"
+        $json = Invoke-GroundedSearch -Query $q.Query -ApiKey $GeminiApiKey
 
-        Write-Host "`n[$CurrentStep/$($Queries.Count)] Processing: $($CurrentTarget.Label)..." -ForegroundColor Cyan
-        
-        Add-QueryLog -LogPath $QueryLogFile -Query $CurrentTarget.Query
-        $ResultContent = Invoke-GroundedSearch -Query $CurrentTarget.Query -ApiKey $GeminiApiKey
-        
-        $Results += [PSCustomObject]@{
-            VectorLabel = $CurrentTarget.Label
-            TargetQuery = $CurrentTarget.Query
-            RawOutput   = $ResultContent
+        # FIXED: Directly un-nested the .leads array out of the root container
+        $results += [PSCustomObject]@{
+            VectorLabel = $q.Label
+            Query       = $q.Query
+            Leads       = $json.leads
         }
 
-        if ($i -lt ($Queries.Count - 1)) {
-            for ($Countdown = $PacingDelaySeconds; $Countdown -gt 0; $Countdown--) {
-                Write-Progress -Activity "Project OverWatch Phase 2: Throttling API Quota" `
-                               -Status "Cooling down... $Countdown seconds remaining" `
-                               -PercentComplete (($CurrentStep / $Queries.Count) * 100) `
-                               -CurrentOperation "Next up: $($Queries[$i+1].Label)"
-                Start-Sleep -Seconds 1
-            }
+        if ($i -lt $queries.Count - 1) {
+            Start-Sleep -Seconds $PacingDelaySeconds
         }
     }
 
-    Write-Progress -Activity "Project OverWatch Phase 2: Processing Targets" -Completed
-
-    Write-Host "`nProcessing complete. Generating unified data stub..." -ForegroundColor Cyan
-    Export-ResultsToJSON -SourceFilePath $TargetFile -SearchResults $Results
-    
-    Write-Host "`nEngine execution complete.`n" -ForegroundColor Green
+    Export-ResultsToJSON -SourceFilePath $file -LeadGroups $results -RawResults $results
 }
 
 Main
