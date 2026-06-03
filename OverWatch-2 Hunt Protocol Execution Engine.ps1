@@ -1,19 +1,26 @@
 <#
 .SYNOPSIS
-    Project OverWatch - Phase 2: Hiring Manager Hunt Protocol Execution Engine (v2.0.1)
+    Project OverWatch - Phase 2: Hiring Manager Hunt Protocol Execution Engine (v2.1.6)
 
 .DESCRIPTION
     Structured OSINT collection engine that uses Gemini grounded search to extract
-    verified decision-maker leads in strict JSON format. Outputs normalized intelligence
-    ready for downstream Phase 3 action planning.
+    verified decision-maker leads. Outputs normalized intelligence ready for downstream Phase 3.
 
 .CHANGELOG
-    v2.0.1
-    - Fixed nested object mapping mismatch inside main loop ($json.leads extraction).
-    - Added regex sanitization layer to strip markdown code fences (```json) before parsing.
-    - Migrated Gemini output contract to STRICT JSON (no prose mode).
-    - Introduced deduplication engine (LinkedIn URL primary key).
-    - Preserved raw + structured dual-layer storage.
+    v2.1.6
+    - Added an upfront absolute Estimated Completion Time timestamp calculation to the main header.
+    v2.1.5
+    - Increased $PacingDelaySeconds and $InitialRetryDelay to 60s to prevent 429 rate limits.
+    - Upgraded catch block to execute a dynamic back-off wait state when a 429 occurs.
+    v2.1.4
+    - Cast $Min and $Sec as [int] to fix string formatting errors with the -f operator.
+    v2.1.3
+    - Fixed bracket syntax error inside main pacing countdown loop.
+    v2.1.2
+    - Added a dynamic remaining time estimation (ETA) calculation to the pacing status bar.
+    v2.1.1
+    - Stripped verbose DEBUG logs.
+    - Added inline status indicator and clean pacing countdown layout.
 #>
 
 # ==============================================================================
@@ -22,23 +29,28 @@
 $GeminiApiKey = [System.Environment]::GetEnvironmentVariable("GEMINI_API_KEY")
 
 if (-not $GeminiApiKey) {
-    Write-Error "Missing GEMINI_API_KEY environment variable."
-    return
+    $GeminiApiKey = "Put API key here".Trim()
 }
 
-$QueryLogFile = "C:\Users\YOUR_USERNAME\Documents\google_query_log.txt"
+# Global URI Target Configuration Block
+$GlobalTargetUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$GeminiApiKey"
 
-$PacingDelaySeconds = 30
-$MaxRetryAttempts   = 3
-$InitialRetryDelay  = 30
+# Centralized Query Log File
+$QueryLogFile = "C:\Workarea\google_query_log.txt"
+
+# Rate Limit & Throttling Adjustments
+$PacingDelaySeconds = 60   
+$MaxRetryAttempts   = 3    
+$InitialRetryDelay  = 60   
+
 
 # ==============================================================================
-# GEMINI JSON CONTRACT (STRICT MODE)
+# GEMINI JSON CONTRACT
 # ==============================================================================
 $SystemInstruction = @"
 You are a strict OSINT extraction engine.
 
-Return ONLY valid JSON.
+Return ONLY a valid JSON object matching the schema below. Wrap the JSON in a standard markdown code block. Do NOT include any other intro, outro, or chat text.
 
 Schema:
 {
@@ -56,29 +68,9 @@ Schema:
 
 Rules:
 - Use ONLY verified data from search results.
-- Do NOT infer missing fields.
-- Do NOT fabricate profiles or URLs.
-- If no results found, return: { "leads": [] }
-- No commentary, no markdown, no prose.
+- Do NOT infer missing fields or fabricate profiles.
+- If no results found, return exactly: { "leads": [] }
 "@
-
-# ==============================================================================
-# FILE SELECTION
-# ==============================================================================
-function Select-TargetMarkdownFile {
-    Add-Type -AssemblyName System.Windows.Forms
-
-    $FileBrowser = New-Object System.Windows.Forms.OpenFileDialog -Property @{
-        Title  = "Select File Containing Search Strings"
-        Filter = "Markdown/Text (*.md;*.txt)|*.md;*.txt|All Files (*.*)|*.*"
-    }
-
-    if ($FileBrowser.ShowDialog() -eq "OK") {
-        return $FileBrowser.FileName
-    }
-
-    return $null
-}
 
 # ==============================================================================
 # QUERY EXTRACTION
@@ -87,20 +79,17 @@ function Get-SearchStrings {
     param([string]$FilePath)
 
     $content = Get-Content $FilePath -Raw
-
-    $pattern = "(?s)\`\`\`(?:markdown|text)?\s*(.*?)\s*\`\`\`"
+    $pattern = '(?s)\`\`\`(?:markdown|text)?\s*(.*?)\s*\`\`\`'
     $match = [regex]::Match($content, $pattern)
-
     $textBlock = if ($match.Success) { $match.Groups[1].Value } else { $content }
 
-    $lines = $textBlock -split "`r?`n"
-
+    $lines = $textBlock -split '\r?\n'
     $queries = @()
     $i = 1
 
     foreach ($line in $lines) {
-        $q = $line.Trim() -replace "^[\*\-\d\.\s]+", ""
-        if ($q -match "^site:linkedin\.com") {
+        $q = $line.Trim() -replace '^[\*\-\d\.\s]+', ''
+        if ($q -match '^site:linkedin\.com' -or $q -match '^"hiring"') {
             $queries += [PSCustomObject]@{
                 Label = "Vector $i"
                 Query = $q
@@ -108,63 +97,67 @@ function Get-SearchStrings {
             $i++
         }
     }
-
     return $queries
 }
 
 # ==============================================================================
-# GEMINI CALL (STRICT JSON MODE)
+# GEMINI CALL
 # ==============================================================================
 function Invoke-GroundedSearch {
     param(
         [string]$Query,
-        [string]$ApiKey
+        [int]$CurrentIndex,
+        [int]$TotalQueries
     )
 
-    $uri = "[https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$ApiKey](https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=$ApiKey)"
+    [System.Uri]$TargetEndpoint = $GlobalTargetUrl
 
-    $body = @{
+    Write-Host -NoNewline " -> Vector [$($CurrentIndex + 1)/$TotalQueries] Executing API Grounded Search... " -ForegroundColor Yellow
+
+    $bodyPayload = @{
         contents = @(
             @{
+                role  = "user"
                 parts = @(
-                    @{
-                        text = "$SystemInstruction`n`nQuery: $Query"
-                    }
+                    @{ text = "$SystemInstruction`n`nQuery: $Query" }
                 )
             }
         )
         tools = @(
-            @{ google_search = @{} }
+            @{ googleSearch = @{} }
         )
-    } | ConvertTo-Json -Depth 10
+    }
+
+    $body = ConvertTo-Json -InputObject $bodyPayload -Depth 10 -Compress
 
     for ($attempt = 1; $attempt -le $MaxRetryAttempts; $attempt++) {
-
         try {
-            Write-Host "Query attempt $attempt : $Query" -ForegroundColor Yellow
-
-            $response = Invoke-RestMethod -Uri $uri -Method Post -Body $body -ContentType "application/json"
-
+            $response = Invoke-RestMethod -Uri $TargetEndpoint -Method Post -Body $body -ContentType "application/json"
             $text = $response.candidates[0].content.parts[0].text
 
-            # SANITIZATION LAYER: Strip structural markdown enclosures if returned
-            $cleanText = $text -replace "(?ms)^\s*\`\`\`(?:json)?\s*", ""
-            $cleanText = $cleanText -replace "\`\`\`\s*$", ""
+            if ($text -match '(?s)\`\`\`(?:json)?\s*(.*?)\s*\`\`\`') {
+                $cleanText = $Matches[1]
+            } else {
+                $cleanText = $text
+            }
             
-            # STRICT JSON PARSE
             $json = $cleanText.Trim() | ConvertFrom-Json -ErrorAction Stop
-
+            
+            Write-Host "[OK]" -ForegroundColor Green
             return $json
         }
         catch {
-            Write-Warning "Attempt $attempt failed: $($_.Exception.Message)"
-
-            if ($attempt -lt $MaxRetryAttempts) {
-                Start-Sleep -Seconds ($InitialRetryDelay * $attempt)
+            if ($attempt -eq $MaxRetryAttempts) {
+                Write-Host "[FAILED]" -ForegroundColor Red
+                Write-Warning "Vector Error: $($_.Exception.Message)"
+            } else {
+                $WaitTime = $InitialRetryDelay * $attempt
+                Write-Host -NoNewline "`n    [!] 429 Rate Limit hit. Backing off for $WaitTime seconds... " -ForegroundColor Magenta
+                Start-Sleep -Seconds $WaitTime
+                Write-Host -NoNewline "`r" + (" " * 60) + "`r -> Retrying Vector [$($CurrentIndex + 1)/$TotalQueries] (Attempt $($attempt + 1))... " -ForegroundColor Yellow
             }
         }
     }
-
     return @{ leads = @() }
 }
 
@@ -173,7 +166,6 @@ function Invoke-GroundedSearch {
 # ==============================================================================
 function Add-QueryLog {
     param([string]$LogPath, [string]$Query)
-
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     Add-Content -Path $LogPath -Value "[$timestamp] $Query"
 }
@@ -183,23 +175,18 @@ function Add-QueryLog {
 # ==============================================================================
 function Merge-Leads {
     param([array]$LeadGroups)
-
     $map = @{}
 
     foreach ($group in $LeadGroups) {
         foreach ($lead in $group.Leads) {
-
             if (-not $lead.linkedin_url) { continue }
-
             if (-not $map.ContainsKey($lead.linkedin_url)) {
                 $map[$lead.linkedin_url] = $lead
                 $map[$lead.linkedin_url] | Add-Member -NotePropertyName SourceVectors -NotePropertyValue @() -Force
             }
-
             $map[$lead.linkedin_url].SourceVectors += $group.VectorLabel
         }
     }
-
     return $map.Values
 }
 
@@ -215,7 +202,6 @@ function Export-ResultsToJSON {
 
     $date = Get-Date -Format "yyyy-MM-dd"
     $outPath = Join-Path (Split-Path $SourceFilePath) "OverwatchReport-$date.json"
-
     $leads = Merge-Leads $LeadGroups
 
     $payload = [PSCustomObject]@{
@@ -224,52 +210,66 @@ function Export-ResultsToJSON {
         ExecutionTime     = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
         SourceFile        = Split-Path $SourceFilePath -Leaf
         TotalQueriesRun   = $LeadGroups.Count
-
         Leads             = $leads
-
         RawSearchResults  = $RawResults
     }
 
     $payload | ConvertTo-Json -Depth 12 | Set-Content $outPath -Encoding UTF8
-
-    Write-Host "Exported: $outPath" -ForegroundColor Green
+    Write-Host "`n[SUCCESS] Intelligence compile complete: $outPath" -ForegroundColor Green
 }
 
 # ==============================================================================
 # MAIN
 # ==============================================================================
 function Main {
+    Write-Host "PROJECT OVERWATCH PHASE 2 v2.1.6 STARTING" -ForegroundColor Cyan
 
-    Write-Host "PROJECT OVERWATCH PHASE 2 v2.0.1 STARTING" -ForegroundColor Cyan
-
-    $file = Select-TargetMarkdownFile
-    if (-not $file) { return }
+    $file = Join-Path $PSScriptRoot "dorks.txt"
+    if (-not (Test-Path $file)) {
+        Write-Warning "Could not find file: $file"
+        return
+    }
 
     $queries = Get-SearchStrings $file
     if ($queries.Count -eq 0) {
-        Write-Warning "No valid queries found"
+        Write-Warning "No valid queries found inside $file"
         return
     }
+
+    # FIXED: Calculate the macro run duration upfront and project an absolute completion clock timestamp
+    $TotalJobSeconds = ($queries.Count - 1) * $PacingDelaySeconds
+    $CompletionTime  = (Get-Date).AddSeconds($TotalJobSeconds).ToString("hh:mm tt")
+    
+    Write-Host "Loaded $($queries.Count) search vectors from database stream. Est. Completion Time: [$CompletionTime]`n" -ForegroundColor Gray
 
     $results = @()
 
     for ($i = 0; $i -lt $queries.Count; $i++) {
-
         $q = $queries[$i]
-
         Add-QueryLog $QueryLogFile $q.Query
+        
+        $json = Invoke-GroundedSearch -Query $q.Query -CurrentIndex $i -TotalQueries $queries.Count
 
-        $json = Invoke-GroundedSearch -Query $q.Query -ApiKey $GeminiApiKey
-
-        # FIXED: Directly un-nested the .leads array out of the root container
         $results += [PSCustomObject]@{
             VectorLabel = $q.Label
             Query       = $q.Query
             Leads       = $json.leads
         }
 
-        if ($i -lt $queries.Count - 1) {
-            Start-Sleep -Seconds $PacingDelaySeconds
+        if ($i -lt ($queries.Count - 1)) {
+            $RemainingVectors = $queries.Count - ($i + 1)
+            
+            for ($seconds = $PacingDelaySeconds; $seconds -gt 0; $seconds--) {
+                $TotalRemainingSeconds = ($RemainingVectors * $PacingDelaySeconds) + $seconds
+                
+                [int]$Min = [Math]::Floor($TotalRemainingSeconds / 60)
+                [int]$Sec = $TotalRemainingSeconds % 60
+                $EtaString = "{0:D2}:{1:D2}" -f $Min, $Sec
+
+                Write-Host -NoNewline "`r -> Hold active. Next query in ($seconds)s | Job Queue ETA: [$EtaString]... " -ForegroundColor Gray
+                Start-Sleep -Seconds 1
+            }
+            Write-Host -NoNewline ("`r" + (" " * 95) + "`r")
         }
     }
 
