@@ -15,7 +15,7 @@
     v1.6.2 - Patched regex parsing and object typing to prevent inline .Trim() text leakage and $(...) wrapper bleed.
     v1.6.3 - Fixed markdown string subexpression expansion, eliminated raw \n escapes, and automated vector name matching.
     v1.6.4 - Implemented loose regex matching for multi-format Vector labels (colon optional).
-    v1.6.5 - Removed user-specific environment variables and added unpopulated template string safety drops.
+    v1.6.6 - Removed line-skipping safety to ensure full queue execution regardless of query text.
 #>
 
 # ==============================================================================
@@ -127,12 +127,6 @@ function Get-SearchStrings {
 
         if ($CleanedQuery -match "\.Trim\(\)") {
             $CleanedQuery = ($CleanedQuery -replace "\.Trim\(\)", "").Trim()
-        }
-
-        # safely drops unpopulated template placeholders to keep outputs clean
-        if ($CleanedQuery -match "\[Your Past Company") {
-            Write-Warning "Skipping line in '$CurrentLabel': Contains unpopulated template placeholders."
-            continue
         }
 
         if ($CleanedQuery -match "site:linkedin\.com") {
@@ -267,7 +261,7 @@ function Main {
     }
 
     Write-Host "================================================================================" -ForegroundColor Cyan
-    Write-Host "LAUNCHING AUTO-HUNT POWERSHELL ENGINE (v1.6.5)" -ForegroundColor Cyan
+    Write-Host "LAUNCHING AUTO-HUNT POWERSHELL ENGINE (v1.6.6)" -ForegroundColor Cyan
     Write-Host "================================================================================" -ForegroundColor Cyan
 
     $TargetFile = Select-TargetMarkdownFile
@@ -306,7 +300,7 @@ function Main {
         
         if ($ResultContent -like "*Execution Error:*") {
             $Global:KeyIndex = ($Global:KeyIndex + 1) % $ApiKeys.Count
-            Write-Host "[-] Hard execution failure. Swapping to API Key Slot [$Global:KeyIndex] for critical failover..." -ForegroundColor Orange
+            Write-Host "[-] Hard execution failure. Swapping to API Key Slot [$Global:KeyIndex] for critical failover..." -ForegroundColor DarkYellow
             
             $CurrentKey = $ApiKeys[$Global:KeyIndex]
             $ResultContent = Invoke-GroundedSearch -Query $CleanTextQuery -ApiKey $CurrentKey
