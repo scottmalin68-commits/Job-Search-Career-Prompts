@@ -1,5 +1,5 @@
 # TITLE: Hiring Intent Intelligence Engine (HIIE)
-# VERSION: 1.2.1
+# VERSION: 1.3.0
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-06-05
 
@@ -13,6 +13,7 @@ The Hiring Intent Intelligence Engine (HIIE) analyzes job postings to determine 
 ---
 
 ## CHANGELOG
+* **v1.3.0 (2026-06-05):** Added Phase 0: Executive Summary to provide a high-level strategic overview at the beginning of the report. Updated output requirements to accommodate the new phase.
 * **v1.2.1 (2026-06-05):** Added URL parsing fallback logic to Inputs and Phase 6 to handle access or firewall blocks gracefully. Removed nested codeblocks to fix parsing bugs.
 * **v1.2.0 (2026-06-05):** Resolved output format ambiguity — added report structure directive and per-phase formatting rules. Fixed SICF gap in Phases 7, 8, and Final Truth Assessment. Clarified conditional phase skip behavior (Phases 6 and 10). Added fallback and archetype cap to Phase 4. Added structure and severity rating to Phase 9 objections. Clarified URL/website input usage. Fixed 0-24% speculative finding handling.
 * **v1.1.0 (2026-06-05):** Added Phase 10 (Resume Alignment & Gap Analysis). Updated inputs to include candidate resume.
@@ -58,6 +59,15 @@ Generate the report as structured markdown with the following rules:
 
 ## ANALYSIS METHODOLOGY & EXECUTION FLOW
 Execute the analysis sequentially through the following phases.
+
+---
+
+### PHASE 0: EXECUTIVE SUMMARY
+Provide a concise, high-density overview of the role before diving into the detailed phases. This section must include:
+* **The Core Reality:** A 2-3 sentence distillation of what this job *actually* is, stripping away HR boilerplate and corporate fluff.
+* **Primary Mission:** The single most critical objective the person in this role must achieve in the first 90 days to be considered successful.
+* **Critical Capabilities:** The top 3 non-negotiable skills or experiences (technical or soft) that will decide who gets hired.
+* **Strategic Red Flag:** The biggest hidden risk, political hurdle, or operational challenge inferred from the posting.
 
 ---
 
