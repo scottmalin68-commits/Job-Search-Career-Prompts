@@ -1,364 +1,142 @@
 # METADATA
 · Project OverWatch: Phase 3 Landscape Mapping Engine
 · Author: Scott Malin, CISSP
-· Version: 1.7.1
-· Changelog (v1.7.1):
-  · Added Opportunity Cluster analysis to identify organizations generating multiple independent signals.
-  · Added Hiring Momentum Detection logic to identify recurring growth indicators without inference.
-  · Added Opportunity Value scoring separate from Confidence tiers.
-  · Added Network Engagement Recommendations (Connect / Follow / Monitor).
-  · Added Query Effectiveness Analysis to identify highest-yield search patterns.
-  · Added Strategic Job Search Intelligence Summary.
-  · Clarified that Confidence represents certainty of identification, not usefulness or opportunity value.
-  · Enforced strict verbatim preservation for unique technologies to prevent normalization errors.
-  · Fixed field schema mappings to use "LinkedIn URL (if available):" to prevent parsing drops.
-  · Preserved Zero-Suppression and Closed-World evidence requirements.
+· Version: 1.7.3
+· Changelog (v1.7.3):
+  · Limited Strategic Summary alignment sections to top 3 entries to prevent list dilution.
+  · Added explicit fallback strings (e.g., "Unnamed Identity") for incomplete or anonymous OSINT records.
+  · Explicitly detailed how the Career Profile/Resume tunes the engine's prioritization logic.
+· Changelog (v1.7.2):
+  · Added optional Career Profile and Resume inputs for personalized alignment analysis.
+  · Added Target Alignment framework independent from Confidence and Opportunity Value.
+  · Added Opportunity Mapping analysis to identify evidence-supported role and team concentrations.
+  · Added Associated Identities tracking within Opportunity Cluster Analysis.
+  · Added Organizational Watchlist section for organizations exhibiting multiple independent signals.
+  · Added profile-aware prioritization of identities, technologies, departments, and organizations.
+  · Clarified fallback behavior when no Career Profile or Resume is provided.
+  · Preserved strict Closed-World evidence requirements and Zero-Inference controls.
+  
+# OPTIONAL INPUTS
 
-# ROLE
-Expert OSINT Analyst & Strategic Technical Network Architect
+Career Profile (Preferred)
 
-# GOAL
-Review the appended OSINT intelligence report JSON data. Do not filter out any data. Map out every identity, peer contact, decision-maker, structural signal, hiring indicator, and emerging opportunity pattern using a certainty-based framework that exposes the full technical and professional landscape.
+Resume (Accepted)
 
-# HARDENED CONSTRAINTS
+If a Career Profile or Resume is provided:
+- Use it to tune the analysis. High-alignment identities, technologies, departments, and organizations matching the user's documented background must be prioritized and highlighted.
+- Compare observed data against documented experience, certifications, accomplishments, target roles, and stated career objectives.
 
-## ZERO-SUPPRESSION RULE
-Do not drop, exclude, collapse, hide, deduplicate away, summarize out, or ignore records.
+If neither is provided:
+- Perform landscape analysis normally.
+- Omit Target Alignment scoring.
+- Do not infer user interests or career objectives.
 
-Every entry discovered within:
-- `Leads`
-- `RawSearchResults`
-- Any nested arrays
-- Any nested objects containing candidate intelligence
-
-must be processed and displayed.
-
-If multiple records reference the same organization, preserve all occurrences and separately record the pattern within Opportunity Cluster Analysis.
-
-## ZERO-INFERENCE RULE
-Operate under a strict closed-world assumption.
-
-Use only information explicitly present within:
-- Source JSON
-- Search query text
-- Source evidence
-- Structured fields
-
-Do not:
-- Invent names
-- Invent titles
-- Invent organizations
-- Invent locations
-- Invent hiring activity
-- Invent technologies
-- Infer intent
-
-Pattern recognition is permitted only when supported by multiple observed records.
-
-## VERBATIM URL ANCHOR
-All LinkedIn URLs and external URLs must be copied exactly as provided in source data.
-
-Do not:
-- Rewrite
-- Normalize
-- Shorten
-- Correct
-- Expand
-- Reformat
-
-# CONFIDENCE FRAMEWORK
+# TARGET ALIGNMENT FRAMEWORK
 
 IMPORTANT:
-Confidence reflects identification certainty.
-Confidence does NOT reflect usefulness, networking value, hiring probability, or strategic importance.
+Target Alignment is independent from Confidence and Opportunity Value.
 
-## TIER 1: VERIFIED IDENTITIES (HIGH CONFIDENCE)
-Requirements:
-- Individual Name present
-- Title present
+Confidence answers: "How certain are we that this signal was correctly identified?"
+Opportunity Value answers: "How strategically useful is this signal?"
+Target Alignment answers: "How closely does this signal align with the user's documented background and target direction?"
 
-Focus:
-- Peer networking
-- Technical contacts
-- Decision-makers
-- Hiring stakeholders
-
-## TIER 2: UNMAPPED IDENTITY ANCHORS (MEDIUM CONFIDENCE)
-Requirements:
-- Title present
-- Organizational context present
-- Individual name missing or null
-
-Focus:
-- Team expansion indicators
-- Department growth signals
-- Hidden role visibility
-
-## TIER 3: ANONYMOUS STRUCTURAL SIGNALS (LOW CONFIDENCE)
-Requirements:
-- Missing identity
-- Partial organization context
-- Placeholder records
-- Infrastructure references
-- Environmental clues
-
-Focus:
-- Technology footprints
-- Vendor ecosystems
-- Future hiring indicators
-- Team structure clues
-
-# OPPORTUNITY VALUE FRAMEWORK
-
-IMPORTANT:
-Opportunity Value is independent from Confidence.
-A low-confidence signal may have very high strategic value.
-
-Assign one of:
+Assign one:
 
 ## VERY HIGH
-Examples:
-- Security leadership visibility
-- Team expansion signals
-- Repeated organization appearance
-- New initiative references
-- Multiple related identities discovered
-
+Requirements: Strong overlap with target roles, technology overlap, functional overlap, and comparable seniority level.
 ## HIGH
-Examples:
-- Senior technical peers
-- Hiring-adjacent personnel
-- Specialized technology references
-- Active project indicators
-
+Requirements: Significant overlap, adjacent technologies, and similar functional area.
 ## MODERATE
-Examples:
-- General networking contacts
-- Standalone technical references
-- Single occurrence signals
-
+Requirements: Partial overlap, related discipline, and transferable experience.
 ## LOW
-Examples:
-- Minimal context records
-- Isolated structural references
+Requirements: Minimal overlap and limited relevance to documented goals.
+## UNKNOWN
+Requirements: Insufficient evidence to evaluate.
 
-Only use evidence explicitly present within source data.
-
-# LOGIC ENGINE
-
-## STEP 1 — LANDSCAPE TRIAGE
-Scan the entire JSON structure.
-Process:
-- Leads array
-- RawSearchResults
-- Nested arrays
-- Nested objects
-
-Extract every record without exception.
-Assign:
-- Confidence Tier
-- Opportunity Value
-
-# STEP 1B — QUERY EFFECTIVENESS ANALYSIS
-Review all search queries contained within the source report.
-Identify:
-- Highest-yield searches
-- Searches producing largest number of Tier 1 identities
-- Searches producing largest number of Tier 2 signals
-- Searches producing largest number of Tier 3 signals
-
-Output:
-For each qualifying search:
-Search Query:
-Observed Results:
-Signal Breakdown:
-
-No recommendations. Report observations only.
-
-## STEP 2 — STRUCTURAL FOOTPRINT EXTRACTION
-For every record:
-Parse:
-- source_evidence
-- search query context
-- available metadata
-
-Extract verbatim:
-- Technologies
-- Platforms
-- Vendor references
-- Team names
-- Department names
-- Project references
-- Location references
-- Organizational clues
-- Infrastructure clues
-
-# STEP 2B — HIRING MOMENTUM DETECTION
-Review all records collectively.
-Identify organizations appearing repeatedly.
-Identify recurring:
-- Titles
-- Departments
-- Locations
-- Technologies
-- Leadership roles
-- Technical specialties
-
-For each detected pattern:
-Organization:
-Observed Signals:
-Evidence Count:
-Confidence Distribution:
-Opportunity Value:
-
-Only use observed evidence. Do not assume active hiring.
-Use language such as:
-- Expansion indicator observed
-- Repeated organizational presence observed
-- Multiple technical identities observed
-- Leadership visibility observed
-
-Do not state:
-- Company is hiring
-- Company plans to hire
-- Team is expanding
-unless explicitly stated in source evidence.
+Only use information explicitly present within the Career Profile, Resume, or Source JSON. Do not infer interests or capabilities.
 
 # STEP 2C — OPPORTUNITY CLUSTER ANALYSIS
-Create a consolidated organizational view.
-For each organization with multiple independent signals:
+
+Add:
+
+Associated Identities:
+- Name (If unavailable, use: "Unnamed Identity [Title/Identifier]")
+- Title
+- Confidence
+
+If Target Alignment is available:
+
+Cluster Alignment: [Very High / High / Moderate / Low / Unknown]
+Cluster Alignment must be based solely on explicit profile or resume evidence.
+
+# STEP 2D — OBSERVED OPPORTUNITY MAPPING
+
+Review all records collectively to identify evidence-supported concentrations.
+
+For each observed concentration:
+
 Organization:
-Observed Records:
-Observed Titles:
-Observed Technologies:
-Observed Locations:
-Observed Structural Signals:
+Observed Opportunity Theme:
+Observed Evidence:
+Associated Identities: (If name is missing, use: "Unnamed Identity [Title]")
+Associated Technologies:
 
-Opportunity Cluster Strength:
-- Strong
-- Moderate
-- Emerging
+Confidence:
+Opportunity Value:
+If Target Alignment is available: Target Alignment:
 
-Cluster strength must be based solely on observed signal density. Provide evidence summary.
+Use only evidence directly supported by observed records.
+Acceptable language: Opportunity area observed, Technical specialization observed, Team focus observed, Role concentration observed, Functional concentration observed.
+Do not state: Open jobs exist, Hiring is occurring, Future hiring is guaranteed.
 
 # STEP 3 — NETWORK ENGAGEMENT CLASSIFICATION
-For every Tier 1 identity:
-Assign one:
-## CONNECT
-Examples:
-- Peer engineers
-- Architects
-- Technical leads
-- Managers
 
-## FOLLOW
-Examples:
-- Directors
-- Senior leaders
-- Industry influencers
+For every Tier 1 identity assign:
 
-## MONITOR
-Examples:
-- Recruiters
-- Adjacent stakeholders
-- Indirectly relevant contacts
+Engagement Classification: [CONNECT / FOLLOW / MONITOR]
+If Career Profile or Resume is provided also assign: Target Alignment.
+Provide evidence-based rationale.
 
-Provide brief evidence-based rationale. Do not generate outreach messages.
+# STEP 4A — ORGANIZATIONAL WATCHLIST
 
-# STEP 4 — PRESENTATION OUTPUT
-Present results in the following order. Preserve raw spelling and text exactly as written for any unique technologies listed in metrics or summaries.
+Identify organizations exhibiting multiple independent signals.
 
---------------------------------------------------
-SECTION 1
-QUERY EFFECTIVENESS ANALYSIS
---------------------------------------------------
+For each organization:
+Organization:
+Observed Signals: [Leadership visibility, Technical identity concentration, Technology concentration, Department concentration, Opportunity cluster activity]
+Cluster Strength:
+Confidence Distribution:
+Opportunity Value:
+If available: Target Alignment:
+Evidence Summary:
 
---------------------------------------------------
-SECTION 2
-OPPORTUNITY CLUSTER ANALYSIS
---------------------------------------------------
+Do not state hiring intent. Report only observed evidence.
 
---------------------------------------------------
-SECTION 3
-HIRING MOMENTUM DETECTION
---------------------------------------------------
+# PRESENTATION OUTPUT
 
---------------------------------------------------
-SECTION 4
-TIER 1 — VERIFIED IDENTITIES
---------------------------------------------------
+SECTION 1: QUERY EFFECTIVENESS ANALYSIS
+SECTION 2: OPPORTUNITY CLUSTER ANALYSIS
+SECTION 3: HIRING MOMENTUM DETECTION
+SECTION 4: OBSERVED OPPORTUNITY MAPPING
+SECTION 5: ORGANIZATIONAL WATCHLIST
+
+SECTION 6: TIER 1 — VERIFIED IDENTITIES
 For each entry:
-Name:
+Name: (If missing, use: "Unnamed Identity [Unique Attribute]")
 Title:
 Company:
 LinkedIn URL (if available):
-
 Confidence:
 Opportunity Value:
+If available: Target Alignment:
 Engagement Classification:
+Structural Clues: (Bullet list)
 
-Structural Clues:
-- Bullet list
+SECTION 7: TIER 2 — UNMAPPED IDENTITY ANCHORS
+SECTION 8: TIER 3 — ANONYMOUS STRUCTURAL SIGNALS
 
---------------------------------------------------
-SECTION 5
-TIER 2 — UNMAPPED IDENTITY ANCHORS
---------------------------------------------------
-For each entry:
-Title:
-Company:
-LinkedIn URL (if available):
-
-Confidence:
-Opportunity Value:
-
-Structural Clues:
-- Bullet list
-
---------------------------------------------------
-SECTION 6
-TIER 3 — ANONYMOUS STRUCTURAL SIGNALS
---------------------------------------------------
-For each entry:
-Source Context:
-
-Confidence:
-Opportunity Value:
-
-Structural Clues:
-- Bullet list
-
---------------------------------------------------
-SECTION 7
-STRATEGIC JOB SEARCH INTELLIGENCE SUMMARY
---------------------------------------------------
-Provide evidence-based observations only.
-
-Include:
-### Organizations With Highest Signal Density
-### Most Visible Technical Communities
-### Repeated Technology Themes
-### Leadership Visibility Summary
-### Emerging Opportunity Signals
-
-### Landscape Coverage Metrics
-Total:
-- Tier 1 Records
-- Tier 2 Records
-- Tier 3 Records
-- Organizations Identified
-- Unique Technologies Identified (List verbatim from source text)
-- Queries Processed
-
-# OUTPUT REQUIREMENTS
-- Process every available record.
-- Preserve all evidence.
-- Do not suppress low-confidence items.
-- Do not generate outreach content.
-- Do not generate resumes.
-- Do not generate cover letters.
-- Do not speculate.
-- Do not infer hiring intent.
-- Clearly separate Confidence from Opportunity Value.
-- All conclusions must be traceable to source evidence.
-- Maintain strict closed-world analysis throughout.
+SECTION 9: STRATEGIC JOB SEARCH INTELLIGENCE SUMMARY
+Add (Only display if Career Profile/Resume was provided):
+### Top 3 Highest Alignment Organizations
+### Top 3 Highest Alignment Identity Groups
+### Top 3 Highest Alignment Opportunity Clusters
