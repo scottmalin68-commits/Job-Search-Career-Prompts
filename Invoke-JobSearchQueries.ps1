@@ -16,32 +16,29 @@
     v1.6.3 - Fixed markdown string subexpression expansion, eliminated raw \n escapes, and automated vector name matching.
     v1.6.4 - Implemented loose regex matching for multi-format Vector labels (colon optional).
     v1.6.6 - Removed line-skipping safety to ensure full queue execution regardless of query text.
+    v1.6.7 - Added Get-XRayQuery function for surgical profile mapping.
 #>
 
 # ==============================================================================
-# CONFIGURATION & PARAMETERS
+# CONFIGURATION
 # ==============================================================================
-if ($env:GEMINI_API_KEYS) {
-    $ApiKeys = $env:GEMINI_API_KEYS -split ","
-} else {
-    $ApiKeys = @(
-        "YOUR_GEMINI_API_KEY_1",
-        "YOUR_GEMINI_API_KEY_2",
-        "YOUR_GEMINI_API_KEY_3"
-    )
-}
+# Define multiple API keys to cycle through to avoid hitting 503/429 limits
+$ApiKeys = @(
+    "Put API key here",
+    "Put API key here",
+    "Put API key here"
+)
 $Global:KeyIndex = 0
 
-if ($env:AUTOHUNT_LOG_PATH) {
-    $QueryLogFile = $env:AUTOHUNT_LOG_PATH
-} else {
-    $QueryLogFile = Join-Path $PSScriptRoot "google_query_log.txt"
-}
+# Centralized Query Log File
+$QueryLogFile = "google_query_log.txt"
 
-$PacingDelaySeconds = 75   
-$MaxRetryAttempts   = 3    
-$InitialRetryDelay  = 45   
+# Rate Limit & Throttling Adjustments (Optimized for Free Tier Quotas)
+$PacingDelaySeconds = 75   # Time to wait between completely different queries
+$MaxRetryAttempts   = 3    # Total times to try a failing request before giving up
+$InitialRetryDelay  = 45   # Seconds to wait on first failure (doubles each time)
 
+# Metrics Tracking
 $Global:SessionStartTime = Get-Date
 $Global:SuccessfulQueries = 0
 $Global:FailedQueries = 0
@@ -49,6 +46,14 @@ $Global:FailedQueries = 0
 # ==============================================================================
 # ENGINE CORE FUNCTIONS
 # ==============================================================================
+
+function Get-XRayQuery {
+    param ([string]$TargetCompany, [string]$RoleTitle, [string]$Location)
+    # Surgical LinkedIn X-Ray strings
+    $Domain = "site:linkedin.com/in"
+    $Exclusions = "-intitle:job -intitle:hiring -intitle:apply -intitle:career"
+    return "$Domain `"$TargetCompany`" `"$RoleTitle`" `"$Location`" $Exclusions"
+}
 
 function Select-TargetMarkdownFile {
     $Files = Get-ChildItem -Path . -Filter "Posting-*.md" -File
@@ -261,7 +266,7 @@ function Main {
     }
 
     Write-Host "================================================================================" -ForegroundColor Cyan
-    Write-Host "LAUNCHING AUTO-HUNT POWERSHELL ENGINE (v1.6.6)" -ForegroundColor Cyan
+    Write-Host "LAUNCHING AUTO-HUNT POWERSHELL ENGINE (v1.6.7)" -ForegroundColor Cyan
     Write-Host "================================================================================" -ForegroundColor Cyan
 
     $TargetFile = Select-TargetMarkdownFile
