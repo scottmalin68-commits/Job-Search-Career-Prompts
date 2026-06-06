@@ -30,12 +30,15 @@ $ApiKeys = @(
 )
 $Global:KeyIndex = 0
 
+# List companies to exclude from searches (leave empty to disable)
+$PreviousCompanies = @()
+
 # Centralized Query Log File
 $QueryLogFile = "google_query_log.txt"
 
 # Rate Limit & Throttling Adjustments (Optimized for Free Tier Quotas)
 $PacingDelaySeconds = 75   # Time to wait between completely different queries
-$MaxRetryAttempts   = 3    # Total times to try a failing request before giving up
+$MaxRetryAttempts  = 3    # Total times to try a failing request before giving up
 $InitialRetryDelay  = 45   # Seconds to wait on first failure (doubles each time)
 
 # Metrics Tracking
@@ -52,7 +55,14 @@ function Get-XRayQuery {
     # Surgical LinkedIn X-Ray strings
     $Domain = "site:linkedin.com/in"
     $Exclusions = "-intitle:job -intitle:hiring -intitle:apply -intitle:career"
-    return "$Domain `"$TargetCompany`" `"$RoleTitle`" `"$Location`" $Exclusions"
+    
+    # Add previous companies to exclusion list if defined
+    $PrevCompanyExclusion = ""
+    if ($PreviousCompanies.Count -gt 0) {
+        $PrevCompanyExclusion = ($PreviousCompanies | ForEach-Object { "-`"$_`"" }) -join " "
+    }
+    
+    return "$Domain `"$TargetCompany`" `"$RoleTitle`" `"$Location`" $Exclusions $PrevCompanyExclusion"
 }
 
 function Select-TargetMarkdownFile {
@@ -355,7 +365,7 @@ function Main {
     $SuccessRate = if ($TotalProcessed -gt 0) { [Math]::Round(($Global:SuccessfulQueries / $TotalProcessed) * 100, 1) } else { 0 }
 
     Write-Host "`n==================================================" -ForegroundColor Cyan
-    Write-Host "         SESSION EFFICACY AUDIT REPORT            " -ForegroundColor Cyan
+    Write-Host "         SESSION EFFICACY AUDIT REPORT           " -ForegroundColor Cyan
     Write-Host "==================================================" -ForegroundColor Cyan
     Write-Host " Total Vectors Run : $TotalProcessed" -ForegroundColor Gray
     Write-Host " Success Vectors   : $Global:SuccessfulQueries" -ForegroundColor Green
