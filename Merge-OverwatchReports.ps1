@@ -3,14 +3,16 @@
     Consolidates Project OverWatch intelligence logs into a master database.
 .DESCRIPTION
     Scans the current folder for OverwatchReport-*.json telemetry files, 
-    extracts human leads, flattens the schema, deduplicates records,
+    extracthuman leads, flattens the schema, deduplicates records,
     and drops stale entries older than 90 days.
 .VERSION
-    1.0.0
+    1.0.1
 .CHANGELOG
+    - v1.0.1: Added robust null/blank property checks inside the Group-Object 
+              script blocks to prevent pipeline crashes on dirty telemetry data.
     - v1.0.0: Initial baseline. Added memory-optimized local merging loop, 
-             filename date-parsing for LastVerifiedDate tracker, 90-day 
-             expiration cutoff, and dynamic console metrics.
+              filename date-parsing for LastVerifiedDate tracker, 90-day 
+              expiration cutoff, and dynamic console metrics.
 #>
 
 # Configuration
@@ -69,8 +71,10 @@ foreach ($file in $logFiles) {
     }
 }
 
-# 2. Normalization and Deduplication Loop
-$groupedLeads = $rawLeadsList | Group-Object -Property { $_.name.Trim().ToLower() }, { $_.company.Trim().ToLower() }
+# 2. Normalization and Deduplication Loop (With Safe Null Checks)
+$groupedLeads = $rawLeadsList | Group-Object -Property `
+    { if ($_.name) { $_.name.Trim().ToLower() } else { "unknown_name" } }, `
+    { if ($_.company) { $_.company.Trim().ToLower() } else { "unknown_company" } }
 
 foreach ($group in $groupedLeads) {
     # Sort instances of this lead by file date to find the most recent sighting
@@ -121,11 +125,11 @@ $masterPayload | ConvertTo-Json -Depth 10 | Set-Content -Path ".\$masterFileName
 
 # 5. Summary Report Output
 Write-Host "`n==================================================" -ForegroundColor Cyan
-Write-Host "       INTELLIGENCE CONSOLIDATION COMPLETE        " -ForegroundColor Green
+Write-Host "        INTELLIGENCE CONSOLIDATION COMPLETE        " -ForegroundColor Green
 Write-Host "==================================================" -ForegroundColor Cyan
-Write-Host " Version           : 1.0.0"
+Write-Host " Version           : 1.0.1"
 Write-Host " Files Analyzed    : $($sourceFiles.Count)"
-Write-Host " Noise Reductions  : Filtered out empty/429 loops"
+Write-Host " Noise Reductions  : Filtered out empty/429 loops and handled blank fields safely"
 Write-Host " Total Unique Meta : $($consolidatedLeads.Count)"
 Write-Host " Active Yield Saved: $($finalFreshLeads.Count)" -ForegroundColor Green
 Write-Host " Stale Records Drop: $staleCount (Older than $stalenessDays days)" -ForegroundColor Yellow
