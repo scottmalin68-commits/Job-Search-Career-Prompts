@@ -1,7 +1,11 @@
 # METADATA
 · Project OverWatch: Phase 3 Landscape Mapping Engine
 · Author: Scott Malin, CISSP
-· Version: 1.8.0
+· Version: 1.9.0
+· Changelog (v1.9.0):
+  · Restructured output schema to introduce a Strategic TLDR & Action Matrix immediately following Section 1.
+  · Moved top alignment lists from the bottom summary into the front-loaded TLDR section for immediate scannability.
+  · Refructured the final section into a profile alignment and technical gap analysis matrix.
 · Changelog (v1.8.0):
   · Modified output delivery logic to enforce a two-codeblock structural sequence.
   · Removed all nested triple-backticks from the main engine script to eliminate parsing conflicts.
@@ -10,16 +14,7 @@
   · Limited Strategic Summary alignment sections to top 3 entries to prevent list dilution.
   · Added explicit fallback strings (e.g., "Unnamed Identity") for incomplete or anonymous OSINT records.
   · Explicitly detailed how the Career Profile/Resume tunes the engine's prioritization logic.
-· Changelog (v1.7.2):
-  · Added optional Career Profile and Resume inputs for personalized alignment analysis.
-  · Added Target Alignment framework independent from Confidence and Opportunity Value.
-  · Added Opportunity Mapping analysis to identify evidence-supported role and team concentrations.
-  · Added Associated Identities tracking within Opportunity Cluster Analysis.
-  · Added Organizational Watchlist section for organizations exhibiting multiple independent signals.
-  · Added profile-aware prioritization of identities, technologies, departments, and organizations.
-  · Clarified fallback behavior when no Career Profile or Resume is provided.
-  · Preserved strict Closed-World evidence requirements and Zero-Inference controls.
-  
+
 # OPTIONAL INPUTS
 
 Career Profile (Preferred)
@@ -126,27 +121,40 @@ SECTION 1: QUERY EFFECTIVENESS ANALYSIS
 
 ---
 
-SECTION 2: OPPORTUNITY CLUSTER ANALYSIS
+SECTION 2: STRATEGIC TLDR & ACTION MATRIX
+*(Only display this section if a Career Profile or Resume was provided)*
+### Executive Summary
+[A concise, 2-3 sentence engineering-grade synthesis of the landscape's primary technical concentrations and their direct relevance to the user's profile]
+### Top High-Alignment Targets
+* **Top 3 Organizations:** [Extracted from observed data]
+* **Top 3 Opportunity Clusters:** [Extracted from observed data]
+* **Top 3 Target Identities:** [Extracted from Tier 1 data]
+### Suggested Action Plan
+[3-4 direct, evidence-based next steps for network engagement or positioning based on the high-alignment signals above]
+
+---
+
+SECTION 3: OPPORTUNITY CLUSTER ANALYSIS
 [Deliver clusters with associated technologies, identities, and cluster alignment metrics]
 
 ---
 
-SECTION 3: HIRING MOMENTUM DETECTION
+SECTION 4: HIRING MOMENTUM DETECTION
 [List organizational signals without speculating on exact hiring counts]
 
 ---
 
-SECTION 4: OBSERVED OPPORTUNITY MAPPING
+SECTION 5: OBSERVED OPPORTUNITY MAPPING
 [Deliver concentrations containing themes, evidence indicators, and associated tech arrays]
 
 ---
 
-SECTION 5: ORGANIZATIONAL WATCHLIST
+SECTION 6: ORGANIZATIONAL WATCHLIST
 [Deliver compound organizational signal summaries]
 
 ---
 
-SECTION 6: TIER 1 — VERIFIED IDENTITIES
+SECTION 7: TIER 1 — VERIFIED IDENTITIES
 For each entry:
 Name: (If missing, use: "Unnamed Identity [Unique Attribute]")
 Title:
@@ -160,18 +168,19 @@ Structural Clues: (Bullet list)
 
 ---
 
-SECTION 7: TIER 2 — UNMAPPED IDENTITY ANCHORS
+SECTION 8: TIER 2 — UNMAPPED IDENTITY ANCHORS
 [Profiles with partial metadata structural hooks]
 
 ---
 
-SECTION 8: TIER 3 — ANONYMOUS STRUCTURAL SIGNALS
+SECTION 9: TIER 3 — ANONYMOUS STRUCTURAL SIGNALS
 [Anonymized architectural case vectors]
 
 ---
 
-SECTION 9: STRATEGIC JOB SEARCH INTELLIGENCE SUMMARY
-(Only display the following subsections if a Career Profile or Resume was provided):
-### Top 3 Highest Alignment Organizations
-### Top 3 Highest Alignment Identity Groups
-### Top 3 Highest Alignment Opportunity Clusters
+SECTION 10: STRATEGIC ALIGNMENT & GAP ANALYSIS
+*(Only display this section if a Career Profile or Resume was provided)*
+### Profile Alignment Matrix
+[Brief breakdown of how the observed technical environments match the user's current certifications, core technologies, and experience level]
+### Observed Technical Gaps
+[Enumerate specific technologies, frameworks, or tools heavily present in high-value clusters that are missing or underrepresented in the user's profile]
