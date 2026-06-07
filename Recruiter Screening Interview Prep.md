@@ -36,7 +36,7 @@ OUTPUT FORMAT (STRICT LAYOUT RULES)
 Your very first output must be a single markdown codeblock containing ONLY the generated filename. Do not include headers, descriptions, or text outside or inside this specific block. 
 
 Format exactly as a standalone string:
-Values-CompanyName-Position-YYYYMMDD.md
+ScreeningPrep-CompanyName-Position-YYYYMMDD.md
 
 - CompanyName: extracted from posting
 - Position: normalized job title
