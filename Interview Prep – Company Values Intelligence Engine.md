@@ -1,13 +1,12 @@
-# Interview Prep: Company Values Intelligence Engine – v1.9.0
-
-* **Author:** Scott M.
-* **Logic:** Market Friction + WARN Tracking + Jargon Translation + Employee Voice Intelligence
-* **Last Updated:** 2026-06-08
+# Interview Prep: Company Values Intelligence Engine – v1.9.1
+- Author: Scott M.
+- Logic: Market Friction + WARN Tracking + Jargon Translation + Employee Voice Intelligence
+- Last Updated: 2026-06-08
 
 ============================================================
 CHANGELOG
-=========
-
+============================================================
+· v1.9.1: Added Retention Risk Signals analysis; generalized employee feedback collection beyond specific review platforms; added confidence reduction requirements when employee feedback is unavailable; improved source resilience across AI platforms.
 · v1.9.0: Added Employee Voice Intelligence analysis; added interview process intelligence; added confidence weighting for employee sentiment; prioritized recent employee feedback; expanded final report structure.
 · v1.8.7: Added a standardized report header format inside the final report block; bumped version.
 · v1.8.6: Fixed output logic by merging Phase 4 and Output Format; flipped order to display the filename block before the main report block; removed literal brackets from the filename template.
@@ -16,205 +15,347 @@ CHANGELOG
 · v1.8: Integrated WARN tracker & market pressure (layoffs/funding); added "glassdoor reality gap" (reddit/cached sentiment); added "ai pivot" impact score.
 · v1.7: Added leadership dna; proof-of-value reverse questions.
 
+============================================================
+PURPOSE
+============================================================
+
+Help job seekers understand the reality behind company values,
+leadership messaging, employee experiences, interview practices,
+organizational stability, and hiring priorities.
+
+This analysis is intended to reveal potential alignment,
+misalignment, risks, opportunities, and cultural indicators
+that may not be obvious from the job description alone.
+
 ---
 
-## Step 0: Data sufficiency (hard stop)
+## Step 0: Data Sufficiency (Hard Stop)
 
 If only a company name is provided: stop.
 
 Request:
 
-"i need a job description, 'about' page link, or a recent news article to ensure 100% accuracy."
+"I need a job description, company careers page, about page,
+or recent news article to ensure sufficient context."
 
 ---
 
-## Phase 1: The cold reality (intelligence)
+## Phase 1: The Cold Reality (Intelligence)
 
-### 1. Leadership dna
+### 1. Leadership DNA
 
-Identify executive priorities and current public messaging.
+Identify:
+
+- Executive priorities
+- Public leadership messaging
+- Strategic initiatives
+- Recent organizational focus
 
 Examples:
 
-* profitability
-* growth
-* ai transformation
-* operational efficiency
-* customer obsession
+- Profitability
+- AI transformation
+- Operational efficiency
+- Growth acceleration
+- Market expansion
+- Cost reduction
 
 Determine:
 
 "What appears to matter most to leadership right now?"
 
-### 2. Market pressure (warn check)
+---
 
-Scan for:
+### 2. Market Pressure (WARN Check)
 
-* layoffs
-* restructuring
-* hiring freezes
-* earnings pressure
-* activist investor activity
-* major funding changes
+Analyze:
+
+- WARN notices
+- Layoffs
+- Restructuring activity
+- Hiring freezes
+- Funding concerns
+- Earnings pressure
+- Activist investor pressure
+- Cost-cutting initiatives
 
 Logic:
 
-If layoffs exceed approximately 5% of workforce, prioritize:
+If workforce reductions exceed approximately 5%:
 
-* efficiency
-* stability
-* execution
-* measurable business value
+Increase emphasis on:
 
-### 3. The jargon translator
+- Efficiency
+- Business value
+- Execution
+- Stability
+- Cost awareness
 
-Translate company values into likely operational realities.
+---
+
+### 3. The Jargon Translator
+
+Translate company language into likely operational realities.
 
 Format:
 
-Company says:
+Company Says:
 "[Value]"
 
-Reality is:
+Reality Is:
 "[Likely day-to-day interpretation]"
+
+Example:
+
+Company Says:
+"Move Fast"
+
+Reality Is:
+"Ambiguity tolerance may be required and processes may be immature."
 
 ---
 
-## Phase 2: Employee voice intelligence
+## Phase 2: Employee Voice Intelligence
 
-Analyze employee feedback from public sources including:
+Analyze publicly available employee and candidate feedback from:
 
-* Current employees
-* Former employees
-* Recent departures (last 12–24 months preferred)
-* Public discussion forums
-* Interview experience reports
+- Employee review sites
+- Discussion forums
+- Interview reports
+- Social media discussions
+- Professional communities
+- Public employee commentary
+- Other publicly accessible sources
 
-Prioritize feedback from the most recent 24 months.
+Prefer feedback from the last 24 months.
 
-Older feedback should be labeled as historical context.
+Older feedback should be labeled:
+
+Historical Context
+
+If employee feedback is sparse or unavailable:
+
+- Explicitly state the limitation
+- Lower confidence accordingly
+
+---
+
+### Positive Themes
 
 Identify:
 
-### Positive themes
-
-* Top 3 recurring positive themes
-
-### Negative themes
-
-* Top 3 recurring negative themes
-
-### Why employees stay
-
-* Career growth
-* Compensation
-* Leadership
-* Flexibility
-* Mission
-
-### Why employees leave
-
-* Burnout
-* Management
-* Compensation
-* Reorganization
-* Career stagnation
-
-### Leadership sentiment
-
-Classify:
-
-* Positive
-* Mixed
-* Negative
-
-### Work-life balance sentiment
-
-Classify:
-
-* Positive
-* Mixed
-* Negative
-
-### Career growth sentiment
-
-Classify:
-
-* Positive
-* Mixed
-* Negative
-
-### Compensation sentiment
-
-Classify:
-
-* Positive
-* Mixed
-* Negative
-
-### Employee sentiment risk
-
-Determine:
-
-* Strongly Positive
-* Mostly Positive
-* Mixed
-* Concerning
-* High Risk
-
-Important:
-
-Treat employee reviews as directional signals rather than objective truth.
-
-Weight recurring themes significantly higher than isolated complaints.
-
-Provide confidence levels:
-
-* High Confidence
-* Moderate Confidence
-* Low Confidence
-
-Based on:
-
-* Review volume
-* Recency
-* Cross-source consistency
-
-Do not reproduce lengthy copyrighted reviews.
-
-Summarize recurring themes only.
+Top 3 recurring positive themes.
 
 ---
 
-## Phase 3: Interview process intelligence
+### Negative Themes
+
+Identify:
+
+Top 3 recurring negative themes.
+
+---
+
+### Why Employees Stay
+
+Analyze evidence related to:
+
+- Leadership
+- Compensation
+- Career growth
+- Flexibility
+- Mission
+- Team quality
+- Benefits
+
+---
+
+### Why Employees Leave
+
+Analyze evidence related to:
+
+- Burnout
+- Management
+- Compensation
+- Reorganizations
+- Career stagnation
+- Workload
+- Strategic uncertainty
+
+---
+
+### Current vs Former Employee Comparison
+
+Identify meaningful differences between:
+
+- Current employee sentiment
+- Former employee sentiment
+
+Determine whether sentiment suggests:
+
+- Improving culture
+- Stable culture
+- Deteriorating culture
+
+---
+
+### Leadership Sentiment
+
+Classify:
+
+- Positive
+- Mixed
+- Negative
+
+---
+
+### Work-Life Balance Sentiment
+
+Classify:
+
+- Positive
+- Mixed
+- Negative
+
+---
+
+### Career Growth Sentiment
+
+Classify:
+
+- Positive
+- Mixed
+- Negative
+
+---
+
+### Compensation Sentiment
+
+Classify:
+
+- Positive
+- Mixed
+- Negative
+
+---
+
+### Employee Sentiment Risk
+
+Classify:
+
+- Strongly Positive
+- Mostly Positive
+- Mixed
+- Concerning
+- High Risk
+
+---
+
+### Confidence Assessment
+
+Provide:
+
+- High Confidence
+- Moderate Confidence
+- Low Confidence
+
+Based on:
+
+- Review volume
+- Source diversity
+- Recency
+- Cross-source consistency
+
+Important:
+
+Treat employee feedback as directional evidence rather than objective fact.
+
+Weight recurring themes significantly higher than isolated complaints.
+
+Do not reproduce lengthy copyrighted reviews.
+
+Summarize recurring patterns only.
+
+---
+
+## Phase 3: Retention Risk Signals
+
+Identify evidence of:
+
+- Leadership churn
+- Executive turnover
+- Frequent reorganizations
+- High employee turnover
+- Hiring surges
+- Hiring freezes
+- Department consolidations
+- Strategic pivots
+- Morale concerns
+- Cost-cutting initiatives
+
+Determine whether patterns suggest:
+
+- Growth
+- Stability
+- Retrenchment
+- Transformation
+
+Classify:
+
+### Retention Risk
+
+- Low Risk
+- Moderate Risk
+- High Risk
+
+Explain the reasoning behind the classification.
+
+---
+
+## Phase 4: Interview Process Intelligence
 
 Analyze publicly available candidate and employee reports.
 
 Identify:
 
-### Common interview themes
+### Common Interview Themes
 
-* Technical depth
-* Leadership focus
-* Communication skills
-* Culture fit
-* Problem solving
+- Technical depth
+- Leadership focus
+- Communication
+- Collaboration
+- Problem solving
+- Business alignment
 
-### Assessment patterns
+---
 
-* Coding
-* Whiteboard
-* Case study
-* Presentation
-* Panel interview
+### Assessment Patterns
 
-### Candidate praise
+Identify evidence of:
 
-Common positive observations.
+- Technical interviews
+- Coding exercises
+- Presentations
+- Whiteboard sessions
+- Panel interviews
+- Behavioral interviews
+- Case studies
 
-### Candidate complaints
+---
 
-Common negative observations.
+### Candidate Praise
+
+Summarize recurring positive observations.
+
+---
+
+### Candidate Complaints
+
+Summarize recurring negative observations.
+
+---
+
+### Hiring Optimization Analysis
 
 Determine:
 
@@ -222,59 +363,67 @@ Determine:
 
 Provide:
 
-### Predicted interviewer priorities
-
-Rank the top five likely evaluation criteria.
+Top 5 likely evaluation criteria.
 
 ---
 
-## Phase 4: The glassdoor reality gap
+## Phase 5: Reality Check
 
-### Internal friction
+### Internal Friction
 
-Identify recurring complaints such as:
+Identify recurring themes such as:
 
-* Technical debt
-* Bureaucracy
-* Slow decision making
-* Micromanagement
-* Resource constraints
+- Technical debt
+- Bureaucracy
+- Slow decision making
+- Micromanagement
+- Resource constraints
+- Communication breakdowns
 
-### Culture contrast
+---
 
-Compare the company against its two most relevant competitors.
+### Culture Contrast
 
-Identify:
+Compare against the two most relevant competitors.
 
-* Cultural differences
-* Hiring differences
-* Leadership differences
+Identify differences in:
 
-### AI pivot score
+- Culture
+- Leadership
+- Hiring
+- Employee experience
+- Strategic priorities
 
-Determine whether there is evidence of:
+---
 
-* AI investment
-* Workforce replacement concerns
-* AI-driven restructuring
+### AI Pivot Score
+
+Assess evidence of:
+
+- AI investment
+- Workforce replacement concerns
+- AI-driven restructuring
+- AI-focused hiring shifts
 
 Classify:
 
-* High Impact
-* Medium Impact
-* Low Impact
+- High Impact
+- Medium Impact
+- Low Impact
 
 ---
 
-## Phase 5: The interview arsenal
+## Phase 6: The Interview Arsenal
 
-### 1. Dealbreaker traits
+### 1. Dealbreaker Traits
 
-Identify three personality profiles most likely to struggle or fail in this environment.
+Identify three personality profiles most likely to struggle.
 
 Explain why.
 
-### 2. Value-aligned stories
+---
+
+### 2. Value-Aligned Stories
 
 Generate interview talking points.
 
@@ -285,79 +434,99 @@ Format:
 → [Action]
 → [Result]
 
-Use terminology from:
+Incorporate:
 
-* Job description
-* Company values
-* Leadership messaging
-
-### 3. The value stress test
-
-Generate two high-quality reverse interview questions.
-
-Goal:
-
-Require the interviewer to provide evidence that a stated company value is genuinely practiced.
+- Leadership language
+- Company values
+- Job description terminology
 
 ---
 
-## Phase 6: Savable output & format
+### 3. The Value Stress Test
 
-You must output two separate blocks in this exact order:
+Generate two high-quality reverse interview questions.
 
-### 1. Filename Block
+Objective:
+
+Require interviewers to demonstrate how a stated value is
+actually practiced within the organization.
+
+---
+
+## Phase 7: Savable Output & Format
+
+You must output two separate blocks in this exact order.
+
+------------------------------------------------------------
+1. Filename Block
+------------------------------------------------------------
 
 Output a markdown codeblock containing only:
 
 Values-CompanyName-Position-YYYYMMDD.md
 
-### 2. Report Block
+------------------------------------------------------------
+2. Report Block
+------------------------------------------------------------
 
-Immediately after, generate the final report wrapped inside its own markdown codeblock.
+Immediately after, generate the final report wrapped inside
+its own markdown codeblock.
 
 # COMPANY VALUES INTELLIGENCE REPORT
 
-* **Target Company:** [Company Name]
-* **Target Position:** [Job Title]
-* **Analysis Date:** [YYYY-MM-DD]
+- Target Company: [Company Name]
+- Target Position: [Job Title]
+- Analysis Date: [YYYY-MM-DD]
 
----
+------------------------------------------------------------
 
-**Overall Confidence Score:** [x/10]
+Overall Confidence Score: [x/10]
 
 ### 1. Executive Summary & Market Pressure
 
 ### 2. Leadership DNA & Strategic Direction
 
 ### 3. Employee Voice Intelligence
+- Why employees stay
+- Why employees leave
+- Current vs former employee comparison
+- Leadership sentiment
+- Work-life balance sentiment
+- Growth sentiment
+- Compensation sentiment
+- Confidence level
 
-* Why employees stay
-* Why employees leave
-* Leadership sentiment
-* Work-life balance sentiment
-* Growth sentiment
-* Compensation sentiment
-* Confidence level
+### 4. Retention Risk Signals
+- Turnover indicators
+- Leadership churn
+- Reorganization activity
+- Stability outlook
+- Risk rating
 
-### 4. Interview Process Intelligence
+### 5. Interview Process Intelligence
+- Common interview themes
+- Assessment patterns
+- Hiring priorities
+- Candidate observations
 
-* Common interview themes
-* Assessment patterns
-* Hiring priorities
-* Candidate observations
+### 6. Jargon Translator
+- What they say
+- What it likely means
 
-### 5. Jargon Translator
+### 7. Reality Check
+- Internal friction
+- Cultural observations
+- Public sentiment patterns
 
-(What they say vs. what it likely means)
+### 8. AI Pivot & Organizational Risk
 
-### 6. Reality Check
+### 9. Interview Dealbreakers & Value-Aligned Stories
 
-(Glassdoor, Reddit, public sentiment, recurring friction points)
+### 10. The Value Stress Test
+- Questions to ask the interviewer
 
-### 7. AI Pivot & Organizational Risk
-
-### 8. Interview Dealbreakers & Value-Aligned Stories
-
-### 9. The Value Stress Test
-
-(Questions to ask them)
+### Final Assessment
+- Would a strong candidate likely thrive here?
+- Biggest opportunity
+- Biggest risk
+- Key point to validate during interviews
