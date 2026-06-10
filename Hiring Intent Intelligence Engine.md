@@ -1,7 +1,7 @@
 # TITLE: Hiring Intent Intelligence Engine (HIIE)
-# VERSION: 1.3.0
+# VERSION: 1.4.0
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-06-05
+# LAST UPDATED: 2026-06-10
 
 ## PURPOSE
 The Hiring Intent Intelligence Engine (HIIE) analyzes job postings to determine explicit employer requests alongside underlying organizational needs, business drivers, operational challenges, and strategic objectives. HIIE performs a multi-layer assessment of hiring intent, organizational signals, candidate archetypes, hidden requirements, risk indicators, and contextual company intelligence.
@@ -13,6 +13,7 @@ The Hiring Intent Intelligence Engine (HIIE) analyzes job postings to determine 
 ---
 
 ## CHANGELOG
+* **v1.4.0 (2026-06-10):** Added Internal Candidate Probe Module as a tactical positioning tool. Integrated into PHASE 2 (Hidden Signal Analysis), PHASE 7 (new question), PHASE 9 (interview prediction), and a new dedicated Positioning Tactics subsection. This equips users to detect and address internal favoritism risks early.
 * **v1.3.0 (2026-06-05):** Added Phase 0: Executive Summary to provide a high-level strategic overview at the beginning of the report. Updated output requirements to accommodate the new phase.
 * **v1.2.1 (2026-06-05):** Added URL parsing fallback logic to Inputs and Phase 6 to handle access or firewall blocks gracefully. Removed nested codeblocks to fix parsing bugs.
 * **v1.2.0 (2026-06-05):** Resolved output format ambiguity — added report structure directive and per-phase formatting rules. Fixed SICF gap in Phases 7, 8, and Final Truth Assessment. Clarified conditional phase skip behavior (Phases 6 and 10). Added fallback and archetype cap to Phase 4. Added structure and severity rating to Phase 9 objections. Clarified URL/website input usage. Fixed 0-24% speculative finding handling.
@@ -28,6 +29,7 @@ The Hiring Intent Intelligence Engine (HIIE) analyzes job postings to determine 
 4. **Contradictory Signals Matter:** Identify and discuss mixed indicators.
 5. **Job Postings Are Imperfect:** Account for stakeholder compromise, wish-lists, legacy content, and HR boilerplate.
 6. **Signal Strength Varies:** Direct evidence outweighs inferred evidence.
+7. **Actionable Positioning:** Where relevant, surface early tactics (e.g., internal probe) to protect candidate time and strengthen leverage.
 
 ---
 
@@ -89,6 +91,7 @@ Analyze language patterns for the following organizational indicators:
 * **Firefighting Signals (Fast-paced, multiple priorities, thrives under pressure):** Implies understaffing, operational stress, or high workload.
 * **Political Signals (Executive communication, influence without authority):** Implies complex stakeholder environments or matrix friction.
 * **Transformation Signals (Modernization, cloud migration, automation):** Implies organizational change and evolving tech stacks.
+* **Internal Priority Signals:** Language around "internal mobility," "promote from within," team stabilization, backfill, or vague timelines/processes that may indicate preference for internal candidates.
 
 ---
 
@@ -141,6 +144,7 @@ Provide direct answers to the following. End each answer with a SICF confidence 
 4. What interview stories are likely to resonate?
 5. What hidden expectations may exist?
 6. What concerns should a candidate investigate before accepting?
+7. **Internal Candidate Risk & Probe Strategy:** Assess likelihood of internal favoritism. Recommend whether and how to deploy the Internal Candidate Probe early in the process.
 
 ---
 
@@ -169,6 +173,30 @@ Predict likely questions and hurdles across the following categories. For each c
 * Its probable source (e.g., resume gap, scope mismatch, experience level)
 * Severity: **High / Medium / Low**
 * Suggested mitigation approach
+
+**Internal Probe Integration:** If internal priority signals are present, include 1-2 role-play scenarios for deploying the probe.
+
+---
+
+### POSITIONING TACTICS
+#### INTERNAL CANDIDATE PROBE MODULE (v1.0 - Scott M.)
+
+**Trigger Conditions (use when JD or early signals indicate):**
+- Language around "internal mobility," "promote from within," team stabilization, backfill, or vague recruiter timelines.
+- Multiple rounds without clear urgency.
+
+**Core Script (Early Process - Screening/1st Interview):**
+1. "Are you actively considering internal applicants for this role?"
+2. If YES: "What unique advantages do you see an external candidate bringing that could complement the internal options?" (Listen for specifics on fresh perspective, specialized experience, proven metrics at scale.)
+
+**Close/Position Response:**
+- If evasive/brush-off: "It seems like this role may be leaning internal. Would it be best for me to close the file now to respect everyone's time?"
+- Follow-up leverage: Use their justification to strengthen your positioning or negotiate (e.g., "Given my external wins in [Zero Trust reduction 35-40%, endpoint migrations], how can I best demonstrate that value?").
+
+**Rules:**
+- Deliver with calm confidence — never accusatory.
+- Document response in Post-Interview Recall or RIAAE.
+- If they "fight for you," capture quotes for thank-you/follow-up.
 
 ---
 
