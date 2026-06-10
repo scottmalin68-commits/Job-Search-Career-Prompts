@@ -1,6 +1,6 @@
 # TITLE: Post-Interview Signal & Follow-Up Engine
 # VERSION: 1.4.1
-# AUTHOR: Scott M.
+# AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-06-10
 
 ---
