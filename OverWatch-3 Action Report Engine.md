@@ -1,19 +1,15 @@
 # METADATA
 · Project OverWatch: Phase 3 Landscape Mapping Engine
 · Author: Scott Malin, CISSP
-· Version: 1.9.0
+· Version: 1.10.0
+· Changelog (v1.10.0):
+  · Added Previous Report optional input to enable historical delta tracking.
+  · Introduced Delta State Logic to tag signals as [NEW] or [PERSISTENT].
+  · Updated output schema to highlight market changes and prevent duplicate action items.
 · Changelog (v1.9.0):
   · Restructured output schema to introduce a Strategic TLDR & Action Matrix immediately following Section 1.
   · Moved top alignment lists from the bottom summary into the front-loaded TLDR section for immediate scannability.
   · Refructured the final section into a profile alignment and technical gap analysis matrix.
-· Changelog (v1.8.0):
-  · Modified output delivery logic to enforce a two-codeblock structural sequence.
-  · Removed all nested triple-backticks from the main engine script to eliminate parsing conflicts.
-  · Enforced an initial file metadata tracking codeblock (`OverwatchReport-[date].md`) preceding the main payload.
-· Changelog (v1.7.3):
-  · Limited Strategic Summary alignment sections to top 3 entries to prevent list dilution.
-  · Added explicit fallback strings (e.g., "Unnamed Identity") for incomplete or anonymous OSINT records.
-  · Explicitly detailed how the Career Profile/Resume tunes the engine's prioritization logic.
 
 # OPTIONAL INPUTS
 
@@ -21,14 +17,23 @@ Career Profile (Preferred)
 
 Resume (Accepted)
 
-If a Career Profile or Resume is provided:
-- Use it to tune the analysis. High-alignment identities, technologies, departments, and organizations matching the user's documented background must be prioritized and highlighted.
-- Compare observed data against documented experience, certifications, accomplishments, target roles, and stated career objectives.
+Previous Report (Optional)
 
-If neither is provided:
-- Perform landscape analysis normally.
-- Omit Target Alignment scoring.
-- Do not infer user interests or career objectives.
+If a Career Profile or Resume is provided:
+· Use it to tune the analysis. High-alignment identities, technologies, departments, and organizations matching the user's documented background must be prioritized and highlighted.
+· Compare observed data against documented experience, certifications, accomplishments, target roles, and stated career objectives.
+
+If a Previous Report is provided:
+· Perform a differential analysis between the new source JSON and the previous report.
+· Tag entries or clusters as [NEW] if they appear for the first time in the current dataset.
+· Tag entries or clusters as [PERSISTENT] if they were present in the previous report.
+· Highlight any status or metric changes (e.g., an identity changing companies or a cluster increasing in signal strength).
+· Ensure the Suggested Action Plan focuses on new leverage points rather than repeating identical tasks from the previous run.
+
+If none are provided:
+· Perform landscape analysis normally.
+· Omit Target Alignment scoring and delta tracking.
+· Do not infer user interests or career objectives.
 
 # TARGET ALIGNMENT FRAMEWORK
 
@@ -66,12 +71,18 @@ Deliver the complete landscape report using clean Markdown layout (headings, bul
 
 # LANDSCAPE PROCESSING ENGINE LOGIC
 
+## STEP 2B — HISTORICAL DELTA ANALYSIS
+*(Only run this step if a Previous Report is provided)*
+· Compare all incoming identities, organizations, and technology arrays against the previous report.
+· Map persistence: identify signals that remain stable, signals that have dropped off, and entirely new signals.
+
 ## STEP 2C — OPPORTUNITY CLUSTER ANALYSIS
 For each technical domain group, identify:
 Associated Identities:
-- Name (If unavailable, use: "Unnamed Identity [Title/Identifier]")
-- Title
-- Confidence
+· Name (If unavailable, use: "Unnamed Identity [Title/Identifier]")
+· Title
+· Confidence
+· Delta State: [NEW / PERSISTENT] (If previous report is available)
 
 If Target Alignment is available:
 Cluster Alignment: [Very High / High / Moderate / Low / Unknown]
@@ -89,6 +100,7 @@ Associated Technologies:
 Confidence:
 Opportunity Value:
 If Target Alignment is available: Target Alignment:
+If Previous Report is available: Delta State: [NEW / PERSISTENT / MODIFIED]
 
 Use only evidence directly supported by observed records.
 Acceptable language: Opportunity area observed, Technical specialization observed, Team focus observed, Role concentration observed, Functional concentration observed.
@@ -98,6 +110,7 @@ Do not state: Open jobs exist, Hiring is occurring, Future hiring is guaranteed.
 For every Tier 1 identity assign:
 Engagement Classification: [CONNECT / FOLLOW / MONITOR]
 If Career Profile or Resume is provided also assign: Target Alignment.
+If Previous Report is available: Delta State: [NEW / PERSISTENT]
 Provide evidence-based rationale.
 
 ## STEP 4A — ORGANIZATIONAL WATCHLIST
@@ -110,6 +123,7 @@ Cluster Strength:
 Confidence Distribution:
 Opportunity Value:
 If available: Target Alignment:
+If Previous Report is available: Delta State: [NEW / PERSISTENT]
 Evidence Summary:
 
 Do not state hiring intent. Report only observed evidence.
@@ -124,33 +138,33 @@ SECTION 1: QUERY EFFECTIVENESS ANALYSIS
 SECTION 2: STRATEGIC TLDR & ACTION MATRIX
 *(Only display this section if a Career Profile or Resume was provided)*
 ### Executive Summary
-[A concise, 2-3 sentence engineering-grade synthesis of the landscape's primary technical concentrations and their direct relevance to the user's profile]
+[A concise, 2-3 sentence engineering-grade synthesis of the landscape's primary technical concentrations and their direct relevance to the user's profile. If a previous report was provided, explicitly note the volume of new signals discovered since the last run]
 ### Top High-Alignment Targets
-* **Top 3 Organizations:** [Extracted from observed data]
-* **Top 3 Opportunity Clusters:** [Extracted from observed data]
-* **Top 3 Target Identities:** [Extracted from Tier 1 data]
+· **Top 3 Organizations:** [Extracted from observed data. Prepend "[NEW]" if applicable]
+· **Top 3 Opportunity Clusters:** [Extracted from observed data. Prepend "[NEW]" if applicable]
+· **Top 3 Target Identities:** [Extracted from Tier 1 data. Prepend "[NEW]" if applicable]
 ### Suggested Action Plan
-[3-4 direct, evidence-based next steps for network engagement or positioning based on the high-alignment signals above]
+[3-4 direct, evidence-based next steps for network engagement or positioning. If a previous report was provided, ensure these steps focus primarily on newly surfaced signals or changes in the landscape]
 
 ---
 
 SECTION 3: OPPORTUNITY CLUSTER ANALYSIS
-[Deliver clusters with associated technologies, identities, and cluster alignment metrics]
+[Deliver clusters with associated technologies, identities, cluster alignment metrics, and NEW/PERSISTENT tags if a previous report is available]
 
 ---
 
 SECTION 4: HIRING MOMENTUM DETECTION
-[List organizational signals without speculating on exact hiring counts]
+[List organizational signals without speculating on exact hiring counts. Highlight organizations showing net-new momentum indicators]
 
 ---
 
 SECTION 5: OBSERVED OPPORTUNITY MAPPING
-[Deliver concentrations containing themes, evidence indicators, and associated tech arrays]
+[Deliver concentrations containing themes, evidence indicators, associated tech arrays, and delta markers]
 
 ---
 
 SECTION 6: ORGANIZATIONAL WATCHLIST
-[Deliver compound organizational signal summaries]
+[Deliver compound organizational signal summaries, explicitly grouping or flagging new additions to the watchlist]
 
 ---
 
@@ -163,13 +177,14 @@ LinkedIn URL (if available):
 Confidence:
 Opportunity Value:
 If available: Target Alignment:
+If available: Delta State:
 Engagement Classification:
 Structural Clues: (Bullet list)
 
 ---
 
 SECTION 8: TIER 2 — UNMAPPED IDENTITY ANCHORS
-[Profiles with partial metadata structural hooks]
+[Profiles with partial metadata structural hooks. Include delta flags if tracking changes]
 
 ---
 
@@ -183,4 +198,4 @@ SECTION 10: STRATEGIC ALIGNMENT & GAP ANALYSIS
 ### Profile Alignment Matrix
 [Brief breakdown of how the observed technical environments match the user's current certifications, core technologies, and experience level]
 ### Observed Technical Gaps
-[Enumerate specific technologies, frameworks, or tools heavily present in high-value clusters that are missing or underrepresented in the user's profile]
+[Enumerate specific technologies, frameworks, or tools heavily present in high-value clusters that are missing or underrepresented in the user's profile. Note if these gaps are persistent across multiple analysis runs]
