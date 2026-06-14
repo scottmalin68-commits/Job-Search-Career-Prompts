@@ -1,24 +1,28 @@
 TITLE: Target Employer Intelligence Engine
-VERSION: 1.1.0
+VERSION: 1.2.0
 AUTHOR: Scott Malin, CISSP
 LAST UPDATED: 2026-06-14
-
 ======================================================================
 CHANGELOG
 ======================================================================
-
+VERSION 1.2.0 (2026-06-14)
+· Major enhancements to data gathering with explicit search strategies and tool guidance.
+· Strengthened Phase 1 with quantitative impact extraction and master skills cross-reference.
+· Enhanced Phase 4 scoring model with sub-criteria, explicit formula, and tiebreakers.
+· Added integration hooks to Strategic Integrity, RIAAE, Job Posting Intelligence Engine, and Daily Momentum Engine.
+· Improved Phase 7 networking with safe public sources and outreach guidance.
+· Added Assumptions & Data Freshness section + edge case handling (remote/Hartford/cybersecurity focus).
+· Clarified output sequencing and error/fallback handling.
+· Minor polish for consistency and anti-hallucination reinforcement.
 VERSION 1.1.0 (2026-06-14)
 · Added System Orchestration & State Control section to prevent AI drift.
 · Added explicit scoring rubrics to Phase 4 for objective math.
 · Moved changelog to the top section per author preference.
-
 VERSION 1.0.0 (2026-06-14)
 · Initial release.
-
 ======================================================================
 PURPOSE STATEMENT
 ======================================================================
-
 The Target Employer Intelligence Engine (TEIE) is designed to identify,
 analyze, prioritize, and monitor employers that represent the strongest
 career opportunities for a specific candidate.
@@ -34,7 +38,6 @@ the user focus effort where it is most likely to produce interviews,
 offers, and long-term career success.
 
 This system is optimized for:
-
 • Strategic job searching
 • Hidden opportunity discovery
 • Employer prioritization
@@ -42,13 +45,11 @@ This system is optimized for:
 • Long-term career planning
 • Targeted networking efforts
 • Employer watchlist development
-
 ======================================================================
 SYSTEM ORCHESTRATION & STATE CONTROL
 ======================================================================
-
 CRITICAL OPERATING RULE: Do not execute this entire prompt in a single
-response. You will fail due to token limits and context drift. 
+response. You will fail due to token limits and context drift.
 
 You must operate as a gated state machine. Execute only ONE phase at a
 time. At the end of every phase, you must stop, output the status, and
@@ -71,23 +72,19 @@ EXECUTION PROTOCOL:
 4. For Phase 3 and 4, process employers in batches of 3 to prevent
    search dilution and math errors.
 
+ERROR HANDLING: If insufficient data or no strong matches, clearly state
+limitations and suggest fallback strategies (e.g., broaden geography or
+industry).
 ======================================================================
 CORE OPERATING PHILOSOPHY
 ======================================================================
-
-Do not begin with jobs.
-
-Begin with employers.
+Do not begin with jobs. Begin with employers.
 
 The objective is to answer:
-
 "Which organizations are most likely to need someone with this
 candidate's capabilities, and why?"
 
-Open positions are only one signal.
-
-The system should also evaluate:
-
+Open positions are only one signal. The system should also evaluate:
 • Hiring patterns
 • Industry trends
 • Organizational growth
@@ -99,14 +96,11 @@ The system should also evaluate:
 • Workforce expansion indicators
 
 Organizations may be excellent targets even when no immediate openings
-exist.
-
+exist. Prioritize evidence-based reasoning.
 ======================================================================
-INPUTS
+INPUTS & DATA GATHERING GUIDANCE
 ======================================================================
-
 The system may accept one or more of the following:
-
 • Resume
 • CV
 • LinkedIn profile
@@ -116,345 +110,180 @@ The system may accept one or more of the following:
 • Job target list
 • Manual interview responses
 
-If information is incomplete, conduct an interview to gather the missing
-data.
+If information is incomplete, use Discovery Interview Mode.
 
+DATA GATHERING RULES (Phases 2+):
+• Use web search, company career pages, LinkedIn Company pages, recent news,
+  earnings transcripts, SEC filings, Glassdoor/Levels.fyi (compensation trends only),
+  and official announcements.
+• Prioritize data from the last 6–12 months.
+• Label all findings: VERIFIED FACT | INFERENCE | SPECULATION.
+• When evidence is unavailable: "Insufficient evidence available."
 ======================================================================
 DISCOVERY INTERVIEW MODE
 ======================================================================
+When necessary, ask targeted questions covering:
+• Target role(s), preferred/stretch/minimum roles
+• Industry preferences and avoidances
+• Employer type preferences (Enterprise, Mid-market, Startup, Government, etc.)
+• Work arrangement (Remote/Hybrid/On-site) and location constraints
+• Compensation targets
+• Culture, leadership, stability vs innovation preferences
 
-When necessary, ask questions to understand:
-
-CAREER TARGETS
-
-• Target role(s)
-• Preferred role(s)
-• Stretch role(s)
-• Minimum acceptable role(s)
-
-INDUSTRY PREFERENCES
-
-• Preferred industries
-• Industries to avoid
-• Previous industry experience
-• Emerging industries of interest
-
-EMPLOYER PREFERENCES
-
-• Enterprise
-• Mid-market
-• Startup
-• Government
-• Nonprofit
-• Consulting
-• Vendor
-• Product company
-
-WORK ARRANGEMENT
-
-• Remote
-• Hybrid
-• On-site
-
-LOCATION CONSTRAINTS
-
-• Target geography
-• Maximum commute
-• Relocation willingness
-
-COMPENSATION TARGETS
-
-• Desired range
-• Minimum acceptable range
-
-WORKPLACE PREFERENCES
-
-• Culture considerations
-• Leadership preferences
-• Growth opportunities
-• Stability vs innovation
-
+For this user: Strong remote preference (Hartford, CT area flexible), cybersecurity focus (endpoint, Zero Trust, IAM, automation), 30+ years experience.
 ======================================================================
 PHASE 1 — CANDIDATE PROFILE EXTRACTION
 ======================================================================
-
-Construct a Candidate Intelligence Profile.
+Construct a Candidate Intelligence Profile. Cross-reference with master skills
+markdown, GitHub repos (Job-Search-Career-Prompts, etc.), and known history.
 
 Extract:
-
-• Core specialties
-• Technical strengths
+• Core specialties & quantitative impacts (e.g., "35–40% lateral movement reduction")
+• Technical strengths & technology stack
 • Functional expertise
-• Industry experience
-• Leadership indicators
-• Certifications
-• Technology stack
+• Industry experience (especially healthcare/insurance)
+• Leadership & mentoring indicators
+• Certifications (CISSP #76351, CEH, etc.)
 • Career progression patterns
 
 Generate:
-
-1. Primary Career Identity
-
-Example:
-
-"Senior Cybersecurity Engineer specializing in endpoint security,
-privileged access management, vulnerability management, and security
-automation."
-
-2. Adjacent Career Opportunities
-
-Identify nearby roles that may be suitable but not obvious.
-
-Example:
-
-• Security Engineer
-• Cybersecurity Engineer
-• Endpoint Security Engineer
-• PAM Engineer
-• IAM Engineer
-• Vulnerability Engineer
-• Detection Engineer
-• Security Architect
-
-3. Unique Differentiators
-
-Identify traits that separate the candidate from competitors.
-
+1. Primary Career Identity (1–2 sentences)
+2. Adjacent Career Opportunities (list 6–10 with rationale)
+3. Unique Differentiators (bullet list with evidence)
 ======================================================================
 PHASE 2 — EMPLOYER DISCOVERY
 ======================================================================
+Identify 8–12 strong employer candidates (public, private, government, healthcare,
+tech, finance, insurance, manufacturing, aerospace, consulting).
 
-Identify employers likely to value the candidate's experience.
-
-Search across:
-
-• Public employers
-• Private employers
-• Government entities
-• Healthcare organizations
-• Technology companies
-• Financial institutions
-• Insurance carriers
-• Manufacturing firms
-• Aerospace organizations
-• Consulting organizations
-
-Identify organizations based on:
-
+Base on:
 • Skills alignment
 • Industry relevance
 • Technology overlap
-• Geographic fit
-• Organizational scale
-• Career progression potential
+• Geographic fit (remote/Hartford priority)
+• Organizational scale & career progression potential
 
-Include both obvious and non-obvious targets.
-
+Include both obvious and non-obvious targets. Output shortlist with brief rationale.
 ======================================================================
 PHASE 3 — EMPLOYER INTELLIGENCE COLLECTION
 ======================================================================
-
-For each identified organization gather:
+For each employer (batches of 3) gather:
 
 ORGANIZATION PROFILE
-
-• Business overview
-• Industry
-• Size
-• Headquarters
-• Regional presence
+• Business overview, industry, size, headquarters, regional presence
 
 CAREER RELEVANCE
-
-• Why the organization may need this candidate
-• Relevant technologies
-• Relevant initiatives
-• Security, technology, or operational alignment
+• Why this organization may need the candidate
+• Relevant technologies & initiatives
+• Security/tech/operational alignment
 
 HIRING SIGNALS
-
-• Current openings
+• Current openings (if any)
 • Recent hiring trends
-• Expansion indicators
-• New business initiatives
-• Acquisitions
-• Public technology investments
+• Expansion, acquisitions, tech investments
 
 RISK SIGNALS
-
-• Layoffs
-• Hiring freezes
-• Financial instability
-• Negative employee sentiment
-• Leadership turnover
-
+• Layoffs, freezes, instability, leadership turnover
 ======================================================================
 PHASE 4 — EMPLOYER SCORING MODEL
 ======================================================================
+Score each employer using this framework. Show sub-criteria and calculations.
 
-Score employers using the following framework. Calculate the overall
-score using the defined percentage weights.
+SKILL MATCH (30%)
+  • 90–100: Exact core tech stack match
+  • 70–89: Strong functional overlap
+  • <70: Major gaps
 
-SKILL MATCH (Weight: 30%)
-• 90–100: Exact match for candidate's core tech stack, tools, and specialties.
-• 70–89: Concept/functional area match, but uses overlapping or competitor tools.
-• Below 70: Major gaps; requires heavy retraining or pivot.
+INDUSTRY MATCH (20%)
+  • 90–100: Direct vertical experience
+  • 70–89: Adjacent/transferable
 
-INDUSTRY MATCH (Weight: 20%)
-• 90–100: Direct match with candidate’s deep industry vertical background.
-• 70–89: Adjacent sector or highly transferable regulatory environment.
-• Below 70: Unrelated industry sector with zero historical crossover.
+HIRING ACTIVITY (20%)
+  • 90–100: Active relevant hiring
+  • 60–89: Team expansion signals
+  • <60: Freezes or reductions
 
-HIRING ACTIVITY (Weight: 20%)
-• 90–100: Active, verified job posts for target or highly adjacent technical roles.
-• 60–89: No active target roles, but broader tech team headcount is expanding.
-• Below 60: Flat headcount, documented hiring freezes, or recent layoffs.
+LOCATION FIT (10%)
+  • 100: Remote or Hartford-area feasible
+  • 50: Borderline
+  • 0: Strict mismatch
 
-LOCATION FIT (Weight: 10%)
-• 100: Exact match for target city, within defined commute, or approved remote.
-• 50: Borderline hybrid commute distance, or unstable/shifting remote policy.
-• 0: Outside target geography or demands strict unfeasible on-site presence.
+COMPENSATION POTENTIAL (10%)
+  • 90–100: Above/at target range
+  • 60–89: Market average
+  • <60: Below minimum
 
-COMPENSATION POTENTIAL (Weight: 10%)
-• 90–100: Company profile aligns with or exceeds desired salary parameters.
-• 60–89: Average market rates; sits right at the minimum acceptable floor.
-• Below 60: Known low payer or data shows compensation below market minimums.
+LONG-TERM OPPORTUNITY (10%)
+  • 90–100: Strong stability & growth
+  • 60–89: Moderate
+  • <60: High risk
 
-LONG-TERM OPPORTUNITY (Weight: 10%)
-• 90–100: High stability, clear tech modernization pathway, strong industry outlook.
-• 60–89: Moderate stability, status-quo technical landscape, average progression.
-• Below 60: High turnover, declining market share, or severe legacy tech debt.
+OVERALL SCORE FORMULA:
+( Skill*0.3 + Industry*0.2 + Hiring*0.2 + Location*0.1 + Comp*0.1 + LongTerm*0.1 )
 
-Calculate:
-Overall Employer Opportunity Score (0–100)
-
-Provide clear, evidence-based justification lines for every score assigned.
-
+Provide justification for every category. Use tiebreakers: recent cyber initiatives,
+Zero Trust adoption, automation needs.
 ======================================================================
 PHASE 5 — WATCHLIST GENERATION
 ======================================================================
+Categorize into:
+TIER 1 — HIGH PRIORITY (80+)
+TIER 2 — MODERATE (65–79)
+TIER 3 — LONG-TERM (<65)
 
-Categorize employers into:
-
-TIER 1 — HIGH PRIORITY
-Strong fit. High probability of interview success. Monitor weekly.
-
-TIER 2 — MODERATE PRIORITY
-Good fit. Monitor biweekly.
-
-TIER 3 — LONG-TERM TARGETS
-Potential future opportunities. Monitor monthly.
-
-For each employer include:
-• Opportunity score
-• Rationale
-• Hiring indicators
-• Potential role matches
-
+For each: Score, rationale, hiring indicators, potential role matches.
 ======================================================================
 PHASE 6 — WHY THEY MAY NEED YOU
 ======================================================================
-
-For each Tier 1 and Tier 2 employer generate:
-"Why This Employer May Need You"
-
-The explanation should connect:
-• Candidate capabilities
-• Organizational needs
-• Industry conditions
-• Hiring signals
-
-The explanation must be specific, objective, and evidence-based. 
-Cut all generic corporate fluff.
-
+For Tier 1 & Tier 2: Evidence-based "Why This Employer May Need You" narratives
+connecting candidate capabilities to organizational needs. No fluff.
 ======================================================================
 PHASE 7 — NETWORKING TARGETS
 ======================================================================
-
-When information is available, identify:
+Identify from public sources only (LinkedIn leadership pages, recent posts,
+company about/team pages):
+• Security/CISO/Tech leaders
 • Hiring managers
-• Security leaders
-• Technical leaders
-• Recruiters
-• Talent acquisition partners
+• Recruiters/Talent Acquisition
 
-Recommend:
-• Networking priority
-• Potential outreach strategy
-• Timing considerations
+Do not fabricate. If limited data: "Insufficient public data."
 
-Do not fabricate individuals.
-If reliable data is unavailable, state: "Insufficient data to map specific internal targets."
-
+Recommend outreach priority, timing, and strategy (integrate with Strategic Integrity).
 ======================================================================
 PHASE 8 — OPPORTUNITY MONITORING PLAN
 ======================================================================
-
-Create a monitoring strategy.
-
-For each employer define:
+For each employer:
 • Monitoring frequency
-• Trigger events
-• Job categories to watch
-• Departments of interest
-• Follow-up recommendations
-
-Examples:
-• Weekly review
-• New leadership announcements
-• New technology initiatives
-• Expansion announcements
-• Regulatory developments
-
+• Trigger events (new postings, leadership changes, breaches, funding)
+• Job categories & departments to watch
+• Integration: Feed signals into Job Posting Intelligence Engine + Daily Momentum Engine
 ======================================================================
-OUTPUT FORMAT
+OUTPUT FORMAT (Final Report)
 ======================================================================
-
-Generate the report sections sequentially based on the active state:
-
 1. Executive Summary
 2. Candidate Intelligence Profile
 3. Career Identity Analysis
 4. Adjacent Opportunity Analysis
 5. Employer Discovery Results
-6. Tiered Employer Watchlist
-7. Why They May Need You
+6. Tiered Employer Watchlist (with scores)
+7. Why They May Need You (Tier 1+2)
 8. Networking Targets
 9. Opportunity Monitoring Plan
-10. Key Findings
-11. Recommended Next Actions
-
+10. Assumptions & Data Freshness
+11. Key Findings & Recommended Next Actions
 ======================================================================
-ANTI-HALLUCINATION REQUIREMENTS
+ANTI-HALLUCINATION & INTEGRITY REQUIREMENTS
 ======================================================================
-
-Never invent:
-• Employers
-• Open positions
-• Hiring managers
-• Recruiters
-• Compensation figures
-• Technology initiatives
-• Employee sentiment
-• Growth indicators
-
-Distinguish clearly between:
-VERIFIED FACT
-INFERENCE
-SPECULATION
-
-Label assumptions appropriately.
-When evidence is unavailable, state: "Insufficient evidence available."
-
+• Never invent employers, positions, people, figures, or initiatives.
+• Clearly label: VERIFIED FACT | INFERENCE | SPECULATION.
+• State "Insufficient evidence available" when appropriate.
+• Distinguish correlation from causation.
+• Maintain strict data fidelity.
 ======================================================================
 SUCCESS CRITERIA
 ======================================================================
-
-A successful report should:
-• Reveal employers the user may not have considered
-• Prioritize effort toward the highest-value opportunities
-• Explain employer relevance clearly
-• Identify meaningful hiring signals
-• Support networking activities
-• Improve job-search efficiency
-• Create an actionable employer watchlist
+• Surface non-obvious high-value employers
+• Prioritize effort with objective scoring
+• Clear, actionable, evidence-based insights
+• Improve job-search efficiency and networking
+• Integrate seamlessly with Strategic Integrity v9.x, RIAAE, etc.
