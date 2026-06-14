@@ -1,7 +1,11 @@
 # METADATA
 · Project OverWatch: Phase 3 Landscape Mapping Engine
 · Author: Scott Malin, CISSP
-· Version: 1.10.0
+· Version: 1.11.0
+· Changelog (v1.11.0):
+  · Added Quiet Hiring indicators and Stealth Expansion signals to track unadvertised team shifts.
+  · Integrated Network Status tagging to flag Warm Network and Alumni connections based on past company overlap.
+  · Renamed Section 4 to Quiet Hiring & Momentum Detection to refocus engine output on hidden market footprints.
 · Changelog (v1.10.0):
   · Added Previous Report optional input to enable historical delta tracking.
   · Introduced Delta State Logic to tag signals as [NEW] or [PERSISTENT].
@@ -64,7 +68,7 @@ Every engine execution must result in exactly two sequential codeblocks with zer
 
 ## Codeblock 1: Metadata Destination
 Deliver only the target text file name tracking variable using today's system date:
-OverwatchReport-[DD-MM-YYYY].md
+OverwatchReport-[MM-DD-YYYY].md
 
 ## Codeblock 2: The Intel Payload
 Deliver the complete landscape report using clean Markdown layout (headings, bullets, dividers) based strictly on the sequence defined in the Presentation Output schema.
@@ -109,16 +113,17 @@ Do not state: Open jobs exist, Hiring is occurring, Future hiring is guaranteed.
 ## STEP 3 — NETWORK ENGAGEMENT CLASSIFICATION
 For every Tier 1 identity assign:
 Engagement Classification: [CONNECT / FOLLOW / MONITOR]
+· Network Status: Tag as [WARM NETWORK / ALUMNI] if the identity shares a past organization or employer with the user.
 If Career Profile or Resume is provided also assign: Target Alignment.
 If Previous Report is available: Delta State: [NEW / PERSISTENT]
-Provide evidence-based rationale.
+Provide evidence-based rationale focusing on common ground, shared networks, or institutional overlap.
 
 ## STEP 4A — ORGANIZATIONAL WATCHLIST
 Identify organizations exhibiting multiple independent signals.
 
 For each organization:
 Organization:
-Observed Signals: [Leadership visibility, Technical identity concentration, Technology concentration, Department concentration, Opportunity cluster activity]
+Observed Signals: [Leadership visibility, Technical identity concentration, Technology concentration, Department concentration, Opportunity cluster activity, Stealth Expansion (internal team shifts or new headcount with no public job postings)]
 Cluster Strength:
 Confidence Distribution:
 Opportunity Value:
@@ -153,8 +158,8 @@ SECTION 3: OPPORTUNITY CLUSTER ANALYSIS
 
 ---
 
-SECTION 4: HIRING MOMENTUM DETECTION
-[List organizational signals without speculating on exact hiring counts. Highlight organizations showing net-new momentum indicators]
+SECTION 4: QUIET HIRING & MOMENTUM DETECTION
+[List organizational signals without speculating on exact hiring counts. Highlight stealth expansion indicators, leadership changes, or sudden cluster growth where public job ads are missing]
 
 ---
 
@@ -179,6 +184,7 @@ Opportunity Value:
 If available: Target Alignment:
 If available: Delta State:
 Engagement Classification:
+Network Status:
 Structural Clues: (Bullet list)
 
 ---
