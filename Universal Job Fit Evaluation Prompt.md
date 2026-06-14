@@ -1,8 +1,9 @@
 # Universal Job Fit Evaluation Prompt – Fully Generic & Shareable
 # Author: Scott M
-# Version: 1.7.6
-# Last Modified: 2026-05-21
+# Version: 1.7.7
+# Last Modified: 2026-06-14
 ## Changelog
+- **v1.7.7 (2026-06-14):** Integrated commute tolerance tracking, starting location checks, and RTO metric alignment into Step 0 and Specific Analysis Requirements.
 - **v1.7.6 (2026-05-21):** Fixed output tone conflict by separating candidate-only insights from email-ready prose. Broadened tool protocol to prevent API hallucination. Added strict math guardrail for dynamic weighting.
 - **v1.7.5 (2026-05-21):** Major functional upgrades for tool usage, file handling, dynamic weighting, portfolio analysis, and email-ready output. Addressed key gaps in URL fetching, absent data scoring, and professional formatting.
 - **v1.7.0 (2026-05-21):** Standardized version string formatting to 3-point notation. Integrated Chain-of-Verification (CoV) scoring logic and adversarial red-teaming checks.
@@ -13,7 +14,7 @@ Help a candidate objectively evaluate how well a job posting matches their skill
 
 ---
 ## Pre-Evaluation Checklist (User: please provide these)
-- [ ] Step 0: Candidate Priorities (Remote? Salary? Tech stack?)
+- [ ] Step 0: Candidate Priorities (Remote? Salary? Tech stack? Commute tolerances?)
 - [ ] Step 1: Skills & Experience (Markdown, pasted text, or file upload)
 - [ ] Step 1a: Key Skills Anchor List (What matters most right now?)
 - [ ] Step 2: Portfolio links/descriptions or file uploads
@@ -23,6 +24,7 @@ Help a candidate objectively evaluate how well a job posting matches their skill
 ## Step 0: Candidate Priorities
 - Roles/Domains:
 - Location preference (remote / hybrid / city / region):
+- Commute Tolerances (Starting location, max miles, max minutes, weekly office frequency):
 - Compensation expectations or constraints:
 - Non-negotiables (e.g., on-call, travel, clearance, tech stack):
 - Nice-to-haves:
@@ -60,6 +62,7 @@ Analyze the **Job Posting** against the **Candidate Info** provided above.
 2. **ATS Translation:** List 5-10 specific keywords/phrases from the JD that are missing from the candidate's materials but align with their likely experience.
 3. **Interview Prep "Gotchas":** Identify the 3 toughest questions a recruiter will likely ask based on the candidate's specific gaps or weakest areas.
 4. **Years of Experience:** Explicitly flag any mismatches in required vs. candidate experience levels.
+5. **Commute & RTO Audit:** If commute tolerances are provided (starting location, max miles, max minutes, hybrid days), extract the job's physical location. Check if the requirements violate the candidate's tolerances and flag any overages or high-traffic route concerns.
 
 ## Output Requirements & Structure
 You must deliver the output in two distinct parts to separate sensitive internal analysis from copy-pasteable materials.
@@ -67,6 +70,7 @@ You must deliver the output in two distinct parts to separate sensitive internal
 ### PART 1: Candidate Strategy Dashboard (For Candidate's Eyes Only)
 *This section contains tactical insights and critical feedback meant purely for the applicant.*
 - **Vibe Check:** Summary of the "Read Between the Lines" analysis, including culture, remote signals, red flags, and growth trajectory.
+- **Commute & RTO Reality Check:** Clear assessment of how the job's location and office policy align with the candidate's commute constraints.
 - **Critical Gaps & Mitigation:** The top 3 missing skills or experience levels with practical advice on how to bridge them.
 - **Interview Prep "Gotchas":** The 3 toughest questions a recruiter will ask based on the candidate's specific weaknesses.
 - **Portfolio-Specific Guidance:** Connect 1-2 job requirements to concrete portfolio improvements or highlights.
@@ -76,16 +80,16 @@ You must deliver the output in two distinct parts to separate sensitive internal
 - **Overall Fit Percentage** (Calculated weighted average based on CoV validation)
 - **Confidence Level** (High/Medium/Low based on info completeness)
 - **Top 3 Alignments:** Specific strong matches with exact grounding quotes from both JD and candidate info.
-- **Additional Commentary:** Neutral summary of location, salary alignment, or timeline facts.
+- **Additional Commentary:** Neutral summary of location fit, commute feasibility, salary alignment, or timeline facts.
 
 #### Final Summary Table
-| Section                    | Match % | Key Alignments & Gaps                          | Confidence   |
-|----------------------------|---------|------------------------------------------------|--------------|
-| Responsibilities            |         |                                                |              |
-| Required Qualifications     |         |                                                |              |
-| Preferred Qualifications    |         |                                                |              |
-| Skills / Technologies / Edu|         |                                                |              |
-| **Overall Fit**            | ** **   |                                                | **High/Med/Low** |
+| Section                    | Match % | Key Alignments & Gaps                          | Confidence  |
+|----------------------------|---------|------------------------------------------------|-------------|
+| Responsibilities            |         |                                                |             |
+| Required Qualifications     |         |                                                |             |
+| Preferred Qualifications    |         |                                                |             |
+| Skills / Technologies / Edu|         |                                                |             |
+| **Overall Fit** | ** ** |                                                | **High/Med/Low** |
 
 ---
 ## Job Posting Source
