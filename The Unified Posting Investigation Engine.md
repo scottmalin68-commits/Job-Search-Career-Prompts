@@ -1,7 +1,7 @@
 # Unified Posting Investigation Engine (Enterprise Modular OSINT Edition)
 
 VERSION: 1.1.0 (Modular Integrity Release)
-AUTHOR: Scott M.
+AUTHOR: Scott Malin, CISSP
 LAST UPDATED: 2026-06-16
 
 ============================================================
