@@ -1,11 +1,16 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 1.0.1
-# AUTHOR: Scott Malin, CISSP[cite: 4]
+# VERSION: 1.0.2
+# AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-06-16
 
 ============================================================
 CHANGELOG
 ============================================================
+
+v1.0.2 (2026-06-16)
+
+· Reengineered tracking block: Changed `capture_date` to `date_created` to align with pipeline schema telemetry.
+· Added explicit ISO-8601 formatting instructions for runtime date generation.
 
 v1.0.1 (2026-06-16)
 
@@ -120,7 +125,7 @@ IF CANDIDATE_PROFILE IS MISSING:
   PROFILE_NOT_PROVIDED
 
 ------------------------------------------------------------
-PILLAR F: PLACEHOLDER RESOLUTION
+PILLAR F: PLACEHOLDER RESOLUTION & TELEMETRY
 ------------------------------------------------------------
 
 All RESOLVED_* placeholders MUST be replaced with the best available inferred value.
@@ -140,6 +145,9 @@ If exact information is unavailable:
 
 - Infer best available value.
 - Record INFERRED in evidence arrays.
+
+TIMESTAMP TELEMETRY:
+- The `date_created` property must reflect the execution date using strict ISO-8601 format (YYYY-MM-DD). Use the current runtime context provided in the session.
 
 ============================================================
 INPUT VARIABLES (RUNTIME DATA)
@@ -217,12 +225,12 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "1.0.1-JSON-Branch",
+    "engine_version": "1.0.2-JSON-Branch",
     "generation_date": ""
   },
 
   "tracking": {
-    "capture_date": "",
+    "date_created": "",
     "last_updated": "",
     "posting_status": "OPEN",
     "application_status": "NOT_APPLIED"

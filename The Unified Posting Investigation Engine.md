@@ -1,32 +1,20 @@
 # Unified Posting Investigation Engine (Enterprise Modular OSINT Edition)
 
-VERSION: 1.1.0 (Modular Integrity Release)
+VERSION: 1.2.3 (Signal Foundry Isolated Filename Release)
 AUTHOR: Scott Malin, CISSP
 LAST UPDATED: 2026-06-16
 
 ============================================================
-CHANGELOG
-============================================================
-v1.1.0 (2026-06-16)
-· Introduced explicit internal modular architecture to preserve original 5-prompt behavior boundaries
-· Added Job Legitimacy Module, Hiring Intent Module, Culture Intelligence Module, Positioning Module, and Decision Arbitration Layer
-· Added cross-module contradiction detection rules
-· Introduced unified confidence normalization scale (0–10)
-· Added explicit evidence segregation per module
-· Enforced final arbitration step to resolve conflicting signals
-· Improved traceability between inference types and source evidence
-
-============================================================
 PURPOSE
 ============================================================
-Provide a single structured intelligence report that preserves the analytical separation of:
+Provide a single structured intelligence report in valid JSON format that preserves the analytical separation of:
 - Job legitimacy and OSINT validation
 - Hiring intent and opportunity realism
 - Interview and positioning strategy
 - Company culture and values inference
 - Final decision arbitration
 
-This system ensures completeness of the original 5-prompt architecture while maintaining unified output delivery.
+This system ensures completeness of the original 5-prompt architecture while maintaining a unified, machine-readable output delivery.
 
 ============================================================
 CORE ARCHITECTURE RULE
@@ -39,6 +27,7 @@ Do NOT merge reasoning between modules until arbitration stage.
 ============================================================
 TAGGING SYSTEM (GLOBAL)
 ============================================================
+Use these markers inline within text values where appropriate:
 [VERBATIM] = Direct quote from job posting
 [PARAPHRASED] = Restated content
 [INFERRED] = Evidence-based conclusion (must include justification)
@@ -50,9 +39,6 @@ TAGGING SYSTEM (GLOBAL)
 ============================================================
 MODULE 1: JOB LEGITIMACY & OSINT VALIDATION
 ============================================================
-Purpose:
-Detect whether the job posting is real, inflated, recycled, or misleading.
-
 Analyze:
 - Posting freshness signals
 - Role specificity vs template language
@@ -60,130 +46,89 @@ Analyze:
 - Internal vs external candidate bias signals
 - Salary transparency signals
 
-Output:
-- Legitimacy Score (0–10)
-- Ghost Job Risk (Low / Medium / High)
-- Evidence-backed red flags
-- Key uncertainty factors
-
 ============================================================
 MODULE 2: HIRING INTENT ANALYSIS
 ============================================================
-Purpose:
-Determine why this role exists.
-
 Classify:
-- Backfill
-- Growth hire
-- Pipeline / evergreen posting
-- Compliance / resume collection role
-- Internal promotion placeholder
+- Backfill / Growth hire / Pipeline / Evergreen / Compliance / Internal placeholder
 
 Analyze:
-- Language specificity
-- Urgency signals
-- Scope clarity
-- Market alignment
-
-Output:
-- Hiring Intent Classification
-- Confidence Score (0–10)
-- Supporting evidence
+- Language specificity, urgency signals, scope clarity, and market alignment.
 
 ============================================================
 MODULE 3: CULTURE & REALITY INTELLIGENCE
 ============================================================
-Purpose:
-Infer organizational behavior patterns and working environment.
-
 Analyze:
 - Leadership messaging vs operational reality
-- Likely performance expectations
-- Structural pressure signals
-- Burnout indicators
-- Decision-making speed signals
-
-Output:
-- Culture Profile (Stable / High Pressure / Transitional / Unstable)
-- Burnout Risk (Low / Medium / High)
-- Key inferred operational traits
+- Likely performance expectations and structural pressure signals
+- Burnout indicators and decision-making speed signals
 
 ============================================================
 MODULE 4: POSITIONING & INTERVIEW STRATEGY
 ============================================================
-Purpose:
-Translate job into candidate advantage strategy.
-
 Analyze:
 - Core pain points (“So What” factor)
 - Required competencies vs implied needs
-- Resume alignment hooks
-- Messaging angles for interviews
-
-Output:
-- Positioning Strategy
-- Key Resume Signals to emphasize
-- 3 core interview narratives
-- What NOT to emphasize
+- Resume alignment hooks and messaging angles
 
 ============================================================
 MODULE 5: DECISION ARBITRATION LAYER
 ============================================================
-Purpose:
-Resolve contradictions across all modules.
-
-Inputs:
-- Legitimacy Score
-- Hiring Intent
-- Culture Risk
-- Positioning Fit
-
 Rules:
 - If Legitimacy ≤ 4 → recommend Skip unless strong external justification
 - If Culture Burnout = High AND Positioning Fit = Weak → Skip
 - If Hiring Intent = Evergreen AND Legitimacy < 6 → Treat as low priority
-- Otherwise evaluate composite opportunity score
-
-Output:
-- Final Decision: Apply / Light Apply / Skip
-- Composite Opportunity Score (0–10)
-- Primary Reasoning Summary
-- Key Risk Tradeoffs
 
 ============================================================
-CONTRADICTION HANDLING RULE
+CONTRADICTION HANDLING & CONFIDENCE NORMALIZATION
 ============================================================
-If modules disagree:
-- Do NOT overwrite results
-- Preserve both signals
-- Explicitly list contradiction in Arbitration Layer
-- Resolution must be justified, not assumed
-
-============================================================
-CONFIDENCE NORMALIZATION
-============================================================
-All module confidence scores MUST map to:
-- 0–3 = Low
-- 4–6 = Medium
-- 7–8 = High
-- 9–10 = Very High (rare, evidence-rich)
+- Do NOT overwrite conflicting module signals; preserve both and note them in arbitration.
+- Map confidence scores strictly to: 0–3 (Low), 4–6 (Medium), 7–8 (High), 9–10 (Very High).
 
 ============================================================
 OUTPUT FORMAT (STRICT)
 ============================================================
-Return a single markdown codeblock containing:
+You must output exactly two separate markdown codeblocks. No intro text, no outro text, and no conversational filler between them.
 
-### UNIFIED POSTING INVESTIGATION REPORT
+Codeblock 1: A text block containing ONLY the generated file name using this exact pattern:
+OSINT-[Company]-[Title]-[JobID].json
 
-Include sections in this order:
-
-1. Job Legitimacy & OSINT Validation (Module 1)
-2. Hiring Intent Analysis (Module 2)
-3. Culture & Reality Intelligence (Module 3)
-4. Positioning & Interview Strategy (Module 4)
-5. Decision Arbitration Layer (Module 5)
-
-No text outside the codeblock.
+Codeblock 2: A valid JSON object containing the report analysis:
+{
+  "report_metadata": {
+    "engine_version": "1.2.3",
+    "timestamp": "ISO-8601 string"
+  },
+  "module_1_legitimacy": {
+    "legitimacy_score": 0,
+    "ghost_job_risk": "Low/Medium/High",
+    "evidence_backed_red_flags": [],
+    "key_uncertainty_factors": []
+  },
+  "module_2_intent": {
+    "hiring_intent_classification": "",
+    "confidence_score": 0,
+    "supporting_evidence": []
+  },
+  "module_3_culture": {
+    "culture_profile": "Stable/High Pressure/Transitional/Unstable",
+    "burnout_risk": "Low/Medium/High",
+    "key_inferred_operational_traits": []
+  },
+  "module_4_positioning": {
+    "positioning_strategy": "",
+    "resume_signals_to_emphasize": [],
+    "core_interview_narratives": [],
+    "what_not_to_emphasize": []
+  },
+  "module_5_arbitration": {
+    "final_decision": "Apply/Light Apply/Skip",
+    "composite_opportunity_score": 0,
+    "primary_reasoning_summary": "",
+    "key_risk_tradeoffs": [],
+    "detected_contradictions": []
+  }
+}
 
 ============================================================
 INPUT
