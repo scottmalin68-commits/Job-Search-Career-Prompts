@@ -1,6 +1,6 @@
 # ==========================================================
 # Prompt Name: AI Interview Simulator & Response Coach
-# Author: Scott M.
+# Author: Scott Malin, CISSP
 # Attribution: Logic hardened with the Lee Ann Chan "Interview Cheat Sheet" frameworks + Beverly Dines / Deepali Vyas / CareerBloom / Raahuul M Wadhwa insights.
 # Version: 1.6.2
 # Last Modified: 2026-06-18
