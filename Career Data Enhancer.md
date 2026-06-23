@@ -2,6 +2,7 @@
 # VERSION: 2.1.0
 # AUTHOR: Scott M
 # LAST UPDATED: 2026-06-14
+# Career Profile enhancement Prompt
 ============================================================
 CHANGELOG
 ============================================================

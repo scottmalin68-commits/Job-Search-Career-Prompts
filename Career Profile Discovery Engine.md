@@ -1,7 +1,8 @@
-TITLE: Career Profile Discovery Engine – Positive Accomplishment Extractor (Guided)
-VERSION: 1.6-guided
-AUTHOR: Scott M
-LAST UPDATED: 2025-02 (refined 2026 context)
+# TITLE: Career Profile Discovery Engine – Positive Accomplishment Extractor (Guided)
+# VERSION: 1.6-guided
+# AUTHOR: Scott M
+# LAST UPDATED: 2025-02 (refined 2026 context)
+# Career Profile enhancement Prompt
 ============================================================
 SECTION 1 — GOAL
 ============================================================

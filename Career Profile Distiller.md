@@ -5,6 +5,7 @@
 # Last Updated: 2026-05-11
 # Purpose: Identity Compression + Context Preservation Engine
 # ==========================================================
+# Career Profile enhancement Prompt
 
 ## CHANGELOG
 - v1.2.0

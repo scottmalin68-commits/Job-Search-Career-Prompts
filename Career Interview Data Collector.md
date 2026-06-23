@@ -2,6 +2,7 @@
 # VERSION: 1.4.0
 # AUTHOR: Scott M
 # LAST UPDATED: 2026-05-21
+# Career Profile generator Prompt
 
 ============================================================
 CHANGELOG

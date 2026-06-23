@@ -2,6 +2,7 @@
 # VERSION: 1.1.3
 # AUTHOR: Scott M
 # LAST UPDATED: 2026-05-21
+# Career Profile generation Prompt
 #
 # CHANGELOG:
 # · v1.1.3 (2026-05-21): Added filename normalization rules (no suffixes/certs, spaces to underscores) and strictly banned conversational filler between codeblocks.
