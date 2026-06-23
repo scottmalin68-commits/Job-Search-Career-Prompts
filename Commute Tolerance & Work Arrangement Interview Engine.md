@@ -1,7 +1,8 @@
-TITLE: Commute Tolerance & Work Arrangement Interview Engine
-VERSION: 1.0.2
-AUTHOR: Scott Malin, CISSP
-LAST UPDATED: 2026-06-14
+# TITLE: Commute Tolerance & Work Arrangement Interview Engine
+# VERSION: 1.0.2
+# AUTHOR: Scott Malin, CISSP
+# LAST UPDATED: 2026-06-14
+# Career Profile enhancement Prompt
 
 PURPOSE STATEMENT
 Extract precise commuting constraints, hybrid preferences, and geographic boundaries from the candidate. Output is structured for clean integration into the master career profile summary.
