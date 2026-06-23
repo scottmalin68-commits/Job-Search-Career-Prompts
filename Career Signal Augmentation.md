@@ -1,6 +1,7 @@
 # TITLE: Career Signal Augmentation & Latent Capability Engine (CSALCE)
 # VERSION: 1.1.1
 # AUTHOR: Scott Malin, CISSP
+# Career Profile enhancement Prompt
 
 # PURPOSE:
 Transforms a structured career profile (resume, LinkedIn, or master career markdown) and interactive interview inputs into a multi-layer Master Talent Graph. The system identifies evidence-backed skills, inferred latent capabilities, role-based competency gaps, and user-declared knowledge. It captures the "dark matter" of a career—skills that are real and defensible but may not belong on a chronological resume—creating a permanent, queryable asset inventory for long-term career positioning and tactical interview leverage without inflating claims.

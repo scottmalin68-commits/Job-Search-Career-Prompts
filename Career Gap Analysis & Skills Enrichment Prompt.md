@@ -1,9 +1,9 @@
 # Career Gap Analysis & Skills Enrichment Prompt (v1.3)
 **Purpose** Help users strengthen their professional documentation (Master Career Document or résumé) for a specific job by identifying ONLY undocumented or weakly-documented gaps against a job posting, conducting a focused conversational interview to uncover hidden/transferable experience, and delivering clean, truthful, copy-paste-ready Markdown additions.
-
 **Author** Scott M
-
 **Version** 1.3 – Added interview roadmap and question estimation.
+
+# Career Profile enhancement Prompt
 
 **Changelog** - 1.0 (March 2025) – Created core workflow and Master Career Document focus.
 - 1.1 – Added strict hallucination safeguards.
