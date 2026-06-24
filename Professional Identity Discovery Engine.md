@@ -1,10 +1,18 @@
 # TOOL: Professional Identity Discovery Engine (PIDE)
-# VERSION: 1.0.1
+# VERSION: 1.0.2
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-06-24
 # Career Profile Enhancement Prompt
 
 ## CHANGELOG
+### Version 1.0.2 (2026-06-24)
+Enhancements:
+- Tightened Phase 5 tone constraints to prevent corporate buzzword drift.
+- Explicitly banned passive, generic corporate phrasing (e.g., "utilizes synergy," "drives alignment").
+- Anchored the required style to plain English, active verbs, and concrete nouns.
+- Fixed structural disconnect by ensuring the Identity Evidence Trace is explicitly required in the final output format.
+- Instructed the model to minimize discovery questions, targeting only specific gaps rather than defaulting to the maximum.
+
 ### Version 1.0.1 (2026-06-24)
 Enhancements:
 - Added Evidence Awareness Principles.
@@ -19,17 +27,6 @@ Enhancements:
 
 ### Version 1.0.0 (2026-06-24)
 Initial release.
-Features:
-- Analyzes career profiles, resumes, LinkedIn profiles, and skills inventories.
-- Extracts professional identity signals from existing career materials.
-- Identifies core expertise, recurring problem domains, and value creation patterns.
-- Detects professional archetypes and work environment preferences.
-- Performs gap analysis to determine if additional discovery is required.
-- Conducts a targeted identity interview when necessary.
-- Synthesizes findings into a structured professional identity model.
-- Generates Executive, Standard, and Concise Professional Identity Statements.
-- Produces copy-ready output formatted for direct insertion into a Career Profile.
-- Establishes a reusable professional identity source-of-truth for resumes, LinkedIn profiles, networking materials, biographies, and interviews.
 
 ---
 
@@ -251,13 +248,13 @@ If any category is LOW:
 
 Pause analysis.
 
-Ask follow-up questions before generating the final statement.
+Ask targeted follow-up questions before generating the final statement.
 
 ---
 
 ## PHASE 3 – DISCOVERY INTERVIEW
 
-Ask only the minimum number of questions necessary.
+Ask only the minimum number of questions necessary to resolve LOW confidence areas. Do not default to the maximum number of questions if only one or two gaps exist.
 
 Maximum: 7 questions.
 
@@ -354,15 +351,12 @@ Generate three versions.
 
 Requirements:
 
-• Professional tone
-• Third-person language
-• No buzzword stuffing
-• No clichés
-• No generic leadership language
-• No unsupported claims
-• No chronological career history
-• No resume-style bullet points
-• Focus on identity, value, expertise, and professional impact
+• **Style and Tone:** Use clean, direct, plain English. Write with active verbs and concrete nouns. 
+• **Banned Language:** Absolutely no corporate fluff, buzzword stuffing, or generic leadership clichés (e.g., do not use: "utilizes synergy," "drives strategic alignment," "transformative leader," "dynamic paradigm," "passionately delivers").
+• No unsupported claims.
+• No chronological career history.
+• No resume-style bullet points.
+• Focus entirely on identity, value, expertise, and professional impact.
 
 ---
 
@@ -386,15 +380,13 @@ Do not include the claim.
 
 Present results exactly as follows:
 
-IDENTITY ANALYSIS
+### IDENTITY ANALYSIS
+[Summary of findings across core expertise, problem domains, value creation, environment fit, and professional archetype]
 
-[Summary of findings]
+### IDENTITY EVIDENCE TRACE
+[List each key conclusion made about the user's professional identity, followed immediately by the specific bulleted evidence from the inputs or interview that supports it]
 
-IDENTITY EVIDENCE TRACE
-
-[Key conclusions and supporting evidence]
-
-PROFESSIONAL IDENTITY STATEMENTS
+### PROFESSIONAL IDENTITY STATEMENTS
 
 ```text
 [Version A – Executive]
