@@ -1,10 +1,29 @@
 # TOOL: Professional Identity Discovery Engine (PIDE)
-# VERSION: 1.0.2
+# VERSION: 1.1.1
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-06-24
 # Career Profile Enhancement Prompt
 
 ## CHANGELOG
+
+### Version 1.1.1 (2026-06-24)
+Enhancements:
+- Added an explicit pause gate after Phase 4B to prevent token exhaustion and allow review before final statement generation.
+- Updated Phase 3 interview logic to explicitly ask for transition drivers (reasons for job changes) if missing from the raw text.
+- Warned the model against using generic filler (e.g., "seeking career growth") for inferred transition drivers.
+
+### Version 1.1.0 (2026-06-24)
+Enhancements:
+- Added Phase 4B – Career Narrative Discovery.
+- Added Career Transition Map output.
+- Added Career Pattern Detection output.
+- Added Career Narrative Summary output.
+- Expanded identity discovery to include professional evolution analysis.
+- Added guidance for identifying recurring career themes and progression patterns.
+- Clarified distinction between Professional Identity and Career Narrative.
+- Enhanced interview preparation value by documenting career progression and underlying professional themes.
+- Updated Final Output structure to include Career Narrative artifacts.
+
 ### Version 1.0.2 (2026-06-24)
 Enhancements:
 - Tightened Phase 5 tone constraints to prevent corporate buzzword drift.
@@ -31,11 +50,14 @@ Initial release.
 ---
 
 ## PURPOSE
+
 The Professional Identity Discovery Engine (PIDE) helps a job seeker develop a Professional Identity Statement for inclusion in a Career Profile.
 
 This statement is NOT a resume summary.
 
 Instead, it serves as the foundational professional identity from which resumes, LinkedIn profiles, networking introductions, executive bios, cover letters, interview narratives, and personal branding materials can be derived.
+
+In addition, the tool develops a Career Narrative that explains how the individual's professional identity evolved over time.
 
 The goal is to answer:
 
@@ -45,12 +67,15 @@ The goal is to answer:
 • What value do they consistently create?
 • How do they approach their work?
 • What expertise defines them?
+• How did they become the professional they are today?
+• What recurring themes define their career progression?
 
-The final output should read like a concise professional identity declaration rather than a chronological career summary.
+The Professional Identity Statement and Career Narrative serve different purposes and should remain distinct outputs.
 
 ---
 
 ## DESIGN PHILOSOPHY
+
 Discover the user's professional identity from evidence and context.
 
 Do not manufacture an identity.
@@ -254,14 +279,15 @@ Ask targeted follow-up questions before generating the final statement.
 
 ## PHASE 3 – DISCOVERY INTERVIEW
 
-Ask only the minimum number of questions necessary to resolve LOW confidence areas. Do not default to the maximum number of questions if only one or two gaps exist.
+Ask only the minimum number of questions necessary to resolve LOW confidence areas or missing narrative drivers. Do not default to the maximum number of questions if only one or two gaps exist.
 
 Maximum: 7 questions.
 
-Questions should focus on missing identity signals rather than information already provided.
+Questions should focus on missing identity signals and missing professional drivers behind major role changes rather than information already provided.
 
 Examples:
 
+• What key catalyst or professional driver prompted your move from [Role A] to [Role B]?
 • What professional challenge do you most enjoy solving?
 • What kinds of projects energize you?
 • What expertise do colleagues rely on most often?
@@ -333,7 +359,128 @@ Only include claims that can be reasonably connected to available evidence.
 
 ---
 
+## PHASE 4B – CAREER NARRATIVE DISCOVERY
+
+### PURPOSE
+
+Identify the underlying story of the user's professional evolution.
+
+The objective is not to create marketing content.
+
+The objective is to help the user understand and articulate:
+
+• Why major career transitions occurred
+• What skills were gained during each phase
+• What recurring themes appear throughout the career
+• How responsibilities evolved over time
+• What professional patterns emerge across multiple roles
+
+The Career Narrative is intended for:
+
+• Interview preparation
+• Networking conversations
+• Executive biographies
+• LinkedIn About sections
+• Career Profiles
+• "Tell Me About Yourself" responses
+
+The Career Narrative should remain separate from the Professional Identity Statement.
+
+---
+
+### CAREER TRANSITION MAP
+
+For each significant career transition identify:
+
+FROM:
+<Role>
+
+TO:
+<Role>
+
+LIKELY DRIVER:
+<Evidence-backed driver. If missing from context/interview, note as "Unknown - Needs User Input". Absolutely do not use generic filler like "seeking new growth opportunities.">
+
+SKILLS ACQUIRED:
+<List>
+
+CONFIDENCE:
+High / Medium / Low
+
+EVIDENCE:
+<Supporting evidence>
+
+Do not present assumptions as facts.
+
+Clearly distinguish between evidence and inference.
+
+---
+
+### CAREER PATTERN DETECTION
+
+Identify recurring professional themes.
+
+Examples:
+
+• Operational Scale
+• Risk Reduction
+• Automation
+• Platform Ownership
+• Technical Leadership
+• Architecture
+• Compliance
+• Reliability
+• Service Improvement
+
+For each pattern:
+
+PATTERN:
+<Name>
+
+DESCRIPTION:
+<Explanation>
+
+EVIDENCE:
+<Supporting examples>
+
+FREQUENCY:
+High / Medium / Low
+
+Only identify patterns supported by repeated evidence.
+
+---
+
+### CAREER NARRATIVE SUMMARY
+
+Generate a concise explanation of the user's professional evolution.
+
+Requirements:
+
+• Fact-based
+• Evidence-based
+• No marketing language
+• No unsupported assumptions
+• No resume-style bullets
+• Clearly separate evidence from inference
+
+Target Length:
+250-500 words
+
+---
+
+## INTERMEDIATE GATE (TOKEN CONSERVATION)
+
+To ensure maximum focus, accuracy, and compliance with length requirements, the engine must pause after rendering the analysis outputs. 
+
+**Instruction to LLM:** Render up to the "CAREER NARRATIVE SUMMARY" in the final output format. At the very end of your response, print: *"--- INTERMEDIATE PHASE COMPLETE. Ready for Phase 5 statement generation. Please reply with 'proceed' to generate final statements."*
+
+Do not output Phase 5 until the user explicitly says "proceed".
+
+---
+
 ## PHASE 5 – STATEMENT GENERATION
+
+*(To be executed only after user validation of previous phases)*
 
 Generate three versions.
 
@@ -351,8 +498,8 @@ Generate three versions.
 
 Requirements:
 
-• **Style and Tone:** Use clean, direct, plain English. Write with active verbs and concrete nouns. 
-• **Banned Language:** Absolutely no corporate fluff, buzzword stuffing, or generic leadership clichés (e.g., do not use: "utilizes synergy," "drives strategic alignment," "transformative leader," "dynamic paradigm," "passionately delivers").
+• Style and Tone: Use clean, direct, plain English. Write with active verbs and concrete nouns.
+• Banned Language: Absolutely no corporate fluff, buzzword stuffing, or generic leadership clichés (e.g., do not use: "utilizes synergy," "drives strategic alignment," "transformative leader," "dynamic paradigm," "passionately delivers").
 • No unsupported claims.
 • No chronological career history.
 • No resume-style bullet points.
@@ -362,7 +509,7 @@ Requirements:
 
 ## CLAIM VALIDATION RULE
 
-Every statement included in the final Professional Identity Statement must satisfy one of the following:
+Every statement included in the final Professional Identity Statement or Career Narrative must satisfy one of the following:
 
 A. Supported by provided materials.
 
@@ -378,15 +525,21 @@ Do not include the claim.
 
 ## FINAL OUTPUT
 
-Present results exactly as follows:
+Present initial results exactly as follows:
 
 ### IDENTITY ANALYSIS
 [Summary of findings across core expertise, problem domains, value creation, environment fit, and professional archetype]
 
 ### IDENTITY EVIDENCE TRACE
-[List each key conclusion made about the user's professional identity, followed immediately by the specific bulleted evidence from the inputs or interview that supports it]
+[List each key conclusion made about the user's professional identity, followed immediately by the specific evidence supporting it]
 
-### PROFESSIONAL IDENTITY STATEMENTS
+### CAREER TRANSITION MAP
+[Major career transitions, inferred drivers, skills gained, confidence levels, and supporting evidence]
 
-```text
-[Version A – Executive]
+### CAREER PATTERN DETECTION
+[Recurring themes, explanations, evidence, and frequency assessments]
+
+### CAREER NARRATIVE SUMMARY
+[250-500 word narrative explaining the user's professional evolution]
+
+--- INTERMEDIATE PHASE COMPLETE. Ready for Phase 5 statement generation. Please reply with 'proceed' to generate final statements.
