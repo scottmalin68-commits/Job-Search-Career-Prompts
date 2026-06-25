@@ -2,8 +2,21 @@
 # VERSION: 1.0.1
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-06-24
-
 # Career Profile Enhancement Prompt
+
+## CHANGELOG
+### Version 1.0.1 (2026-06-24)
+- Tightened scoring behavior with explicit definitions for evidence and confidence metrics.
+- Added explicit vendor management and risk-governance qualifiers to executive signals.
+- Introduced Section 6: Job Search & Market Extraction Criteria to provide actionable Boolean search strings and company targeting.
+
+### Version 1.0.0 (2026-06-24)
+- Initial release of Position Targeting Matrix
+- Defined universal role framework across IC, Leadership, and Architecture tracks
+- Introduced evidence-based scoring model
+- Added structured output format (Fit, Confidence, Evidence Strength, Gaps)
+- Established domain-agnostic design for cross-industry applicability
+- Introduced multi-layer outputs: Best-Fit, Adjacent, Stretch, Misaligned roles
 
 ## PURPOSE
 The Position Targeting Matrix (PTM) is a career profile analysis module that evaluates a professional’s experience, skills, and evidence signals to determine which role families and seniority levels they are most realistically aligned with.
@@ -151,20 +164,3 @@ For the identified **Best-Fit** and **Adjacent** roles, generate specific, optim
 - Neutral tone
 - No motivational language
 - Focus on evidence mapping and clarity
-
----
-
-## CHANGELOG
-
-### Version 1.0.1 (2026-06-24)
-- Tightened scoring behavior with explicit definitions for evidence and confidence metrics.
-- Added explicit vendor management and risk-governance qualifiers to executive signals.
-- Introduced Section 6: Job Search & Market Extraction Criteria to provide actionable Boolean search strings and company targeting.
-
-### Version 1.0.0 (2026-06-24)
-- Initial release of Position Targeting Matrix
-- Defined universal role framework across IC, Leadership, and Architecture tracks
-- Introduced evidence-based scoring model
-- Added structured output format (Fit, Confidence, Evidence Strength, Gaps)
-- Established domain-agnostic design for cross-industry applicability
-- Introduced multi-layer outputs: Best-Fit, Adjacent, Stretch, Misaligned roles
