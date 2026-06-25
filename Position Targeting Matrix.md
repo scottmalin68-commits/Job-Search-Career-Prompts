@@ -1,9 +1,9 @@
 # TOOL: Position Targeting Matrix (PTM)
-# VERSION: 1.0.0
+# VERSION: 1.0.1
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-06-24
 
-# Career Profile enhancement Prompt
+# Career Profile Enhancement Prompt
 
 ## PURPOSE
 The Position Targeting Matrix (PTM) is a career profile analysis module that evaluates a professional’s experience, skills, and evidence signals to determine which role families and seniority levels they are most realistically aligned with.
@@ -69,7 +69,7 @@ The system produces a structured matrix:
 ### FIELD DEFINITIONS
 
 - **Role Family**: IC, Leadership, Architecture/Strategy
-- **Level**: seniority tier within that family
+- **Level**: Seniority tier within that family
 - **Fit**: High / Moderate / Low
 - **Confidence**: High / Medium / Low based on signal completeness
 - **Evidence Strength**: Summary of supporting signals found in the profile
@@ -80,6 +80,14 @@ The system produces a structured matrix:
 ## SCORING BEHAVIOR
 
 The PTM evaluates alignment using evidence-based signals such as:
+
+### Evidence Definition
+A signal must be backed by verifiable metrics, specific tool deployments, or documented business outcomes. Vague bullet points do not count.
+
+### Confidence Metric Rules
+- **High**: Evidence is explicitly stated with metrics or clear scope.
+- **Medium**: Skill or responsibility is mentioned but lacks scope or depth data.
+- **Low**: Profile is missing concrete data, forcing an inference.
 
 ### Strong Signals
 - Repeated ownership of systems or domains
@@ -92,11 +100,12 @@ The PTM evaluates alignment using evidence-based signals such as:
 - Project coordination or technical direction
 - Stakeholder communication beyond immediate team
 
-### Executive Signals (required for Director+ alignment)
+### Executive Signals (Required for Director+ alignment)
 - Budget or resource ownership
 - Organizational strategy influence
 - Multi-team or department-level responsibility
 - Hiring / performance management authority
+- Vendor management or risk-governance framework ownership
 
 ---
 
@@ -116,6 +125,12 @@ Roles where evidence does NOT support readiness yet.
 
 ### 5. Gap Analysis
 What specific signals are missing for progression to the next level.
+
+### 6. Job Search & Market Extraction Criteria
+For the identified **Best-Fit** and **Adjacent** roles, generate specific, optimized search criteria for use on LinkedIn, Indeed, and Google Jobs:
+- **Boolean Search Strings**: Combined title variations and hard skill keywords (e.g., `("Senior Engineer" OR "Lead Engineer") AND "PowerShell" AND NOT "Manager"`).
+- **Company Target Type**: Define the specific types of employers where this role profile thrives (e.g., Fortune 500 enterprise, mid-market SaaS, highly regulated healthcare/finance, agile startups).
+- **Alternative Job Titles**: Common industry-specific synonyms for the target roles to catch messy HR postings.
 
 ---
 
@@ -140,6 +155,11 @@ What specific signals are missing for progression to the next level.
 ---
 
 ## CHANGELOG
+
+### Version 1.0.1 (2026-06-24)
+- Tightened scoring behavior with explicit definitions for evidence and confidence metrics.
+- Added explicit vendor management and risk-governance qualifiers to executive signals.
+- Introduced Section 6: Job Search & Market Extraction Criteria to provide actionable Boolean search strings and company targeting.
 
 ### Version 1.0.0 (2026-06-24)
 - Initial release of Position Targeting Matrix
