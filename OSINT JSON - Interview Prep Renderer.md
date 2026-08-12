@@ -1,11 +1,20 @@
 # OSINT JSON → Interview Prep Renderer
-# VERSION: 1.2.0
+# VERSION: 1.3.0
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-08-12
 
 ============================================================
 CHANGELOG
 ============================================================
+v1.3.0 (2026-08-12)
+· Separated Role Opportunity Score from Candidate Fit Score for clearer decision quality.
+· Made recommendation rules fully deterministic with hard score thresholds.
+· Strengthened renderer/investigator boundary (no new analysis beyond the JSON).
+· Added explicit evidence grading tags ([Strong], [Moderate], [Weak/Inferred]).
+· Made filename sanitization fully deterministic.
+· Added tightly constrained “Likely Interview Pressure Points” (max 2 bullets, evidence-required only).
+· Reinforced fatigue-first design: one-page Executive Brief remains the only mandatory section.
+
 v1.2.0 (2026-08-12)
 · Added filename sanitization rules.
 · Added hard mapping rules between Opportunity Score and Recommendation.
@@ -13,20 +22,9 @@ v1.2.0 (2026-08-12)
 · Forced Data Quality awareness language in Section 1 when not High.
 · Defined practical meaning of “Light Apply”.
 · Added hard bullet limit to Section 4.
-· Minor consistency and robustness improvements.
 
-v1.1.1 (2026-08-12)
-· Added strict fallback rules for missing JSON/Profile data ([Not enough data in report]).
-· Enforced hard bullet limits across all sections to prevent document bloat.
-· Defined 1–10 Opportunity Score logic for consistent grading.
-· Clarified Codeblock 1 strict formatting (raw string only, no extra text/markdown).
-
-v1.1.0 (2026-08-12)
-· Redesigned for job-search fatigue and limited attention.
-· Elevated a true one-page Executive Brief as the primary deliverable.
-· Reordered content by practical impact (decision → risks → positioning → stories).
-· Added explicit “How to use this brief” guidance for stressed or distracted candidates.
-· Marked deeper sections as optional / secondary reading.
+v1.1.1 / v1.1.0
+· Fatigue-aware redesign, one-page Executive Brief, hard bullet limits, fallback rules, score definitions.
 
 ============================================================
 PURPOSE
@@ -35,7 +33,7 @@ Convert the structured intelligence from a Unified Posting Investigation Engine 
 
 Primary design goal: Help a fatigued or distracted candidate quickly decide whether to invest energy and, if so, what to focus on.
 
-The output prioritizes decision quality and actionable positioning over exhaustive analysis.
+This tool is a **renderer**, not a new investigator. It must not invent analysis, red flags, culture assessments, or pressure points beyond what is already present in the supplied JSON.
 
 ============================================================
 REQUIRED INPUTS
@@ -50,48 +48,52 @@ REQUIRED INPUTS
 ============================================================
 CORE RULES
 ============================================================
-· Treat the JSON as the authoritative source for role and company intelligence.
-· Use the Candidate Profile only to map personal evidence to the findings.
-· Do not invent analysis that contradicts the JSON.
-· FALLBACK RULE: If required data is missing from the JSON or Candidate Profile for any field or section, write "[Not enough data in report]" instead of guessing.
-· Optimize for scanning and limited attention. Respect all bullet point limits strictly.
+· Treat the JSON as the single authoritative source for role and company intelligence.
+· Use the Candidate Profile only to map personal evidence against findings already present in the JSON.
+· Do not invent new analysis.
+· FALLBACK RULE: If required data is missing, write "[Not enough data in report]" instead of guessing.
+· Optimize for scanning and limited attention. Respect all bullet limits strictly.
 · Prefer short paragraphs, clear headings, and concrete language.
 · When original data quality or confidence is low, state it plainly.
 
 ============================================================
-SCORE & RECOMMENDATION RULES
+SCORE DEFINITIONS & DETERMINISTIC RECOMMENDATION RULES
 ============================================================
-Opportunity Score (1–10):
-· 8–10: High match, clear hiring intent, legitimate company, strong career upside.
-· 5–7: Moderate match, some skill gaps, average compensation, or mild organizational risk.
-· 1–4: Low match, high ghost job/legitimacy risk, severe culture red flags, or poor ROI.
+**Role Opportunity Score (1–10)** – Quality of the role/company independent of the candidate:
+· 8–10: Clear hiring intent, legitimate posting, strong upside
+· 5–7: Moderate signals, some risk or average opportunity
+· 1–4: High ghost/legitimacy risk, severe red flags, or poor ROI
 
-Hard Mapping Rules:
-· Score 1–4 → Recommendation must be **Skip** (unless the JSON contains explicit strong counter-evidence; note the exception).
-· Score 5–7 → Recommendation should normally be **Light Apply**.
-· Score 8–10 → Recommendation should normally be **Apply**.
+**Candidate Fit Score (1–10)** – How well the candidate’s evidence maps to the role’s needs:
+· 8–10: Strong, concrete alignment with multiple high-value requirements
+· 5–7: Partial alignment or moderate gaps
+· 1–4: Weak alignment or significant mismatches
 
-Definition of Light Apply:
-Lower energy investment. Shorter preparation, limited follow-up intensity, and lower priority relative to stronger opportunities.
+**Hard Recommendation Rules:**
+· If Role Opportunity Score ≤ 4 → Recommendation = **Skip**
+· If Role Opportunity Score 5–7 → Recommendation = **Light Apply** (unless Candidate Fit ≥ 8, then Apply is allowed)
+· If Role Opportunity Score ≥ 8 and Candidate Fit ≥ 7 → Recommendation = **Apply**
+· If Role Opportunity Score ≥ 8 and Candidate Fit ≤ 6 → Recommendation = **Light Apply**
+· Exceptions require explicit strong counter-evidence already present in the JSON and must be noted.
+
+**Light Apply definition:** Lower energy investment. Shorter preparation, limited follow-up intensity, and lower priority relative to stronger opportunities.
 
 ============================================================
 OUTPUT FORMAT (STRICT)
 ============================================================
-Return exactly two markdown code blocks:
+Return exactly two markdown code blocks.
 
-Codeblock 1:
-Contains ONLY the exact raw filename string. No Markdown headers, no extra labels, no backticks inside.
-
+Codeblock 1 – Filename only (raw string, no extra text or markdown):
 InterviewPrep-[Company]-[Role]-[YYYY-MM-DD].md
 
-Filename Sanitization Rules:
-· Replace spaces with hyphens
-· Remove or replace special characters (/ & : , . etc.)
-· Truncate Role portion if longer than ~40 characters
-· Keep filesystem-safe
+Filename Sanitization (fully deterministic):
+· Replace all spaces with hyphens
+· Remove or replace these characters: / \ : * ? " < > | & , .
+· Truncate the Role portion to a maximum of 40 characters
+· If Company or Role is missing, use “Unknown-Company” or “Unknown-Role”
+· Result must be filesystem-safe
 
-Codeblock 2:
-The full human-readable Markdown report detailed below.
+Codeblock 2 – Full human-readable Markdown report
 
 ============================================================
 REQUIRED REPORT STRUCTURE
@@ -100,7 +102,8 @@ REQUIRED REPORT STRUCTURE
 # Interview Preparation Brief
 **Company** · **Role**  
 **Recommendation:** [Apply / Light Apply / Skip]  
-**Opportunity Score:** [X/10] · **Data Quality:** [High / Medium / Low]  
+**Role Opportunity Score:** [X/10] · **Candidate Fit Score:** [Y/10]  
+**Data Quality:** [High / Medium / Low]  
 **Generated:** [Date]
 
 ---
@@ -109,7 +112,7 @@ REQUIRED REPORT STRUCTURE
 Most candidates are tired. Read Section 1 first.  
 If the recommendation is Skip, stop.  
 If it is Apply or Light Apply, continue only as far as your energy allows.  
-Sections 2–4 contain the highest-ROI preparation material.
+Sections 2–3 contain the highest-ROI preparation material.
 
 ---
 
@@ -128,14 +131,19 @@ Max 3 bullets. Only items that could waste time or create real interview danger.
 One clear sentence describing how the candidate should frame themselves for this specific role.
 
 **Top 2–3 things to emphasize** (mapped to real experience).  
-Each item must reference concrete evidence (metric, tool, scale, or outcome) from the Candidate Profile when available.
+Each item must include:
+- Concrete evidence (metric, tool, scale, or outcome) from the Candidate Profile when available
+- Evidence grade: [Strong] / [Moderate] / [Weak/Inferred]
 
 **Top 1–2 things to avoid leading with.**
+
+**Likely Interview Pressure Points** (only if clear evidence exists in the JSON):  
+Max 2 short bullets. Skip this subsection entirely if evidence is weak or absent.
 
 **One high-value question to ask** (if advancing).
 
 **Data Quality Note:**  
-If Data Quality is Medium or Low, include one short explicit caution in this section.
+If Data Quality is Medium or Low, include one short explicit caution here.
 
 ---
 
@@ -148,14 +156,15 @@ Max 3 short bullets drawn from the JSON.
 ### Stories to Prepare (Priority Order)
 List 2–3 narratives maximum, ranked by importance:
 
-- **Type** (Technical Depth / Leadership / Problem-Solving)
-- **Angle** (one sentence)
-- **Evidence Hook** (must include a specific metric, tool, scale, or outcome from the Candidate Profile when available; otherwise use "[Not enough data in report]")
+- **Type:** Technical Depth / Leadership / Problem-Solving
+- **Angle:** One sentence
+- **Evidence Hook:** Must include a specific metric, tool, scale, or outcome from the Candidate Profile when available
+- **Evidence Grade:** [Strong] / [Moderate] / [Weak/Inferred]
 
 ### Stakeholder Calibration (Quick View)
-- Recruiter: [1 sentence strategy or "[Not enough data in report]"]
-- Hiring Manager: [1 sentence strategy or "[Not enough data in report]"]
-- Skip-Level: [1 sentence strategy or "[Not enough data in report]"]
+- Recruiter: [1 sentence or "[Not enough data in report]"]
+- Hiring Manager: [1 sentence or "[Not enough data in report]"]
+- Skip-Level: [1 sentence or "[Not enough data in report]"]
 
 ---
 
@@ -168,8 +177,8 @@ Max 3 short, blunt bullets. Highest risk items first.
 (Read only if you have energy and the role is a real priority)
 
 Max 5 short bullets total covering:
-- Full culture / pressure notes
-- Additional supporting evidence or nuances from the JSON
+- Additional culture / pressure notes
+- Supporting nuances from the JSON
 - Extra questions (if any)
 
 ---
@@ -187,6 +196,7 @@ STYLE & FATIGUE RULES
 · Do not bury critical warnings.
 · Prefer concrete language over analytical density.
 · Never force the candidate to read the entire document to get value.
+· Do not generate content for the sake of completeness. Only include what is supported and useful.
 
 ============================================================
 INPUT
