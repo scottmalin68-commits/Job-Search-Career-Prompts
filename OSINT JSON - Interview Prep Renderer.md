@@ -1,11 +1,17 @@
 # OSINT JSON → Interview Prep Renderer
-# VERSION: 1.3.0
+# VERSION: 1.3.1
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-08-12
 
 ============================================================
 CHANGELOG
 ============================================================
+v1.3.1 (2026-08-12)
+· Addressed missing CANDIDATE_PROFILE handling under Required Inputs.
+· Anti-Hallucination Guardrail: Explicitly prohibited extrapolating metrics or tools not found in CANDIDATE_PROFILE.
+· Deterministic Logic Fix: Converted recommendation scoring into a strict, non-overlapping IF/ELSE decision tree.
+· Zero-Tolerance Boundary Clause: Enforced strict start-on-line-1 codeblock formatting to eliminate conversational preambles/postambles.
+
 v1.3.0 (2026-08-12)
 · Separated Role Opportunity Score from Candidate Fit Score for clearer decision quality.
 · Made recommendation rules fully deterministic with hard score thresholds.
@@ -44,6 +50,7 @@ REQUIRED INPUTS
 2. CANDIDATE_PROFILE
    - Preferred: Career Profile / Master Skills Summary
    - Acceptable fallback: Full resume text
+   - FALLBACK NOTE: If CANDIDATE_PROFILE is missing, evaluate fit strictly on available context or mark candidate fit as [Weak/Inferred].
 
 ============================================================
 CORE RULES
@@ -51,13 +58,14 @@ CORE RULES
 · Treat the JSON as the single authoritative source for role and company intelligence.
 · Use the Candidate Profile only to map personal evidence against findings already present in the JSON.
 · Do not invent new analysis.
-· FALLBACK RULE: If required data is missing, write "[Not enough data in report]" instead of guessing.
+· FALLBACK RULE: If required data is missing from the JSON or Candidate Profile for any field or section, write "[Not enough data in report]" instead of guessing.
+· ANTI-HALLUCINATION RULE: Never extrapolate, infer, or fabricate metrics, team sizes, dollar amounts, or tool names not explicitly stated in the CANDIDATE_PROFILE.
 · Optimize for scanning and limited attention. Respect all bullet limits strictly.
 · Prefer short paragraphs, clear headings, and concrete language.
 · When original data quality or confidence is low, state it plainly.
 
 ============================================================
-SCORE DEFINITIONS & DETERMINISTIC RECOMMENDATION RULES
+SCORE DEFINITIONS & DETERMINISTIC DECISION TREE
 ============================================================
 **Role Opportunity Score (1–10)** – Quality of the role/company independent of the candidate:
 · 8–10: Clear hiring intent, legitimate posting, strong upside
@@ -69,18 +77,20 @@ SCORE DEFINITIONS & DETERMINISTIC RECOMMENDATION RULES
 · 5–7: Partial alignment or moderate gaps
 · 1–4: Weak alignment or significant mismatches
 
-**Hard Recommendation Rules:**
-· If Role Opportunity Score ≤ 4 → Recommendation = **Skip**
-· If Role Opportunity Score 5–7 → Recommendation = **Light Apply** (unless Candidate Fit ≥ 8, then Apply is allowed)
-· If Role Opportunity Score ≥ 8 and Candidate Fit ≥ 7 → Recommendation = **Apply**
-· If Role Opportunity Score ≥ 8 and Candidate Fit ≤ 6 → Recommendation = **Light Apply**
-· Exceptions require explicit strong counter-evidence already present in the JSON and must be noted.
+**Deterministic Recommendation Rules (Evaluate in order):**
+1. IF Role Opportunity Score ≤ 4 → Recommendation = **Skip**
+2. ELSE IF Role Opportunity Score ≥ 8 AND Candidate Fit Score ≥ 7 → Recommendation = **Apply**
+3. ELSE IF Role Opportunity Score 5–7 AND Candidate Fit Score ≥ 8 → Recommendation = **Apply**
+4. ELSE → Recommendation = **Light Apply**
+   *(Note: Exceptions require explicit strong counter-evidence already present in the JSON and must be noted.)*
 
 **Light Apply definition:** Lower energy investment. Shorter preparation, limited follow-up intensity, and lower priority relative to stronger opportunities.
 
 ============================================================
 OUTPUT FORMAT (STRICT)
 ============================================================
+Output MUST begin on line 1 with ```markdown (Codeblock 1). Do not output any conversational preamble, intro, or concluding commentary outside the two code blocks.
+
 Return exactly two markdown code blocks.
 
 Codeblock 1 – Filename only (raw string, no extra text or markdown):
@@ -132,7 +142,7 @@ One clear sentence describing how the candidate should frame themselves for this
 
 **Top 2–3 things to emphasize** (mapped to real experience).  
 Each item must include:
-- Concrete evidence (metric, tool, scale, or outcome) from the Candidate Profile when available
+- Concrete evidence (metric, tool, scale, or outcome) strictly from the Candidate Profile when available
 - Evidence grade: [Strong] / [Moderate] / [Weak/Inferred]
 
 **Top 1–2 things to avoid leading with.**
@@ -158,7 +168,7 @@ List 2–3 narratives maximum, ranked by importance:
 
 - **Type:** Technical Depth / Leadership / Problem-Solving
 - **Angle:** One sentence
-- **Evidence Hook:** Must include a specific metric, tool, scale, or outcome from the Candidate Profile when available
+- **Evidence Hook:** Must include a specific metric, tool, scale, or outcome strictly from the Candidate Profile when available
 - **Evidence Grade:** [Strong] / [Moderate] / [Weak/Inferred]
 
 ### Stakeholder Calibration (Quick View)
