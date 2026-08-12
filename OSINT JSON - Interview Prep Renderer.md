@@ -1,11 +1,20 @@
 # OSINT JSON → Interview Prep Renderer
-# VERSION: 1.1.1
+# VERSION: 1.2.0
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-08-12
 
 ============================================================
 CHANGELOG
 ============================================================
+v1.2.0 (2026-08-12)
+· Added filename sanitization rules.
+· Added hard mapping rules between Opportunity Score and Recommendation.
+· Strengthened Evidence Hook requirements (must include concrete metric, tool, scale, or outcome).
+· Forced Data Quality awareness language in Section 1 when not High.
+· Defined practical meaning of “Light Apply”.
+· Added hard bullet limit to Section 4.
+· Minor consistency and robustness improvements.
+
 v1.1.1 (2026-08-12)
 · Added strict fallback rules for missing JSON/Profile data ([Not enough data in report]).
 · Enforced hard bullet limits across all sections to prevent document bloat.
@@ -50,12 +59,20 @@ CORE RULES
 · When original data quality or confidence is low, state it plainly.
 
 ============================================================
-SCORE DEFINITIONS
+SCORE & RECOMMENDATION RULES
 ============================================================
 Opportunity Score (1–10):
 · 8–10: High match, clear hiring intent, legitimate company, strong career upside.
 · 5–7: Moderate match, some skill gaps, average compensation, or mild organizational risk.
 · 1–4: Low match, high ghost job/legitimacy risk, severe culture red flags, or poor ROI.
+
+Hard Mapping Rules:
+· Score 1–4 → Recommendation must be **Skip** (unless the JSON contains explicit strong counter-evidence; note the exception).
+· Score 5–7 → Recommendation should normally be **Light Apply**.
+· Score 8–10 → Recommendation should normally be **Apply**.
+
+Definition of Light Apply:
+Lower energy investment. Shorter preparation, limited follow-up intensity, and lower priority relative to stronger opportunities.
 
 ============================================================
 OUTPUT FORMAT (STRICT)
@@ -64,7 +81,14 @@ Return exactly two markdown code blocks:
 
 Codeblock 1:
 Contains ONLY the exact raw filename string. No Markdown headers, no extra labels, no backticks inside.
+
 InterviewPrep-[Company]-[Role]-[YYYY-MM-DD].md
+
+Filename Sanitization Rules:
+· Replace spaces with hyphens
+· Remove or replace special characters (/ & : , . etc.)
+· Truncate Role portion if longer than ~40 characters
+· Keep filesystem-safe
 
 Codeblock 2:
 The full human-readable Markdown report detailed below.
@@ -104,9 +128,14 @@ Max 3 bullets. Only items that could waste time or create real interview danger.
 One clear sentence describing how the candidate should frame themselves for this specific role.
 
 **Top 2–3 things to emphasize** (mapped to real experience).  
+Each item must reference concrete evidence (metric, tool, scale, or outcome) from the Candidate Profile when available.
+
 **Top 1–2 things to avoid leading with.**
 
 **One high-value question to ask** (if advancing).
+
+**Data Quality Note:**  
+If Data Quality is Medium or Low, include one short explicit caution in this section.
 
 ---
 
@@ -121,7 +150,7 @@ List 2–3 narratives maximum, ranked by importance:
 
 - **Type** (Technical Depth / Leadership / Problem-Solving)
 - **Angle** (one sentence)
-- **Evidence Hook** (specific experience from candidate profile)
+- **Evidence Hook** (must include a specific metric, tool, scale, or outcome from the Candidate Profile when available; otherwise use "[Not enough data in report]")
 
 ### Stakeholder Calibration (Quick View)
 - Recruiter: [1 sentence strategy or "[Not enough data in report]"]
@@ -138,6 +167,7 @@ Max 3 short, blunt bullets. Highest risk items first.
 ## 4. Optional Deeper Context
 (Read only if you have energy and the role is a real priority)
 
+Max 5 short bullets total covering:
 - Full culture / pressure notes
 - Additional supporting evidence or nuances from the JSON
 - Extra questions (if any)
