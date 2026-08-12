@@ -1,8 +1,23 @@
 # Unified Posting Investigation Engine (Enterprise Modular OSINT Edition)
 
-VERSION: 1.2.3 (Signal Foundry Isolated Filename Release)
+VERSION: 1.3.0
 AUTHOR: Scott Malin, CISSP
-LAST UPDATED: 2026-06-16
+LAST UPDATED: 2026-08-12
+
+============================================================
+CHANGELOG
+============================================================
+v1.3.0 (2026-08-12)
+· Added required CANDIDATE_PROFILE input to enable real positioning & interview strategy.
+· Defined explicit legitimacy_score scale (0–10) and confidence bands.
+· Expanded Module 4 schema with structured narratives, stakeholder lens, and evidence hooks.
+· Forced evidence objects (with tags + justification) across all major arrays.
+· Strengthened Module 5 arbitration rules and added decision_confidence.
+· Added thin-posting / data scarcity handling rule.
+· Added filename sanitization rules.
+· Added confidence_score fields to Modules 1, 3, and 4 for symmetry.
+· Added overall_data_quality field and null/insufficient-data conventions.
+· Documented origin: JSON consolidation of multiple specialized prompts.
 
 ============================================================
 PURPOSE
@@ -10,19 +25,25 @@ PURPOSE
 Provide a single structured intelligence report in valid JSON format that preserves the analytical separation of:
 - Job legitimacy and OSINT validation
 - Hiring intent and opportunity realism
-- Interview and positioning strategy
+- Interview and positioning strategy (now candidate-aware)
 - Company culture and values inference
 - Final decision arbitration
 
-This system ensures completeness of the original 5-prompt architecture while maintaining a unified, machine-readable output delivery.
+This system ensures completeness of the original multi-prompt architecture while delivering a unified, machine-readable output.
+
+Note: When switching to JSON format, this engine combines and unifies the analytical outputs of the following specialized prompts:
+· The JD Tech Stack Recon & OSINT Prompt
+· The Day 0 Onboarding Strategist
+· Opportunity Intelligence & Positioning Engine
+· The universal interview architect
+· Interview Prep – Company Values Intelligence Engine
 
 ============================================================
 CORE ARCHITECTURE RULE
 ============================================================
 You MUST execute all modules independently first.
 Then synthesize outputs in the Final Arbitration Layer.
-
-Do NOT merge reasoning between modules until arbitration stage.
+Do NOT merge reasoning between modules until the arbitration stage.
 
 ============================================================
 TAGGING SYSTEM (GLOBAL)
@@ -37,6 +58,21 @@ Use these markers inline within text values where appropriate:
 [TECH-CONFIRMED] = Explicit technologies listed
 
 ============================================================
+REQUIRED INPUTS
+============================================================
+1. JOB_POSTING (full text or URL)
+2. CANDIDATE_PROFILE (resume summary, skills.md, Career Profile, or equivalent – required for Module 4)
+
+============================================================
+DATA SCARCITY / THIN POSTING RULE
+============================================================
+If the job posting contains fewer than ~150 words of substantive content or is clearly a pure template:
+· Cap legitimacy_score at ≤ 4
+· Mark high uncertainty in Module 1
+· Force Module 4 recommendations to carry low-confidence labels
+· Note the thin data condition in key_uncertainty_factors and overall_data_quality
+
+============================================================
 MODULE 1: JOB LEGITIMACY & OSINT VALIDATION
 ============================================================
 Analyze:
@@ -45,6 +81,12 @@ Analyze:
 - Repost indicators or evergreen hiring patterns
 - Internal vs external candidate bias signals
 - Salary transparency signals
+
+Legitimacy Score Scale (0–10):
+· 9–10: High specificity + recent activity signals + salary transparency + low template language
+· 7–8: Mostly solid with only minor template or evergreen signals
+· 4–6: Mixed signals or moderate risk
+· 0–3: Strong ghost-job indicators, pure template language, or high uncertainty
 
 ============================================================
 MODULE 2: HIRING INTENT ANALYSIS
@@ -66,18 +108,22 @@ Analyze:
 ============================================================
 MODULE 4: POSITIONING & INTERVIEW STRATEGY
 ============================================================
-Analyze:
+Analyze (must reference CANDIDATE_PROFILE):
 - Core pain points (“So What” factor)
 - Required competencies vs implied needs
 - Resume alignment hooks and messaging angles
+- Stakeholder-specific framing (Recruiter / Hiring Manager / Skip-Level)
 
 ============================================================
 MODULE 5: DECISION ARBITRATION LAYER
 ============================================================
 Rules:
-- If Legitimacy ≤ 4 → recommend Skip unless strong external justification
+- If legitimacy_score ≤ 4 → recommend Skip unless strong external justification exists
 - If Culture Burnout = High AND Positioning Fit = Weak → Skip
-- If Hiring Intent = Evergreen AND Legitimacy < 6 → Treat as low priority
+- If Hiring Intent = Evergreen AND legitimacy_score < 7 → treat as low priority / Light Apply max
+- If ghost_job_risk = High → default to Skip or Light Apply only
+- Preserve conflicting module signals; note them in detected_contradictions
+- Apply confidence weighting: low-confidence modules receive reduced influence in the final decision
 
 ============================================================
 CONTRADICTION HANDLING & CONFIDENCE NORMALIZATION
@@ -93,37 +139,81 @@ You must output exactly two separate markdown codeblocks. No intro text, no outr
 Codeblock 1: A text block containing ONLY the generated file name using this exact pattern:
 OSINT-[Company]-[Title]-[JobID].json
 
-Codeblock 2: A valid JSON object containing the report analysis:
+Filename Sanitization Rules:
+- Replace spaces with hyphens
+- Remove or replace special characters (/ & : , . etc.)
+- Truncate title portion if longer than ~40 characters
+- Use “Unknown-JobID” when no job ID is present
+- Keep filesystem-safe
+
+Codeblock 2: A valid JSON object matching the schema below.
+
 {
   "report_metadata": {
-    "engine_version": "1.2.3",
-    "timestamp": "ISO-8601 string"
+    "engine_version": "1.3.0",
+    "timestamp": "ISO-8601 string",
+    "overall_data_quality": "High | Medium | Low"
   },
   "module_1_legitimacy": {
     "legitimacy_score": 0,
-    "ghost_job_risk": "Low/Medium/High",
-    "evidence_backed_red_flags": [],
+    "confidence_score": 0,
+    "ghost_job_risk": "Low | Medium | High",
+    "evidence_backed_red_flags": [
+      {
+        "flag": "",
+        "tag": "",
+        "source": "JD | INFERRED | PUBLIC",
+        "justification": ""
+      }
+    ],
     "key_uncertainty_factors": []
   },
   "module_2_intent": {
     "hiring_intent_classification": "",
     "confidence_score": 0,
-    "supporting_evidence": []
+    "supporting_evidence": [
+      {
+        "evidence": "",
+        "tag": "",
+        "justification": ""
+      }
+    ]
   },
   "module_3_culture": {
-    "culture_profile": "Stable/High Pressure/Transitional/Unstable",
-    "burnout_risk": "Low/Medium/High",
-    "key_inferred_operational_traits": []
+    "culture_profile": "Stable | High Pressure | Transitional | Unstable",
+    "burnout_risk": "Low | Medium | High",
+    "confidence_score": 0,
+    "key_inferred_operational_traits": [
+      {
+        "trait": "",
+        "tag": "",
+        "justification": ""
+      }
+    ]
   },
   "module_4_positioning": {
-    "positioning_strategy": "",
+    "core_pain_points": [],
+    "implied_vs_stated_needs": [],
     "resume_signals_to_emphasize": [],
-    "core_interview_narratives": [],
-    "what_not_to_emphasize": []
+    "core_interview_narratives": [
+      {
+        "narrative_type": "Technical Depth | Leadership | Problem-Solving",
+        "angle": "",
+        "evidence_hook": ""
+      }
+    ],
+    "what_not_to_emphasize": [],
+    "stakeholder_lens": {
+      "recruiter": "",
+      "hiring_manager": "",
+      "skip_level": ""
+    },
+    "confidence_score": 0
   },
   "module_5_arbitration": {
-    "final_decision": "Apply/Light Apply/Skip",
+    "final_decision": "Apply | Light Apply | Skip",
     "composite_opportunity_score": 0,
+    "decision_confidence": 0,
     "primary_reasoning_summary": "",
     "key_risk_tradeoffs": [],
     "detected_contradictions": []
@@ -133,4 +223,5 @@ Codeblock 2: A valid JSON object containing the report analysis:
 ============================================================
 INPUT
 ============================================================
-[INSERT JOB POSTING OR URL HERE]
+[JOB_POSTING]
+[CANDIDATE_PROFILE]
