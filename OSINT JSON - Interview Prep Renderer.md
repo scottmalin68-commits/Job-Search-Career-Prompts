@@ -1,11 +1,17 @@
 # OSINT JSON → Interview Prep Renderer
-# VERSION: 1.1.0
+# VERSION: 1.1.1
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-08-12
 
 ============================================================
 CHANGELOG
 ============================================================
+v1.1.1 (2026-08-12)
+· Added strict fallback rules for missing JSON/Profile data ([Not enough data in report]).
+· Enforced hard bullet limits across all sections to prevent document bloat.
+· Defined 1–10 Opportunity Score logic for consistent grading.
+· Clarified Codeblock 1 strict formatting (raw string only, no extra text/markdown).
+
 v1.1.0 (2026-08-12)
 · Redesigned for job-search fatigue and limited attention.
 · Elevated a true one-page Executive Brief as the primary deliverable.
@@ -38,19 +44,30 @@ CORE RULES
 · Treat the JSON as the authoritative source for role and company intelligence.
 · Use the Candidate Profile only to map personal evidence to the findings.
 · Do not invent analysis that contradicts the JSON.
-· Optimize for scanning and limited attention.
+· FALLBACK RULE: If required data is missing from the JSON or Candidate Profile for any field or section, write "[Not enough data in report]" instead of guessing.
+· Optimize for scanning and limited attention. Respect all bullet point limits strictly.
 · Prefer short paragraphs, clear headings, and concrete language.
 · When original data quality or confidence is low, state it plainly.
+
+============================================================
+SCORE DEFINITIONS
+============================================================
+Opportunity Score (1–10):
+· 8–10: High match, clear hiring intent, legitimate company, strong career upside.
+· 5–7: Moderate match, some skill gaps, average compensation, or mild organizational risk.
+· 1–4: Low match, high ghost job/legitimacy risk, severe culture red flags, or poor ROI.
 
 ============================================================
 OUTPUT FORMAT (STRICT)
 ============================================================
 Return exactly two markdown code blocks:
 
-Codeblock 1 – Filename only:
+Codeblock 1:
+Contains ONLY the exact raw filename string. No Markdown headers, no extra labels, no backticks inside.
 InterviewPrep-[Company]-[Role]-[YYYY-MM-DD].md
 
-Codeblock 2 – Full human-readable report
+Codeblock 2:
+The full human-readable Markdown report detailed below.
 
 ============================================================
 REQUIRED REPORT STRUCTURE
@@ -81,7 +98,7 @@ This is the only section that must be read.
 2–4 short bullets covering hiring intent, legitimacy/ghost risk, and cultural pressure.
 
 **Biggest risks or red flags:**  
-Only the items that could waste the candidate’s time or create real interview danger.
+Max 3 bullets. Only items that could waste time or create real interview danger.
 
 **Your strongest positioning angle:**  
 One clear sentence describing how the candidate should frame themselves for this specific role.
@@ -97,24 +114,24 @@ One clear sentence describing how the candidate should frame themselves for this
 Only include if the recommendation is Apply or Light Apply.
 
 ### Core Pain This Role Exists to Solve
-Short bullets drawn from the JSON.
+Max 3 short bullets drawn from the JSON.
 
 ### Stories to Prepare (Priority Order)
 List 2–3 narratives maximum, ranked by importance:
 
 - **Type** (Technical Depth / Leadership / Problem-Solving)
 - **Angle** (one sentence)
-- **Evidence Hook** (specific experience from the candidate profile)
+- **Evidence Hook** (specific experience from candidate profile)
 
 ### Stakeholder Calibration (Quick View)
-- Recruiter: ...
-- Hiring Manager: ...
-- Skip-Level: ...
+- Recruiter: [1 sentence strategy or "[Not enough data in report]"]
+- Hiring Manager: [1 sentence strategy or "[Not enough data in report]"]
+- Skip-Level: [1 sentence strategy or "[Not enough data in report]"]
 
 ---
 
 ## 3. Things to Avoid
-Short, blunt list. Highest risk items first.
+Max 3 short, blunt bullets. Highest risk items first.
 
 ---
 
