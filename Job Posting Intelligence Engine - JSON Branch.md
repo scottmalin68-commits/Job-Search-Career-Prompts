@@ -1,11 +1,24 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 1.0.2
+# VERSION: 1.0.4
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-06-16 
+# LAST UPDATED: 2026-08-18
 
 ============================================================
 CHANGELOG
 ============================================================
+
+v1.0.4 (2026-08-18)
+
+· Added explicit quote escaping rule to PILLAR G (`\"` instead of `"`) to prevent broken JSON payloads when stringifying search queries.
+· Updated Step 1 in Output Workflow to explicitly enforce `text` codeblock formatting for filename output.
+· Added `RESOLVED_POSITION_NAME` to PILLAR F explicit placeholder resolution list.
+· Normalized schema `metadata.engine_version` to `1.0.4` for exact telemetry string matching.
+
+v1.0.3 (2026-08-18)
+
+· Added PILLAR G: X-RAY BLUEPRINT GENERATION to Compiler & Execution Framework.
+· Enforced deterministic, production-ready Google X-Ray search string templates using site-level constraints (`site:linkedin.com/in/`), boolean title grouping, and noise exclusion (`-inurl:job`).
+· Integrated strict runtime injection of `RESOLVED_*` placeholders into Section 13 X-Ray queries to fix low-quality search outputs.
 
 v1.0.2 (2026-06-16)
 
@@ -133,6 +146,7 @@ All RESOLVED_* placeholders MUST be replaced with the best available inferred va
 Examples:
 
 RESOLVED_COMPANY
+RESOLVED_POSITION_NAME
 RESOLVED_MANAGER_TITLE
 RESOLVED_ALT_TITLE
 RESOLVED_LOCATION_OR_SILO
@@ -148,6 +162,37 @@ If exact information is unavailable:
 
 TIMESTAMP TELEMETRY:
 - The `date_created` property must reflect the execution date using strict ISO-8601 format (YYYY-MM-DD). Use the current runtime context provided in the session.
+
+------------------------------------------------------------
+PILLAR G: X-RAY BLUEPRINT GENERATION
+------------------------------------------------------------
+
+When populating `section_13_the_hunt.xray_blueprint`, construct EXACT, copy-pasteable Google X-Ray search strings using this strict syntax and format pattern:
+
+1. Base operator: site:linkedin.com/in/ OR site:linkedin.com/in/ACo*
+2. Target company: "RESOLVED_COMPANY"
+3. Exclude jobs/feed clutter: -inurl:job -inurl:jobs -inurl:company
+4. JSON ESCAPING SAFETY: All internal double quotes within generated search strings MUST be escaped as `\"` when rendered inside JSON property values.
+
+FORMAT PATTERNS TO ENFORCE:
+
+· direct_lead_hiring_manager:
+  site:linkedin.com/in/ \"RESOLVED_COMPANY\" (\"Director\" OR \"VP\" OR \"Manager\" OR \"Head\") \"RESOLVED_SILO\" -inurl:job
+
+· hiring_post:
+  site:linkedin.com/feed/ \"RESOLVED_COMPANY\" \"hiring\" \"RESOLVED_POSITION_NAME\"
+
+· skip_level_department_head:
+  site:linkedin.com/in/ \"RESOLVED_COMPANY\" (\"VP\" OR \"CISO\" OR \"Head of\") \"RESOLVED_SILO\" -inurl:job
+
+· the_recruiter:
+  site:linkedin.com/in/ \"RESOLVED_COMPANY\" (\"Technical Recruiter\" OR \"Talent Acquisition\" OR \"Sourcer\") -inurl:job
+
+· team_peers:
+  site:linkedin.com/in/ \"RESOLVED_COMPANY\" (\"RESOLVED_ALT_TITLE\" OR \"Senior Engineer\") -inurl:job
+
+· company_alumni:
+  site:linkedin.com/in/ \"Past: RESOLVED_COMPANY\" \"RESOLVED_SILO\" -inurl:job
 
 ============================================================
 INPUT VARIABLES (RUNTIME DATA)
@@ -194,7 +239,7 @@ OUTPUT WORKFLOW (STRICT)
 
 STEP 1
 
-Output a standalone codeblock containing ONLY:
+Output a standalone text codeblock tagged ```text containing ONLY:
 
 Posting-RESOLVED_COMPANY-RESOLVED_POSITION_NAME-CURRENT_YYYYMMDD.json
 
@@ -225,7 +270,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "1.0.2-JSON-Branch",
+    "engine_version": "1.0.4",
     "generation_date": ""
   },
 
