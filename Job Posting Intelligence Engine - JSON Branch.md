@@ -1,11 +1,17 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 1.0.4
+# VERSION: 1.0.5
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-08-18
+# LAST UPDATED: 2026-08-20
 
 ============================================================
 CHANGELOG
 ============================================================
+
+v1.0.5 (2026-08-20)
+
+· Added STEP 0 Data Quality Alert to Output Workflow to explicitly notify the user when scraped data completeness is low (< 70%).
+· Instructed runtime execution to advise pasting full text or providing screen captures when source data extraction is degraded.
+· Normalized schema metadata.engine_version to 1.0.5.
 
 v1.0.4 (2026-08-18)
 
@@ -237,6 +243,17 @@ Do not assign arbitrary values.
 OUTPUT WORKFLOW (STRICT)
 ============================================================
 
+STEP 0 (QUALITY ALERT)
+
+Evaluate source data completeness (0-100%).
+Output a 1-line text status before any codeblocks.
+
+If data is low (< 70%):
+Output: "DATA QUALITY WARNING: Only [X]% of required job data was accessible. High inference required. Recommendation: Paste full text or provide screen captures for accurate analysis."
+
+If data is sufficient (>= 70%):
+Output: "DATA QUALITY: [X]% expected data collected."
+
 STEP 1
 
 Output a standalone text codeblock tagged ```text containing ONLY:
@@ -249,11 +266,7 @@ Immediately output exactly ONE JSON codeblock matching the schema.
 
 STEP 3
 
-No commentary.
-
-No explanations.
-
-No markdown outside the two code blocks.
+No commentary outside STEP 0 and the two codeblocks.
 
 STEP 4
 
@@ -270,7 +283,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "1.0.4",
+    "engine_version": "1.0.5",
     "generation_date": ""
   },
 
