@@ -1,11 +1,18 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 1.0.5
+# VERSION: 1.1.0
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-08-20
+# LAST UPDATED: 2026-08-28
 
 ============================================================
 CHANGELOG
 ============================================================
+
+v1.1.0 (2026-08-28)
+
+· FEATURE: Introduced PILLAR H (EXACT-STRING & ATS KEYWORD MINING) to force literal extraction of vendor terms, exact acronyms, and formatting as written in source JDs to defeat non-technical recruiter filters and legacy ATS exact-string matching.
+· SCHEMA ENHANCEMENT: Expanded `section_6_keyword_industry_taxonomy` with `ats_exact_match_alerts` array to explicitly isolate high-risk keywords, product names, and certifications required for downstream resume customization.
+· MINOR: Incremented minor version to 1.1.0 reflecting schema expansion and execution framework behavior modification without breaking downstream compatibility.
+· Normalized schema `metadata.engine_version` to `1.1.0`.
 
 v1.0.5 (2026-08-20)
 
@@ -200,6 +207,14 @@ FORMAT PATTERNS TO ENFORCE:
 · company_alumni:
   site:linkedin.com/in/ \"Past: RESOLVED_COMPANY\" \"RESOLVED_SILO\" -inurl:job
 
+------------------------------------------------------------
+PILLAR H: EXACT-STRING & ATS KEYWORD MINING
+------------------------------------------------------------
+
+- LITERAL STRING EXTRACTION: Extract exact, word-for-word terms as written in the source text. Preserve exact capitalization, hyphenation, and vendor spelling (e.g., if JD says "Entra ID", do not substitute "Azure AD"; if it says "k8s", preserve "k8s").
+- ACRONYM & SYNONYM DUALITY: Where a requirement uses an acronym or vendor term, capture both the literal form and the common expanded string across section_6 arrays.
+- ATS EXACT MATCH ALERTS: Populate `ats_exact_match_alerts` with specific high-risk, non-negotiable terms (vendor product names, strict compliance frameworks, explicit certifications, or unique acronyms) where a non-technical recruiter or legacy ATS filter using exact-string matching would reject a candidate if omitted or phrased differently.
+
 ============================================================
 INPUT VARIABLES (RUNTIME DATA)
 ============================================================
@@ -283,7 +298,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "1.0.5",
+    "engine_version": "1.1.0",
     "generation_date": ""
   },
 
@@ -343,7 +358,8 @@ UNIFIED INTEL PAYLOAD SCHEMA
   "section_6_keyword_industry_taxonomy": {
     "core_tech_keywords": [],
     "methodologies_keywords": [],
-    "compliance_and_governance_keywords": []
+    "compliance_and_governance_keywords": [],
+    "ats_exact_match_alerts": []
   },
 
   "section_7_strategic_decoder": {
@@ -495,4 +511,3 @@ LOW
 
 ============================================================
 END SPECIFICATION
-============================================================
