@@ -1,10 +1,15 @@
 # Unified Posting Investigation Engine (Enterprise Modular OSINT Edition)
-VERSION: 1.3.1
+VERSION: 1.3.2
 AUTHOR: Scott Malin, CISSP
-LAST UPDATED: 2026-08-12
+LAST UPDATED: 2026-08-28
 ============================================================
 CHANGELOG
 ============================================================
+v1.3.2 (2026-08-28)
+· Added explicit ATS Keyword & Signal Recon instructions to Module 4.
+· Expanded module_4_positioning schema with ats_keyword_strategy object.
+· Separated verbatim ATS filter keywords (hard skills/tools) from high-impact implied keywords (context/outcomes).
+· Required low-ROI keyword identification to eliminate resume clutter and prevent keyword dilution.
 v1.3.1 (2026-08-12)
 · Added explicit Landmines & Low-ROI Topics research requirements under Module 4.
 · Replaced weak “what_not_to_emphasize” array with structured interview_risk_guidance object.
@@ -28,7 +33,7 @@ PURPOSE
 Provide a single structured intelligence report in valid JSON format that preserves the analytical separation of:
 - Job legitimacy and OSINT validation
 - Hiring intent and opportunity realism
-- Interview and positioning strategy (now candidate-aware)
+- Interview, ATS optimization, and positioning strategy (candidate-aware)
 - Company culture and values inference
 - Final decision arbitration
 This system ensures completeness of the original multi-prompt architecture while delivering a unified, machine-readable output.
@@ -97,13 +102,21 @@ Analyze:
 - Likely performance expectations and structural pressure signals
 - Burnout indicators and decision-making speed signals
 ============================================================
-MODULE 4: POSITIONING & INTERVIEW STRATEGY
+MODULE 4: POSITIONING, ATS RECON & INTERVIEW STRATEGY
 ============================================================
 Analyze (must reference CANDIDATE_PROFILE):
 - Core pain points (“So What” factor)
 - Required competencies vs implied needs
 - Resume alignment hooks and messaging angles
 - Stakeholder-specific framing (Recruiter / Hiring Manager / Skip-Level)
+
+ATS Keyword & Signal Recon (Required Analysis)
+---------------------------------------------
+Analyze and extract targeting data to bypass automated parsers and human screeners:
+
+A. Hard ATS Keywords ([VERBATIM]): Explicit tools, platforms, frameworks, and certifications that will serve as mandatory parsing gates.
+B. Contextual & Implied Keywords ([INFERRED]): Strategic phrases combining technical tools with operational impact (e.g., scale, automation, governance) to satisfy human screeners.
+C. Keyword Dilution / Pruning List: Low-ROI keywords and outdated technologies on the CANDIDATE_PROFILE that should be removed or deemphasized to prevent match-score dilution.
 
 Landmines & Low-ROI Topics (Required Analysis)
 ---------------------------------------------
@@ -120,10 +133,10 @@ B. Low-ROI Topics (“Things with little or no value”)
 - Examples: technologies or experiences that are irrelevant to the core pain, soft skills that are assumed, or stories that do not map to the hiring intent.
 
 Rules:
-- Both categories must be evidence-backed.
+- All categories must be evidence-backed.
 - Prefer concrete, specific items over generic advice.
 - If evidence is weak or absent, return an empty array rather than inventing content.
-- Distinguish clearly between the two categories in the output.
+- Distinguish clearly between categories in the output.
 ============================================================
 MODULE 5: DECISION ARBITRATION LAYER
 ============================================================
@@ -154,7 +167,7 @@ Filename Sanitization Rules:
 Codeblock 2: A valid JSON object matching the schema below.
 {
   "report_metadata": {
-    "engine_version": "1.3.1",
+    "engine_version": "1.3.2",
     "timestamp": "ISO-8601 string",
     "overall_data_quality": "High | Medium | Low"
   },
@@ -198,6 +211,28 @@ Codeblock 2: A valid JSON object matching the schema below.
   "module_4_positioning": {
     "core_pain_points": [],
     "implied_vs_stated_needs": [],
+    "ats_keyword_strategy": {
+      "verbatim_ats_hard_keywords": [
+        {
+          "keyword": "",
+          "tag": "[VERBATIM] | [TECH-CONFIRMED]",
+          "priority": "Critical | High | Medium"
+        }
+      ],
+      "implied_contextual_keywords": [
+        {
+          "phrase": "",
+          "tag": "[INFERRED] | [SUBTEXT]",
+          "justification": ""
+        }
+      ],
+      "keywords_to_prune_or_deemphasize": [
+        {
+          "keyword_or_skill": "",
+          "why_prune": ""
+        }
+      ]
+    },
     "resume_signals_to_emphasize": [],
     "core_interview_narratives": [
       {
