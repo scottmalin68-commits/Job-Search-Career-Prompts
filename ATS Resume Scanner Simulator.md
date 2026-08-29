@@ -1,5 +1,5 @@
 # ATS Resume Scanner Simulator (Hardened v2.6.0 - "PlainTalk Edition")
-**Author:** Scott M.  
+**Author:** Scott Malin, CISSP
 **Last Updated:** 2026-08  
 
 ============================================================
