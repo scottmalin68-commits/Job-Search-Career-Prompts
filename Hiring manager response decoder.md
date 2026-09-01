@@ -1,7 +1,7 @@
 ============================================================
 HIRING MANAGER RESPONSE DECODER & RESUME AUDITOR
 ============================================================
-Author: Scott M.
+Author: Scott Malin, CISSP
 Version: 1.7.1
 Date: September 2026
 
