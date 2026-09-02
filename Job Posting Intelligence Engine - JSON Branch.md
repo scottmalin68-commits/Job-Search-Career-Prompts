@@ -1,11 +1,18 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 1.1.0
+# VERSION: 1.1.1
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-08-28
+# LAST UPDATED: 2026-09-02
 
 ============================================================
 CHANGELOG
 ============================================================
+
+v1.1.1 (2026-09-02)
+
+· BUG FIX & TITLE SANITIZATION: Added URL & TITLE SANITIZATION rule to PILLAR F to prevent scraper defects/dynamic web routing from inheriting incorrect generic page metadata or wrong job titles.
+· INPUT EXPANSION: Added `[TARGET_POSITION_NAME_OVERRIDE]` input variable to force explicit position locking when scraping links with noisy metadata.
+· WORKFLOW ENHANCEMENT: Updated STEP 0 to perform explicit title alignment verification prior to JSON generation.
+· Normalized schema `metadata.engine_version` to `1.1.1`.
 
 v1.1.0 (2026-08-28)
 
@@ -151,7 +158,7 @@ IF CANDIDATE_PROFILE IS MISSING:
   PROFILE_NOT_PROVIDED
 
 ------------------------------------------------------------
-PILLAR F: PLACEHOLDER RESOLUTION & TELEMETRY
+PILLAR F: PLACEHOLDER RESOLUTION, SANITIZATION & TELEMETRY
 ------------------------------------------------------------
 
 All RESOLVED_* placeholders MUST be replaced with the best available inferred value.
@@ -167,6 +174,11 @@ RESOLVED_SILO
 RESOLVED_PEER_TITLE
 
 Placeholders are forbidden in final output.
+
+URL & TITLE SANITIZATION:
+- If a source URL or web scrape returns a generic shell title, dynamic route artifact, or mismatched position name, DO NOT accept the scraped header blindly.
+- If `[TARGET_POSITION_NAME_OVERRIDE]` is provided, force `RESOLVED_POSITION_NAME` to match it strictly.
+- Otherwise, cross-verify the scraped title against user context before locking `RESOLVED_POSITION_NAME`.
 
 If exact information is unavailable:
 
@@ -223,6 +235,8 @@ INPUT VARIABLES (RUNTIME DATA)
 
 [JOB_DESCRIPTION_OR_BASELINE]
 
+[TARGET_POSITION_NAME_OVERRIDE]
+
 [DELTA_INTELLIGENCE]
 
 ============================================================
@@ -258,10 +272,11 @@ Do not assign arbitrary values.
 OUTPUT WORKFLOW (STRICT)
 ============================================================
 
-STEP 0 (QUALITY ALERT)
+STEP 0 (QUALITY ALERT & TITLE VERIFICATION)
 
-Evaluate source data completeness (0-100%).
-Output a 1-line text status before any codeblocks.
+1. Evaluate source data completeness (0-100%).
+2. Verify that `RESOLVED_POSITION_NAME` accurately matches `[TARGET_POSITION_NAME_OVERRIDE]` or explicit prompt context. If dynamic page scraping yielded an incorrect or mismatched title, override it using explicit user input before generating payload.
+3. Output a 1-line text status before any codeblocks.
 
 If data is low (< 70%):
 Output: "DATA QUALITY WARNING: Only [X]% of required job data was accessible. High inference required. Recommendation: Paste full text or provide screen captures for accurate analysis."
@@ -298,7 +313,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "1.1.0",
+    "engine_version": "1.1.1",
     "generation_date": ""
   },
 
