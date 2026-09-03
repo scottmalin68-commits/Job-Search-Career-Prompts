@@ -1,11 +1,19 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 1.1.1
+# VERSION: 1.1.2
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-09-02
 
 ============================================================
 CHANGELOG
 ============================================================
+
+v1.1.2 (2026-09-02)
+
+· JSON ESCAPING & SYNTAX DEFENSE: Updated PILLAR G X-Ray string generator rules to enforce strict double-quote escaping compliance (`\"`), preventing parser crashes and broken JSON stringification payloads.
+· DATA INTEGRITY & FALLBACK SCORING: Updated Section 16 (Rubric) to return `null` instead of `0` or hallucinated integers for fit scores when `CANDIDATE_PROFILE` is missing, preventing database metric corruption.
+· TIMESTAMP STANDARDIZATION: Updated PILLAR F to explicitly force `tracking.last_updated` to match `tracking.date_created` (strict ISO-8601 YYYY-MM-DD) upon initial execution.
+· TOKEN TRUNCATION DEFENSE: Added payload budgeting rule to PILLAR A to compress narrative sections (10, 11, 14, 18, 19) when token limits are reached, preserving full schema generation through Section 19.
+· Normalized schema `metadata.engine_version` to `1.1.2`.
 
 v1.1.1 (2026-09-02)
 
@@ -87,8 +95,8 @@ PILLAR A: MAX DENSITY WITH JSON SAFETY
 - Avoid shallow summaries.
 - If data is scarce, perform best-practice inference and mark findings as [INFERRED].
 - JSON VALIDITY OVERRIDES VERBOSITY.
-- If output length approaches model limits, reduce narrative density before compromising JSON validity.
-- Producing valid parseable JSON is mandatory.
+- If output length approaches model limits, compress narrative sections (sections 10, 11, 14, 18, 19) into ultra-dense bullet points before compromising JSON validity or schema completeness.
+- Producing valid parseable JSON that closes cleanly at Section 19 is mandatory.
 
 ------------------------------------------------------------
 PILLAR B: TRIANGULATION & EVIDENCE
@@ -156,6 +164,7 @@ IF CANDIDATE_PROFILE IS MISSING:
 - Do not invent candidate experience.
 - Mark alignment-dependent fields:
   PROFILE_NOT_PROVIDED
+- Set all numeric fit scores in Section 16 to `null`.
 
 ------------------------------------------------------------
 PILLAR F: PLACEHOLDER RESOLUTION, SANITIZATION & TELEMETRY
@@ -186,7 +195,8 @@ If exact information is unavailable:
 - Record INFERRED in evidence arrays.
 
 TIMESTAMP TELEMETRY:
-- The `date_created` property must reflect the execution date using strict ISO-8601 format (YYYY-MM-DD). Use the current runtime context provided in the session.
+- The `tracking.date_created` property must reflect the execution date using strict ISO-8601 format (YYYY-MM-DD). Use the current runtime context provided in the session.
+- The `tracking.last_updated` property MUST inherit the value of `tracking.date_created` upon initial execution.
 
 ------------------------------------------------------------
 PILLAR G: X-RAY BLUEPRINT GENERATION
@@ -197,7 +207,7 @@ When populating `section_13_the_hunt.xray_blueprint`, construct EXACT, copy-past
 1. Base operator: site:linkedin.com/in/ OR site:linkedin.com/in/ACo*
 2. Target company: "RESOLVED_COMPANY"
 3. Exclude jobs/feed clutter: -inurl:job -inurl:jobs -inurl:company
-4. JSON ESCAPING SAFETY: All internal double quotes within generated search strings MUST be escaped as `\"` when rendered inside JSON property values.
+4. STRICT JSON ESCAPING SAFETY: All internal double quotes within generated search strings MUST be strictly escaped as `\"` inside the JSON string values (e.g., `"site:linkedin.com/in/ \"Company\" (\"Director\")"`). Unescaped double quotes inside string fields are forbidden as they cause fatal parser crashes.
 
 FORMAT PATTERNS TO ENFORCE:
 
@@ -267,6 +277,7 @@ LEADERSHIP FIT SCORE
 Scores must be evidence-based.
 
 Do not assign arbitrary values.
+If CANDIDATE_PROFILE is missing, return `null` for all three scores.
 
 ============================================================
 OUTPUT WORKFLOW (STRICT)
@@ -313,7 +324,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "1.1.1",
+    "engine_version": "1.1.2",
     "generation_date": ""
   },
 
@@ -453,9 +464,9 @@ UNIFIED INTEL PAYLOAD SCHEMA
   },
 
   "section_16_rubric": {
-    "technical_fit_score_0_100": 0,
-    "architectural_fit_score_0_100": 0,
-    "leadership_fit_score_0_100": 0,
+    "technical_fit_score_0_100": null,
+    "architectural_fit_score_0_100": null,
+    "leadership_fit_score_0_100": null,
     "evidence_basis_summary": "",
     "evidence": []
   },
