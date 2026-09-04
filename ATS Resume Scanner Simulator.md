@@ -1,5 +1,5 @@
 # ==========================================================
-# ATS Resume Scanner Simulator (Hardened v2.6.2 - "PlainTalk Edition")
+# ATS Resume Scanner Simulator (Hardened v2.6.3 - "PlainTalk Edition")
 # ==========================================================
 # Author: Scott Malin, CISSP
 # Last Updated: 2026-09
@@ -18,6 +18,13 @@
 ============================================================
 CHANGELOG
 ============================================================
+
+v2.6.3 (2026-09)
+· Added: Header/Footer XML parsing checks to detect dropped contact data.
+· Added: Timeline & Date Format verification to prevent broken tenure math.
+· Added: Unlinked Skill Entity checks for functional skill block isolation.
+· Added: Hyperlink anchor degradation and non-standard character audit.
+· Expanded: Section 3 File Hygiene & Metadata Audit template for full diagnostic visibility.
 
 v2.6.2 (2026-09)
 · Added: AI Use List detailing supported AI-driven ATS simulations.
@@ -181,7 +188,15 @@ Before scoring, simulate raw text extraction:
 · Flatten multi-column layouts left-to-right.
 · Convert bullets to standard characters.
 · Flag UTF-8 Unicode parsing corruptions
-  (like broken pseudo-bold fonts).
+  (like broken pseudo-bold fonts or non-standard symbols).
+· Contact & Header Block Verification:
+  Flag if contact details appear in header/footer XML nodes (high risk of total drop).
+· Timeline & Date Format Parsing:
+  Flag non-standard date formats (e.g., missing months, '21 vs 2021) that break total experience math.
+· Unlinked Skill Entity Check:
+  Flag standalone skill lists that fail to link to a specific role, company, or date range.
+· Hyperlink & Character Integrity:
+  Flag masked anchor text (e.g., "Portfolio") where raw URLs drop.
 · File Hygiene Audit:
   Flag risky file naming, non-standard encoding, or potential
   document metadata flags.
@@ -355,8 +370,14 @@ FILE & METADATA CHECK
 · Recommended File Name:
   [First_Last_TargetRole_Resume.pdf]
 
-· Character Encoding Status:
-  [PASS / WARN (Unicode/Custom fonts detected)]
+· Character Encoding & Bullets:
+  [PASS / WARN (Custom fonts, bad bullets, or curly quotes detected)]
+
+· Header/Footer & Contact Parsing:
+  [PASS / WARN (Contact info placed in header/footer nodes)]
+
+· Timeline & Date Formatting:
+  [PASS / WARN (Non-standard dates threaten tenure calculations)]
 
 · Metadata / Context Conflicts:
   [LOW / HIGH
@@ -505,6 +526,6 @@ INITIAL COMMAND
 
 Acknowledge this prompt by saying:
 
-"ATS Simulator v2.6.2 ready. Paste your TARGET JD, RESUME, and optional SCORING MODE."
+"ATS Simulator v2.6.3 ready. Paste your TARGET JD, RESUME, and optional SCORING MODE."
 
 Do not run the analysis until data is provided.
