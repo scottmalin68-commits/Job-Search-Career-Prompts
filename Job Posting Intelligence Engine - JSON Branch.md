@@ -1,10 +1,16 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.0.1
+# VERSION: 2.0.2
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-09-04
 ============================================================
 CHANGELOG
 ============================================================
+v2.0.2 (2026-09-04)
+· TRUNCATION PRIORITY: Added explicit sort order to PILLAR A array caps for tool_matrix and fit_matrix so truncation is deterministic instead of relying on undefined "lowest-importance" judgment. Added a truncation disclosure requirement: when any array is truncated, log which items were dropped in section_18_data_integrity so nothing is silently lost to downstream parsers.
+· X-RAY QUOTE VALIDATION: Added explicit post-generation validation sub-step to PILLAR G requiring a balanced-escape check on every xray_blueprint string, plus a rule to strip internal quotes/apostrophes from company or title terms rather than attempt to escape them, reducing JSON parser crash risk.
+· VERDICT EVALUATION ORDER: Added explicit sequential EVALUATION ORDER under HARD GATES so hard gates, the pay/translation HOLD condition, and the below-70 fallback are checked in a fixed sequence, removing ambiguity in mid-tier score cases (e.g. 50-69 technical fit, unstated pay, 1 translated tool).
+· Normalized schema `metadata.engine_version` to `2.0.2`.
+· No schema keys added, removed, or renamed. No downstream compatibility impact.
 v2.0.1 (2026-09-04)
 · VERDICT GAP FIX: Added explicit fallback rule under HARD GATES. When no hard gate fires and technical fit score is below 70, verdict_status defaults to HOLD. Closes the case where pay is stated, no gate fires, but score is below GO threshold — previously undefined.
 · ARRAY CAPS NAMING: Normalized "kill criteria", "clarifying questions", and "interview questions" to snake_case (kill_criteria, clarifying_questions, interview_questions) in PILLAR A array caps list, matching schema key naming (section_12_kill_criteria, ambiguity_zones_and_candidate_clarifying_questions, vulnerability_targeted_scenarios).
@@ -103,6 +109,11 @@ PILLAR A: MAX DENSITY WITH JSON SAFETY
   ats_exact_match_alerts: 15
   concept_translations: 12
   do_not_claim: 20
+- TRUNCATION PRIORITY (applies when a JD exceeds the caps above):
+  tool_matrix: keep CRITICAL and HIGH importance items first. Drop MEDIUM, then LOW, last. Within equal importance, keep items with a candidate_experience_level other than UNKNOWN before dropping UNKNOWN ones.
+  fit_matrix: keep GAP and HIGH fit_level rows first, since these decide the hard gates and the technical fit score. Drop MEDIUM confidence-30 rows first, then LOW fit_level rows, last.
+  All other capped arrays: keep items tied to hard gates, compliance/certification terms, or the locked ban list first; drop generic or repeated items last.
+  TRUNCATION DISCLOSURE: If any array is truncated, add one line per truncated array to section_18_data_integrity.ambiguity_zones_and_candidate_clarifying_questions in the form: "TRUNCATED: [array_name] dropped [count] item(s), including [1-2 example item names]." This is mandatory whenever truncation occurs and uses the existing schema field — no new key.
 - TOKEN BUDGET ORDER if output would overflow:
   1. Keep full: metadata, tracking, sections 0, 1, 2, 5, 6, 9, 11, 12, 15, 16, 17
   2. Compress first (values only): section 4 culture, section 13 xray_blueprint + target_matrix justifications, section 14 hook, section 3 fiscal prose, section 7 decoder prose
@@ -197,6 +208,8 @@ When populating `section_13_the_hunt.xray_blueprint`, construct EXACT, copy-past
 2. Target company: "RESOLVED_COMPANY"
 3. Exclude jobs/feed clutter: -inurl:job -inurl:jobs -inurl:company
 4. STRICT JSON ESCAPING SAFETY: All internal double quotes within generated search strings MUST be strictly escaped as `\"` inside the JSON string values (e.g., `"site:linkedin.com/in/ \"Company\" (\"Director\")"`). Unescaped double quotes inside string fields are forbidden as they cause fatal parser crashes.
+5. POST-GENERATION VALIDATION: After building each xray_blueprint string, before emitting the JSON, count the escaped-quote pairs (`\"`) in that string and confirm the count is even. If odd, the string is malformed — locate and fix the missing escape before emitting.
+6. QUOTE-BEARING TERM SANITIZATION: If RESOLVED_COMPANY, RESOLVED_SILO, RESOLVED_ALT_TITLE, or any other injected term itself contains a double quote or apostrophe (e.g., a company name like O'Malley's or a title with an embedded quote), strip that character from the term before injecting it into the X-ray string rather than attempting to nest an additional escape.
 FORMAT PATTERNS TO ENFORCE:
 · direct_lead_hiring_manager:
   site:linkedin.com/in/ \"RESOLVED_COMPANY\" (\"Director\" OR \"VP\" OR \"Manager\" OR \"Head\") \"RESOLVED_SILO\" -inurl:job
@@ -299,9 +312,12 @@ HARD GATES (any one forces verdict_status NO_GO and caps all three scores at 40 
 - On-site required outside Hartford County, CT with no remote or hybrid option stated.
 - Security clearance required and clearance is not in CANDIDATE_PROFILE.
 
-HOLD if pay is unstated and two or more must-have products are translated rather than owned.
-GO only when no hard gate fired and technical fit is 70 or higher.
-FALLBACK: If no hard gate fired and technical fit is below 70 (and the pay/translation HOLD condition above does not already apply), verdict_status is HOLD. verdict_status must always resolve to GO, HOLD, or NO_GO — never left ambiguous or inferred from prose.
+EVALUATION ORDER (apply in this exact sequence to resolve verdict_status; stop at the first rule that fires):
+1. Check all four HARD GATES. If any fire, verdict_status is NO_GO. Cap all three scores at 40 (if not null). Stop.
+2. If no hard gate fired, check the pay/translation condition: if pay is unstated AND two or more must-have products are translated rather than owned, verdict_status is HOLD. Stop.
+3. If neither of the above fired, check technical fit: if technical fit is 70 or higher, verdict_status is GO. Stop.
+4. If none of the above resolved it, verdict_status is HOLD (fallback). This covers all remaining cases, including mid-tier scores (e.g. 50-69) with unstated pay and fewer than two translated tools, or with stated pay and a sub-70 score.
+verdict_status must always resolve to GO, HOLD, or NO_GO via this sequence — never left ambiguous or inferred from prose.
 ============================================================
 OUTPUT WORKFLOW (STRICT)
 ============================================================
@@ -338,7 +354,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.0.1",
+    "engine_version": "2.0.2",
     "generation_date": ""
   },
   "tracking": {
