@@ -1,11 +1,17 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 1.1.2
+# VERSION: 1.1.3
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-09-02
+# LAST UPDATED: 2026-09-03
 
 ============================================================
 CHANGELOG
 ============================================================
+
+v1.1.3 (2026-09-03)
+
+· ATS SHELL & ANCHOR INTEGRITY DEFENSE: Updated STEP 0 and PILLAR F to detect generic SPA shell payloads, dynamic routing artifacts, and adjacent job recommendations typical of Dayforce, Workday, and Greenhouse automated scrapers.
+· FAIL-FAST OVERRIDE: Enforced immediate execution halt in STEP 0 when scraped content lacks position core requirements or contradicts target position anchors, preventing silent generation of wrong-job JSON payloads.
+· Normalized schema `metadata.engine_version` to `1.1.3`.
 
 v1.1.2 (2026-09-02)
 
@@ -184,8 +190,9 @@ RESOLVED_PEER_TITLE
 
 Placeholders are forbidden in final output.
 
-URL & TITLE SANITIZATION:
-- If a source URL or web scrape returns a generic shell title, dynamic route artifact, or mismatched position name, DO NOT accept the scraped header blindly.
+URL, ATS & TITLE SANITIZATION:
+- Modern ATS platforms (Dayforce, Workday, Greenhouse) frequently load generic frame buffers, session cookies, or adjacent job feeds when automated scrapers hit SPA URLs.
+- Inspect source text for structural integrity before proceeding.
 - If `[TARGET_POSITION_NAME_OVERRIDE]` is provided, force `RESOLVED_POSITION_NAME` to match it strictly.
 - Otherwise, cross-verify the scraped title against user context before locking `RESOLVED_POSITION_NAME`.
 
@@ -283,11 +290,14 @@ If CANDIDATE_PROFILE is missing, return `null` for all three scores.
 OUTPUT WORKFLOW (STRICT)
 ============================================================
 
-STEP 0 (QUALITY ALERT & TITLE VERIFICATION)
+STEP 0 (QUALITY ALERT, ANCHOR CHECK & TITLE VERIFICATION)
 
 1. Evaluate source data completeness (0-100%).
-2. Verify that `RESOLVED_POSITION_NAME` accurately matches `[TARGET_POSITION_NAME_OVERRIDE]` or explicit prompt context. If dynamic page scraping yielded an incorrect or mismatched title, override it using explicit user input before generating payload.
-3. Output a 1-line text status before any codeblocks.
+2. ANCHOR INTEGRITY CHECK: Verify that the scraped content contains explicit job responsibilities and matches `[TARGET_POSITION_NAME_OVERRIDE]` or explicit prompt context.
+   - If the source data is a generic ATS landing page, shell frame buffer, or mismatched position, HALT GENERATION.
+   - Output ONLY: "SCRAPE FAILURE DETECTED: Source URL returned dynamic ATS shell data or wrong position content. Please paste raw job description text directly into [JOB_DESCRIPTION_OR_BASELINE]."
+3. If anchor check passes, verify that `RESOLVED_POSITION_NAME` accurately matches `[TARGET_POSITION_NAME_OVERRIDE]` or explicit prompt context.
+4. Output a 1-line text status before any codeblocks:
 
 If data is low (< 70%):
 Output: "DATA QUALITY WARNING: Only [X]% of required job data was accessible. High inference required. Recommendation: Paste full text or provide screen captures for accurate analysis."
@@ -324,7 +334,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "1.1.2",
+    "engine_version": "1.1.3",
     "generation_date": ""
   },
 
