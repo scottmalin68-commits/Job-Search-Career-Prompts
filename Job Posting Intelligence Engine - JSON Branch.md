@@ -1,11 +1,17 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 1.1.3
+# VERSION: 1.1.4
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-09-03
 
 ============================================================
 CHANGELOG
 ============================================================
+
+v1.1.4 (2026-09-03)
+
+· EXECUTION HAZARD SCAN: Updated STEP 0 to perform an upfront scan for high-risk posting conditions (Frankenstein JDs, high scope creep, contradictory requirements, or low tech-stack specificity) regardless of data completeness percentage.
+· PRE-CHECK VERIFICATION: Confirmed zero schema drift or downstream parsing conflicts; all STEP 0 status alerts remain strictly isolated outside JSON codeblocks.
+· Normalized schema `metadata.engine_version` to `1.1.4`.
 
 v1.1.3 (2026-09-03)
 
@@ -290,20 +296,24 @@ If CANDIDATE_PROFILE is missing, return `null` for all three scores.
 OUTPUT WORKFLOW (STRICT)
 ============================================================
 
-STEP 0 (QUALITY ALERT, ANCHOR CHECK & TITLE VERIFICATION)
+STEP 0 (QUALITY ALERT, ANCHOR CHECK & EXECUTION HAZARDS)
 
 1. Evaluate source data completeness (0-100%).
 2. ANCHOR INTEGRITY CHECK: Verify that the scraped content contains explicit job responsibilities and matches `[TARGET_POSITION_NAME_OVERRIDE]` or explicit prompt context.
    - If the source data is a generic ATS landing page, shell frame buffer, or mismatched position, HALT GENERATION.
    - Output ONLY: "SCRAPE FAILURE DETECTED: Source URL returned dynamic ATS shell data or wrong position content. Please paste raw job description text directly into [JOB_DESCRIPTION_OR_BASELINE]."
-3. If anchor check passes, verify that `RESOLVED_POSITION_NAME` accurately matches `[TARGET_POSITION_NAME_OVERRIDE]` or explicit prompt context.
-4. Output a 1-line text status before any codeblocks:
+3. EXECUTION HAZARD SCAN: Evaluate valid source text for structural risks (Frankenstein scope creep, severe HR brochure fluff, or contradictory requirements).
+4. Output text status before codeblocks:
 
-If data is low (< 70%):
-Output: "DATA QUALITY WARNING: Only [X]% of required job data was accessible. High inference required. Recommendation: Paste full text or provide screen captures for accurate analysis."
+   If execution hazard is found:
+   "EXECUTION HAZARD ALERT: [1-sentence description of risk]"
 
-If data is sufficient (>= 70%):
-Output: "DATA QUALITY: [X]% expected data collected."
+   Then output data quality status:
+   If data is low (< 70%):
+   "DATA QUALITY WARNING: Only [X]% of required job data was accessible. High inference required. Recommendation: Paste full text or provide screen captures for accurate analysis."
+
+   If data is sufficient (>= 70%):
+   "DATA QUALITY: [X]% expected data collected."
 
 STEP 1
 
@@ -334,7 +344,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "1.1.3",
+    "engine_version": "1.1.4",
     "generation_date": ""
   },
 
