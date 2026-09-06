@@ -1,10 +1,16 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.0.2
+# VERSION: 2.0.3
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-09-04
+# LAST UPDATED: 2026-09-06
 ============================================================
 CHANGELOG
 ============================================================
+v2.0.3 (2026-09-06)
+· ATS & PLATFORM TELEMETRY: Added `ats_platform` and `posting_source` fields to `section_1_source_company_intel` to capture underlying applicant tracking system architecture and source platform for downstream resume parsing optimization.
+· URL & ATS DETECTION RULES: Updated PILLAR F with explicit URL domain signature matching and source text pattern recognition for Workday, Greenhouse, Lever, Dayforce, Taleo, iCIMS, SmartRecruiters, SuccessFactors, and Ashby.
+· ENUM STANDARDIZATION: Added standardized enum lists for `ats_platform` and `posting_source`.
+· Normalized schema `metadata.engine_version` to `2.0.3`.
+· Downstream compatibility: all v2.0.2 keys remain. Schema additions are strictly additive.
 v2.0.2 (2026-09-04)
 · TRUNCATION PRIORITY: Added explicit sort order to PILLAR A array caps for tool_matrix and fit_matrix so truncation is deterministic instead of relying on undefined "lowest-importance" judgment. Added a truncation disclosure requirement: when any array is truncated, log which items were dropped in section_18_data_integrity so nothing is silently lost to downstream parsers.
 · X-RAY QUOTE VALIDATION: Added explicit post-generation validation sub-step to PILLAR G requiring a balanced-escape check on every xray_blueprint string, plus a rule to strip internal quotes/apostrophes from company or title terms rather than attempt to escape them, reducing JSON parser crash risk.
@@ -176,7 +182,7 @@ IF CANDIDATE_PROFILE IS MISSING:
 - Set every fit_matrix.candidate_evidence to "PROFILE_NOT_PROVIDED".
 - Set every tool_matrix.candidate_experience_level to "UNKNOWN".
 ------------------------------------------------------------
-PILLAR F: PLACEHOLDER RESOLUTION, SANITIZATION & TELEMETRY
+PILLAR F: PLACEHOLDER RESOLUTION, SANITIZATION, TELEMETRY & ATS DETECTION
 ------------------------------------------------------------
 All RESOLVED_* placeholders MUST be replaced with the best available inferred value.
 Examples:
@@ -188,15 +194,28 @@ RESOLVED_LOCATION_OR_SILO
 RESOLVED_SILO
 RESOLVED_PEER_TITLE
 Placeholders are forbidden in final output.
+
 URL, ATS & TITLE SANITIZATION:
 - Modern ATS platforms (Dayforce, Workday, Greenhouse) frequently load generic frame buffers, session cookies, or adjacent job feeds when automated scrapers hit SPA URLs.
-- Inspect source text for structural integrity before proceeding.
+- Inspect source text and URL metadata for structural integrity before proceeding.
 - If `[TARGET_POSITION_NAME_OVERRIDE]` is provided, force `RESOLVED_POSITION_NAME` to match it strictly.
 - Otherwise, cross-verify the scraped title against user context before locking `RESOLVED_POSITION_NAME`.
-If exact information is unavailable:
-- Infer best available value for company/title/silo placeholders only.
-- Record INFERRED in evidence arrays.
-- Do not infer candidate skills to fill placeholders.
+
+ATS PLATFORM & SOURCE DETECTION:
+- Identify `ats_platform` and `posting_source` based on URL patterns, footer text, copyright markers, or structural metadata:
+  - `WORKDAY`: `myworkdayjobs.com`, `wd1.myworkday`, or Workday header/footer signatures.
+  - `GREENHOUSE`: `boards.greenhouse.io`, `grnh.se`, or Greenhouse parsing footprints.
+  - `LEVER`: `jobs.lever.co` or Lever application markers.
+  - `DAYFORCE`: `dayforcehcm.com` or Dayforce portal tags.
+  - `TALEO`: `taleo.net` or Oracle Taleo system markers.
+  - `ICIMS`: `icims.com` or iCIMS career hub footers.
+  - `SMARTRECRUITERS`: `smartrecruiters.com`.
+  - `SUCCESSFACTORS`: `successfactors.com` or SAP portal footers.
+  - `ASHBY`: `ashbyhq.com` or Ashby signatures.
+  - `OTHER`: Recognizable ATS platform not in the standard enum list.
+  - `UNKNOWN`: Unclear or plain-text input lacking system markers.
+- Identify `posting_source` (e.g., `COMPANY_CAREERS_PAGE`, `LINKEDIN`, `INDEED`, `DICE`, `ZIPRECRUITER`, `AGENCY`, `OTHER`, `UNKNOWN`) from input context or URL domain.
+
 TIMESTAMP TELEMETRY:
 - The `tracking.date_created` property must reflect the execution date using strict ISO-8601 format (YYYY-MM-DD). Use the current runtime context provided in the session.
 - The `tracking.last_updated` property MUST inherit the value of `tracking.date_created` upon initial execution.
@@ -354,7 +373,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.0.2",
+    "engine_version": "2.0.3",
     "generation_date": ""
   },
   "tracking": {
@@ -373,6 +392,8 @@ UNIFIED INTEL PAYLOAD SCHEMA
     "location": "",
     "job_id": "",
     "posted_date": "",
+    "ats_platform": "UNKNOWN",
+    "posting_source": "UNKNOWN",
     "organization_scale_and_cyber_value_rating": "",
     "evidence": []
   },
@@ -570,14 +591,25 @@ confidence:
 30
 60
 90
-============================================================
-GEMINI RUNTIME NOTE
-============================================================
-This spec is model-agnostic. When running in Gemini chat or a Gem:
-- Store this file in the Gem instructions. Paste only the four runtime blocks each run.
-- Use the current master template as CANDIDATE_PROFILE, not an old tailored resume.
-- If STEP 0 halts, stop. Do not append JSON.
-- After the JSON codeblock, stop. No recap.
-- Do not normalize JD vendor strings.
-============================================================
-END SPECIFICATION
+ats_platform:
+WORKDAY
+GREENHOUSE
+LEVER
+DAYFORCE
+TALEO
+ICIMS
+SMARTRECRUITERS
+SUCCESSFACTORS
+ASHBY
+OTHER
+UNKNOWN
+posting_source:
+COMPANY_CAREERS_PAGE
+LINKEDIN
+INDEED
+DICE
+ZIPRECRUITER
+AGENCY
+OTHER
+UNKNOWN
+=============
