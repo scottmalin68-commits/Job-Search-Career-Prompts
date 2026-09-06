@@ -1,10 +1,17 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.0.3
+# VERSION: 2.0.4
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-09-06
 ============================================================
 CHANGELOG
 ============================================================
+v2.0.4 (2026-09-06)
+· WORK MODE & TRAVEL ENHANCEMENT: Added explicit `work_mode` and `travel_percentage` fields to `section_1_source_company_intel` to isolate commute and travel demands from location string prose.
+· COMPLIANCE & GATE TELEMETRY: Added `security_clearance` and `sponsorship_available` fields to `section_1_source_company_intel` to provide structured hard-gate values for automated filtering scripts.
+· DOMAIN ARCHETYPE TARGETING: Added `primary_domain_archetype` to `section_2_position_intel` to categorize job specialization (e.g., SEC_ENG, SEC_ARCH, CLOUD_SEC, IAM_ENTRA, SECOPS_AUTOMATION, GRC_RISK, MANAGEMENT) for downstream resume positioning.
+· SCENARIO OBJECT STRUCTURING: Upgraded `vulnerability_targeted_scenarios` in `section_19_interview_pressure_questions` from plain strings to structured objects containing `question`, `category`, and `target_skill`.
+· Normalized schema `metadata.engine_version` to `2.0.4`.
+· Downstream compatibility: all v2.0.3 keys remain. Additions are additive or structural enhancements.
 v2.0.3 (2026-09-06)
 · ATS & PLATFORM TELEMETRY: Added `ats_platform` and `posting_source` fields to `section_1_source_company_intel` to capture underlying applicant tracking system architecture and source platform for downstream resume parsing optimization.
 · URL & ATS DETECTION RULES: Updated PILLAR F with explicit URL domain signature matching and source text pattern recognition for Workday, Greenhouse, Lever, Dayforce, Taleo, iCIMS, SmartRecruiters, SuccessFactors, and Ashby.
@@ -328,7 +335,7 @@ Allowed values only: 30, 60, 90.
 HARD GATES (any one forces verdict_status NO_GO and caps all three scores at 40 if scores are not null):
 - Primary duty is people management / org-chart ownership.
 - Must-have product is on the locked ban list and has no allowed_proof in profile.
-- On-site required outside Hartford County, CT with no remote or hybrid option stated.
+- On-site required outside user's primary geographic area with no remote or hybrid option stated.
 - Security clearance required and clearance is not in CANDIDATE_PROFILE.
 
 EVALUATION ORDER (apply in this exact sequence to resolve verdict_status; stop at the first rule that fires):
@@ -373,7 +380,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.0.3",
+    "engine_version": "2.0.4",
     "generation_date": ""
   },
   "tracking": {
@@ -390,6 +397,10 @@ UNIFIED INTEL PAYLOAD SCHEMA
   "section_1_source_company_intel": {
     "company": "",
     "location": "",
+    "work_mode": "UNKNOWN",
+    "travel_percentage": null,
+    "security_clearance": "NONE",
+    "sponsorship_available": "NOT_STATED",
     "job_id": "",
     "posted_date": "",
     "ats_platform": "UNKNOWN",
@@ -399,6 +410,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
   },
   "section_2_position_intel": {
     "exact_position_name": "",
+    "primary_domain_archetype": "OTHER",
     "derived_title_intelligence_and_ownership_scope": "",
     "evidence": []
   },
@@ -520,7 +532,13 @@ UNIFIED INTEL PAYLOAD SCHEMA
     "ambiguity_zones_and_candidate_clarifying_questions": []
   },
   "section_19_interview_pressure_questions": {
-    "vulnerability_targeted_scenarios": []
+    "vulnerability_targeted_scenarios": [
+      {
+        "question": "",
+        "category": "TECHNICAL_TRADE_OFF",
+        "target_skill": ""
+      }
+    ]
   }
 }
 ============================================================
@@ -612,4 +630,34 @@ ZIPRECRUITER
 AGENCY
 OTHER
 UNKNOWN
+work_mode:
+REMOTE
+HYBRID
+ON_SITE
+UNKNOWN
+security_clearance:
+NONE
+SECRET
+TOP_SECRET
+PUBLIC_TRUST
+UNKNOWN
+sponsorship_available:
+YES
+NO
+NOT_STATED
+primary_domain_archetype:
+SEC_ENG
+SEC_ARCH
+CLOUD_SEC
+IAM_ENTRA
+SECOPS_AUTOMATION
+GRC_RISK
+MANAGEMENT
+OTHER
+scenario_category:
+TECHNICAL_TRADE_OFF
+ARCHITECTURE_FAILURE
+STAKEHOLDER_PUSHBACK
+SYSTEM_CRISIS
+OTHER
 =============
