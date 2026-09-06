@@ -36,58 +36,6 @@ v1.2.0 (2026-09-03)
 · COMPENSATION FIELDS: `salary_min` / `salary_max` are `null` when unstated. Never emit `0` as a stand-in. Added `currency`, `pay_period`, `range_source`. Invented market bands are forbidden.
 · Normalized schema `metadata.engine_version` to `1.2.0`.
 · Downstream compatibility: all v1.1.4 keys remain. New keys are additive.
-v1.1.4 (2026-09-03)
-· EXECUTION HAZARD SCAN: Updated STEP 0 to perform an upfront scan for high-risk posting conditions (Frankenstein JDs, high scope creep, contradictory requirements, or low tech-stack specificity) regardless of data completeness percentage.
-· PRE-CHECK VERIFICATION: Confirmed zero schema drift or downstream parsing conflicts; all STEP 0 status alerts remain strictly isolated outside JSON codeblocks.
-· Normalized schema `metadata.engine_version` to `1.1.4`.
-v1.1.3 (2026-09-03)
-· ATS SHELL & ANCHOR INTEGRITY DEFENSE: Updated STEP 0 and PILLAR F to detect generic SPA shell payloads, dynamic routing artifacts, and adjacent job recommendations typical of Dayforce, Workday, and Greenhouse automated scrapers.
-· FAIL-FAST OVERRIDE: Enforced immediate execution halt in STEP 0 when scraped content lacks position core requirements or contradicts target position anchors, preventing silent generation of wrong-job JSON payloads.
-· Normalized schema `metadata.engine_version` to `1.1.3`.
-v1.1.2 (2026-09-02)
-· JSON ESCAPING & SYNTAX DEFENSE: Updated PILLAR G X-Ray string generator rules to enforce strict double-quote escaping compliance (`\"`), preventing parser crashes and broken JSON stringification payloads.
-· DATA INTEGRITY & FALLBACK SCORING: Updated Section 16 (Rubric) to return `null` instead of `0` or hallucinated integers for fit scores when `CANDIDATE_PROFILE` is missing, preventing database metric corruption.
-· TIMESTAMP STANDARDIZATION: Updated PILLAR F to explicitly force `tracking.last_updated` to match `tracking.date_created` (strict ISO-8601 YYYY-MM-DD) upon initial execution.
-· TOKEN TRUNCATION DEFENSE: Added payload budgeting rule to PILLAR A to compress narrative sections (10, 11, 14, 18, 19) when token limits are reached, preserving full schema generation through Section 19.
-· Normalized schema `metadata.engine_version` to `1.1.2`.
-v1.1.1 (2026-09-02)
-· BUG FIX & TITLE SANITIZATION: Added URL & TITLE SANITIZATION rule to PILLAR F to prevent scraper defects/dynamic web routing from inheriting incorrect generic page metadata or wrong job titles.
-· INPUT EXPANSION: Added `[TARGET_POSITION_NAME_OVERRIDE]` input variable to force explicit position locking when scraping links with noisy metadata.
-· WORKFLOW ENHANCEMENT: Updated STEP 0 to perform explicit title alignment verification prior to JSON generation.
-· Normalized schema `metadata.engine_version` to `1.1.1`.
-v1.1.0 (2026-08-28)
-· FEATURE: Introduced PILLAR H (EXACT-STRING & ATS KEYWORD MINING) to force literal extraction of vendor terms, exact acronyms, and formatting as written in source JDs to defeat non-technical recruiter filters and legacy ATS exact-string matching.
-· SCHEMA ENHANCEMENT: Expanded `section_6_keyword_industry_taxonomy` with `ats_exact_match_alerts` array to explicitly isolate high-risk keywords, product names, and certifications required for downstream resume customization.
-· MINOR: Incremented minor version to 1.1.0 reflecting schema expansion and execution framework behavior modification without breaking downstream compatibility.
-· Normalized schema `metadata.engine_version` to `1.1.0`.
-v1.0.5 (2026-08-20)
-· Added STEP 0 Data Quality Alert to Output Workflow to explicitly notify the user when scraped data completeness is low (< 70%).
-· Instructed runtime execution to advise pasting full text or providing screen captures when source data extraction is degraded.
-· Normalized schema metadata.engine_version to 1.0.5.
-v1.0.4 (2026-08-18)
-· Added explicit quote escaping rule to PILLAR G (`\"` instead of `"`) to prevent broken JSON payloads when stringifying search queries.
-· Updated Step 1 in Output Workflow to explicitly enforce `text` codeblock formatting for filename output.
-· Added `RESOLVED_POSITION_NAME` to PILLAR F explicit placeholder resolution list.
-· Normalized schema `metadata.engine_version` to `1.0.4` for exact telemetry string matching.
-v1.0.3 (2026-08-18)
-· Added PILLAR G: X-RAY BLUEPRINT GENERATION to Compiler & Execution Framework.
-· Enforced deterministic, production-ready Google X-Ray search strings using site-level constraints (`site:linkedin.com/in/`), boolean title grouping, and noise exclusion (`-inurl:job`).
-· Integrated strict runtime injection of `RESOLVED_*` placeholders into Section 13 X-Ray queries to fix low-quality search outputs.
-v1.0.2 (2026-06-16)
-· Reengineered tracking block: Changed `capture_date` to `date_created` to align with pipeline schema telemetry.
-· Added explicit ISO-8601 formatting instructions for runtime date generation.
-v1.0.1 (2026-06-16)
-· Added JSON Validity Override framework to prioritize parseable output over narrative density.
-· Added mandatory placeholder resolution requirements for all RESOLVED_* variables.
-· Added deterministic behavior when CANDIDATE_PROFILE is unavailable.
-· Added scoring methodology requirements for rubric consistency.
-· Added structured evidence arrays throughout analysis objects.
-· Normalized all enum values for future database ingestion and analytics.
-· Added compensation intelligence section.
-· Added lifecycle tracking section.
-· Expanded tool matrix with importance, evidence, and candidate familiarity indicators.
-· Expanded fit matrix with confidence scoring and evidence attribution.
-· Improved future compatibility with JSONL, SQLite, PostgreSQL, Elasticsearch, OpenSearch, Chroma, and vector database ingestion pipelines.
 ============================================================
 CORE PERSONA & BOUNDARY GUARDRAIL (STRICT)
 ============================================================
