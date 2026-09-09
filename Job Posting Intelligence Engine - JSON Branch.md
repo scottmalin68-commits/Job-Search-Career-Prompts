@@ -1,41 +1,19 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.0.4
+# VERSION: 2.0.5
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-09-06
+# LAST UPDATED: 2026-09-09
 ============================================================
 CHANGELOG
 ============================================================
+v2.0.5 (2026-09-09)
+· RISK & TRUST CHAIN INTEGRATION: Added PILLAR J (Job Risk & Trust Chain Intelligence) to evaluate fraud, ghost postings, candidate labor exploitation, process drift, and trust chain integrity without adding new schema keys.
+· Mapped risk library outputs directly into sections 1, 2, 8, 11, 17, and 18 to ensure full backward compatibility.
+· Normalized schema `metadata.engine_version` to `2.0.5`.
 v2.0.4 (2026-09-06)
-· WORK MODE & TRAVEL ENHANCEMENT: Added explicit `work_mode` and `travel_percentage` fields to `section_1_source_company_intel` to isolate commute and travel demands from location string prose.
-· COMPLIANCE & GATE TELEMETRY: Added `security_clearance` and `sponsorship_available` fields to `section_1_source_company_intel` to provide structured hard-gate values for automated filtering scripts.
-· DOMAIN ARCHETYPE TARGETING: Added `primary_domain_archetype` to `section_2_position_intel` to categorize job specialization (e.g., SEC_ENG, SEC_ARCH, CLOUD_SEC, IAM_ENTRA, SECOPS_AUTOMATION, GRC_RISK, MANAGEMENT) for downstream resume positioning.
-· SCENARIO OBJECT STRUCTURING: Upgraded `vulnerability_targeted_scenarios` in `section_19_interview_pressure_questions` from plain strings to structured objects containing `question`, `category`, and `target_skill`.
-· Normalized schema `metadata.engine_version` to `2.0.4`.
-· Downstream compatibility: all v2.0.3 keys remain. Additions are additive or structural enhancements.
-v2.0.3 (2026-09-06)
-· ATS & PLATFORM TELEMETRY: Added `ats_platform` and `posting_source` fields to `section_1_source_company_intel` to capture underlying applicant tracking system architecture and source platform for downstream resume parsing optimization.
-· URL & ATS DETECTION RULES: Updated PILLAR F with explicit URL domain signature matching and source text pattern recognition for Workday, Greenhouse, Lever, Dayforce, Taleo, iCIMS, SmartRecruiters, SuccessFactors, and Ashby.
-· ENUM STANDARDIZATION: Added standardized enum lists for `ats_platform` and `posting_source`.
-· Normalized schema `metadata.engine_version` to `2.0.3`.
-· Downstream compatibility: all v2.0.2 keys remain. Schema additions are strictly additive.
-v2.0.2 (2026-09-04)
-· TRUNCATION PRIORITY: Added explicit sort order to PILLAR A array caps for tool_matrix and fit_matrix so truncation is deterministic instead of relying on undefined "lowest-importance" judgment. Added a truncation disclosure requirement: when any array is truncated, log which items were dropped in section_18_data_integrity so nothing is silently lost to downstream parsers.
-· X-RAY QUOTE VALIDATION: Added explicit post-generation validation sub-step to PILLAR G requiring a balanced-escape check on every xray_blueprint string, plus a rule to strip internal quotes/apostrophes from company or title terms rather than attempt to escape them, reducing JSON parser crash risk.
-· VERDICT EVALUATION ORDER: Added explicit sequential EVALUATION ORDER under HARD GATES so hard gates, the pay/translation HOLD condition, and the below-70 fallback are checked in a fixed sequence, removing ambiguity in mid-tier score cases (e.g. 50-69 technical fit, unstated pay, 1 translated tool).
-· Normalized schema `metadata.engine_version` to `2.0.2`.
-· No schema keys added, removed, or renamed. No downstream compatibility impact.
-v2.0.1 (2026-09-04)
-· VERDICT GAP FIX: Added explicit fallback rule under HARD GATES. When no hard gate fires and technical fit score is below 70, verdict_status defaults to HOLD. Closes the case where pay is stated, no gate fires, but score is below GO threshold — previously undefined.
-· ARRAY CAPS NAMING: Normalized "kill criteria", "clarifying questions", and "interview questions" to snake_case (kill_criteria, clarifying_questions, interview_questions) in PILLAR A array caps list, matching schema key naming (section_12_kill_criteria, ambiguity_zones_and_candidate_clarifying_questions, vulnerability_targeted_scenarios).
-· Normalized schema `metadata.engine_version` to `2.0.1`.
-· No schema keys changed. No downstream compatibility impact.
-v1.2.0 (2026-09-03)
-· TOKEN DISCIPLINE: Reordered payload budget. Hard-keep parse, stack, keywords, risks, pay, conflicts, and interview fields. Compress culture, X-Ray, and hook values first. Cap array sizes. Never drop schema keys.
-· PROVENANCE SAFETY: Added PILLAR I. Candidate proof may come only from CANDIDATE_PROFILE. INFERRED and PUBLIC_INTEL cannot raise fit or tool familiarity. Added `do_not_claim` and `concept_translations` under Section 6.
-· SCORE CALIBRATION: Added numeric anchors, allowed confidence values (30/60/90), and hard NO_GO gates. Weights unchanged. Missing profile still returns `null` scores.
-· COMPENSATION FIELDS: `salary_min` / `salary_max` are `null` when unstated. Never emit `0` as a stand-in. Added `currency`, `pay_period`, `range_source`. Invented market bands are forbidden.
-· Normalized schema `metadata.engine_version` to `1.2.0`.
-· Downstream compatibility: all v1.1.4 keys remain. New keys are additive.
+· WORK MODE & TRAVEL ENHANCEMENT: Added explicit `work_mode` and `travel_percentage` fields to `section_1_source_company_intel`.
+· COMPLIANCE & GATE TELEMETRY: Added `security_clearance` and `sponsorship_available` fields to `section_1_source_company_intel`.
+· DOMAIN ARCHETYPE TARGETING: Added `primary_domain_archetype` to `section_2_position_intel`.
+· SCENARIO OBJECT STRUCTURING: Upgraded `vulnerability_targeted_scenarios` in `section_19_interview_pressure_questions`.
 ============================================================
 CORE PERSONA & BOUNDARY GUARDRAIL (STRICT)
 ============================================================
@@ -231,6 +209,22 @@ PILLAR I: PROVENANCE FIREWALL
   KQL / Microsoft Sentinel hunting → Splunk, unless KQL or Sentinel is in the profile
 - Fit rows: if the JD requires a banned or unowned vendor, fit_level is GAP or LOW. Do not mark HIGH because a translation exists. Translation is resume language, not ownership.
 - Prefer the current master template as CANDIDATE_PROFILE. Do not harvest tools from old tailored resumes if both are present; the template wins.
+------------------------------------------------------------
+PILLAR J: JOB RISK & TRUST CHAIN INTELLIGENCE
+------------------------------------------------------------
+Evaluate every posting against these 4 core risk dimensions without altering schema keys:
+1. FRAUD / APPLICATION SECURITY: Inspect ATS domain consistency, corporate entity chain, and sensitive data requests. Flag domain mismatches, broken corporate entity links, or unverified redirects.
+2. LISTING INTEGRITY & GHOST SIGNALS: Identify evergreen templates, vague requirements, recruiting agency resume-farming, or absence of clear project ownership.
+3. LABOR EXPLOITATION & PROCESS DRIFT: Watch for unpaid "working interviews", production work take-homes, "Frankenstein" scope creep (stacking 3 roles into 1), and mid-process shifts in pay, location, or remote status.
+4. EMPLOYER STABILITY & CHURN: Detect replacement patterns, high turnover indicators, and title/function mismatches (e.g., Architect duties at Junior pay or IC work under a Director title).
+
+SCHEMA MAPPING INSTRUCTIONS:
+- Map App Security, ATS Domain Risks & Corporate Entity Breaks to `section_1_source_company_intel.organization_scale_and_cyber_value_rating`.
+- Map Frankenstein Scope Creep & Title/Function Mismatches to `section_2_position_intel.derived_title_intelligence_and_ownership_scope`.
+- Map Assessment Burden & Exploitative Take-Home Risks to `section_8_interview_signal.hiring_manager_filters`.
+- Map Ghost Postings, Churn & Burnout Risks to `section_11_risk_surface.burnout_vectors_and_architecture_ambiguity`.
+- Map Process Drift, Pay Mismatches & Bait-and-Switch Tactics to `section_17_consistency_and_conflicts.jd_mismatches_and_scope_creep_warnings`.
+- Identify the FIRST UNTRUSTED LINK in the trust chain and log it explicitly inside `section_18_data_integrity.ambiguity_zones_and_candidate_clarifying_questions`.
 ============================================================
 INPUT VARIABLES (RUNTIME DATA)
 ============================================================
@@ -328,7 +322,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.0.4",
+    "engine_version": "2.0.5",
     "generation_date": ""
   },
   "tracking": {
