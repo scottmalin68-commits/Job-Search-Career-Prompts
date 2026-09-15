@@ -1,16 +1,19 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.0.6
+# VERSION: 2.0.7
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-09-15
 ============================================================
 CHANGELOG
 ============================================================
+v2.0.7 (2026-09-15)
+· ACTIONABLE INTELLIGENCE UPGRADE: Integrated Tier 1 tactical focus into existing schema sections without adding new keys or breaking parser stability. 
+· Mapped explicit application strategy rules to Section 0/14, sharpened core candidate positioning themes in Section 14, and structured decision-critical unknowns inside Section 18 to make output instantly actionable.
 v2.0.6 (2026-09-15)
 · LLM INSTRUCTION PRIORITY HIERARCHY: Added explicit conflict resolution framework placing non-fabrication and truth-preservation at Priority 0, resolving downstream instruction collisions and preventing hallucinated placeholders.
 v2.0.5 (2026-09-09)
 · RISK & TRUST CHAIN INTEGRATION: Added PILLAR J (Job Risk & Trust Chain Intelligence) to evaluate fraud, ghost postings, candidate labor exploitation, process drift, and trust chain integrity without adding new schema keys.
 · Mapped risk library outputs directly into sections 1, 2, 8, 11, 17, and 18 to ensure full backward compatibility.
-· Normalized schema `metadata.engine_version` to `2.0.6`.
+· Normalized schema `metadata.engine_version` to `2.0.7`.
 v2.0.4 (2026-09-06)
 · WORK MODE & TRAVEL ENHANCEMENT: Added explicit `work_mode` and `travel_percentage` fields to `section_1_source_company_intel`.
 · COMPLIANCE & GATE TELEMETRY: Added `security_clearance` and `sponsorship_available` fields to `section_1_source_company_intel`.
@@ -391,7 +394,7 @@ UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.0.6",
+    "engine_version": "2.0.7",
     "generation_date": ""
   },
   "tracking": {
