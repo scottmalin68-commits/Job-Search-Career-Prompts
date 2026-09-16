@@ -1,9 +1,11 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.0.7
+# VERSION: 2.0.8
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-09-15
+# LAST UPDATED: 2026-09-16
 
 # CHANGELOG
+v2.0.8 (2026-09-16)
+· TACTICAL DEPTH UPGRADE: Refined tier 1 tactical focus integration within existing schema boundaries without adding new keys.
 v2.0.7 (2026-09-15)
 · ACTIONABLE INTELLIGENCE UPGRADE: Integrated Tier 1 tactical focus into existing schema sections without adding new keys or breaking parser stability. 
 v2.0.6 (2026-09-15)
@@ -312,7 +314,7 @@ STEP 5: Output must be valid JSON.
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.0.7",
+    "engine_version": "2.0.8",
     "generation_date": ""
   },
   "tracking": {
