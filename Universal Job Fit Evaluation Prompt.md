@@ -1,5 +1,5 @@
 # Universal Job Fit Evaluation Prompt – Fully Generic & Shareable
-# Author: Scott M
+# Author: Scott Malin, CISSP
 # Version: 1.7.8
 # Last Modified: 2026-09-06
 
