@@ -1,9 +1,11 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.0.9
-# AUTHOR: Scott Malin, CISSP
+# VERSION: 2.0.10
+# Author: Scott Malin, CISSP
 # LAST UPDATED: 2026-09-19
 
 # CHANGELOG
+v2.0.10 (2026-09-19)
+· SOURCE VALIDATION PATCH: A bare URL, a bare title, or text with no duties or requirements now counts as a missing posting and triggers SCRAPE FAILURE. JD evidence must come from text actually present in the posting. No schema keys added, removed, or renamed. X-Ray patterns unchanged.
 v2.0.9 (2026-09-19)
 · INPUT & RULE CLARITY PATCH: No schema keys added, removed, or renamed. X-Ray patterns unchanged.
 · Added [CURRENT_DATE] and optional [PUBLIC_INTEL] inputs. Added missing-variable rule and PUBLIC_INTEL sourcing rule.
@@ -148,6 +150,7 @@ Stay locked on ingestion, analysis, risk profiling, fit assessment, and organiza
 - Never mix evidence metadata directly into narrative text.
 - PROFILE evidence is valid only when the fact appears in CANDIDATE_PROFILE.
 - PUBLIC_INTEL and INFERRED must not be used as candidate proof in Section 5, Section 9, or Section 16.
+- JD evidence must quote or paraphrase text actually present in JOB_DESCRIPTION_OR_BASELINE. A job title or URL alone is not JD evidence.
 
 ## PILLAR C: ZERO FLUFF
 - Remove corporate buzzwords.
@@ -296,6 +299,7 @@ SCHEMA MAPPING:
 
 # INPUT HANDLING RULES
 - MISSING VARIABLE: A variable is MISSING if it is blank, contains only whitespace, or still shows only its own bracket tag with no content after it. Never treat a bracket tag as content. Treat a missing variable as not provided.
+- JOB_DESCRIPTION_OR_BASELINE: Counts as MISSING if it contains only a URL, only a job title or short phrase, or no duties, requirements, or role description at all. A URL is a source label, not content. If a URL is given and a page-fetch tool is available, fetch it and use the result only if it contains actual duties or requirements text. Never guess or rebuild posting content from a URL, a title, or CANDIDATE_PROFILE. If MISSING, output ONLY the SCRAPE FAILURE message from STEP 0. Produce no JSON.
 - CURRENT_DATE: Must be YYYY-MM-DD. If missing or not a valid date, do not guess. Use the runtime date only if the session explicitly provides one. If neither exists, set tracking.date_created, tracking.last_updated, and metadata.generation_date to "UNKNOWN", use UNKNOWNDATE in the filename, and add a line to section_18 asking for the date.
 - TARGET_POSITION_NAME_OVERRIDE missing: no override, resolve the title per Pillar F.
 - DELTA_INTELLIGENCE missing: no delta, use JD only.
@@ -367,7 +371,7 @@ STEP 5: Output must be valid JSON.
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.0.9",
+    "engine_version": "2.0.10",
     "generation_date": ""
   },
   "tracking": {
