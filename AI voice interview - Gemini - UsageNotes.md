@@ -1,18 +1,16 @@
-Quick Usage Notes for Gemini Live
+# Quick Usage Notes for Gemini Live
 
-- Open the Gemini app on mobile → tap the voice/Live icon (waveform/mic) to activate Gemini Live.
-- Speak the prompt above (or paste it if typing feels easier at first).
-- Replace the bracketed example with your actual role if known, or leave it and let Gemini ask.
-- Gemini often excels at adapting to STAR method requests and giving balanced coaching—expect phrases like "Great use of STAR here, but add more quantifiable results" or "Your tone sounded confident, but try reducing 'um's by pausing."
-- If it gets too gentle, add to the prompt: "Be somewhat skeptical and push back on vague answers like a real interviewer."
-- End feedback feels very "report-like" when structured this way: spoken bullets, score, and tips you can easily note down or revisit in chat history.
-- For best results: Practice in a quiet space with a good microphone—background noise can affect how accurately Gemini picks up tone, pace, and fillers.
-- Mid-session commands you can say anytime: "Make questions harder," "Give me a similar question," "Pause and summarize my answers so far," "Retry that last one," or "Switch to more coaching style."
-- Sessions can sometimes forget context in very long mocks—say "Remember our setup" or restart the prompt if needed.
-- After finishing, review the transcript in chat history aloud (or record your spoken answers separately) to self-critique delivery and compare against the AI feedback.
+## AI Voice Interview - Optimized for Gemini
+Version: 1.0.1
+Author: Scott Malin, CISSP
 
-**Easiest Way to Run the Prompt on Mobile**
-1. **One-time setup**: Copy the full prompt from your email, desktop, or a note app (e.g., Google Keep, Apple Notes). Save it in a pinned note titled "Gemini Mock Prompt" for quick access.
-2. **When ready**: Open the Gemini app → activate Gemini Live (mic icon) → tap the text input field (it appears even in Live mode) → long-press → Paste the prompt → send/enter.
-3. **If pure voice mode blocks pasting**: Briefly switch to text chat (keyboard icon if available), paste and send, then tap Live again—the prompt will kick off verbally.
-4. **Pro tip**: Use iOS Text Replacement (Settings > General > Keyboard > Text Replacement) or an Android clipboard manager (e.g., Clipper) to assign a shortcut like ",gemmock" that expands to the full prompt instantly.
+- Open the Gemini app on mobile and tap the mic/Live icon[cite: 1].
+- Paste the v1.0.1 prompt into the text field (or switch to text mode briefly if pure voice blocks pasting) and send[cite: 1, 2].
+- Gemini will immediately start by asking your setup details verbally: interview type, job title and level, company, focus areas, and preferred tone (tough, supportive, or realistic)[cite: 2].
+- Expect 5 questions total[cite: 2]. After each answer, you get quick verbal feedback using a strict template: Content, Delivery, and Follow-up[cite: 2].
+- Mid-session commands you can use: "Make questions harder," "Give me a similar question," "Pause and summarize my answers so far," or say "end interview" to finish early[cite: 1, 2].
+- At the end, Gemini gives a full report with an overall score out of 10, strengths, areas to improve, 3-5 actionable tips, and steps to save the transcript link[cite: 1, 2].
+
+**Easiest Way to Run on Mobile**
+1. Save the full prompt in a pinned note or use keyboard shortcuts (iOS Text Replacement or an Android clipboard manager) to assign a quick shortcut like `,gemmock` that expands to the full prompt instantly[cite: 1].
+2. Tap the text input field in Gemini Live, paste, and send to kick off the voice session[cite: 1].
