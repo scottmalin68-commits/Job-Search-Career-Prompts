@@ -1,9 +1,11 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.0.10
+# VERSION: 2.0.11
 # Author: Scott Malin, CISSP
-# LAST UPDATED: 2026-09-19
+# LAST UPDATED: 2026-09-21
 
 # CHANGELOG
+v2.0.11 (2026-09-21)
+· PARSER STABILITY PATCH: Clarified that truncation and untrusted-link lines in Section 18 are system-reserved additions that bypass the array cap. Added clarifying stop-condition parenthetical to Step 2. Aligned missing-profile confidence with schema enum constraints (using 30 as the mandatory enum fallback since confidence cannot be null). Refined X-Ray sanitization to strip quotes without breaking escape logic.
 v2.0.10 (2026-09-19)
 · SOURCE VALIDATION PATCH: A bare URL, a bare title, or text with no duties or requirements now counts as a missing posting and triggers SCRAPE FAILURE. JD evidence must come from text actually present in the posting. No schema keys added, removed, or renamed. X-Ray patterns unchanged.
 v2.0.9 (2026-09-19)
@@ -134,8 +136,8 @@ Stay locked on ingestion, analysis, risk profiling, fit assessment, and organiza
   tool_matrix: keep CRITICAL and HIGH importance items first. Drop MEDIUM, then LOW, last. Within equal importance, keep items with a candidate_experience_level other than UNKNOWN before dropping UNKNOWN ones.
   fit_matrix: keep GAP and HIGH fit_level rows first, since these decide the hard gates and the technical fit score. Drop MEDIUM confidence-30 rows first, then LOW fit_level rows, last.
   All other capped arrays: keep items tied to hard gates, compliance/certification terms, or BAN_LIST terms first; drop generic or repeated items last.
-  TRUNCATION DISCLOSURE: If any array is truncated, add one line per truncated array to section_18_data_integrity.ambiguity_zones_and_candidate_clarifying_questions in the form: "TRUNCATED: [array_name] dropped [count] item(s), including [1-2 example item names]." This is mandatory whenever truncation occurs and uses the existing schema field — no new key.
-  CAP EXEMPTION: Truncation disclosure lines and the first-untrusted-link line (Pillar J) do not count toward the cap of 8 on ambiguity_zones_and_candidate_clarifying_questions. Never drop them to make room.
+  TRUNCATION DISCLOSURE: If any array is truncated, add one line per truncated array to section_18_data_integrity.ambiguity_zones_and_candidate_clarifying_questions in the form: "TRUNCATED: [array_name] dropped [count] item(s), including [1-2 example item names]." This is mandatory whenever truncation occurs.
+  CAP EXEMPTION & SYSTEM RESERVATION: Truncation disclosure lines and the first-untrusted-link line (Pillar J) are system-reserved lines that bypass the standard array cap of 8 on ambiguity_zones_and_candidate_clarifying_questions. They do not count toward the cap, and regular user items must be truncated first if the total list exceeds 8. Never drop these system lines.
 - EVIDENCE ARRAY FORMAT: Every `evidence` array holds short strings in the form "TAG: short quote or paraphrase" where TAG is one of JD, PROFILE, DELTA, INFERRED, PUBLIC_INTEL. Keep each entry under about 20 words. Escape any double quotes inside an entry. An empty array is allowed only when the section's main value is null or UNKNOWN.
 - TOKEN BUDGET ORDER if output would overflow, compress in this order:
   1. KEEP FULL (never compress): metadata, tracking, sections 0, 1, 2, 5, 6, 9, 11, 12, 15, 16, 17
@@ -184,7 +186,8 @@ IF CANDIDATE_PROFILE IS MISSING (see INPUT HANDLING RULES for what counts as mis
 - Mark alignment-dependent fields: PROFILE_NOT_PROVIDED.
 - Set all numeric fit scores in Section 16 to `null`.
 - Set every fit_matrix.candidate_evidence to "PROFILE_NOT_PROVIDED".
-- Set every fit_matrix.fit_level to "PROFILE_NOT_PROVIDED" and every fit_matrix.confidence to 30.
+- Set every fit_matrix.fit_level to "PROFILE_NOT_PROVIDED".
+- Set every fit_matrix.confidence to 30 (satisfying the required schema enum constraint since confidence cannot be null).
 - Set every tool_matrix.candidate_experience_level to "UNKNOWN".
 
 ## PILLAR F: PLACEHOLDER RESOLUTION, SANITIZATION, TELEMETRY & ATS DETECTION
@@ -224,7 +227,7 @@ When populating `section_13_the_hunt.xray_blueprint`, construct EXACT, copy-past
 3. Exclusions: use the -inurl operators exactly as shown in each pattern. hiring_post targets linkedin.com/feed/ and has no -inurl exclusion.
 4. STRICT JSON ESCAPING SAFETY: All internal double quotes within generated search strings MUST be strictly escaped as `\"` inside the JSON string values. Unescaped double quotes inside string fields are forbidden.
 5. POST-GENERATION VALIDATION: After building each xray_blueprint string, count the escaped-quote pairs (`\"`) and confirm the count is even. If odd, fix the missing escape.
-6. QUOTE-BEARING TERM SANITIZATION: If RESOLVED_COMPANY, RESOLVED_SILO, RESOLVED_ALT_TITLE, or any other injected term contains a double quote or apostrophe, strip that character from the term before injecting it.
+6. QUOTE-BEARING TERM SANITIZATION: If RESOLVED_COMPANY, RESOLVED_SILO, RESOLVED_ALT_TITLE, or any other injected term contains a literal double quote (`"`), strip that character to protect JSON structure. Retain apostrophes or hyphens normally, and apply Rule 4 to handle internal quotation marks safely.
 
 FORMAT PATTERNS TO ENFORCE:
 · direct_lead_hiring_manager: site:linkedin.com/in/ \"RESOLVED_COMPANY\" (\"Director\" OR \"VP\" OR \"Manager\" OR \"Head\") \"RESOLVED_SILO\" -inurl:job
@@ -235,7 +238,7 @@ FORMAT PATTERNS TO ENFORCE:
 · company_alumni: site:linkedin.com/in/ \"Past: RESOLVED_COMPANY\" \"RESOLVED_SILO\" -inurl:job
 
 TARGET MATRIX SCORING (section_13_the_hunt.target_matrix):
-- `reply_probability_score` is a RELATIVE RANKING HEURISTIC, not a measured probability. Never describe it as a percentage chance.
+- `reply_probability_score` is a RELATIVE RANKING HEURISTIC, not a measured percentage. Never describe it as a percentage chance.
 - Basis is target role type only. Do not adjust it for unverified facts about a person.
 - Use whole numbers in steps of 5, within these bands:
   60–75: recruiter / Talent Acquisition / sourcer tied to this requisition
@@ -338,7 +341,7 @@ HARD GATES (any one forces verdict_status NO_GO and caps all three scores at 40)
 EVALUATION ORDER FOR VERDICT STATUS:
 (In this list, "stop" means stop checking verdict conditions. It does not stop the rest of the output. Continue to produce all sections and the full JSON.)
 1. Check all four HARD GATES. If any fire, verdict_status is NO_GO. Cap scores at 40. Stop.
-2. RISK TRIGGER: if no hard gate fired, check confirmed risk. If (a) one confirmed fraud signal, or (b) two or more confirmed ghost or exploitation signals, verdict_status is HOLD. Do not cap scores. Stop.
+2. RISK TRIGGER: if no hard gate fired, check confirmed risk. If (a) one confirmed fraud signal, or (b) two or more confirmed ghost or exploitation signals, verdict_status is HOLD. Do not cap scores. Stop. (In this list, "stop" means stop checking verdict conditions. It does not stop the rest of the output. Continue to produce all sections and the full JSON.)
    - Fraud signals (Pillar J dimension 1): apply domain or corporate entity that does not match the hiring company or a documented agency; request for SSN, bank, or ID documents before an offer; request for payment or equipment purchase.
    - Ghost and exploitation signals (Pillar J dimensions 2–4): evergreen template, agency resume-farming, no project ownership stated, unpaid working interview, production-work take-home, pay or location shift mid-process, documented replacement or churn pattern.
    - "Confirmed" means backed by JD, DELTA, or PUBLIC_INTEL evidence. INFERRED signals never trigger this step. Name the triggering signals in section_0 engineering_justification and section_11.
@@ -371,7 +374,7 @@ STEP 5: Output must be valid JSON.
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.0.10",
+    "engine_version": "2.0.11",
     "generation_date": ""
   },
   "tracking": {
