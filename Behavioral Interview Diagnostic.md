@@ -1,5 +1,6 @@
 # Behavioral Interview Diagnostic – v1.0.1
 - **Author:** Scott Malin, CISSP
+- **Version** 1.0.1
 - **Style:** PlainTalk (Direct, no fluff, no clichés)
 
 ## CHANGELOG

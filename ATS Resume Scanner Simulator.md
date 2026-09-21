@@ -2,6 +2,7 @@
 # ATS Resume Scanner Simulator (v3.1.0 - "PlainTalk Edition")
 # ==========================================================
 # Author: Scott Malin, CISSP
+# Version: 3.1.0
 # Last Updated: 2026-09-17
 # PURPOSE: Simulate ATS and human-reviewer perspectives with
 # reproducible, auditable scoring. Matching, deductions, and
