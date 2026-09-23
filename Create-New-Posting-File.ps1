@@ -8,10 +8,11 @@
     to existing files and auto-detects popular editors (N++, VS Code, Sublime).
 
 .NOTES
-    Author: Scott M.
+    Author: Scott Malin, CISSP
     Purpose: Quick file creation utility.
     
     CHANGELOG:
+    2026-09-22: v2.0.0 - Added try/catch error handling around registry fallback to prevent crashes.
     2026-03-25: Added multi-editor detection (VS Code, Sublime) and registry fallback.
     2026-03-25: Added editor path validation with notepad fallback.
     2026-03-25: Added timestamp appending for existing files (Option 2).
@@ -25,23 +26,29 @@ $DefaultExt = ".md"
 # --- AUTO-DETECT EDITOR ---
 $EditorPath = ""
 $PossiblePaths = @(
-    "$env:ProgramFiles\Notepad++\notepad++.exe", # Notepad++ 64
-    "${env:ProgramFiles(x86)}\Notepad++\notepad++.exe", # Notepad++ 32
-    "$env:LocalAppData\Programs\Microsoft VS Code\Code.exe", # VS Code User
-    "$env:ProgramFiles\Microsoft VS Code\Code.exe", # VS Code System
-    "$env:ProgramFiles\Sublime Text\sublime_text.exe", # Sublime Text
-    "$env:ProgramFiles\Sublime Text 3\sublime_text.exe" # Older Sublime
+    "$env:ProgramFiles\Notepad++\notepad++.exe",
+    "${env:ProgramFiles(x86)}\Notepad++\notepad++.exe",
+    "$env:LocalAppData\Programs\Microsoft VS Code\Code.exe",
+    "$env:ProgramFiles\Microsoft VS Code\Code.exe",
+    "$env:ProgramFiles\Sublime Text\sublime_text.exe",
+    "$env:ProgramFiles\Sublime Text 3\sublime_text.exe"
 )
 
 # 1. try common paths
-foreach ($path in $PossiblePaths) {
-    if (Test-Path $path) { $EditorPath = $path; break }
+foreach ($path in$PossiblePaths) {
+    if (Test-Path $path) { $EditorPath =$path; break }
 }
 
-# 2. registry fallback for Notepad++
+# 2. registry fallback for Notepad++ with error handling
 if ([string]::IsNullOrEmpty($EditorPath)) {
-    $RegPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
-    if (Test-Path $RegPath) { $EditorPath = (Get-ItemProperty $RegPath)."(default)" }
+    try {
+        $RegPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
+        if (Test-Path $RegPath) { 
+            $EditorPath = (Get-ItemProperty -Path$RegPath -ErrorAction Stop)."(default)" 
+        }
+    } catch {
+        # registry check failed or access denied, skip silently
+    }
 }
 
 # --- SCRIPT LOGIC ---
@@ -53,20 +60,19 @@ if ([string]::IsNullOrWhiteSpace($InputName)) {
 }
 
 # handle extension
-$FileName = if ($InputName -notlike "*.*") { $InputName + $DefaultExt } else { $InputName }
+$FileName = if ($InputName -notlike "*.*") { $InputName + $DefaultExt } else {$InputName }
 
 # directory check
-$TargetDir = Split-Path -Path $FileName
-if ($TargetDir -and !(Test-Path -Path $TargetDir)) {
+$TargetDir = Split-Path -Path$FileName
+if ($TargetDir -and !(Test-Path -Path$TargetDir)) {
     New-Item -ItemType Directory -Path $TargetDir -Force | Out-Null
     write-host "created missing directory: $TargetDir" -f gray
 }
 
-$OpenFile = $true
-$Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+$OpenFile = $true$Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
 if (Test-Path -Path $FileName) {
-    $fileInfo = Get-Item $FileName
+    $fileInfo = Get-Item$FileName
     write-host "`nfile already exists: $FileName" -f cyan
     write-host "last modified: $($fileInfo.LastWriteTime)"
     
