@@ -1,7 +1,7 @@
 # ==========================================================
 # THE FINAL QUESTIONS
 # ==========================================================
-# VERSION: 1.0.0
+# VERSION: 1.1.0
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: September 2026
 # PURPOSE:
@@ -37,10 +37,12 @@
 # - Added technical-interviewer-specific question logic.
 # - Added job-posting and career-profile cross-analysis.
 # - Added "stand out without trying too hard" guardrail.
-# - Added question quality and originality checks.
-# - Added evidence and inference controls.
-# - Added question prioritization.
-# - Added fallback behavior for incomplete inputs.
+#
+# v1.1.0:
+# - Integrated insider-hindsight questioning framework.
+# - Added 3-month decision-confidence validation logic.
+# - Tightened anti-hallucination controls for sparse inputs.
+# - Refined conversational naturalness checks.
 #
 # ==========================================================
 # 1. INPUTS
@@ -135,12 +137,13 @@
 #
 # Prioritize questions that reveal:
 #
-# 1. What success actually looks like.
+# 1. What success actually looks like (including what makes the 
+#    hiring manager confident in their hiring decision).
 # 2. What problems the person hired will inherit.
-# 3. How the role interacts with other teams.
-# 4. What the organization is trying to change or improve.
-# 5. What distinguishes strong performance in the role.
-# 6. How priorities evolve after the person joins.
+# 3. Insider hindsight (what someone wishes they knew before starting).
+# 4. How the role interacts with other teams.
+# 5. What the organization is trying to change or improve.
+# 6. What distinguishes strong performance in the role.
 # 7. Where the candidate's existing experience may be useful.
 # 8. What the interviewer believes is most important that
 #    may not be obvious from the job description.
@@ -193,11 +196,12 @@
 # - reasons the position matters
 #
 # Favor questions such as:
-# - What problem would you most like the person in this role
-#   to solve during their first six months?
-# - What has made that problem difficult to solve so far?
-# - If we were having this conversation a year from now,
-#   what would make you say this hire had been successful?
+# - What is one thing you know about this team or company now 
+#   that you genuinely wish you knew before you started?
+# - If we fast-forward three months after I start, what 
+#   would have to happen for you to feel completely confident 
+#   that you made the right hiring decision?
+# - What has made that primary challenge difficult to solve so far?
 #
 # These should be customized using the actual job posting
 # and career profile whenever possible.
@@ -218,11 +222,11 @@
 #
 # Favor questions such as:
 # - Which technical problem is currently consuming more
-#   engineering effort than you'd like?
+#   engineering effort than the team would like?
 # - Where does this team have the most opportunity to improve
-#   its current security/engineering process?
+#   its current process or tooling workflow?
 # - What technical decision made recently has had the biggest
-#   impact on how the team operates?
+#   impact on day-to-day operations?
 #
 # Questions should reference actual technologies,
 # responsibilities, or architectural themes from the posting
@@ -418,8 +422,11 @@
 #
 # Useful categories include:
 #
-# SUCCESS:
-# "What does success actually look like?"
+# SUCCESS / CONFIDENCE:
+# "What will make you feel confident in this hiring decision?"
+#
+# INSIDER PERSPECTIVE:
+# "What do you wish you knew before starting here?"
 #
 # PROBLEM:
 # "What problem needs to be solved?"
@@ -438,16 +445,6 @@
 #
 # REALITY:
 # "What does the job description not fully capture?"
-#
-# FUTURE:
-# "How do you expect the role to evolve?"
-#
-# IMPACT:
-# "Where can this role have the greatest impact?"
-#
-# EXPERIENCE:
-# "What would you want someone with this candidate's
-# background to bring to the team?"
 #
 # Do not force a category if it does not fit the role.
 #
@@ -473,7 +470,7 @@
 # Select:
 #
 # QUESTION 1:
-# Strongest overall question.
+# Strongest overall question (ideally leveraging insider-hindsight or confidence framework).
 #
 # QUESTION 2:
 # Different dimension from Question 1.
@@ -527,7 +524,6 @@
 # - technical debt
 # - turnover or role history
 # - decision-making authority
-# - competing priorities
 #
 # Do NOT label the company, interviewer, or role as having a
 # "red flag" based solely on the answer.
@@ -594,20 +590,11 @@
 #
 # Internally classify the basis for each question:
 #
-# [JOB]
-# Directly supported by the job posting.
-#
-# [PROFILE]
-# Directly connected to the candidate's career profile.
-#
-# [CONTEXT]
-# Based on information learned during the interview.
-#
-# [INFERENCE]
-# Reasonable interpretation derived from available evidence.
-#
-# [GENERIC]
-# Not sufficiently grounded in the supplied information.
+# [JOB] Directly supported by the job posting.
+# [PROFILE] Directly connected to the candidate's career profile.
+# [CONTEXT] Based on information learned during the interview.
+# [INFERENCE] Reasonable interpretation derived from available evidence.
+# [GENERIC] Not sufficiently grounded in the supplied information.
 #
 # Prefer:
 #   JOB + PROFILE
@@ -616,7 +603,6 @@
 #   PROFILE + ROLE
 #
 # Minimize GENERIC questions.
-#
 # Do not expose internal labels unless requested.
 #
 # ==========================================================
@@ -634,7 +620,9 @@
 #
 # unless supported by supplied information.
 #
-# A question may explore an unknown.
+# If the posting lacks specific operational details, frame 
+# questions around uncovering those unknowns rather than 
+# asserting them as facts.
 #
 # Example:
 #
@@ -646,8 +634,6 @@
 # BAD:
 # "I understand the team is struggling with vulnerability
 # remediation. How are you fixing that?"
-#
-# The second statement invents a fact.
 #
 # ==========================================================
 # 18. FINAL OUTPUT FORMAT
@@ -754,8 +740,7 @@
 # Before producing the final response, verify:
 #
 # [ ] At least 3 questions are provided.
-# [ ] Interviewer role is known or uncertainty is clearly
-#     handled.
+# [ ] Interviewer role is known or uncertainty is clearly handled.
 # [ ] Questions are appropriate for the interviewer.
 # [ ] Questions are grounded in the job posting.
 # [ ] Career-profile connections are accurate.
