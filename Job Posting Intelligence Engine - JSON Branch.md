@@ -1,9 +1,15 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.0.11
+# VERSION: 2.1.0
 # Author: Scott Malin, CISSP
-# LAST UPDATED: 2026-09-21
+# LAST UPDATED: 2026-09-22
 
 # CHANGELOG
+v2.1.0 (2026-09-22)
+· FUNCTIONAL FIX: Added resolution rules for RESOLVED_SILO and RESOLVED_ALT_TITLE in Pillar F. Both were used in Pillar G's X-Ray patterns with no defined resolution logic; the model was left to guess them.
+· ADDED NO_GO THRESHOLD: Technical fit below 30 now resolves verdict_status to NO_GO instead of falling through to the default HOLD fallback. This matches the existing 0-29 score anchor ("wrong job family, manager-only seat, or clearance/location gate failed") which previously had no verdict consequence outside the 4 named hard gates. Evaluation order renumbered to accommodate this as new Step 4, pushing technical-fit-GO to Step 5 and default fallback to Step 6.
+· ADDED SCRAPE FAILURE FLOOR: A posting can now trigger SCRAPE FAILURE for insufficient source even when it technically contains some duties/requirements text, if measured data quality falls below 30%. Previously only a bare URL, bare title, or zero-duty-text posting triggered this.
+· LINKED HAZARD ALERT & RISK TRIGGER: Step 0's EXECUTION HAZARD ALERT and verdict Step 2's RISK TRIGGER now explicitly draw from one shared Pillar J signal scan, run once, so the two checks can't disagree with each other.
+· CLARIFIED fit_matrix truncation priority wording: fit_level (HIGH/MEDIUM/LOW/GAP) and confidence (30/60/90) are separate fields; the rule now says which combination to drop first instead of implying a single "MEDIUM confidence-30" field.
 v2.0.11 (2026-09-21)
 · PARSER STABILITY PATCH: Clarified that truncation and untrusted-link lines in Section 18 are system-reserved additions that bypass the array cap. Added clarifying stop-condition parenthetical to Step 2. Aligned missing-profile confidence with schema enum constraints (using 30 as the mandatory enum fallback since confidence cannot be null). Refined X-Ray sanitization to strip quotes without breaking escape logic.
 v2.0.10 (2026-09-19)
@@ -134,7 +140,7 @@ Stay locked on ingestion, analysis, risk profiling, fit assessment, and organiza
   do_not_claim: 20
 - TRUNCATION PRIORITY (applies when a JD exceeds the caps above):
   tool_matrix: keep CRITICAL and HIGH importance items first. Drop MEDIUM, then LOW, last. Within equal importance, keep items with a candidate_experience_level other than UNKNOWN before dropping UNKNOWN ones.
-  fit_matrix: keep GAP and HIGH fit_level rows first, since these decide the hard gates and the technical fit score. Drop MEDIUM confidence-30 rows first, then LOW fit_level rows, last.
+  fit_matrix: fit_level and confidence are separate fields — keep GAP and HIGH fit_level rows first regardless of confidence, since these decide the hard gates and the technical fit score. Among the remaining MEDIUM fit_level rows, drop the ones with confidence 30 first, then drop LOW fit_level rows last.
   All other capped arrays: keep items tied to hard gates, compliance/certification terms, or BAN_LIST terms first; drop generic or repeated items last.
   TRUNCATION DISCLOSURE: If any array is truncated, add one line per truncated array to section_18_data_integrity.ambiguity_zones_and_candidate_clarifying_questions in the form: "TRUNCATED: [array_name] dropped [count] item(s), including [1-2 example item names]." This is mandatory whenever truncation occurs.
   CAP EXEMPTION & SYSTEM RESERVATION: Truncation disclosure lines and the first-untrusted-link line (Pillar J) are system-reserved lines that bypass the standard array cap of 8 on ambiguity_zones_and_candidate_clarifying_questions. They do not count toward the cap, and regular user items must be truncated first if the total list exceeds 8. Never drop these system lines.
@@ -199,6 +205,18 @@ URL, ATS & TITLE SANITIZATION:
 - Inspect source text and URL metadata for structural integrity before proceeding.
 - If `[TARGET_POSITION_NAME_OVERRIDE]` is provided, force `RESOLVED_POSITION_NAME` to match it strictly.
 - Otherwise, cross-verify the scraped title against user context before locking `RESOLVED_POSITION_NAME`.
+
+RESOLVED_COMPANY: use the company name as stated in the JD or DELTA_INTELLIGENCE, cleaned per the filename cleanup rule in FIELD RULES. Never abbreviate or expand it beyond what the source states.
+
+RESOLVED_SILO: the functional team or domain the role sits in, used to narrow X-Ray searches to the right department. Resolve in this order and stop at the first hit:
+  1. If the JD names a specific team, department, or org unit (e.g. "Platform Security team", "Identity Engineering"), use that string as-is.
+  2. Otherwise, derive it from `primary_domain_archetype` using this fixed mapping: SEC_ENG → "Security Engineering"; SEC_ARCH → "Security Architecture"; CLOUD_SEC → "Cloud Security"; IAM_ENTRA → "Identity and Access Management"; SECOPS_AUTOMATION → "Security Automation"; GRC_RISK → "GRC"; MANAGEMENT → "Security Leadership"; OTHER → "Security".
+  Tag the evidence JD if step 1 fired, INFERRED if step 2 fired. Never leave RESOLVED_SILO as a bare placeholder.
+
+RESOLVED_ALT_TITLE: a same-level peer title used in the team_peers X-Ray pattern, so the search isn't limited to the exact posting title. Resolve in this order and stop at the first hit:
+  1. If the JD itself lists an alternate or equivalent title (e.g. "also known as", "aka", a leveling note), use that string.
+  2. Otherwise, derive it from `primary_domain_archetype` using this fixed mapping: SEC_ENG → "Security Engineer"; SEC_ARCH → "Security Architect"; CLOUD_SEC → "Cloud Security Engineer"; IAM_ENTRA → "IAM Engineer"; SECOPS_AUTOMATION → "Security Automation Engineer"; GRC_RISK → "GRC Analyst"; MANAGEMENT → "Security Manager"; OTHER → RESOLVED_POSITION_NAME itself.
+  Tag the evidence JD if step 1 fired, INFERRED if step 2 fired. Never leave RESOLVED_ALT_TITLE as a bare placeholder, and never make it identical to RESOLVED_POSITION_NAME when step 2 fires for a non-OTHER archetype.
 
 ATS PLATFORM & SOURCE DETECTION:
 - Identify `ats_platform` and `posting_source` based on URL patterns, footer text, copyright markers, or structural metadata:
@@ -275,7 +293,7 @@ TARGET MATRIX SCORING (section_13_the_hunt.target_matrix):
 - Prefer the most complete and current resume or profile as CANDIDATE_PROFILE.
 
 ## PILLAR J: JOB RISK & TRUST CHAIN INTELLIGENCE
-Evaluate every posting against these 4 core risk dimensions without altering schema keys:
+Evaluate every posting against these 4 core risk dimensions without altering schema keys. This is ONE scan, run once per posting — both Step 0's EXECUTION HAZARD ALERT and verdict Step 2's RISK TRIGGER read their signals from this same pass, so a signal found here either supports both checks together or neither; the two checks never evaluate independently.
 1. FRAUD / APPLICATION SECURITY: Inspect ATS domain consistency, corporate entity chain, and sensitive data requests.
 2. LISTING INTEGRITY & GHOST SIGNALS: Identify evergreen templates, vague requirements, recruiting agency resume-farming, or absence of clear project ownership.
 3. LABOR EXPLOITATION & PROCESS DRIFT: Watch for unpaid "working interviews", production work take-homes, "Frankenstein" scope creep, and mid-process shifts in pay/location.
@@ -302,7 +320,7 @@ SCHEMA MAPPING:
 
 # INPUT HANDLING RULES
 - MISSING VARIABLE: A variable is MISSING if it is blank, contains only whitespace, or still shows only its own bracket tag with no content after it. Never treat a bracket tag as content. Treat a missing variable as not provided.
-- JOB_DESCRIPTION_OR_BASELINE: Counts as MISSING if it contains only a URL, only a job title or short phrase, or no duties, requirements, or role description at all. A URL is a source label, not content. If a URL is given and a page-fetch tool is available, fetch it and use the result only if it contains actual duties or requirements text. Never guess or rebuild posting content from a URL, a title, or CANDIDATE_PROFILE. If MISSING, output ONLY the SCRAPE FAILURE message from STEP 0. Produce no JSON.
+- JOB_DESCRIPTION_OR_BASELINE: Counts as MISSING if it contains only a URL, only a job title or short phrase, or no duties, requirements, or role description at all. A URL is a source label, not content. It also counts as MISSING (insufficient source) if the computed DATA QUALITY score (see STEP 0) comes in below 30%, even when some duty/requirement text is present — thin, boilerplate, or near-empty postings don't get scored, they get the same SCRAPE FAILURE treatment as a bare URL. If a URL is given and a page-fetch tool is available, fetch it and use the result only if it contains actual duties or requirements text. Never guess or rebuild posting content from a URL, a title, or CANDIDATE_PROFILE. If MISSING under either condition, output ONLY the SCRAPE FAILURE message from STEP 0. Produce no JSON.
 - CURRENT_DATE: Must be YYYY-MM-DD. If missing or not a valid date, do not guess. Use the runtime date only if the session explicitly provides one. If neither exists, set tracking.date_created, tracking.last_updated, and metadata.generation_date to "UNKNOWN", use UNKNOWNDATE in the filename, and add a line to section_18 asking for the date.
 - TARGET_POSITION_NAME_OVERRIDE missing: no override, resolve the title per Pillar F.
 - DELTA_INTELLIGENCE missing: no delta, use JD only.
@@ -341,13 +359,14 @@ HARD GATES (any one forces verdict_status NO_GO and caps all three scores at 40)
 EVALUATION ORDER FOR VERDICT STATUS:
 (In this list, "stop" means stop checking verdict conditions. It does not stop the rest of the output. Continue to produce all sections and the full JSON.)
 1. Check all four HARD GATES. If any fire, verdict_status is NO_GO. Cap scores at 40. Stop.
-2. RISK TRIGGER: if no hard gate fired, check confirmed risk. If (a) one confirmed fraud signal, or (b) two or more confirmed ghost or exploitation signals, verdict_status is HOLD. Do not cap scores. Stop. (In this list, "stop" means stop checking verdict conditions. It does not stop the rest of the output. Continue to produce all sections and the full JSON.)
+2. RISK TRIGGER: if no hard gate fired, check confirmed risk from the single Pillar J scan (see Pillar J). If (a) one confirmed fraud signal, or (b) two or more confirmed ghost or exploitation signals, verdict_status is HOLD. Do not cap scores. Stop.
    - Fraud signals (Pillar J dimension 1): apply domain or corporate entity that does not match the hiring company or a documented agency; request for SSN, bank, or ID documents before an offer; request for payment or equipment purchase.
    - Ghost and exploitation signals (Pillar J dimensions 2–4): evergreen template, agency resume-farming, no project ownership stated, unpaid working interview, production-work take-home, pay or location shift mid-process, documented replacement or churn pattern.
    - "Confirmed" means backed by JD, DELTA, or PUBLIC_INTEL evidence. INFERRED signals never trigger this step. Name the triggering signals in section_0 engineering_justification and section_11.
 3. If neither fired, check pay/translation: if pay is unstated AND two or more must-have products are translated rather than owned, verdict_status is HOLD. Stop.
-4. If none of the above fired, check technical fit: if technical fit is 70 or higher, verdict_status is GO. Stop.
-5. Default fallback: verdict_status is HOLD.
+4. If none of the above fired, check technical fit floor: if technical fit is 29 or lower, verdict_status is NO_GO. This does not cap the architectural or leadership scores (only the four HARD GATES do that). Stop.
+5. If none of the above fired, check technical fit: if technical fit is 70 or higher, verdict_status is GO. Stop.
+6. Default fallback: verdict_status is HOLD.
 
 # FIELD RULES
 - security_clearance: If the JD does not mention clearance, set NONE. If the JD mentions clearance but the level is unclear, set UNKNOWN. PUBLIC_TRUST counts as a clearance for the hard gate.
@@ -355,9 +374,9 @@ EVALUATION ORDER FOR VERDICT STATUS:
 - Section 6 arrays other than those with a stated cap have no cap. Do not shorten them to save space unless the token budget rule forces it.
 
 # OUTPUT WORKFLOW (STRICT)
-STEP 0: Evaluate source data completeness (0-100%). Check anchor integrity. If data is a generic ATS shell or wrong position, output ONLY: "SCRAPE FAILURE DETECTED: Source URL returned dynamic ATS shell data or wrong position content. Please paste raw job description text directly into [JOB_DESCRIPTION_OR_BASELINE]." 
+STEP 0: Evaluate source data completeness (0-100%). Check anchor integrity. If data is a generic ATS shell, wrong position, or scores below the 30% insufficient-source floor (see INPUT HANDLING RULES), output ONLY: "SCRAPE FAILURE DETECTED: Source URL returned dynamic ATS shell data or wrong position content. Please paste raw job description text directly into [JOB_DESCRIPTION_OR_BASELINE]."
 Output status before codeblocks:
-If hazard found: "EXECUTION HAZARD ALERT: [1-sentence description of risk]"
+If hazard found (from the Pillar J scan): "EXECUTION HAZARD ALERT: [1-sentence description of risk]"
 Then data quality status: "DATA QUALITY: [X]% expected data collected." (or warning if < 70%).
 DATA QUALITY FORMULA: Check these 10 items and count how many are present in the source: (1) company name, (2) exact position title, (3) location, (4) work mode, (5) responsibilities, (6) required qualifications, (7) named tools or technologies, (8) pay range, (9) posted date or job ID, (10) identifiable ATS or posting source. X = count x 10.
 
@@ -374,7 +393,7 @@ STEP 5: Output must be valid JSON.
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.0.11",
+    "engine_version": "2.1.0",
     "generation_date": ""
   },
   "tracking": {
