@@ -1,24 +1,12 @@
 <#
 .SYNOPSIS
     Creates a new file and opens it in a text editor.
-
-.DESCRIPTION
-    Prompts for a filename. Supports .md by default. Handles duplicates with three 
-    specific user options and auto-creates missing directories. Appends timestamps
-    to existing files and auto-detects popular editors (N++, VS Code, Sublime).
-
-.NOTES
-    Author: Scott Malin, CISSP
-    Purpose: Quick file creation utility.
-    
-    CHANGELOG:
-    2026-09-22: v2.0.0 - Added try/catch error handling around registry fallback to prevent crashes.
-    2026-03-25: Added multi-editor detection (VS Code, Sublime) and registry fallback.
-    2026-03-25: Added editor path validation with notepad fallback.
-    2026-03-25: Added timestamp appending for existing files (Option 2).
-    2026-03-25: Added 3-option duplicate handling, directory check, .md default, and auto-timestamping.
-    2026-02-14: Initial script creation.
 #>
+
+# --- EXECUTION BANNER ---
+$ScriptName =$MyInvocation.MyCommand.Name
+$ScriptVersion = "v2.0.5"
+Write-Host "=== Running $ScriptName ($ScriptVersion) ===" -ForegroundColor Cyan
 
 # --- CONFIGURATION ---
 $DefaultExt = ".md"
@@ -34,78 +22,97 @@ $PossiblePaths = @(
     "$env:ProgramFiles\Sublime Text 3\sublime_text.exe"
 )
 
-# 1. try common paths
-foreach ($path in$PossiblePaths) {
-    if (Test-Path $path) { $EditorPath =$path; break }
+for ($i = 0; $i -lt$PossiblePaths.Length; $i++) {$path = $PossiblePaths[$i]
+    if (Test-Path $path) { 
+        $EditorPath =$path
+        break 
+    }
 }
 
-# 2. registry fallback for Notepad++ with error handling
 if ([string]::IsNullOrEmpty($EditorPath)) {
     try {
         $RegPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
-        if (Test-Path $RegPath) { 
-            $EditorPath = (Get-ItemProperty -Path$RegPath -ErrorAction Stop)."(default)" 
+        if (Test-Path $RegPath) {$EditorPath = (Get-ItemProperty `
+                -Path $RegPath `
+                -ErrorAction Stop)."(default)" 
         }
-    } catch {
-        # registry check failed or access denied, skip silently
-    }
+    } catch { }
 }
 
 # --- SCRIPT LOGIC ---
 $InputName = Read-Host "Enter a file name"
 
 if ([string]::IsNullOrWhiteSpace($InputName)) {
-    write-host "no filename provided. exiting." -f yellow
+    Write-Host "no filename provided. exiting." -ForegroundColor Yellow
     exit
 }
 
-# handle extension
-$FileName = if ($InputName -notlike "*.*") { $InputName + $DefaultExt } else {$InputName }
-
-# directory check
-$TargetDir = Split-Path -Path$FileName
-if ($TargetDir -and !(Test-Path -Path$TargetDir)) {
-    New-Item -ItemType Directory -Path $TargetDir -Force | Out-Null
-    write-host "created missing directory: $TargetDir" -f gray
+$FileName = if ($InputName -notlike "*.*") { 
+    $InputName +$DefaultExt 
+} else { 
+    $InputName 
 }
 
-$OpenFile = $true$Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+$TargetDir = Split-Path `
+    -Path $FileName
+
+if ($TargetDir -and !(Test-Path -Path $TargetDir)) {
+    New-Item `
+        -ItemType Directory `
+        -Path $TargetDir `
+        -Force | Out-Null
+    Write-Host "created missing directory: $TargetDir" -ForegroundColor Gray
+}
+
+$OpenFile =$true
+
+$Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
 
 if (Test-Path -Path $FileName) {
     $fileInfo = Get-Item$FileName
-    write-host "`nfile already exists: $FileName" -f cyan
-    write-host "last modified: $($fileInfo.LastWriteTime)"
+    Write-Host "`nfile already exists: $FileName" -ForegroundColor Cyan
+    Write-Host "last modified: $($fileInfo.LastWriteTime)"
     
-    write-host "`n[1] do not overwrite - do not open"
-    write-host "[2] do not overwrite - open to append/edit"
-    write-host "[3] overwrite (delete and start fresh)"
+    Write-Host "`n[1] do not overwrite - do not open"
+    Write-Host "[2] do not overwrite - open to append/edit"
+    Write-Host "[3] overwrite (delete and start fresh)"
     $choice = Read-Host "`nchoose an option (1-3)"
 
     switch ($choice) {
-        "1" { $OpenFile = $false }
+        "1" { 
+            $OpenFile = $false 
+        }
         "2" { 
-            write-host "appending timestamp and opening..." -f gray 
+            Write-Host "appending timestamp and opening..." -ForegroundColor Gray 
             "`n`n---`n# Update: $Timestamp`n" | Add-Content -Path $FileName
         }
         "3" { 
-            New-Item -Path $FileName -ItemType File -Force | Out-Null
+            New-Item `
+                -Path $FileName `
+                -ItemType File `
+                -Force | Out-Null
             "# Log Entry: $Timestamp`n`n" | Out-File -FilePath $FileName -Encoding utf8
-            write-host "file wiped and header added." -f green
+            Write-Host "file wiped and header added." -ForegroundColor Green
         }
-        default { write-host "invalid choice."; exit }
+        default { 
+            Write-Host "invalid choice." 
+            exit 
+        }
     }
 } else {
-    New-Item -Path $FileName -ItemType File -Force | Out-Null
+    New-Item `
+        -Path $FileName `
+        -ItemType File `
+        -Force | Out-Null
     "# Log Entry: $Timestamp`n`n" | Out-File -FilePath $FileName -Encoding utf8
-    write-host "file created: $FileName" -f green
+    Write-Host "file created: $FileName" -ForegroundColor Green
 }
 
-# open the file
 if ($OpenFile) {
     if (![string]::IsNullOrEmpty($EditorPath) -and (Test-Path $EditorPath)) {
         Start-Process $EditorPath -ArgumentList "`"$FileName`""
     } else {
-        write-host "`nwarning: no advanced editor found. using basic notepad." -f yellow
+        Write-Host "`nwarning: no advanced editor found. using basic notepad." -ForegroundColor Yellow
         Start-Process "notepad.exe" -ArgumentList "`"$FileName`""
     }
 }
