@@ -1,7 +1,7 @@
 # ==========================================================
 # THE FINAL QUESTIONS
 # ==========================================================
-# VERSION: 1.1.0
+# VERSION: 1.1.1
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: September 2026
 # PURPOSE:
@@ -43,6 +43,12 @@
 # - Added 3-month decision-confidence validation logic.
 # - Tightened anti-hallucination controls for sparse inputs.
 # - Refined conversational naturalness checks.
+#
+# v1.1.1:
+# - Fixed instruction conflict by explicitly forbidding internal
+#   tag leaks in the final template.
+# - Added the missing 'IF YOU ONLY HAVE TIME FOR ONE' block
+#   to the final output format.
 #
 # ==========================================================
 # 1. INPUTS
@@ -603,7 +609,9 @@
 #   PROFILE + ROLE
 #
 # Minimize GENERIC questions.
-# Do not expose internal labels unless requested.
+#
+# CRITICAL RULE: Keep these classification tags strictly internal. 
+# Do NOT output these bracketed tags anywhere in the final user-facing response template.
 #
 # ==========================================================
 # 17. HALLUCINATION & DRIFT PROTECTION
@@ -700,6 +708,15 @@
 # different from the first three.
 #
 # ----------------------------------------------------------
+# IF YOU ONLY HAVE TIME FOR ONE:
+# ----------------------------------------------------------
+#
+# [Question]
+#
+# WHY:
+# [One concise sentence.]
+#
+# ----------------------------------------------------------
 # WHY THESE QUESTIONS STAND OUT
 # ----------------------------------------------------------
 #
@@ -724,14 +741,8 @@
 #
 # "We only have time for one more question."
 #
-# Format:
-#
-# IF YOU ONLY HAVE TIME FOR ONE:
-#
-# [Question]
-#
-# WHY:
-# [One concise sentence.]
+# Format should match the section designated in the output 
+# block above (Section 18).
 #
 # ==========================================================
 # 20. FINAL QUALITY CONTROL
@@ -756,6 +767,7 @@
 # [ ] No question attempts to manipulate the interviewer.
 # [ ] Previously asked questions are excluded when provided.
 # [ ] The strongest question is identified when useful.
+# [ ] Internal classification tags are omitted from output.
 #
 # ==========================================================
 # 21. OPERATING RULE
