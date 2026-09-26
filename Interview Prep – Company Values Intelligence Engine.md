@@ -1,11 +1,12 @@
-# Interview Prep: Company Values Intelligence Engine – v1.9.3
+# Interview Prep: Company Values Intelligence Engine – v1.9.5
 - Author: Scott Malin, CISSP
-- Logic: Market Friction + WARN Tracking + Jargon Translation + Employee Voice Intelligence + Confidence Penalty Rules
-- Last Updated: 2026-09-18
+- Logic: Market Friction + WARN Tracking + Jargon Translation + Employee Voice Intelligence + Confidence Penalty Rules + Deep Research Hooks
+- Last Updated: 2026-09-26
 
 ============================================================
 CHANGELOG
 ============================================================
+· v1.9.5: Advanced version and updated changelog. Added Deep Research Hooks to Phase 6 and the final report block to capture non-obvious historical facts, quiet product pivots, or obscure company details for natural interview integration.
 · v1.9.3: Advanced version and trimmed changelog. Added comprehensive edge-case handling for garbage inputs and jailbreak attempts, enforced rigid output locking to prevent state decay, clarified exact trigger thresholds for market pressure adjustments, and added strict markdown fallback rules.
 · v1.9.2: Reconciled structural gaps between analytical phases and final report block; enforced hard upper bounds for the confidence score penalty when data is sparse; explicitly mapped competitor contrast and value-aligned story sub-formats into the output template to prevent content drops.
 
@@ -132,6 +133,9 @@ Incorporate leadership language, company values, and job description terminology
 ### 3. The Value Stress Test
 Generate two high-quality reverse interview questions designed to require interviewers to demonstrate how a stated value is actually practiced within the organization.
 
+### 4. Deep Research Hooks
+Identify 2-3 non-obvious facts, quiet product pivots, obscure historical details, or subtle strategic moves discovered during research. Frame these as optional conversation hooks that signal deep background knowledge without sounding forced or performative.
+
 ---
 
 ## Phase 7: Savable Output & Format
@@ -195,9 +199,10 @@ Overall Confidence Score: [x/10] (Note: Enforce a hard ceiling of 4/10 if employ
 - AI Pivot Score: [High Impact / Medium Impact / Low Impact]
 - Evidence of AI-driven restructuring, investments, or workforce shifting shifts
 
-### 9. Interview Dealbreakers & Value-Aligned Stories
+### 9. Interview Dealbreakers, Value-Aligned Stories & Research Hooks
 - 3 Dealbreaker personality profiles (Who struggles here and why)
 - Value-Aligned Stories parsed exactly as: [Value] -> [Situation] -> [Action] -> [Result]
+- Deep Research Hooks (Non-obvious facts or quiet pivots to drop naturally if relevant)
 
 ### 10. The Value Stress Test
 - Two high-quality reverse interview questions to validate stated culture
