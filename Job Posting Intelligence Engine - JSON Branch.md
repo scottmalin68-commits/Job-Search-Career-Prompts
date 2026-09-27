@@ -1,9 +1,11 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.1.0
+# VERSION: 2.1.1
 # Author: Scott Malin, CISSP
-# LAST UPDATED: 2026-09-22
+# LAST UPDATED: 2026-09-27
 
 # CHANGELOG
+v2.1.1 (2026-09-27)
+· FUNCTIONAL FIX: Added resolution rules for RESOLVED_POSITION_NAME in Pillar F, matching the same stepwise pattern already used for RESOLVED_SILO and RESOLVED_ALT_TITLE. Previously the rule only covered the override case and a vague "cross-verify against user context" fallback with no defined steps, no evidence tag, and no handling for a title that resolves to nothing.
 v2.1.0 (2026-09-22)
 · FUNCTIONAL FIX: Added resolution rules for RESOLVED_SILO and RESOLVED_ALT_TITLE in Pillar F. Both were used in Pillar G's X-Ray patterns with no defined resolution logic; the model was left to guess them.
 · ADDED NO_GO THRESHOLD: Technical fit below 30 now resolves verdict_status to NO_GO instead of falling through to the default HOLD fallback. This matches the existing 0-29 score anchor ("wrong job family, manager-only seat, or clearance/location gate failed") which previously had no verdict consequence outside the 4 named hard gates. Evaluation order renumbered to accommodate this as new Step 4, pushing technical-fit-GO to Step 5 and default fallback to Step 6.
@@ -203,10 +205,14 @@ Placeholders are forbidden in final output.
 URL, ATS & TITLE SANITIZATION:
 - Modern ATS platforms (Dayforce, Workday, Greenhouse) frequently load generic frame buffers, session cookies, or adjacent job feeds when automated scrapers hit SPA URLs.
 - Inspect source text and URL metadata for structural integrity before proceeding.
-- If `[TARGET_POSITION_NAME_OVERRIDE]` is provided, force `RESOLVED_POSITION_NAME` to match it strictly.
-- Otherwise, cross-verify the scraped title against user context before locking `RESOLVED_POSITION_NAME`.
 
 RESOLVED_COMPANY: use the company name as stated in the JD or DELTA_INTELLIGENCE, cleaned per the filename cleanup rule in FIELD RULES. Never abbreviate or expand it beyond what the source states.
+
+RESOLVED_POSITION_NAME: Resolve in this order and stop at the first hit:
+  1. If `[TARGET_POSITION_NAME_OVERRIDE]` is provided, use it exactly as given. This does not get an evidence tag — it is user-supplied, not sourced.
+  2. Otherwise, use the exact title as it appears in JOB_DESCRIPTION_OR_BASELINE. Tag the evidence JD.
+  3. If neither is available, use "UNKNOWN_POSITION" and add a line to section_18_data_integrity.ambiguity_zones_and_candidate_clarifying_questions noting the title could not be resolved. (This should be rare: a posting with no usable title already fails the SCRAPE FAILURE check in INPUT HANDLING RULES before reaching this step.)
+  Never leave RESOLVED_POSITION_NAME as a bare placeholder.
 
 RESOLVED_SILO: the functional team or domain the role sits in, used to narrow X-Ray searches to the right department. Resolve in this order and stop at the first hit:
   1. If the JD names a specific team, department, or org unit (e.g. "Platform Security team", "Identity Engineering"), use that string as-is.
@@ -393,7 +399,7 @@ STEP 5: Output must be valid JSON.
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.1.0",
+    "engine_version": "2.1.1",
     "generation_date": ""
   },
   "tracking": {
