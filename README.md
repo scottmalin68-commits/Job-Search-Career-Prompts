@@ -10,7 +10,7 @@ A curated, security-minded collection of AI-powered prompts and automation tools
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Last_Updated-2026--09--23-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Last_Updated-2026--10--06-blue?style=for-the-badge">
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge">
   <img src="https://img.shields.io/badge/Category-Career_Development-purple?style=for-the-badge">
   <img src="https://img.shields.io/badge/Type-AI_Frameworks_+_Automation-orange?style=for-the-badge">
@@ -71,15 +71,18 @@ A repeatable system to capture, govern, and amplify accomplishments — solving 
 
 ---
 
-# ⚡ Quick-Start Guide: High-ROI Path (September 2026)
+# ⚡ Quick-Start Guide: High-ROI Path (October 2026)
+
+Map: [Job Seeker's Playbook v2.2](Job_Seekers_Playbook_v2.2.docx) — when to use a tool, not a requirement to run all of them.
 
 1. **Govern** → Master Skills & Experience Summary + Maintenance Engine
-2. **Investigate** → Job Posting Intelligence Engine (JSON Branch) or Unified Posting Investigation Engine (JSOM)
-3. **Decide & Prepare** → OSINT JSON → Interview Prep Renderer
-4. **Fit Deep-Dive** → Competency Signal Fit Engine or Career Profile Gap Analysis Engine
-5. **Build Materials** → Strategic Integrity lineage / ATS tools, then CV Landmines before submit
-6. **Interview close** → The Final Questions (role-adapted closer set)
-7. **Sustain** → Daily Momentum Engine + Rejection Intelligence & Action Advisory Engine
+2. **Find** (optional, known companies) → Omnivore target prompt, then Job Board Scraper. A scrape hit is not an apply decision.
+3. **Investigate** → Job Posting Intelligence Engine (JSON Branch) or Unified Posting Investigation Engine (JSOM)
+4. **Decide & Prepare** → OSINT JSON → Interview Prep Renderer
+5. **Fit Deep-Dive** → Competency Signal Fit Engine, or Omnivore Job Fit Evaluator (local Ollama + API fit prompt) on scraped boards
+6. **Build Materials** → Strategic Integrity lineage / ATS tools, then CV Landmines before submit
+7. **Interview close** → The Final Questions (role-adapted closer set)
+8. **Sustain** → Daily Momentum Engine + Rejection Intelligence & Action Advisory Engine
 
 Supporting tools (red-flag analyzer, Job Posting Snapshot & Preservation Engine, OverWatch suite, universal interview architect, etc.) slot in as needed.
 
@@ -109,7 +112,8 @@ Supporting tools (red-flag analyzer, Job Posting Snapshot & Preservation Engine,
 ## 🔍 Job Search, Intelligence & Risk Analysis
 - **Job Posting Intelligence Engine - JSON Branch.md** *(featured — dense JSON intel + X-Ray blueprints + GO/HOLD/NO_GO)*
 - **The Unified Posting Investigation Engine - JSOM.md** *(featured — modular OSINT investigation)*
-- AI Job Scout & Fit Evaluator.md / Universal Job Fit Evaluation Prompt.md
+- AI Job Scout & Fit Evaluator.md / Universal Job Fit Evaluation Prompt.md / Universal Job Fit Evaluation Prompt - API Call.md *(v1.8.0 — Fit Rating for script parsing)*
+- **Omnivore direct company boards** — Job Board Target.md, Job Board Scraper.py (v1.6.1), Job Fit Evaluator.py (v1.6.0, local Ollama). Greenhouse and Workday have dedicated parsers; other boards fall back to link harvest.
 - Job posting red flag analyser.md
 - Job Posting Snapshot & Preservation Engine.md + Usage Examples + Major Platforms + Create-New-Posting-File.ps1
 - Dead Job Posting Recovery Engine.md
@@ -153,7 +157,9 @@ Supporting tools (red-flag analyzer, Job Posting Snapshot & Preservation Engine,
 - Hiring Intent Intelligence Engine.md / Hiring Manager KPI Mapper.md / Hiring Manager Detective.md
 - Competency Signal Fit Engine.md / The T-chart alignment engine.md
 - **OverWatch suite** (Nexus Blueprint Engine, Hunt Protocol Execution Engine.ps1, Action Report Engine, Dork Optimization, Merge Reports)
+- **Omnivore suite** (Job Board Target.md, Job Board Scraper.py, Job Fit Evaluator.py — direct career-page scrape and local fit scoring)
 - Invoke-JobSearchQueries.ps1 and other PowerShell helpers
+- Job_Seekers_Playbook_v2.2.docx *(map of the library; synced 2026-10-06)*
 
 ## 🎯 Quick Wins
 - Elevator Pitch Generator.md
@@ -163,7 +169,13 @@ Supporting tools (red-flag analyzer, Job Posting Snapshot & Preservation Engine,
 
 # 🕒 Version History / Changelog
 
-### **v5.0 — September 2026** (current)
+### **v5.1 — October 2026** (current)
+- Added the Omnivore direct company-board lane: Job Board Target (v1.1.0), Job Board Scraper (v1.6.1), Job Fit Evaluator (v1.6.0, local Ollama).
+- Universal Job Fit Evaluation Prompt — API Call advanced to **v1.8.0** with a standardized `Fit Rating` field for automation parsing. The evaluator email does not yet filter on that field.
+- Replaced Job Seeker's Playbook v2.1 with **v2.2** (October 6 sync). Playbook is the map; engine version lines still win if they drift.
+- Last Updated: 2026-10-06
+
+### **v5.0 — September 2026**
 - Job Posting Intelligence Engine (JSON Branch) advanced to **v2.1.0**: `RESOLVED_SILO` / `RESOLVED_ALT_TITLE`, scrape-failure floor, technical-fit NO_GO, shared Pillar J risk scan.
 - Added **The Final Questions** (v1.2.1) for role-adapted interview closers.
 - Competency Signal Fit Engine to **v1.4.3**. CV Landmines, PIDE, and TDDE to **v1.1.2**.
