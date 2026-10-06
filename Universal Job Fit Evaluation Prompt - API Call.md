@@ -1,9 +1,10 @@
 # Job Fit Evaluation Prompt - API Call
 # Author: Scott M
-# Version: 1.7.9
-# Last Modified: 2026-09-15
+# Version: 1.8.0
+# Last Modified: 2026-10-06
 
 ## Changelog
+- **v1.8.0 (2026-10-06):** Added standardized `Fit Rating:` field to the Evaluation Scorecard to support automated script parsing and email alerts.
 - **v1.7.9 (2026-09-15):** Replaced markdown tables in Part 2 with a clean bulleted scorecard and structured lists to improve readability in markdown viewers.
 - **v1.7.8 (2026-09-06):** Resolved instruction conflicts in dynamic weighting, introduced edge-case handling for missing or invalid inputs, added anti-jailbreak guardrails, updated AI tool usage rules, and enforced structural format fallbacks against state decay.
 - **v1.7.7 (2026-06-14):** Integrated commute tolerance tracking, starting location checks, and RTO metric alignment into Step 0 and Specific Analysis Requirements.
@@ -120,6 +121,7 @@ Enforce strict Markdown formatting. Never output unstructured text.
 *This section must use standard sentence case, clean headings, and a professional tone. It must be completely free of personal critique, brackets, placeholders, or red-flag commentary, making it completely ready to be copied into an email, Word doc, or PDF to send to a contact or recruiter.*
 
 #### Evaluation Scorecard
+- **Fit Rating:** [Strong Fit / Moderate Fit / Low Fit]
 - **Overall Fit Percentage:** [0-100%] ([High/Medium/Low] Confidence)
 - **Responsibilities Match:** [0-100%] - [Brief summary of alignment and gaps]
 - **Required Qualifications Match:** [0-100%] - [Brief summary of alignment and gaps]
