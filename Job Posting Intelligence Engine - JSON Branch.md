@@ -1,9 +1,14 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.1.2
+# VERSION: 2.1.3
 # Author: Scott Malin, CISSP
-# LAST UPDATED: 2026-10-06
+# LAST UPDATED: 2026-10-07
 
 # CHANGELOG
+v2.1.3 (2026-10-07)
+· FUNCTIONAL FIX: Shifted confirmed fraud signals from a HOLD trigger to the HARD GATES list, forcing a immediate NO_GO hard stop on scam or fraudulent listings instead of wasting execution cycles.
+· FUNCTIONAL FIX: Clarified array cap exemption for system-reserved lines (`ambiguity_zones_and_candidate_clarifying_questions`). Truncation disclosures and untrusted-link lines bypass the cap cleanly without breaking strict JSON array limits.
+· FUNCTIONAL FIX: Enforced strict single-tag formatting on `tool_matrix.evidence_source` and `fit_matrix.source`, prohibiting any accidental free prose or descriptions.
+· FUNCTIONAL FIX: Added explicit rule forcing `concept_translations` to emit `[]` when the candidate profile is missing (`PROFILE_NOT_PROVIDED`), preventing hallucinated tool mappings.
 v2.1.2 (2026-10-06)
 · FUNCTIONAL FIX: Split display name from filename slug. RESOLVED_COMPANY and RESOLVED_POSITION_NAME stay as source display strings for JSON fields and X-Ray. Filename cleanup applies only to the STEP 1 filename and metadata.suggested_filename.
 · FUNCTIONAL FIX: EXECUTION HAZARD ALERT now fires only when verdict Step 2 RISK TRIGGER would fire, and it must name the same confirmed Pillar J signals. INFERRED risk no longer prints an alert.
@@ -156,7 +161,7 @@ Stay locked on ingestion, analysis, risk profiling, fit assessment, and organiza
   fit_matrix: fit_level and confidence are separate fields — keep GAP and HIGH fit_level rows first regardless of confidence, since these decide the hard gates and the technical fit score. Among the remaining MEDIUM fit_level rows, drop the ones with confidence 30 first, then drop LOW fit_level rows last.
   All other capped arrays: keep items tied to hard gates, compliance/certification terms, or BAN_LIST terms first; drop generic or repeated items last.
   TRUNCATION DISCLOSURE: If any array is truncated, add one line per truncated array to section_18_data_integrity.ambiguity_zones_and_candidate_clarifying_questions in the form: "TRUNCATED: [array_name] dropped [count] item(s), including [1-2 example item names]." This is mandatory whenever truncation occurs.
-  CAP EXEMPTION & SYSTEM RESERVATION: Truncation disclosure lines and the first-untrusted-link line (Pillar J) are system-reserved lines that bypass the standard array cap of 8 on ambiguity_zones_and_candidate_clarifying_questions. They do not count toward the cap, and regular user items must be truncated first if the total list exceeds 8. Never drop these system lines.
+  CAP EXEMPTION & SYSTEM RESERVATION: Truncation disclosure lines and the first-untrusted-link line (Pillar J) are system-reserved lines that bypass the standard array cap of 8 on ambiguity_zones_and_candidate_clarifying_questions. They are appended dynamically and do not count toward the user item cap. Regular user items must be truncated first if the total list exceeds 8 before system lines are added. Never drop these system lines.
 - EVIDENCE ARRAY FORMAT: Every `evidence` array holds short strings in the form "TAG: short quote or paraphrase" where TAG is one of JD, PROFILE, DELTA, INFERRED, PUBLIC_INTEL. Keep each entry under about 20 words. Escape any double quotes inside an entry. An empty array is allowed only when the section's main value is null or UNKNOWN.
 - EMPTY COLLECTIONS: concept_translations, do_not_claim, evidence arrays, and other collection fields are `[]` when none apply. Do not emit the schema's sample object as a placeholder.
 - TOKEN BUDGET ORDER if output would overflow, compress in this order:
@@ -173,7 +178,7 @@ Stay locked on ingestion, analysis, risk profiling, fit assessment, and organiza
 - PROFILE evidence is valid only when the fact appears in CANDIDATE_PROFILE.
 - PUBLIC_INTEL and INFERRED must not be used as candidate proof in Section 5, Section 9, or Section 16.
 - JD evidence must quote or paraphrase text actually present in JOB_DESCRIPTION_OR_BASELINE. A job title or URL alone is not JD evidence.
-- tool_matrix.evidence_source and fit_matrix.source each hold exactly one tag from the valid evidence tag set. No free prose in those two fields.
+- `tool_matrix.evidence_source` and `fit_matrix.source` must each hold **strictly one single tag** from the valid evidence tag set (e.g., `JD`, `PROFILE`), with absolutely no free prose, explanations, or paraphrases.
 
 ## PILLAR C: ZERO FLUFF
 - Remove corporate buzzwords.
@@ -210,6 +215,7 @@ IF CANDIDATE_PROFILE IS MISSING (see INPUT HANDLING RULES for what counts as mis
 - Set every fit_matrix.fit_level to "PROFILE_NOT_PROVIDED".
 - Set every fit_matrix.confidence to 30 (satisfying the required schema enum constraint since confidence cannot be null).
 - Set every tool_matrix.candidate_experience_level to "UNKNOWN".
+- Set `concept_translations` to `[]` (no profile exists to map translations against; do not hallucinate tool mappings).
 
 ## PILLAR F: PLACEHOLDER RESOLUTION, SANITIZATION, TELEMETRY & ATS DETECTION
 All RESOLVED_* placeholders MUST be replaced with the best available inferred value, subject to Priority 0 (Non-Fabrication). If data is completely unavailable, use reasonable generic terms rather than hallucinating specific internal entity names.
@@ -394,17 +400,17 @@ HARD GATES (any one forces verdict_status NO_GO and caps all three scores at 40)
 - Must-have or required product is on the BAN_LIST and has no allowed_proof in profile. A preferred-only banned tool does not fire this gate.
 - On-site required outside HOME_AREA with no remote or hybrid option stated (see LOCATION RULE).
 - Security clearance required and that clearance is not in CANDIDATE_PROFILE. Fire only when the JD uses a mandatory form: required, must have, must possess, or must currently hold, and the level is SECRET, TOP_SECRET, or PUBLIC_TRUST. Do not fire on preferred, ability to obtain, or eligible to apply. If clearance is mentioned but the level or the mandatory form is unclear, set security_clearance to UNKNOWN, log a Section 18 line, and do not fire the gate.
+- Confirmed fraud or application security scam signal from the Pillar J scan (e.g., domain mismatch, unauthorized data/payment requests before an offer).
 
 EVALUATION ORDER FOR VERDICT STATUS:
 (In this list, "stop" means stop checking verdict conditions. It does not stop the rest of the output. Continue to produce all sections and the full JSON.)
-1. Check all four HARD GATES. If any fire, verdict_status is NO_GO. Cap scores at 40 using SCORE ORDER. Stop.
-2. RISK TRIGGER: if no hard gate fired, check confirmed risk from the single Pillar J scan (see Pillar J). If (a) one confirmed fraud signal, or (b) two or more confirmed ghost or exploitation signals, verdict_status is HOLD. Do not cap scores. Stop.
-   - Fraud signals (Pillar J dimension 1): apply domain or corporate entity that does not match the hiring company or a documented agency; request for SSN, bank, or ID documents before an offer; request for payment or equipment purchase.
+1. Check all HARD GATES (including fraud signals). If any fire, verdict_status is NO_GO. Cap scores at 40 using SCORE ORDER. Stop.
+2. RISK TRIGGER: if no hard gate fired, check confirmed ghost or exploitation risk from the single Pillar J scan (see Pillar J). If two or more confirmed ghost or exploitation signals fire, verdict_status is HOLD. Do not cap scores. Stop.
    - Ghost and exploitation signals (Pillar J dimensions 2–4): evergreen template, agency resume-farming, no project ownership stated, unpaid working interview, production-work take-home, pay or location shift mid-process, documented replacement or churn pattern.
    - "Confirmed" means backed by JD, DELTA, or PUBLIC_INTEL evidence. INFERRED signals never trigger this step. Name the triggering signals in section_0 engineering_justification and section_11. EXECUTION HAZARD ALERT uses this same confirmed set and no other.
 3. If neither fired, check pay/ownership: if pay is unstated AND two or more must-have products are not owned, verdict_status is HOLD. Stop.
    - Not owned means a must-have product with fit_level GAP, or a must-have product present only as a concept_translation. A LOW row where the profile names the product does not count.
-4. If none of the above fired, check technical fit floor: if technical fit is 29 or lower, verdict_status is NO_GO. This does not cap the architectural or leadership scores (only the four HARD GATES do that). Stop.
+4. If none of the above fired, check technical fit floor: if technical fit is 29 or lower, verdict_status is NO_GO. This does not cap the architectural or leadership scores (only the HARD GATES do that). Stop.
 5. If none of the above fired, check technical fit: if technical fit is 70 or higher, verdict_status is GO. Stop.
 6. Default fallback: verdict_status is HOLD.
 
@@ -419,7 +425,7 @@ EVALUATION ORDER FOR VERDICT STATUS:
 # OUTPUT WORKFLOW (STRICT)
 STEP 0: Evaluate source data completeness (0-100%). Check anchor integrity. If data is a generic ATS shell, wrong position, or scores below the 30% insufficient-source floor (see INPUT HANDLING RULES), output ONLY: "SCRAPE FAILURE DETECTED: Source URL returned dynamic ATS shell data or wrong position content. Please paste raw job description text directly into [JOB_DESCRIPTION_OR_BASELINE]."
 Output status before codeblocks:
-If Step 2 RISK TRIGGER would fire (confirmed signals only, from the Pillar J scan): "EXECUTION HAZARD ALERT: [1-sentence description naming those same signals]"
+If Step 2 RISK TRIGGER would fire (confirmed signals only, from the Pillar J scan) OR if a fraud hard gate fires: "EXECUTION HAZARD ALERT: [1-sentence description naming those same signals]"
 Do not emit EXECUTION HAZARD ALERT for INFERRED risk.
 Then data quality status: "DATA QUALITY: [X]% expected data collected." (or warning if < 70%).
 DATA QUALITY FORMULA: Check these 10 items and count how many are present in the source: (1) company name, (2) exact position title, (3) location, (4) work mode, (5) responsibilities, (6) required qualifications, (7) named tools or technologies, (8) pay range, (9) posted date or job ID, (10) identifiable ATS or posting source. X = count x 10.
@@ -437,7 +443,7 @@ STEP 5: Output must be valid JSON.
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.1.2",
+    "engine_version": "2.1.3",
     "generation_date": ""
   },
   "tracking": {
