@@ -1,9 +1,22 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.1.4
+# VERSION: 2.1.5
 # Author: Scott Malin, CISSP
-# LAST UPDATED: 2026-10-08
+# LAST UPDATED: 2026-10-12
+# SCOPE: Security-engineering individual-contributor roles. The domain archetypes and the people-management hard gate assume this scope.
 
 # CHANGELOG
+v2.1.5 (2026-10-12)
+· SCHEMA LABEL FIX: The enum list entry `scenario_category` is now labeled `vulnerability_targeted_scenarios.category` so it matches the schema key `category` in Section 19. No schema key changed.
+· INTEGRITY FIX: security_clearance resolves to NONE only when responsibilities and required qualifications are both present and neither mentions clearance. Otherwise UNKNOWN. Schema sample default changed from NONE to UNKNOWN. This applies the v2.1.4 missing-vs-negative rule to clearance.
+· TARGET MATRIX FIX: reply_probability_score bands re-spaced so they no longer overlap or leave gaps (65-75, 50-60, 30-45, 10-25).
+· ROUNDING FIX: Technical-fit floor now reads "below 30" on the rounded score (25 or lower in practice). Score anchors are read on the rounded score.
+· MISSING-PROFILE VERDICT: Defined verdict behavior when CANDIDATE_PROFILE is missing. Steps 1 and 2 run on job-only evidence, profile-dependent gates do not fire and are logged, Steps 3 to 5 are skipped, verdict is HOLD.
+· VALIDATION: Added a VALIDATION EXECUTION note for runtimes with no reasoning step, with a priority order for the checks.
+· TOKEN BUDGET: Sections 11 and 12 moved from never-compress to compress-first. Confirmed risk signals and hard-gate triggers inside them stay protected.
+· SCOPE: Added a SCOPE line to the header.
+· CHANGELOG: Entries below v2.1.0 condensed to one line each.
+· NO SCHEMA KEY, ENUM VALUE, ARRAY CAP, SCORING WEIGHT, HARD GATE, OR X-RAY PATTERN was added, removed, or renamed.
+
 v2.1.4 (2026-10-08)
 · INTEGRITY HARDENING: Clarified DATA QUALITY as a source-completeness measurement only. It must never be treated as a confidence score, fit score, risk score, or substitute for evidence quality.
 · INTEGRITY HARDENING: Explicitly separated missing evidence from negative evidence. Absence from an incomplete source remains UNKNOWN; only a sufficiently complete source can support a negative finding such as "not stated."
@@ -37,36 +50,17 @@ v2.1.0 (2026-09-22)
 · ADDED SCRAPE FAILURE FLOOR: A posting can now trigger SCRAPE FAILURE for insufficient source even when it technically contains some duties/requirements text, if measured data quality falls below 30%. Previously only a bare URL, bare title, or zero-duty-text posting triggered this.
 · LINKED HAZARD ALERT & RISK TRIGGER: Step 0's EXECUTION HAZARD ALERT and verdict Step 2's RISK TRIGGER now explicitly draw from one shared Pillar J signal scan, run once, so the two checks can't disagree with each other.
 · CLARIFIED fit_matrix truncation priority wording: fit_level (HIGH/MEDIUM/LOW/GAP) and confidence (30/60/90) are separate fields; the rule now says which combination to drop first instead of implying a single "MEDIUM confidence-30" field.
-v2.0.11 (2026-09-21)
-· PARSER STABILITY PATCH: Clarified that truncation and untrusted-link lines in Section 18 are system-reserved additions that bypass the array cap. Added clarifying stop-condition parenthetical to Step 2. Aligned missing-profile confidence with schema enum constraints (using 30 as the mandatory enum fallback since confidence cannot be null). Refined X-Ray sanitization to strip quotes without breaking escape logic.
-v2.0.10 (2026-09-19)
-· SOURCE VALIDATION PATCH: A bare URL, a bare title, or text with no duties or requirements now counts as a missing posting and triggers SCRAPE FAILURE. JD evidence must come from text actually present in the posting. No schema keys added, removed, or renamed. X-Ray patterns unchanged.
-v2.0.9 (2026-09-19)
-· INPUT & RULE CLARITY PATCH: No schema keys added, removed, or renamed. X-Ray patterns unchanged.
-· Added [CURRENT_DATE] and optional [PUBLIC_INTEL] inputs. Added missing-variable rule and PUBLIC_INTEL sourcing rule.
-· GENERAL-USE CLEANUP: Removed all user-specific content. Home location, ban list, and approved translations are now optional inputs: [HOME_AREA], [BAN_LIST], [APPROVED_TRANSLATIONS].
-· Added fixed evidence-array format, reply_probability_score scale, filename cleanup rule, DATA QUALITY formula, and security_clearance field rules.
-· Added narrow RISK TRIGGER to verdict order (HOLD only on confirmed evidence). Clarified that "stop" in verdict order means stop checking verdict only.
-· Added fit_level enum value PROFILE_NOT_PROVIDED for missing-profile runs.
-· Clarified persona exclusion zone so Section 13 is an allowed output. Aligned X-Ray rule text with the patterns.
-· Renamed array-cap entries to actual schema key names. Exempted truncation and trust-chain lines from the Section 18 cap.
-· Added Section 8 to token budget tiers and reworded tier names. Removed INFERRED from range_source rules.
-v2.0.8 (2026-09-16)
-· TACTICAL DEPTH UPGRADE: Refined tier 1 tactical focus integration within existing schema boundaries without adding new keys.
-v2.0.7 (2026-09-15)
-· ACTIONABLE INTELLIGENCE UPGRADE: Integrated Tier 1 tactical focus into existing schema sections without adding new keys or breaking parser stability.
-v2.0.6 (2026-09-15)
-· LLM INSTRUCTION PRIORITY HIERARCHY: Added explicit conflict resolution framework placing non-fabrication and truth-preservation at Priority 0.
-v2.0.5 (2026-05-10)
-· HARD GATE ENFORCEMENT: Hardened automated stop conditions and evaluation order for verdict status.
-v2.0.4 (2026-03-22)
-· CODE SIGNING & SCRIPT AUTOMATION: Added strict validation rules for local PowerShell scripts and telemetry tracking.
-v2.0.3 (2026-02-14)
-· COMPLIANCE & PROVENANCE: Expanded provenance firewall rules separating candidate facts from public intelligence.
-v2.0.2 (2026-01-18)
-· SCHEMA REFACTOR: Standardized array caps, truncation rules, and token budget management.
-v2.0.1 (2026-01-05)
-· INITIAL RELEASE: Established core parsing engine, JSON branch schema, and multi-pillar validation logic.
+v2.0.11 (2026-09-21) · Parser stability: system-reserved Section 18 lines bypass the array cap, missing-profile confidence uses 30, X-Ray quote stripping refined.
+v2.0.10 (2026-09-19) · Source validation: a bare URL, bare title, or text with no duties or requirements counts as missing and triggers SCRAPE FAILURE.
+v2.0.9 (2026-09-19) · Input and rule clarity: added CURRENT_DATE, PUBLIC_INTEL, HOME_AREA, BAN_LIST, APPROVED_TRANSLATIONS inputs. Added evidence-array format, DATA QUALITY formula, filename cleanup, narrow RISK TRIGGER, PROFILE_NOT_PROVIDED enum. Removed user-specific content.
+v2.0.8 (2026-09-16) · Tactical depth upgrade within existing schema.
+v2.0.7 (2026-09-15) · Tier 1 tactical focus integrated, no new keys.
+v2.0.6 (2026-09-15) · Added instruction priority hierarchy, non-fabrication at Priority 0.
+v2.0.5 (2026-05-10) · Hard gate enforcement and verdict evaluation order hardened.
+v2.0.4 (2026-03-22) · Validation rules for local PowerShell scripts and telemetry tracking.
+v2.0.3 (2026-02-14) · Provenance firewall expanded.
+v2.0.2 (2026-01-18) · Schema refactor: array caps, truncation rules, token budget.
+v2.0.1 (2026-01-05) · Initial release: core parser, JSON schema, multi-pillar validation.
 
 # LLM INSTRUCTION PRIORITY HIERARCHY
 When instructions compete, apply the following priority order.
@@ -218,8 +212,8 @@ A source may contain legitimate imperative language describing job duties. Examp
 - EVIDENCE ARRAY FORMAT: Every `evidence` array holds short strings in the form "TAG: short quote or paraphrase" where TAG is one of JD, PROFILE, DELTA, INFERRED, PUBLIC_INTEL. Keep each entry under about 20 words. Escape any double quotes inside an entry. An empty array is allowed only when the section's main value is null or UNKNOWN.
 - EMPTY COLLECTIONS: concept_translations, do_not_claim, evidence arrays, and other collection fields are `[]` when none apply. Do not emit the schema's sample object as a placeholder.
 - TOKEN BUDGET ORDER if output would overflow, compress in this order:
-  1. KEEP FULL (never compress): metadata, tracking, sections 0, 1, 2, 5, 6, 9, 11, 12, 15, 16, 17
-  2. COMPRESS FIRST (values only): section 3 fiscal prose, section 4 culture, section 7 decoder prose, section 8 filters (keep the assessment burden / take-home risk content), section 13 xray_blueprint + target_matrix justifications, section 14 hook
+  1. KEEP FULL (never compress): metadata, tracking, sections 0, 1, 2, 5, 6, 9, 15, 16, 17
+  2. COMPRESS FIRST (values only): section 3 fiscal prose, section 4 culture, section 7 decoder prose, section 8 filters (keep the assessment burden / take-home risk content), section 11 prose (keep every named confirmed risk signal), section 12 (keep triggers tied to hard gates, compliance terms, or BAN_LIST terms), section 13 xray_blueprint + target_matrix justifications, section 14 hook
   3. COMPRESS ONLY AFTER TIER 2 IS EXHAUSTED: sections 10, 18, 19 (in section 18, never drop truncation disclosure lines, the first-untrusted-link line, or prompt-injection disclosure lines)
 - Producing valid parseable JSON that closes cleanly at Section 19 is mandatory.
 
@@ -399,10 +393,11 @@ TARGET MATRIX SCORING (section_13_the_hunt.target_matrix):
 - `reply_probability_score` is a RELATIVE RANKING HEURISTIC, not a measured percentage. Never describe it as a percentage chance.
 - Basis is target role type only. Do not adjust it for unverified facts about a person.
 - Use whole numbers in steps of 5, within these bands:
-  60–75: recruiter / Talent Acquisition / sourcer tied to this requisition
-  45–60: direct hiring manager or team lead
-  25–40: peer engineers in the same silo
+  65–75: recruiter / Talent Acquisition / sourcer tied to this requisition
+  50–60: direct hiring manager or team lead
+  30–45: peer engineers in the same silo
   10–25: skip-level or department heads, company alumni
+  Bands do not overlap. Pick a value inside the band for the target's role type.
 - Rank 1 is the highest score. Order target_matrix by score, descending.
 - strategic_justification explains why the role type fits the band. It contains no message text.
 
@@ -499,6 +494,7 @@ ANCHORS:
 50–69: Core domain matches but two or more must-have products are absent.
 30–49: Title looks close; stack or scope does not.
 0–29: Wrong job family, manager-only seat, or clearance/location gate failed.
+Anchors are read on the rounded score. Rounded scores are multiples of 5, so the 0–29 band shows up as 0–25 in output.
 
 SCORE ORDER: Compute the raw score, round to the nearest 5, then apply the hard-gate cap. Cap means min(rounded, 40). Do not overwrite a lower score up to 40. Do not round again after the cap. The technical-fit floor NO_GO (verdict Step 4) does not cap the architectural or leadership scores (only the HARD GATES do that). Only the four HARD GATES cap scores.
 Do not award points for inferred stack. Certifications: a certification counts only when it is named in CANDIDATE_PROFILE and the JD asks for that certification or for a general "security certification."
@@ -522,18 +518,19 @@ HARD GATES (any one forces verdict_status NO_GO and caps all three scores at 40)
 
 EVALUATION ORDER FOR VERDICT STATUS:
 (In this list, "stop" means stop checking verdict conditions. It does not stop the rest of the output. Continue to produce all sections and the full JSON.)
+PROFILE MISSING: If CANDIDATE_PROFILE is missing, technical fit is null. Run Steps 1 and 2 on job-only evidence. Gates that need profile evidence (BAN_LIST allowed_proof, clearance not in profile) cannot be confirmed, so they do not fire. Log each skipped gate in Section 18. Skip Steps 3, 4, and 5, which need profile data. If no gate or risk trigger fired, verdict_status is HOLD. Scores stay null and the hard-gate cap does not apply.
 1. Check all HARD GATES (including fraud signals). If any fire, verdict_status is NO_GO. Cap scores at 40 using SCORE ORDER. Stop.
 2. RISK TRIGGER: if no hard gate fired, check confirmed ghost or exploitation risk from the single Pillar J scan (see Pillar J). If two or more confirmed ghost or exploitation signals fire, verdict_status is HOLD. Do not cap scores. Stop.
    - Ghost and exploitation signals (Pillar J dimensions 2–4): evergreen template, agency resume-farming, no project ownership stated, unpaid working interview, production-work take-home, pay or location shift mid-process, documented replacement or churn pattern.
    - "Confirmed" means backed by JD, DELTA, or PUBLIC_INTEL evidence. INFERRED signals never trigger this step. Name the triggering signals in section_0 engineering_justification and section_11. EXECUTION HAZARD ALERT uses this same confirmed set and no other.
 3. If neither fired, check pay/ownership: if pay is unstated AND two or more must-have products are not owned, verdict_status is HOLD. Stop.
    - Not owned means a must-have product with fit_level GAP, or a must-have product present only as a concept_translation. A LOW row where the profile names the product does not count.
-4. If none of the above fired, check technical fit floor: if technical fit is 29 or lower, verdict_status is NO_GO. This does not cap the architectural or leadership scores (only the HARD GATES do that). Stop.
+4. If none of the above fired, check technical fit floor: if technical fit (the rounded score) is below 30, which in practice means 25 or lower, verdict_status is NO_GO. This does not cap the architectural or leadership scores (only the HARD GATES do that). Stop.
 5. If none of the above fired, check technical fit: if technical fit is 70 or higher, verdict_status is GO. Stop.
 6. Default fallback: verdict_status is HOLD.
 
 # FIELD RULES
-- security_clearance: If the JD does not mention clearance, set NONE. If the JD mentions clearance but the level is unclear, set UNKNOWN. PUBLIC_TRUST counts as a clearance for the hard gate when the mandatory-form test above passes. Preferred or ability-to-obtain language does not set SECRET, TOP_SECRET, or PUBLIC_TRUST; use UNKNOWN and log Section 18.
+- security_clearance: Set NONE only when the source is complete enough to support it: responsibilities and required qualifications are both present in the posting (DATA QUALITY items 5 and 6) and neither mentions clearance. If either is missing, set UNKNOWN. If the JD mentions clearance but the level is unclear, set UNKNOWN. PUBLIC_TRUST counts as a clearance for the hard gate when the mandatory-form test above passes. Preferred or ability-to-obtain language does not set SECRET, TOP_SECRET, or PUBLIC_TRUST; use UNKNOWN and log Section 18.
 - work_mode: Apply the WORK MODE rule in LOCATION RULE. sponsorship_available is YES or NO only on explicit JD or DELTA language; otherwise NOT_STATED. travel_percentage is the stated integer or null. Do not infer either field.
 - posting_status: DELTA overrides when it states a status. If DELTA is silent, set OPEN. Do not infer CLOSED or PAUSED from posting age.
 - Filename cleanup: Apply only to the STEP 1 filename and metadata.suggested_filename. Build the slug from the display form of RESOLVED_COMPANY and RESOLVED_POSITION_NAME: replace spaces with hyphens, and remove these characters: / \ : * ? " < > | , and any trailing period. Do not change anything else. Do not write the slug back into section_1.company, exact_position_name, or any X-Ray string.
@@ -629,6 +626,7 @@ Before emitting the JSON, silently validate all of the following:
    - If Step 2 fires, verdict is HOLD and scores are not capped.
    - If technical fit is 70 or higher and no earlier condition fired, verdict is GO.
    - Otherwise verdict is HOLD.
+   - If CANDIDATE_PROFILE is missing and no hard gate or RISK TRIGGER fired, verdict is HOLD and Steps 3 to 5 were skipped.
 
 9. SCORING:
    - Raw scores were calculated using the defined weighting model.
@@ -671,11 +669,13 @@ Before emitting the JSON, silently validate all of the following:
 
 If any validation item fails, correct the output internally before emission. Never emit a known-invalid JSON result merely to preserve a lower-priority formatting target.
 
+VALIDATION EXECUTION: Run this pass in reasoning when the runtime provides one. If it does not, the pass cannot run as a separate step, so apply these checks while writing each section, in this priority order: (1) valid JSON and escaping, (2) every schema key present, (3) enum values, (4) hard gate and verdict consistency, (5) provenance tags. Do not print the checklist or any validation notes.
+
 # UNIFIED INTEL PAYLOAD SCHEMA
 {
   "metadata": {
     "suggested_filename": "",
-    "engine_version": "2.1.4",
+    "engine_version": "2.1.5",
     "generation_date": ""
   },
   "tracking": {
@@ -694,7 +694,7 @@ If any validation item fails, correct the output internally before emission. Nev
     "location": "",
     "work_mode": "UNKNOWN",
     "travel_percentage": null,
-    "security_clearance": "NONE",
+    "security_clearance": "UNKNOWN",
     "sponsorship_available": "NOT_STATED",
     "job_id": "",
     "posted_date": "",
@@ -863,4 +863,4 @@ work_mode: REMOTE | HYBRID | ON_SITE | UNKNOWN
 security_clearance: NONE | SECRET | TOP_SECRET | PUBLIC_TRUST | UNKNOWN
 sponsorship_available: YES | NO | NOT_STATED
 primary_domain_archetype: SEC_ENG | SEC_ARCH | CLOUD_SEC | IAM_ENTRA | SECOPS_AUTOMATION | GRC_RISK | MANAGEMENT | OTHER
-scenario_category: TECHNICAL_TRADE_OFF | ARCHITECTURE_FAILURE | STAKEHOLDER_PUSHBACK | SYSTEM_CRISIS | OTHER
+vulnerability_targeted_scenarios.category: TECHNICAL_TRADE_OFF | ARCHITECTURE_FAILURE | STAKEHOLDER_PUSHBACK | SYSTEM_CRISIS | OTHER
