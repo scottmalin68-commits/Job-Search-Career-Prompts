@@ -61,6 +61,7 @@ python -m patchright install chromium
 Configure your API keys as environment variables or update default values in configuration:
 
 - GEMINI_API_KEY: Required for Stage 2 deep evaluations in Omnivore - Job Fit Evaluator.py.
+  * How to get one: Go to Google AI Studio (https://aistudio.google.com), sign in with a Google account, and click "Get API key" to generate a new key.
 - SMTP_PASSWORD: Required if email reporting options are enabled.
 
 Example (PowerShell):
