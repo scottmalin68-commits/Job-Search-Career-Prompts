@@ -2,7 +2,16 @@
 
 Omnivore is an automated job discovery, screening, and evaluation pipeline built for Python 3.10+. It uses local LLM triage via Ollama alongside cloud models to filter and score career opportunities against candidate profiles.
 Author: Scott Malin, CISSP
-Version 1.0.0
+Version 1.1.0
+
+---
+
+## Changelog
+
+### v1.1.0
+- Added documentation for detailed career profiles in evaluator configuration.
+- Added instructions for updating user-configurable variables directly in the scripts.
+- Included prompt markdown files, targeting prompts, and ATS discovery utility in the core file structure.
 
 ---
 
@@ -56,13 +65,19 @@ python -m patchright install chromium
 
 ---
 
-## 4. API Credentials & Environment Variables
+## 4. Configuration & Candidate Profiles
 
-Configure your API keys as environment variables or update default values in configuration:
+1. **API Keys:**
+   - `GEMINI_API_KEY`: Required for Stage 2 deep evaluations in Omnivore - Job Fit Evaluator.py.
+     * How to get one: Go to Google AI Studio (https://aistudio.google.com), sign in with a Google account, and click "Get API key" to generate a new key.
+   - `SMTP_PASSWORD`: Required if email reporting options are enabled.
 
-- GEMINI_API_KEY: Required for Stage 2 deep evaluations in Omnivore - Job Fit Evaluator.py.
-  * How to get one: Go to Google AI Studio (https://aistudio.google.com), sign in with a Google account, and click "Get API key" to generate a new key.
-- SMTP_PASSWORD: Required if email reporting options are enabled.
+2. **User-Configurable Values:**
+   - Open `Omnivore - Job Board Scraper.py` and `Omnivore - Job Fit Evaluator.py` in your text editor.
+   - Look for the configuration block near the top of each script to set target URLs, search keywords, output directories, and thresholds.
+
+3. **Career Profile:**
+   - The evaluator matches opportunities against a candidate profile. While a standard resume works, a detailed career profile outlining specific technical skills, tools, and experience yields much better evaluation results. Update your profile path or text block in the evaluator configuration section.
 
 Example (PowerShell):
 $env:GEMINI_API_KEY="your-gemini-api-key-here"
@@ -80,6 +95,7 @@ Ensure all pipeline scripts and prompt files are in the same directory:
 - Omnivore - Job Fit Evaluator.py
 - Omnivore - Interactive Reviewer.py
 - Omnivore - ATS Config Discovery.py
+- Omnivore - Job Board Target.md
 - Lite Job Fit Evaluation Prompt - API Call.md
 - Universal Job Fit Evaluation Prompt - API Call.md
 
@@ -87,11 +103,13 @@ Ensure all pipeline scripts and prompt files are in the same directory:
 
 ## Execution Order
 
-1. Discover ATS endpoints (optional):
+1. Generate targeting strategy (optional):
+   - Review `Omnivore - Job Board Target.md` with your career profile to discover potential remote and local target boards.
+2. Discover ATS endpoints (optional):
 python "Omnivore - ATS Config Discovery.py"
-2. Run the Scraper:
+3. Run the Scraper:
 python "Omnivore - Job Board Scraper.py"
-3. Run the Evaluator:
+4. Run the Evaluator:
 python "Omnivore - Job Fit Evaluator.py"
-4. Review Results in Terminal UI:
+5. Review Results in Terminal UI:
 python "Omnivore - Interactive Reviewer.py"
