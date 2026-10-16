@@ -70,26 +70,32 @@ python -m patchright install chromium
 1. **API Keys:**
    - `GEMINI_API_KEY`: Required for Stage 2 deep evaluations in Omnivore - Job Fit Evaluator.py.
      * How to get one: Go to Google AI Studio (https://aistudio.google.com), sign in with a Google account, and click "Get API key" to generate a new key.
-   - `SMTP_PASSWORD`: Required if email reporting options are enabled.
 
-2. **User-Configurable Values:**
+2. **Email Reporting Setup (Optional):**
+   - Open `Omnivore - Job Fit Evaluator.py` and locate the SMTP configuration block near the top.
+   - Set `ENABLE_EMAIL = True`, enter your sender/recipient addresses, SMTP server (e.g., `smtp.gmail.com`), and port (`587`).
+   - Set `SMTP_PASSWORD` as an environment variable (use an App Password if using Gmail):
+
+   Example (PowerShell):
+   $env:GEMINI_API_KEY="your-gemini-api-key-here"
+   $env:SMTP_PASSWORD="your-app-password-here"
+
+   Example (Linux/macOS):
+   export GEMINI_API_KEY="your-gemini-api-key-here"
+   export SMTP_PASSWORD="your-app-password-here"
+
+3. **User-Configurable Values:**
    - Open `Omnivore - Job Board Scraper.py` and `Omnivore - Job Fit Evaluator.py` in your text editor.
    - Look for the configuration block near the top of each script to set target URLs, search keywords, output directories, and thresholds.
 
-3. **Career Profile:**
+4. **Career Profile:**
    - The evaluator matches opportunities against a candidate profile. While a standard resume works, a detailed career profile outlining specific technical skills, tools, and experience yields much better evaluation results. Update your profile path or text block in the evaluator configuration section.
-
-Example (PowerShell):
-$env:GEMINI_API_KEY="your-gemini-api-key-here"
-
-Example (Linux/macOS):
-export GEMINI_API_KEY="your-gemini-api-key-here"
 
 ---
 
 ## 5. File Structure
 
-Ensure all pipeline scripts and prompt files are in the same directory:
+Ensure all pipeline scripts, prompt files, and documentation assets are in the same directory:
 
 - Omnivore - Job Board Scraper.py
 - Omnivore - Job Fit Evaluator.py
@@ -98,6 +104,7 @@ Ensure all pipeline scripts and prompt files are in the same directory:
 - Omnivore - Job Board Target.md
 - Lite Job Fit Evaluation Prompt - API Call.md
 - Universal Job Fit Evaluation Prompt - API Call.md
+- Omnivore - Jobseeker Sample email.png
 
 ---
 
@@ -111,5 +118,6 @@ python "Omnivore - ATS Config Discovery.py"
 python "Omnivore - Job Board Scraper.py"
 4. Run the Evaluator:
 python "Omnivore - Job Fit Evaluator.py"
+   - Once completed, the evaluator generates a summary report. If email reporting is enabled, you will receive an HTML summary email formatted like `Omnivore - Jobseeker Sample email.png`.
 5. Review Results in Terminal UI:
 python "Omnivore - Interactive Reviewer.py"
