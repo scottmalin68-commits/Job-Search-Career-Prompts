@@ -99,7 +99,7 @@ def discover_ats(target_input):
     print(f"\n{CYAN}[*] Analyzing target: '{target_input}'...{RESET}")
     
     # If the user provided a direct URL
-    if target_input.startswith(("http://", "https://0")):
+    if target_input.startswith(("http://", "https://")):
         print(f"[*] Testing direct URL: {target_input}")
         active, title = test_url_active(target_input)
         if active:
