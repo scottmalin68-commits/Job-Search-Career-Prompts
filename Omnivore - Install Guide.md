@@ -11,6 +11,7 @@ Version 1.1.0
 ### v1.1.0
 - Added documentation for detailed career profiles in evaluator configuration.
 - Added instructions for updating user-configurable variables directly in the scripts.
+- Included the complete requirements.txt file contents directly in the guide for easy setup.
 - Included prompt markdown files, targeting prompts, and ATS discovery utility in the core file structure.
 
 ---
@@ -45,13 +46,17 @@ source venv/bin/activate
 
 ## 2. Install Required Dependencies
 
-Install the Python package requirements:
+Create a file named requirements.txt in your project root with the package contents shown below, then install the package requirements:
+
+scrapling>=0.2.0
+curl_cffi>=0.7.0
+patchright>=0.1.4
+openai>=1.0.0
+windows-curses>=2.4.0; sys_platform == 'win32'
+
+Run the installation command:
 
 pip install -r requirements.txt
-
-If requirements.txt is not present, install directly:
-
-pip install scrapling curl_cffi patchright openai windows-curses
 
 Note: windows-curses is required on Windows systems for Omnivore - Interactive Reviewer.py.
 
@@ -97,6 +102,7 @@ python -m patchright install chromium
 
 Ensure all pipeline scripts, prompt files, and documentation assets are in the same directory:
 
+- requirements.txt
 - Omnivore - Job Board Scraper.py
 - Omnivore - Job Fit Evaluator.py
 - Omnivore - Interactive Reviewer.py
