@@ -6,6 +6,33 @@ Version 1.1.0
 
 ---
 
+## What Omnivore Is
+
+Omnivore is a personal job-search pipeline that scrapes targeted company career boards, filters for relevant cybersecurity roles, and scores them against a detailed candidate profile using a hybrid local + cloud LLM approach.
+
+It is built for high-volume, high-signal screening: reduce the manual effort of checking dozens of ATS pages every day while still applying rigorous, profile-specific evaluation instead of generic keyword matching.
+
+### Pipeline Overview
+
+1. **Targeting (optional)**  
+   `Omnivore - Job Board Target.md` helps identify which company boards are worth monitoring for remote or local cybersecurity roles.
+
+2. **ATS Discovery (optional)**  
+   `Omnivore - ATS Config Discovery.py` probes Workday and similar platforms to locate the correct API endpoints or site slugs.
+
+3. **Scraping & Filtering**  
+   `Omnivore - Job Board Scraper.py` pulls listings from a configurable list of company boards (Workday, Greenhouse, and others). It applies title and keyword filters (security engineering, endpoint, Zero Trust, IAM, etc.), drops excluded titles (recruiter, intern, sales engineer, etc.), normalizes the data, and maintains a rolling 30-day JSON history per company.
+
+4. **Two-Stage Evaluation**  
+   `Omnivore - Job Fit Evaluator.py` (or the equivalent two-stage runner) reads the scraped jobs and the candidate profile:
+   - **Stage 1 (local)**: Ollama (`llama3.1`) performs a fast triage score.
+   - **Stage 2 (cloud)**: Promising roles are sent to Gemini for a deeper, structured evaluation against the full career profile. Results include category scores, overall fit, deal-breakers, and a summary.
+
+5. **Interactive Review**  
+   `Omnivore - Interactive Reviewer.py` provides a terminal UI (curses) for browsing the scored results, inspecting details, and deciding next actions.
+
+The design goal is measurable reduction in screening time while keeping evaluation quality high enough that only genuinely relevant roles reach the review stage.
+
 ## Changelog
 
 ### v1.1.0
