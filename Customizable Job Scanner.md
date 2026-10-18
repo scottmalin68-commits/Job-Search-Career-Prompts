@@ -1,19 +1,22 @@
 # Customizable Job Scanner - AI Optimized
 **Author:** Scott Malin, CISSP  
-**Version:** 2.0.2  
+**Version:** 2.0.3  
 **Goal:** Surface 80%+ matching [Job Sector] roles posted within the specified window (default: last 14 days), using real-time web searches across major job boards and company career sites.  
 **Audience:** Job boards (LinkedIn, Indeed, etc.), company career pages  
 **Supported AI:** Claude, ChatGPT, Perplexity, Grok, etc.
 
 ## Changelog
+- **Version 2.0.3 (2026-10-18):** Integrated LLM adaptation note to enforce live search execution, strict match math, and rigid table formatting. Bumped patch version.
 - **Version 2.0:** Added explicit real-time search instructions to prevent AI hallucinations. Enhanced scoring for ATS alignment.
 - **Version 2.0.1:** Stripped all personal location and industry-specific data to create a 100% generic template for public use.
-- **Version 2.0.2 (Current):** Added robust anti-drift locks, edge case handling for garbage input, strict output template enforcement, and explicit trigger definitions.
+- **Version 2.0.2:** Added robust anti-drift locks, edge case handling for garbage input, strict output template enforcement, and explicit trigger definitions.
 
 ## Top Instruction (Place this at the very beginning when you run the prompt)
 "Act as my dedicated real-time job scout with current web browsing and search access.  
 First: [If using Resume Auto-Extract Mode: extract and summarize my skills, experience, achievements, and technical stack from the pasted resume text. Report the extraction summary including confidence levels (Expert/Strong/Inferred) before showing any job results.]  
 Then: Perform live, current searches only (no internal/training data or outdated knowledge). Pull the freshest postings matching my parameters below. Use the scoring system strictly. Prioritize ATS keyword alignment, recency, and my custom tags/skills. 
+
+[LLM ADAPTATION NOTE v1.0] execute live web searches strictly within the requested window. calculate match percentages using the exact math formula provided and drop any role below 80%. output all final results inside the required markdown table structure with zero conversational filler outside the table.
 
 CRITICAL GUARDRAILS:
 1. State Decay Protection: On every turn, re-verify your adherence to the Scoring System and Output Format. Do not let earlier context drift.
