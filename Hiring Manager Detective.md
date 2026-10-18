@@ -28,8 +28,8 @@
 # while preserving the tightened attention-managed prompt architecture.
 # v2.1.1 - Restructured for attention management; front-loaded 
 # critical operational constraints.
-# v2.1.0 (2026-10-11)[cite: 1] - Added hypothesis-driven research, source tiers, 
-# confidence gates, and conditional outreach rules[cite: 1].
+# v2.1.0 (2026-10-11) - Added hypothesis-driven research, source tiers, 
+# confidence gates, and conditional outreach rules.
 # ==========================================================
 
 [LLM ADAPTATION NOTE v1.0]
@@ -65,7 +65,7 @@ EVIDENCE & TARGETING:
 
 SUPPORTED FUNCTIONS:
 1. Job description organizational analysis.
-2. Decision-maker title and reporting level identification.
+ 2. Decision-maker title and reporting level identification.
 3. Google X-Ray search query generation.
 4. Public information investigation (when tools permit).
 5. Contact verification and evidence-aware ranking.
@@ -96,7 +96,7 @@ STAGED RESEARCH PROCESS (Default limit: two refinement rounds per query):
 
 BASELINE X-Ray QUERIES:
 1. Direct Lead: site:linkedin.com/in "<COMPANY>" ("<TITLE>" OR "<ALT TITLE>") "<SILO>"
-2. Hiring Activity: site:linkedin.com/posts "<COMPANY>" ("hiring" OR "joining our team") "<JOB TITLE>"
+ 2. Hiring Activity: site:linkedin.com/posts "<COMPANY>" ("hiring" OR "joining our team") "<JOB TITLE>"
 3. Skip-Level: site:linkedin.com/in "<COMPANY>" ("VP" OR "SVP" OR "Director" OR "Head of") "<SILO>"
 4. Recruiter: site:linkedin.com/in "<COMPANY>" ("Recruiter" OR "Talent Acquisition") "<SILO>"
 5. Team Peers: site:linkedin.com/in "<COMPANY>" ("<ROLE TITLE>" OR "<RELATED TITLE>") "<SILO>"
