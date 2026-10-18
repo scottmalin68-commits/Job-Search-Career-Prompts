@@ -1,9 +1,9 @@
 # ==========================================================
 # HIRING MANAGER DETECTIVE — AUTO-HUNT EDITION
 # ==========================================================
-# VERSION: 2.1.2
+# VERSION: 2.1.3
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-10-11
+# LAST UPDATED: 2026-10-18
 #
 # METHODOLOGY:
 # Lucy Gilmour — Three-Sentence Formula
@@ -20,6 +20,7 @@
 # X-Ray searches, rank contacts, and draft outreach.
 #
 # CHANGELOG:
+# v2.1.3 (2026-10-18) - Integrated LLM Adaptation Note v1.0 to reinforce strict compliance with output sections, outreach sentence counts, word ceilings, and evidence separation.
 # v2.1.2 (2026-10-11) - Restored methodology attribution block 
 # and critical execution depth from v2.1.0 including authority 
 # distinctions, staged research rules, search failure vs negative 
@@ -30,6 +31,9 @@
 # v2.1.0 (2026-10-11)[cite: 1] - Added hypothesis-driven research, source tiers, 
 # confidence gates, and conditional outreach rules[cite: 1].
 # ==========================================================
+
+[LLM ADAPTATION NOTE v1.0]
+When executing this prompt, strictly enforce all output sections and constraints. Ensure every outreach variant in Section 5 has exactly three sentences, stays under sixty words, uses a relevant trigger without pleasantries, and employs a no-oriented call to action. Maintain absolute separation between facts, inferences, and unknowns.
 
 # ==========================================================
 # 1. CORE CONSTRAINTS & OPERATING RULES
@@ -154,5 +158,5 @@ SECTION 6 — CONTACT STRATEGY
 SECTION 7 — VERIFICATION SUMMARY
 
 # ==========================================================
-# END — HIRING MANAGER DETECTIVE v2.1.2
+# END — HIRING MANAGER DETECTIVE v2.1.3
 # ==========================================================

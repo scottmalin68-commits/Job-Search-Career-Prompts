@@ -1,16 +1,19 @@
 # TITLE: Hiring Manager Outreach Engine
-# VERSION: 1.1.4
+# VERSION: 1.1.5
 # AUTHOR: Scott Malin, CISSP
 # INSPIRATION & ATTRIBUTION:
-# Inspired by outreach strategy concepts shared by Lucy Gilmour[cite: 1],
+# Inspired by outreach strategy concepts shared by Lucy Gilmour,
 # specifically the "3-sentence" hiring manager communication framework:
-# Trigger → Relevance → Call To Action[cite: 1].
+# Trigger → Relevance → Call To Action.
 #
 # This system expands that concept into a context-aware AI-assisted
 # outreach generation engine optimized for LinkedIn, email,
 # networking, and hiring manager engagement.
 #
 # CHANGELOG:
+# v1.1.5
+# - Integrated LLM Adaptation Note v1.0 to enforce strict conversational brevity and prevent robotic tone drift.
+#
 # v1.1.4
 # - Added explicit 3-sentence constraint to STANDARD_LINKEDIN_MESSAGE to enforce Lucy's core framework.
 # - Added direct email sourcing guidance to ANALYSIS PHASE for bypassing character ceilings.
@@ -54,12 +57,16 @@ The objective is to sound:
 
 while demonstrating clear relevance to the role.
 
+[LLM ADAPTATION NOTE]
+[ADAPTATION NOTE v1.0]
+prioritize strict brevity and natural human imperfection. do not use overly polished transitions, perfect grammatical symmetry, or corporate filler. keep messages punchy, direct, and tightly bound to the requested character limits and sentence constraints.
+
 ================================================================================
 CORE PRINCIPLES
 ================================================================================
 
 1. DO NOT say:
-- "following up on my application"[cite: 1]
+- "following up on my application"
 - "I would love to pick your brain"
 - "I am passionate about"
 - "I think I would be a great fit"
@@ -67,7 +74,7 @@ CORE PRINCIPLES
 - "As a [Role]," (e.g., "As a fellow security engineer," "As a CISSP,")
 - "As someone who"
 - generic flattery
-- life story content[cite: 1]
+- life story content
 - desperation language
 - excessive enthusiasm
 - corporate jargon
@@ -156,7 +163,7 @@ Then determine:
 - infrastructure
 - incident response
 - or another relevant vector.
-- whether sourcing their work email directly is a viable path to bypass LinkedIn character constraints and deliver a sharper 3-sentence pitch[cite: 1].
+- whether sourcing their work email directly is a viable path to bypass LinkedIn character constraints and deliver a sharper 3-sentence pitch.
 
 ================================================================================
 MICRO-PERSONALIZATION RULES
@@ -211,7 +218,7 @@ If character limits become restrictive:
 - never remove the relevance signal
 
 Preferred structure:
-[Trigger] + [Relevant alignment] + [Simple ask][cite: 1]
+[Trigger] + [Relevant alignment] + [Simple ask]
 
 Example pattern:
 "Your Defender modernization work caught my attention. I’ve led enterprise firewall/security engineering at CVS scale and would value connecting."
@@ -223,12 +230,12 @@ Do NOT copy this example directly.
 For STANDARD_LINKEDIN_MESSAGE:
 
 Target:
-Strictly 3 sentences total to match the core framework[cite: 1].
+Strictly 3 sentences total to match the core framework.
 
 Structure:
-1. The Trigger (e.g., noticing a relevant vacancy)[cite: 1]
-2. Hard skills and experience match to the job description[cite: 1]
-3. Call to action (interview or conversation request)[cite: 1]
+1. The Trigger (e.g., noticing a relevant vacancy)
+2. Hard skills and experience match to the job description
+3. Call to action (interview or conversation request)
 
 --------------------------------------------------
 
