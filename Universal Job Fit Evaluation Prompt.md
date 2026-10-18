@@ -1,9 +1,10 @@
 # Universal Job Fit Evaluation Prompt – Fully Generic & Shareable
 # Author: Scott Malin, CISSP
-# Version: 1.8.0
-# Last Modified: 2026-09-17
+# Version: 1.8.1
+# Last Modified: 2026-10-18
 
 ## Changelog
+- **v1.8.1 (2026-10-18):** Integrated LLM adaptation note v1.0 to enforce strict three-part structure compliance and chain-of-verification evidence extraction.
 - **v1.8.0 (2026-09-17):** Added 5-band section rubric; one-bucket evidence mapping; hard-gate / knockout path with overall cap; printed weight ledger with 15–40% bounds; Step 0 vs Step 1a tie-break; named Part 1 slots for ATS list, years-floor check, and portfolio evidence; split Part 2 into internal scorecard vs outbound briefing (no self-score in outbound); APPLY | TAILOR | STRETCH | SKIP decision; constraint handling for compensation and work-location; posting-status note on URL fetch; renamed CoV from "engine" to procedure; live Markdown table (not an empty fenced template).
 - **v1.7.8 (2026-09-06):** Resolved instruction conflicts in dynamic weighting, introduced edge-case handling for missing or invalid inputs, added anti-jailbreak guardrails, updated AI tool usage rules, and enforced structural format fallbacks against state decay.
 - **v1.7.7 (2026-06-14):** Integrated commute tolerance tracking, starting location checks, and RTO metric alignment into Step 0 and Specific Analysis Requirements.
@@ -17,6 +18,8 @@
 Help a candidate objectively evaluate how well a job posting matches their skills, experience, constraints, and portfolio. Produce (1) a private strategy dashboard, (2) an internal evidence-backed scorecard, and (3) a separate outbound briefing that a candidate can send to a trusted contact without self-scoring language.
 
 This prompt measures fit. It does not write a resume or cover letter.
+
+[ADAPTATION NOTE v1.0] Strictly preserve the mandatory three-part output structure (Part 1 Strategy Dashboard, Part 2A Internal Scorecard with a fully populated summary table, and Part 2B Outbound Briefing). Execute the Chain-of-Verification procedure by extracting direct evidence before scoring any bucket. Never use placeholders, empty table cells, or conversational filler outside the required sections.
 
 ---
 
@@ -235,5 +238,3 @@ Include only:
 - One short closing sentence the candidate could send as-is
 
 Do not mention this prompt, scores, gates, or internal strategy.
-
----

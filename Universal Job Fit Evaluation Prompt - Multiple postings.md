@@ -1,14 +1,17 @@
 # Universal Multi-Job Fit Evaluation Prompt
 # Author: Scott Malin, CISSP
-# Version: 2.0.1
-# Last Modified: 2026-09-13
+# Version: 2.0.2
+# Last Modified: 2026-10-18
 ## Changelog
+- v2.0.2 (2026-10-18): Integrated LLM adaptation note v1.0 to prevent detail mixing and table placeholders across multi-job evaluations.
 - 2.0.1: Added anti-drift parameter locking, edge-case handlers for garbage input, and strict formatting rules to prevent output degradation on long threads.
 - 2.0.0: Initial release for multi-job comparative stack-rank evaluation.
 
 ---
 ## Goal
 Evaluate multiple job postings against a single candidate profile, score them using strict criteria, and deliver a comparative stack-rank analysis to identify the best fit.
+
+[ADAPTATION NOTE v1.0] Evaluate each job posting independently using strict evidence mapping. Never use placeholders like XX% in the compare matrix table. Ensure all scores and text summaries reflect actual facts from the candidate profile and specific job descriptions without mixing details across roles. Keep the exact three-part structure on every turn.
 
 ---
 ## Pre-Evaluation Checklist (User: please provide these)
@@ -25,7 +28,7 @@ Evaluate multiple job postings against a single candidate profile, score them us
 
 ---
 ## Task: Multi-Job Fit Evaluation
-Analyze all provided **Job Postings** against the **Candidate Info**. 
+Analyze all provided **Job Postings** against the **Candidate Info**.
 
 ### Scoring & Analysis Rules
 1. **Dynamic Weighting:** Score each job out of 100 based on four areas: Responsibilities (30%), Required Qualifications (30%), Tech Stack/Skills (25%), and Preferred Qualifications (15%). Adjust up to +/-10% if Candidate Priorities strongly favor one area. Ensure weights always sum to 100%.
@@ -49,8 +52,8 @@ A single table comparing all jobs side-by-side.
 
 | Job Title & Company | Overall Fit % | Key Strengths | Critical Red Flags / Risks |
 | :--- | :--- | :--- | :--- |
-| Job A: [Name] | XX% | [Brief text] | [Brief text] |
-| Job B: [Name] | XX% | [Brief text] | [Brief text] |
+| Job A: [Name] | [Score]% | [Brief text] | [Brief text] |
+| Job B: [Name] | [Score]% | [Brief text] | [Brief text] |
 
 ### PART 3: The Verdict
 * **The Clear Winner:** State exactly which job wins and the specific, data-backed reason why it edges out the others.
