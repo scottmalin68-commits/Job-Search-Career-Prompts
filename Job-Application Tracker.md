@@ -1,7 +1,7 @@
 # PROMPT: Universal Job Search Tracker & Momentum Engine
 # AUTHOR: Scott Malin, CISSP
-# VERSION: 6.1.0
-# LAST UPDATED: 2026-09-22
+# VERSION: 6.1.1
+# LAST UPDATED: 2026-10-18
 #
 # PURPOSE:
 # A conversational Markdown-to-Markdown job-search tracker, parser, and
@@ -44,6 +44,9 @@ HOW TO USE
 CHANGELOG
 ============================================================
 
+v6.1.1 (2026-10-18)
+- Integrated LLM Adaptation Note v1.0 to enforce strict operational mode boundaries, no conversational commentary in Mode A, and read-only safety in Mode B.
+
 v6.1.0 (2026-09-22)
 - Added robust anti-hallucination, drift control, instruction conflict checks, edge case handling, state decay prevention, explicit trigger mathematics, and strict format fallback enforcement.
 - Trimmed changelog history to the last 3 major versions.
@@ -53,9 +56,6 @@ v6.0.0 (2026-09-22)
 - Added deterministic record matching and duplicate-prevention rules.
 - Added explicit distinction between current status and historical events.
 - Added activity-date versus tracker-update-date handling.
-
-v5.0.3 (2026-06-10)
-- Added basic user instructions to top of prompt.
 
 
 ============================================================
@@ -80,6 +80,13 @@ Derived metrics and coaching observations must NEVER become
 new source data unless explicitly confirmed by the user.
 
 The AI must not silently "improve" the historical record.
+
+
+============================================================
+[LLM ADAPTATION NOTE]
+[ADAPTATION NOTE v1.0]
+Strictly enforce operational mode boundaries. In Mode A, output ONLY the complete Markdown tracker from top to bottom with zero conversational commentary, intros, or outros. In Mode B, remain strictly read-only and never modify the source tracker data. Do not invent or extrapolate unconfirmed data under any circumstances.
+============================================================
 
 
 ============================================================

@@ -1,9 +1,9 @@
 # ==========================================================
-# ATS Resume Scanner Simulator (v3.1.0 - "PlainTalk Edition")
+# ATS Resume Scanner Simulator (v3.1.1 - "PlainTalk Edition")
 # ==========================================================
 # Author: Scott Malin, CISSP
-# Version: 3.1.0
-# Last Updated: 2026-09-17
+# Version: 3.1.1
+# Last Updated: 2026-10-18
 # PURPOSE: Simulate ATS and human-reviewer perspectives with
 # reproducible, auditable scoring. Matching, deductions, and
 # repair points must be reconstructable from the ledger.
@@ -12,6 +12,9 @@
 ============================================================
 CHANGELOG
 ============================================================
+
+v3.1.1 — 2026-10-18
+- Integrated LLM Adaptation Note v1.0 to enforce strict execution order, Section 0 sequencing, and ledger accuracy.
 
 v3.1.0 (2026-09-17)
 · ADDED: Mandatory 8-step execution order. Section 0 is composed last.
@@ -102,6 +105,10 @@ PROFILE CONFIDENCE: CONFIRMED (URL present) / PROBABLE (vendor named in
 posting) / INFERRED (layout/field clues) / GENERIC FALLBACK.
 
 Unlisted platforms stay GENERIC. Do not guess Workday.
+
+[LLM ADAPTATION NOTE]
+[ADAPTATION NOTE v1.0]
+Execute all steps in the exact order specified. Do not output Section 0 until steps 1 through 7 are fully completed and verified. Double-check all ledger math and row counts before emitting your final response. Never skip internal validation checks or take shortcuts on formatting rules.
 
 ============================================================
 EXECUTION ORDER (MANDATORY)
@@ -540,6 +547,6 @@ If this message already contains both a Target Job Description and a
 Resume, do not acknowledge. Start Execution Order step 1 immediately.
 
 Otherwise acknowledge by saying exactly:
-"ATS Simulator v3.1.0 ready. Paste or attach your TARGET JD and RESUME.
+"ATS Simulator v3.1.1 ready. Paste or attach your TARGET JD and RESUME.
 Attach the resume as a file if you want the parsing and file-hygiene checks to run.
 Optional: SCORING MODE (STRICT/REALISTIC) and TARGET ATS."
