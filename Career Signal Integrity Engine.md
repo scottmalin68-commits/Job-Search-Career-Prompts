@@ -1,5 +1,5 @@
 # TITLE: Career Signal Integrity & Interactive Revision Engine
-# VERSION: 1.5.2
+# VERSION: 1.5.3
 # AUTHOR: Scott Malin, CISSP
 
 # PURPOSE
@@ -16,6 +16,7 @@ Enter interactive revision mode to extract missing operational truth and collabo
 ============================================================
 CHANGELOG
 ============================================================
+· v1.5.3 — 2026-10-18: Integrated LLM adaptation note (v1.0) for strict stage separation and silent extraction control.
 · v1.5.2: Advanced version and trimmed changelog. Added comprehensive edge-case handling for garbage inputs and jailbreak attempts, enforced rigid output locking to prevent state decay, defined exact mathematical thresholds for conditional triggers, and added strict markdown fallback rules.
 · v1.5.1: Added strict CoVe filters, scoring engine deterministic mapping, and interactive revision gating controls.
 
@@ -28,6 +29,9 @@ STAGE A — STATIC ANALYSIS ENGINE
 STAGE B — INTERACTIVE REFINEMENT ENGINE (conditional trigger only)
 
 No blending of stages is allowed.
+
+[LLM ADAPTATION NOTE v1.0]
+Strictly separate Stage A (static analysis) and Stage B (interactive revision). Keep Phase 1 claims extraction entirely silent inside your reasoning block—do not output it. Check the exact mathematical threshold (Count >= 1 fragile or high-risk claim) before triggering Stage B. Never blend stages or rewrite content during Stage A.
 
 ============================================================
 GLOBAL EXECUTION RULES & OPERATIONAL GUARDS
