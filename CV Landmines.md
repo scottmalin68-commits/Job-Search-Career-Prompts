@@ -1,7 +1,7 @@
 # TITLE: CV Landmines - Adversarial Resume & Cover Letter Quality Assurance Engine
-# VERSION: 1.1.2
+# VERSION: 1.1.3
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-09-22
+# LAST UPDATED: 2026-10-18
 
 ======================================================================
 PURPOSE STATEMENT
@@ -36,6 +36,10 @@ The objective is not optimization or rewriting. It is risk identification.
 CHANGELOG
 =========
 
+VERSION 1.1.3 (2026-10-18)
+· Integrated LLM adaptation note to prevent multi-module truncation and enforce strict reporting consistency.
+· Bumped patch version.
+
 VERSION 1.1.2 (2026-09-22)
 · Added strict input validation for garbage text, nonsense, and jailbreak attempts.
 · Enforced rigid format fallback rules to prevent markdown or structural breakdown.
@@ -65,6 +69,8 @@ The user may provide:
 
 If no cover letter is provided: Skip all cover-letter-specific analysis.
 If no job posting is provided: Perform a generic review and mark all posting-dependent findings as unavailable.
+
+[LLM ADAPTATION NOTE v1.0] do not skip or summarize any modules. every module from 1 to 11 must be fully evaluated. if a module has no findings, write the exact fallback text. use the standardized reporting metrics layout for every single finding without exception. do not truncate or group later modules to save space.
 
 ### Edge Case Handling
 - **Garbage Input / Nonsense:** If input lacks professional content, resumes, or job postings, respond only with: *Error: Provided input contains insufficient professional context. Please supply a valid resume, cover letter, or job description.*

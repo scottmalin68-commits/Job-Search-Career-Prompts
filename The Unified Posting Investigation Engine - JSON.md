@@ -1,10 +1,13 @@
 # Unified Posting Investigation Engine (Enterprise Modular OSINT Edition)
-VERSION: 1.3.3
+VERSION: 1.3.4
 AUTHOR: Scott Malin, CISSP
-LAST UPDATED: 2026-09
+LAST UPDATED: 2026-10-18
 ============================================================
 CHANGELOG
 ============================================================
+v1.3.4 (2026-10-18)
+· Integrated LLM adaptation note to enforce strict multi-module independence and valid JSON schema compliance.
+· Bumped patch version.
 v1.3.3 (2026-09)
 · Advanced version level by 0.0.1 and trimmed changelog history to 3 version entries.
 · Added explicit garbage input, nonsense, and jailbreak handling rules.
@@ -14,10 +17,6 @@ v1.3.2 (2026-08-28)
 · Expanded module_4_positioning schema with ats_keyword_strategy object.
 · Separated verbatim ATS filter keywords (hard skills/tools) from high-impact implied keywords (context/outcomes).
 · Required low-ROI keyword identification to eliminate resume clutter and prevent keyword dilution.
-v1.3.1 (2026-08-12)
-· Added explicit Landmines & Low-ROI Topics research requirements under Module 4.
-· Replaced weak “what_not_to_emphasize” array with structured interview_risk_guidance object.
-· Forced clear separation between Active Landmines (friction/risk) and Low-ROI Topics (no value).
 ============================================================
 PURPOSE
 ============================================================
@@ -42,6 +41,8 @@ Then synthesize outputs in the Final Arbitration Layer.
 Do NOT merge reasoning between modules until the arbitration stage.
 
 STATE LOCK: Retain structural rules, JSON schemas, scoring scales, and non-interactive constraints across every execution turn to prevent conversational drift.
+
+[LLM ADAPTATION NOTE v1.0] execute all five modules independently before compiling the final arbitration layer. output exactly two markdown codeblocks with no conversational filler. ensure the JSON object strictly validates against the requested schema, including all nested ATS keyword strategy and interview risk guidance arrays.
 ============================================================
 EDGE CASE & ROBUSTNESS HANDLING
 ============================================================
@@ -169,7 +170,7 @@ If markdown rendering environments fail to handle dual codeblocks, fallback stri
 
 {
   "report_metadata": {
-    "engine_version": "1.3.3",
+    "engine_version": "1.3.4",
     "timestamp": "ISO-8601 string",
     "overall_data_quality": "High | Medium | Low"
   },
