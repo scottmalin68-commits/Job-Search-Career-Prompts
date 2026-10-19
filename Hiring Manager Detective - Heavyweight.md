@@ -1,7 +1,7 @@
 # ==========================================================
-# HIRING MANAGER DETECTIVE — HEAVYWEIGHT VERSION
+# Hiring Manager Detective — Heavyweight Version
 # ==========================================================
-# VERSION: 3.0.1
+# VERSION: 3.1.0
 # AUTHOR: Scott Malin, CISSP
 # LAST UPDATED: 2026-10-19
 #
@@ -34,6 +34,11 @@
 # Unknown information remains unknown.
 #
 # CHANGELOG:
+# v3.1.0 (2026-10-19) - Integrated native support for the Job
+# Posting Intelligence Engine JSON output, enabling direct
+# ingestion of RESOLVED_COMPANY, RESOLVED_POSITION_NAME,
+# primary_domain_archetype, RESOLVED_SILO, pre-computed X-Ray
+# blueprints, and risk surface signals.
 # v3.0.1 (2026-10-19) - Added robust edge case handling for
 # garbage inputs and out-of-scope jailbreaks, introduced state-decay
 # parameter locks for long conversation threads, and refined validation rules.
@@ -250,6 +255,9 @@ Required:
 - Full Job Description (JD).
 - Company Name.
 
+Optional Engine Input:
+- The full JSON output of the Job Posting Intelligence Engine (v2.1.7+). When supplied, bypass manual extraction of RESOLVED_COMPANY, RESOLVED_POSITION_NAME, primary_domain_archetype, and RESOLVED_SILO; ingest them directly from the engine's metadata and sections 1 and 2. Pre-populate the X-Ray toolkit in Section 3 using the blueprint strings from section_13, and integrate risk/burnout signals from section_11 into contact assessments.
+
 Preferred:
 - Official posting URL.
 - Requisition or job ID.
@@ -411,7 +419,7 @@ E. Who might participate in hiring, even if they do not own
 F. What evidence would distinguish these possibilities?
 
 Identify:
-- Functional silo.
+- Functional silo (utilize intelligence engine `RESOLVED_SILO` or `primary_domain_archetype` when supplied).
 - Stated organizational need.
 - Inferred business need.
 - Likely functional owner.
@@ -509,7 +517,7 @@ If a public announcement is found:
 
 RESEARCH BRANCH B — FUNCTIONAL OWNERSHIP
 If the relevant function is identifiable:
-- Search for its leadership.
+- Search for its leadership (incorporating intelligence engine `primary_domain_archetype`).
 - Verify the person's current role.
 - Investigate responsibility for the relevant technology,
   team, or business activity.
@@ -556,10 +564,9 @@ If initial research produces only generic titles:
 - Switch to a role-based fallback if named targets remain
   unsupported.
 
-3.7 BASELINE X-RAY TOOLKIT
+3.7 BASELINE X-RAY TOOLKIT & INTELLIGENCE ENGINE SYNC
 
-Adapt these queries to the company, role, functional silo,
-requisition, and verified organizational terminology.
+When the Job Posting Intelligence Engine JSON is provided, initialize Section 3 using its pre-computed `xray_blueprint` strings (`direct_lead_hiring_manager`, `hiring_post`, `skip_level_department_head`, `the_recruiter`, `team_peers`, `company_alumni`). Otherwise, adapt these queries to the company, role, functional silo, requisition, and verified organizational terminology:
 
 QUERY 1 — DIRECT VACANCY CONNECTION
 
@@ -829,7 +836,7 @@ their current title is known.
 
 5.2 CONTACT ASSESSMENT DIMENSIONS
 
-Assess each named candidate across six dimensions.
+Assess each named candidate across six dimensions, factoring in any risk surface or burnout signals identified in the intelligence engine's `section_11_risk_surface` (e.g., organizational friction or architectural pressure):
 
 A. VACANCY CONNECTION
 0–4 points:
@@ -921,8 +928,7 @@ LOW CONFIDENCE:
 The target's relevance depends substantially on inference.
 
 INSUFFICIENT EVIDENCE:
-The available evidence does not justify a meaningful
-individual-level conclusion.
+The available evidence does not support a reliable conclusion.
 
 A high numerical score cannot override LOW confidence.
 
@@ -1400,7 +1406,7 @@ A thorough search can still produce an inconclusive result.
 SECTION 3 — X-RAY SEARCH TOOLKIT
 ----------------------------------------------------------
 
-Provide three to eight tailored queries, as appropriate.
+Provide three to eight tailored queries, as appropriate, or leverage the pre-computed blueprint from the intelligence engine when provided.
 
 For each query, include:
 - Query.
@@ -1610,5 +1616,5 @@ Do not conceal unresolved problems to make the output
 appear complete.
 
 # ==========================================================
-# END — HIRING MANAGER DETECTIVE v3.0.1
+# END — Hiring Manager Detective v3.1.0
 # ==========================================================
