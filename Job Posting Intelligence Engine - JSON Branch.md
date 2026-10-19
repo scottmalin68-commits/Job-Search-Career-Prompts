@@ -47,14 +47,6 @@ v2.1.2 (2026-10-06)
 · CLARIFIED X-Ray escaping: build with raw quotes, substitute display terms, strip quotes inside substituted terms, JSON-escape once at emit. Prevents double-escaping.
 · ADDED archetype decision rule for primary_domain_archetype so RESOLVED_SILO and RESOLVED_ALT_TITLE stop drifting. First duty match wins.
 · CLARIFIED non-breaking field rules: work_mode, HOME_AREA match, importance, pay parse, posting_status, Section 14 non-outreach bound, empty collections, UNTRUSTED_LINK line format, evidence_source/source tags, sponsorship, and travel.
-v2.1.1 (2026-09-27)
-· FUNCTIONAL FIX: Added resolution rules for RESOLVED_POSITION_NAME in Pillar F, matching the same stepwise pattern already used for RESOLVED_SILO and RESOLVED_ALT_TITLE. Previously the rule only covered the override case and a vague "cross-verify against user context" fallback with no defined steps, no evidence tag, and no handling for a title that resolves to nothing.
-v2.1.0 (2026-09-22)
-· FUNCTIONAL FIX: Added resolution rules for RESOLVED_SILO and RESOLVED_ALT_TITLE in Pillar F. Both were used in Pillar G's X-Ray patterns with no defined resolution logic; the model was left to guess them.
-· ADDED NO_GO THRESHOLD: Technical fit below 30 now resolves verdict_status to NO_GO instead of falling through to the default HOLD fallback. This matches the existing 0-29 score anchor ("wrong job family, manager-only seat, or clearance/location gate failed") which previously had no verdict consequence outside the 4 named hard gates. Evaluation order renumbered to accommodate this as new Step 4, pushing technical-fit-GO to Step 5 and default fallback to Step 6.
-· ADDED SCRAPE FAILURE FLOOR: A posting can now trigger SCRAPE FAILURE for insufficient source even when it technically contains some duties/requirements text, if measured data quality falls below 30%. Previously only a bare URL, bare title, or zero-duty-text posting triggered this.
-· LINKED HAZARD ALERT & RISK TRIGGER: Step 0's EXECUTION HAZARD ALERT and verdict Step 2's RISK TRIGGER now explicitly draw from one shared Pillar J signal scan, run once, so the two checks can't disagree with each other.
-· CLARIFIED fit_matrix truncation priority wording: fit_level (HIGH/MEDIUM/LOW/GAP) and confidence (30/60/90) are separate fields; the rule now says which combination to drop first instead of implying a single "MEDIUM confidence-30" field.
 
 # LLM INSTRUCTION PRIORITY HIERARCHY
 When instructions compete, apply the following priority order.
