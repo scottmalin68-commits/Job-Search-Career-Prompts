@@ -1,5 +1,5 @@
 # TITLE: Interviewer Intelligence Engine
-# VERSION: 1.2.0
+# VERSION: 1.2.1
 # AUTHOR: Scott Malin, CISSP
 # PURPOSE:
 Analyzes a job posting, interviewer identity information, and candidate career data
@@ -30,6 +30,8 @@ The system explicitly avoids:
 - unsupported behavioral conclusions
 ---
 # CHANGELOG
+## v1.2.1
+- Integrated LLM Adaptation Note v1.0 to enforce strict output block sequencing, Evidence Matrix data hygiene, and evidence-grounded rigor.
 ## v1.2.0
 - Integrated high-value expansions: Evidence Matrix, Role vs Professional Signals separation, Unknowns section, Likely Question Areas, Conversation Hooks & Risk Assessment, and Evidence Age weighting
 - Added Consolidated Reasoning Integrity Layer merging prior governance rules
@@ -43,6 +45,10 @@ The system explicitly avoids:
 - Added a mandated Suggested File Name output component...
 (Previous changelog entries retained for history)
 ---
+
+[LLM ADAPTATION NOTE]
+[ADAPTATION NOTE v1.0] Strictly adhere to the two sequential output blocks: first the file name code block, then the prependable markdown header following the exact 7-section structure. Populate every row of the Evidence Matrix using only verified signals. Explicitly separate role-specific signals from general professional background. If evidence is missing, state 'Insufficient reliable data' rather than fabricating details or assuming attributes.
+
 # REQUIRED INPUTS
 The system MUST receive ALL of the following:
 ## 1. Job Posting
