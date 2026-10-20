@@ -1,9 +1,9 @@
 # ==========================================================
 # Pre-interview quick reference generator
 # ==========================================================
-# VERSION: 1.0.1
+# VERSION: 1.1.1
 # AUTHOR: Scott Malin, CISSP
-# LAST UPDATED: 2026-10-14
+# LAST UPDATED: 2026-10-20
 #
 # PURPOSE:
 # Generate a concise, personalized interview cheat sheet
@@ -15,8 +15,17 @@
 # Practical preparation, not intensive interview coaching.
 # ==========================================================
 
+[LLM ADAPTATION NOTE v1.0] Keep all PREPARED RESPONSES strictly conversational and brief (15-30 seconds spoken). Use natural spoken phrasing, never formal essays or bulleted lists inside answers. Enforce the [NEEDS INPUT] and [VERIFY] tags rigorously whenever candidate or job facts are missing. Do not invent company details, market data, or professional history under any circumstance.
+
 CHANGELOG
 ---------
+v1.1.1 - 2026-10-20
+- Integrated LLM adaptation note to enforce concise conversational response length and strict tag usage.
+
+v1.1.0 - 2026-10-20
+- Moved compensation and logistics, as well as candidate questions, toward the beginning of the report sections for easier screening reference.
+- Added explicit instructions to research market compensation guidance when salary details are missing from the posting.
+
 v1.0.1 - 2026-10-14
 - Tightened anti-hallucination rules around salary, tech stack, and missing candidate data.
 - Enforced strict output boundaries to prevent multi-turn conversational drift.
@@ -169,8 +178,7 @@ If the candidate's experience is unclear, flag the gap as
 RULE 6: AVOID UNNECESSARY RESEARCH
 Use the supplied material as the primary source.
 
-Do not assume browsing, external research, or access to
-other files is available.
+When compensation is missing from the posting, perform or offer research to provide estimated market compensation guidance. Otherwise, do not assume extensive external research capabilities unless specified.
 
 If company research is unavailable, do not invent company
 facts. Mark relevant items as [VERIFY].
@@ -259,7 +267,7 @@ Identify the following when available:
 - Employment type.
 - Other material conditions.
 
-Do not fill missing fields with assumptions. Use "Not provided" or [VERIFY].
+Do not fill missing fields with assumptions. Use "Not provided" or [VERIFY]. If compensation is missing, research or estimate market range guidance based on role and location.
 
 STEP 2: REVIEW THE CANDIDATE PROFILE
 
@@ -299,7 +307,7 @@ during the conversation.
 
 STEP 6: GENERATE THE CHEAT SHEET
 
-Produce the structured output specified below.
+Produce the structured output specified below, prioritizing compensation, logistics, and candidate questions near the top.
 
 # ==========================================================
 # 6. REQUIRED OUTPUT FORMAT
@@ -339,6 +347,7 @@ Include applicable fields:
 - Location:
 - Employment type:
 - Posted salary range:
+- Market compensation guidance (if unposted):
 - Key responsibilities:
 - Most important qualifications:
 
@@ -360,6 +369,9 @@ QUESTION: What are your salary expectations?
 
 POSTED RANGE:
 [Exact range from the supplied posting, or Not provided.]
+
+MARKET COMPENSATION RESEARCH / GUIDANCE:
+[Estimated market rate or research summary if posted range is missing.]
 
 MY TARGET:
 [Candidate's stated target, or NEEDS INPUT.]
@@ -387,7 +399,14 @@ PREPARED RESPONSE:
 Include other logistical questions only when relevant. Do not assume any personal information.
 
 ----------------------------------------------------------
-SECTION 3: COMMON INTRODUCTORY QUESTIONS
+SECTION 3: QUESTIONS TO ASK THE INTERVIEWER
+----------------------------------------------------------
+
+Provide three concise questions appropriate to the
+interview type, moved up toward the front of the sheet so the candidate can reference them before time runs out.
+
+----------------------------------------------------------
+SECTION 4: COMMON INTRODUCTORY QUESTIONS
 ----------------------------------------------------------
 
 Select approximately 3–5 questions appropriate to the
@@ -402,7 +421,7 @@ PREPARED ANSWER:
 [A concise, personalized response (15–30 seconds spoken), or explicit NEEDS INPUT tag detailing what info is missing.]
 
 ----------------------------------------------------------
-SECTION 4: POSITION-SPECIFIC QUESTIONS
+SECTION 5: POSITION-SPECIFIC QUESTIONS
 ----------------------------------------------------------
 
 Generate approximately 3–5 questions directly grounded in the posting's core requirements.
@@ -419,13 +438,6 @@ PREPARED ANSWER:
 [A concise response based on verified candidate experience. If experience with a requirement is unknown, output "NEEDS INPUT: Confirm experience with [requirement] before using a prepared answer."]
 
 Never claim candidate experience simply because the employer requests it.
-
-----------------------------------------------------------
-SECTION 5: QUESTIONS TO ASK THE INTERVIEWER
-----------------------------------------------------------
-
-Provide three concise questions appropriate to the
-interview type.
 
 ----------------------------------------------------------
 SECTION 6: BEFORE THE INTERVIEW
