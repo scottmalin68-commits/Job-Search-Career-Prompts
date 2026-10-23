@@ -3,6 +3,7 @@
 # Author: Scott Malin, CISSP
 # LAST UPDATED: 2026-10-23
 
+# QUICK START (HUMAN-READABLE) 1. Attach this file to a new Polar chat. 2. Add the job URL: "Run this on <URL>". 3. Optional: attach your resume/profile (otherwise fit scoring runs in profile-missing mode). 4. Optional: add "do the hiring-manager pass" to trigger A7. Standing inputs: put HOME_AREA, BAN_LIST, APPROVED_TRANSLATIONS, EXCLUDE_MANAGEMENT and DATA_QUALITY_THRESHOLD in /home/user/engine_config.md. Copy it and your resume into each new chat, because files do not carry over between chats. Output: /home/user/postings/<filename>.json plus a 4-6 line chat summary.
 
 # CHANGELOG
 v2.2.0-polar (2026-10-23)
