@@ -4,6 +4,9 @@
 # LAST UPDATED: 2026-10-20
 
 # CHANGELOG
+v2.1.9 (2026-10-24)
+· PROMPT HARDENING: Updated based on a partial compliance audit to improve instruction resilience, clarify system-reserved array cap exemptions, and ensure rigid adherence to the evaluation hierarchy.
+· NO SCHEMA KEY, ENUM VALUE, ARRAY CAP, SCORING WEIGHT, HARD GATE, OR X-RAY PATTERN was added, removed, or renamed.
 v2.1.8 (2026-10-20)
 · SOURCE QUALITY REFINEMENT: DATA QUALITY scoring now weights responsibilities, required qualifications, and named tools more heavily. Company + title + location are necessary but not sufficient. Explicit ATS shell markers (generic frame buffers, session-only content, adjacent job feeds, empty SPA shells) force SCRAPE FAILURE regardless of checklist count.
 · DEGRADED MODE: Postings scoring 30–49% (or user-defined threshold band) now emit full schema JSON under an explicit degraded path. Verdict forced to HOLD, Section 16 scores null, derived sections marked low-confidence, and a mandatory system-reserved Section 18 line documents the limitation. Hard gates, provenance, and non-fabrication rules unchanged.
