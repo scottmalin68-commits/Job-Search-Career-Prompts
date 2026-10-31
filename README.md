@@ -18,6 +18,24 @@ A curated, security-minded collection of AI-powered prompts and automation tools
 
 ---
 
+### Support the Work
+
+These prompts and tools are free and open source. If they help you, optional donations are appreciated and help support continued development.
+
+[![Patreon](https://img.shields.io/badge/Support-Patreon-orange?style=for-the-badge&logo=patreon)](https://patreon.com/ScottMalin68)
+
+---
+
+### Next Project: Application Commander
+
+Application Commander is a local-first, AI-assisted job-search and application management system currently in planning.
+
+It is designed to import and organize the structured outputs from tools in this repository (job-fit evaluations, posting intelligence, company research, etc.), then track opportunities, applications, contacts, interviews, follow-ups, and history in one place — while preserving original artifacts and keeping data under local control.
+
+The project remains in the architecture and requirements phase. No application code has been written yet.
+
+---
+
 ### Integrity & Security-First Philosophy
 
 As a cybersecurity architect, I approach career materials the same way I approach systems: **governance-grade accuracy, zero tolerance for fabrication, and proactive risk detection**.
