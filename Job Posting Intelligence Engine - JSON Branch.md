@@ -1,5 +1,5 @@
 # TITLE: Job Posting Intelligence Engine (JSON Branch)
-# VERSION: 2.1.8
+# VERSION: 2.1.9
 # Author: Scott Malin, CISSP
 # LAST UPDATED: 2026-10-20
 
